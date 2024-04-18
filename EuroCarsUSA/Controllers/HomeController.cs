@@ -1,3 +1,4 @@
+using EuroCarsUSA.Data;
 using EuroCarsUSA.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -6,17 +7,20 @@ namespace EuroCarsUSA.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly AppDbContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AppDbContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
+            List<Car> cars = _context.Cars.ToList();
 
-            return View();
+            return View(cars);
         }
 
         public IActionResult Privacy()

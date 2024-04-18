@@ -1,9 +1,25 @@
+using EuroCarsUSA.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
+//Configure services
+var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
+
 var app = builder.Build();
+
+if (args.Length == 1 && args[0].ToLower() == "seeddata")
+    Seed.SeedData(app);
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
