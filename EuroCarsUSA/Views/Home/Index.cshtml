@@ -6,7 +6,6 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
 <div class="album py-5 bg-light">
@@ -22,14 +21,43 @@
                         </div>
                         <div class="col-md-9">
                             <!-- Adjust the column size as needed -->
-                            <h2>@(car.Make + " " + car.Model)</h2>
+                            <div class="row">
+                                <h2>@(car.Make + " " + car.Model)</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="row">
+                                        <b>Mileage</b>
+                                    </div>
+                                    <div class="row">
+                                        <p>@car.Mileage</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="row">
+                                        <b>Year</b>
+                                    </div>
+                                    <div class="row">
+                                        <p>@car.Year</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="row">
+                                        <b>Fuel type</b>
+                                    </div>
+                                    <div class="row">
+                                        <p>@car.CarFuelType</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p>Like</p>
+                        <div class="d-flex justify-content-end align-items-end">
+                            <button type="button" class="btn btn-outline-secondary">Like</button>
                         </div>
+
                     </div>
                 </div>
             </div>
