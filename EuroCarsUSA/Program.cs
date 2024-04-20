@@ -12,7 +12,7 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(connectionString, options => options.CommandTimeout(90));
 });
 
 var app = builder.Build();

@@ -11,7 +11,7 @@ namespace EuroCarsUSA.Models
         public string Model { get; set; }
         public string Color { get; set; }
         public string VIN { get; set; }
-        public string Image { get; set; }
+        public List<string> Images { get; set; }
         public int Mileage { get; set; }
         public int Year { get; set; }
         public CarFuelType CarFuelType { get; set; }

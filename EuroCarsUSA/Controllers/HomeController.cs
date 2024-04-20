@@ -23,6 +23,12 @@ namespace EuroCarsUSA.Controllers
             return View(cars);
         }
 
+
+        public IActionResult Detail(int id)
+        {
+            Car car = _context.Cars.FirstOrDefault(c => c.Id == id);
+            return View(car);
+        }
         public IActionResult Privacy()
         {
             return View();

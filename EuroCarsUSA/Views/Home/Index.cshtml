@@ -17,12 +17,12 @@
                     <div class="row">
                         <div class="col-md-3">
                             <!-- Adjust the column size as needed -->
-                            <img class="card-img-top rounded float-left w-100" src=@car.Image alt=@(car.Color + car.Make + car.Model)>
+                            <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id> <img class="card-img-top rounded float-left w-100" src=@car.Images[0] alt=@(car.Color + car.Make + car.Model)> </a>
                         </div>
                         <div class="col-md-9">
                             <!-- Adjust the column size as needed -->
                             <div class="row">
-                                <h2>@(car.Make + " " + car.Model)</h2>
+                                <a asp-controller="Home", asp-action="Detail", asp-route-id=@car.Id> <h2>@(car.Make + " " + car.Model)</h2> </a>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
