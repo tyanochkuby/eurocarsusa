@@ -1,0 +1,45 @@
+﻿@model Car
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="row">
+    <div class="col-md-8">
+        @*images*@
+        <div class="row justify-content-center">
+            <img src=@Model.Images[0] style="object-fit: cover; margin-bottom: 20px;">
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="d-flex flex-row align-items-center">
+                @for (int i = 1; i < Model.Images.Count; i++)
+                {
+                    <img src=@Model.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;">
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h1>@(Model.Make + " " + Model.Model)</h1>
+        @*formularz*@
+    </div>
+</div>
+
+<hr style="border-top: 1px solid #000;"> @*divider*@
+
+<div class="row"> <h2>Details</h2></div>
+
+<div class="row">
+    <div class="col-md-2"> 
+        <p>Year</p>
+        <p>Mileage</p>
+        <p>Color</p>
+    </div>
+    <div class="col-md-2">
+        <p>@Model.Year</p>
+        <p>@Model.Mileage</p>
+        <p>@Model.Color</p>
+    </div>
+</div>
