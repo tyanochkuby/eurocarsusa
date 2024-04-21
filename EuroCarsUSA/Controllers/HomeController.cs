@@ -24,7 +24,7 @@ namespace EuroCarsUSA.Controllers
         }
 
 
-        public IActionResult Detail(int id)
+        public IActionResult Detail(Guid id)
         {
             Car car = _context.Cars.FirstOrDefault(c => c.Id == id);
             return View(car);
