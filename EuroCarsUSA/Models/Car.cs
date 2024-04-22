@@ -7,7 +7,8 @@ namespace EuroCarsUSA.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public string Make { get; set; }
+        public CarMake Make { get; set; }
+        public CarType Type { get; set; }
         public string Model { get; set; }
         public string Color { get; set; }
         public string VIN { get; set; }
