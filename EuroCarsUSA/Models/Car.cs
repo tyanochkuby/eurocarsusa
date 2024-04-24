@@ -15,7 +15,10 @@ namespace EuroCarsUSA.Models
         public List<string> Images { get; set; }
         public int Mileage { get; set; }
         public int Year { get; set; }
-        public CarFuelType CarFuelType { get; set; }  //объем двигателя, коробка,
+        public CarFuelType FuelType { get; set; }
+        public int? EngineVolume { get; set; }
+        public CarTransmission? Transmission { get; set; }
+        public int Price { get; set; }
 
         public Car() { }
 
