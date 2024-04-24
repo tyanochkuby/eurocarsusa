@@ -1,6 +1,8 @@
 using EuroCarsUSA.Data;
+using EuroCarsUSA.Data.Enum;
 using EuroCarsUSA.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 using System.Diagnostics;
 
 namespace EuroCarsUSA.Controllers
@@ -16,11 +18,97 @@ namespace EuroCarsUSA.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, CarFuelType? fuelType, CarTransmission? transmission, string color, string make)
         {
-            List<Car> cars = _context.Cars.ToList();
+            ViewBag.YearSortParm = sortOrder == SortOrder.ByYear ? SortOrder.ByYearDesc : SortOrder.ByYear;
+            ViewBag.MileageSortParm = sortOrder == SortOrder.ByMileage ? SortOrder.ByMileageDesc : SortOrder.ByMileage;
+            ViewBag.PriceSortParm = sortOrder == SortOrder.ByPrice ? SortOrder.ByPriceDesc : SortOrder.ByPrice;
 
-            return View(cars);
+            IEnumerable<Car> cars = _context.Cars.ToList();
+
+            #region filters and sorting
+            if(!string.IsNullOrEmpty(make))
+            {
+                cars = cars.Where(c => (c.Make.ToString().Contains(make) || make.Contains(c.Make.ToString())));
+            }
+            if (minPrice.HasValue)
+            {
+                cars = cars.Where(c => c.Price >= minPrice.Value);
+            }
+            if (maxPrice.HasValue)
+            {
+                cars = cars.Where(c => c.Price <= maxPrice.Value);
+            }
+            if(minYear.HasValue)
+            {
+                cars = cars.Where(c => c.Year >= minYear.Value);
+            }
+            if (maxYear.HasValue)
+            {
+                cars = cars.Where(c => c.Year <= maxYear.Value);
+            }
+            if (minEngineVolume.HasValue)
+            {
+                cars = cars.Where(c => c.EngineVolume >= minEngineVolume.Value);
+            }
+            if (maxEngineVolume.HasValue)
+            {
+                cars = cars.Where(c => c.EngineVolume <= maxEngineVolume.Value);
+            }
+            if (fuelType.HasValue)
+            {
+                cars = cars.Where(c => c.FuelType == fuelType.Value);
+            }
+            if(transmission.HasValue)
+            {
+                cars = cars.Where(c => c.Transmission == transmission.Value);
+            }
+            if (!string.IsNullOrEmpty(color))
+            {
+                cars = cars.Where(c => c.Color == color);
+            }
+            
+
+
+            ViewBag.MinPrice = minPrice; ViewBag.MaxPrice = maxPrice;
+            ViewBag.FuelType = fuelType;
+            ViewBag.Color = color;
+            ViewBag.Make = make;
+            ViewBag.MinYear = minYear; ViewBag.MaxYear = maxYear;
+            ViewBag.MinEngineVolume = minEngineVolume; ViewBag.MaximumEngineVolume = maxEngineVolume;
+            ViewBag.Transmission = transmission;
+
+            ViewBag.SortOrder = sortOrder;
+
+            switch (sortOrder)
+            {
+                case SortOrder.ByYear: 
+                    cars = cars.OrderBy(c => c.Year);
+                    break;
+                case SortOrder.ByYearDesc:
+                    cars = cars.OrderByDescending(c => c.Year);
+                    break;
+                case SortOrder.ByMileage:
+                    cars = cars.OrderBy(c => c.Mileage);
+                    break;
+                case SortOrder.ByMileageDesc:
+                    cars = cars.OrderByDescending(c => c.Mileage);
+                    break;
+                case SortOrder.ByPrice:
+                    cars = cars.OrderBy(c => c.Price);
+                    break;
+                case SortOrder.ByPriceDesc:
+                    cars = cars.OrderByDescending(c => c.Price);
+                    break;
+            }
+
+            
+
+            #endregion
+
+
+
+            return View(cars.ToList());
         }
 
 

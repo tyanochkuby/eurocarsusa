@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Car>
+﻿@using EuroCarsUSA.Data.Enum
+
+@model IEnumerable<Car>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -8,7 +10,105 @@
     <h1 class="display-4">Welcome</h1>
 </div>
 
-<div class="album py-5 bg-light">
+<div class="py-4 px-4">
+    <form method="get">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-5">
+          
+                    <label for="make">Make</label>
+                    <input type="text" id="make" name="make" class="form-control" value="@ViewBag.Make" />
+           
+                <div class="form-group">
+                    <label for="fuelType">Fuel Type</label>
+                    <select id="fuelType" name="fuelType" class="form-control">
+                        <option value="">All</option>
+                        @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
+                        {
+                            @if(ViewBag.FuelType == fuelType){
+                                <option value="@fuelType" selected>@fuelType</option>
+                            }
+                            else{
+                                <option value="@fuelType">@fuelType</option>
+                            }
+                        }
+                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="color">Color</label>
+                    <input type="text" id="color" name="color" class="form-control" value="@ViewBag.Color" />
+                </div>
+                <div class="form-group">
+                    <label for="sortOrder">Sort order</label>
+                    <select id="sortOrder" name="sortOrder" class="form-control">
+                        <option value="">Default</option>
+                        @foreach(SortOrder sortOrderOption in Enum.GetValues(typeof(SortOrder)))
+                        {
+                            @if(ViewBag.SortOrder == sortOrderOption)
+                            {
+                                <option value="@sortOrderOption" selected>@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
+                            }
+                            else
+                            {
+                                <option value="@sortOrderOption">@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transmission">Sort order</label>
+                    <select id="transmission" name="transmission" class="form-control">
+                        <option value="">All</option>
+                        @foreach (CarTransmission transmissionOption in Enum.GetValues(typeof(CarTransmission)))
+                        {
+                            @if (ViewBag.Transmission == transmissionOption)
+                            {
+                                <option value="@transmissionOption" selected>@transmissionOption.ToString()</option>
+                            }
+                            else
+                            {
+                                <option value="@transmissionOption">@transmissionOption.ToString()</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Filter</button>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="minPrice">Min Price</label>
+                        <input type="number" id="minPrice" name="minPrice" class="form-control" value="@ViewBag.MinPrice" />
+                    </div>
+                    <div class="form-group">
+                        <label for="maxPrice">Max Price</label>
+                        <input type="number" id="maxPrice" name="maxPrice" class="form-control" value="@ViewBag.MaxPrice" />
+                    </div>
+                    <div class="form-group">
+                        <label for="minYear">Min Year</label>
+                        <input type="number" id="minYear" name="minYear" class="form-control" value="@ViewBag.MinYear" />
+                    </div>
+                    <div class="form-group">
+                        <label for="maxYear">Max Year</label>
+                        <input type="number" id="maxYear" name="maxYear" class="form-control" value="@ViewBag.MaxYear" />
+                    </div>
+                    <div class="form-group">
+                        <label for="minEngineVolume">Min Engine Volume</label>
+                        <input type="number" id="minEngineVolume" name="minEngineVolume" class="form-control" value="@ViewBag.MinEngineVolume" />
+                    </div>
+                    <div class="form-group">
+                        <label for="maxEngineVolume">Max Engine Volume</label>
+                        <input type="number" id="maxEngineVolume" name="maxEngineVolume" class="form-control" value="@ViewBag.MaxEngineVolume" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div class="album py-5 px-5 bg-light">
     <div class="container">
         @foreach (Car car in Model)
         {
@@ -25,7 +125,7 @@
                                 <a asp-controller="Home", asp-action="Detail", asp-route-id=@car.Id> <h2>@(car.Make + " " + car.Model)</h2> </a>
                             </div>
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="mx-2 col">
                                     <div class="row">
                                         <b>Mileage</b>
                                     </div>
@@ -33,7 +133,7 @@
                                         <p>@car.Mileage</p>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="mx-2 col">
                                     <div class="row">
                                         <b>Year</b>
                                     </div>
@@ -41,12 +141,36 @@
                                         <p>@car.Year</p>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="mx-2 col">
                                     <div class="row">
                                         <b>Fuel type</b>
                                     </div>
                                     <div class="row">
-                                        <p>@car.CarFuelType</p>
+                                        <p>@car.FuelType</p>
+                                    </div>
+                                </div>
+                                <div class="mx-2 col">
+                                    <div class="row">
+                                        <b>Price</b>
+                                    </div>
+                                    <div class="row">
+                                        <p>@car.Price</p>
+                                    </div>
+                                </div>
+                                <div class="mx-2 col">
+                                    <div class="row">
+                                        <b>Transmission</b>
+                                    </div>
+                                    <div class="row">
+                                        <p>@car.Transmission.ToString()</p>
+                                    </div>
+                                </div>
+                                <div class="mx-2 col">
+                                    <div class="row">
+                                        <b>Engine Volume</b>
+                                    </div>
+                                    <div class="row">
+                                        <p>@car.EngineVolume</p>
                                     </div>
                                 </div>
                             </div>

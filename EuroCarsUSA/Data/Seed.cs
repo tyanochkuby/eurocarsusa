@@ -33,9 +33,10 @@ namespace EuroCarsUSA.Data
                                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8noXZd9o7-nHxx4jZjG7NEcdbSt-Xn_8PxvKTSjr3yA&s",
                                 "https://i.pinimg.com/736x/02/f9/eb/02f9ebc30503b86c7bbbc7c20915a5d2.jpg"
                             },
-                            CarFuelType = Enum.CarFuelType.Electric,
+                            FuelType = Enum.CarFuelType.Electric,
                             Year=2018,
                             Mileage = 67890,
+                            Price = 350_000,
                         },
                         new Car()
                         {
@@ -45,9 +46,12 @@ namespace EuroCarsUSA.Data
                             Color = "Blue",
                             VIN = "8765432",
                             Images = new List<string>{ "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDMkmd2hpZbC6_PeQRW9lViM3Aq17Bj2SU92A8FMOTyA&s" },
-                            CarFuelType = Enum.CarFuelType.Benzine,
+                            FuelType = Enum.CarFuelType.Benzine,
                             Year = 2020,
                             Mileage = 16734,
+                            EngineVolume = 2800,
+                            Transmission = CarTransmission.Automatic,
+                            Price = 235_000,
                         },
                         new Car()
                         {
@@ -63,9 +67,12 @@ namespace EuroCarsUSA.Data
                                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGsqp-TYlhLWpdJqtu7FYCTCr6PjY-smkp0Z54VKmxmg&s",
                                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT97_3OVY0rbS8f7dd2Rk55NJQsEUVYGV92U0KobHsMVg&s"
                             },
-                            CarFuelType = CarFuelType.Benzine,
+                            FuelType = CarFuelType.Benzine,
                             Year = 2020,
                             Mileage = 23578,
+                            EngineVolume = 3900,
+                            Transmission = CarTransmission.Automatic,
+                            Price = 370_000
                         },
                         new Car()
                         {
@@ -81,9 +88,12 @@ namespace EuroCarsUSA.Data
                                 "https://www.mustangspecs.com/wp-content/uploads/2022/01/maxresdefault.jpeg",
                                 "https://www.ford.it/content/dam/guxeu/rhd/central/cars/2020-mustang-mach-1/launch/gallery/interior/Ford-Mach1-eu-FordMustangMach1_FighterJetGray_024-16x9-2160x1215-Gallery_D_T_M-2.jpg.renditions.original.png",
                             },
-                            CarFuelType = CarFuelType.Benzine,
+                            FuelType = CarFuelType.Benzine,
                             Year = 2021,
                             Mileage= 31493,
+                            EngineVolume = 3500,
+                            Transmission = CarTransmission.Manual,
+                            Price = 220_000,
                         },
                         new Car()
                         {
@@ -100,9 +110,10 @@ namespace EuroCarsUSA.Data
                                 "https://i2.wp.com/americansupercars.com/wp-content/uploads/2020/11/20201028_173615-scaled.jpg?fit=2560%2C1920&ssl=1",
                                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAh2Jea1MVEYcqVO9TXu67tn_Rws5l8bbK349zIVznng&s"
                             },
-                            CarFuelType = CarFuelType.Electric,
+                            FuelType = CarFuelType.Electric,
                             Year = 2022,
-                            Mileage = 3242
+                            Mileage = 3242,
+                            Price = 200_000,
                         },
                         new Car()
                         {
@@ -119,9 +130,12 @@ namespace EuroCarsUSA.Data
                                 "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6IjF0NjhneHdiZ2d1czMtT1RPTU9UT1BMIiwidyI6W3siZm4iOiJ3ZzRnbnFwNnkxZi1PVE9NT1RPUEwiLCJzIjoiMTYiLCJwIjoiMTAsLTEwIiwiYSI6IjAifV19.OTLlKoVeUIMbA5N_H985qFH5hRmxNPfE9F-Wjd54L70/image;s=0x450;q=70",
                                 "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6ImE4djg5eWFndzAxYy1PVE9NT1RPUEwiLCJ3IjpbeyJmbiI6IndnNGducXA2eTFmLU9UT01PVE9QTCIsInMiOiIxNiIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.t6iEfyvXdY9zvIzAuEBRVWuX7OweMHByo2SUpxBN2zY/image;s=0x450;q=70"
                             },
-                            CarFuelType = CarFuelType.Benzine,
+                            FuelType = CarFuelType.Benzine,
                             Year = 2018,
-                            Mileage = 68483
+                            Mileage = 68483,
+                            EngineVolume = 3200,
+                            Transmission = CarTransmission.Automatic,
+                            Price = 400_000,
                         }
                     });
                 }
