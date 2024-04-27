@@ -113,7 +113,7 @@
         @foreach (Car car in Model)
         {
             <div class="row">
-                <div class="card mb-4 box-shadow">
+                <div class="card mb-4 pt-2 box-shadow">
                     <div class="row">
                         <div class="col-md-3">
                             <!-- Adjust the column size as needed -->
@@ -122,7 +122,7 @@
                         <div class="col-md-9">
                             <!-- Adjust the column size as needed -->
                             <div class="row">
-                                <a asp-controller="Home", asp-action="Detail", asp-route-id=@car.Id> <h2>@(car.Make + " " + car.Model)</h2> </a>
+                                <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none"> <h2>@(car.Make + " " + car.Model)</h2> </a>
                             </div>
                             <div class="row">
                                 <div class="mx-2 col">
@@ -179,7 +179,9 @@
                     <div class="card-body">
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <div class="d-flex justify-content-end align-items-end">
-                            <button type="button" class="btn btn-outline-secondary">Like</button>
+                            <button type="button" class="btn btn-primary rounded-pill">
+                                <i class="fas fa-heart px-3 py-1"></i>
+                            </button>
                         </div>
 
                     </div>
