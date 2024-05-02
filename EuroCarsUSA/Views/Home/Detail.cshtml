@@ -23,6 +23,11 @@
     </div>
     <div class="col-md-4">
         <h1>@(Model.Make + " " + Model.Model)</h1>
+        <a class="btn btn-secondary rounded-pill w-100 py-2" id="toggleButton">
+             <span id="showNumber">Show number</span>
+            <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90"></i>  +1234567890</span>
+        </a>
+
         @*formularz*@
     </div>
 </div>
@@ -43,3 +48,14 @@
         <p>@Model.Color</p>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $("#toggleButton").click(function(){
+        $("#phoneNumber").toggle();
+        $("#showNumber").toggle();
+      });
+
+    });
+</script>
