@@ -1,5 +1,6 @@
 using EuroCarsUSA.Data;
 using EuroCarsUSA.Data.Enum;
+using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
@@ -9,22 +10,22 @@ namespace EuroCarsUSA.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ICarRepository _carRepository;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository)
         {
-            _context = context;
+            _carRepository = carRepository;
             _logger = logger;
         }
 
-        public IActionResult Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, CarFuelType? fuelType, CarTransmission? transmission, string color, string make)
+        public async Task<IActionResult> Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, CarFuelType? fuelType, CarTransmission? transmission, string color, string make)
         {
             ViewBag.YearSortParm = sortOrder == SortOrder.ByYear ? SortOrder.ByYearDesc : SortOrder.ByYear;
             ViewBag.MileageSortParm = sortOrder == SortOrder.ByMileage ? SortOrder.ByMileageDesc : SortOrder.ByMileage;
             ViewBag.PriceSortParm = sortOrder == SortOrder.ByPrice ? SortOrder.ByPriceDesc : SortOrder.ByPrice;
 
-            IEnumerable<Car> cars = _context.Cars.ToList();
+            IEnumerable<Car> cars = await _carRepository.GetAll();
 
             #region filters and sorting
             if(!string.IsNullOrEmpty(make))
@@ -112,9 +113,9 @@ namespace EuroCarsUSA.Controllers
         }
 
 
-        public IActionResult Detail(Guid id)
+        public async Task<IActionResult> Detail(Guid id)
         {
-            Car car = _context.Cars.FirstOrDefault(c => c.Id == id);
+            Car car = await _carRepository.GetByIdAsync(id);
             return View(car);
         }
         public IActionResult Privacy()
