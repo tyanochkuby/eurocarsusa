@@ -1,4 +1,6 @@
 using EuroCarsUSA.Data;
+using EuroCarsUSA.Data.Interfaces;
+using EuroCarsUSA.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<IFormRepository, FormRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 //Configure services

@@ -1,6 +1,6 @@
 ﻿using EuroCarsUSA.Models;
 
-namespace EuroFormsUSA.Data.Interfaces
+namespace EuroCarsUSA.Data.Interfaces
 {
     public interface IFormRepository
     {

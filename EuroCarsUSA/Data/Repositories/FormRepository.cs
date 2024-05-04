@@ -1,9 +1,9 @@
 ﻿using EuroCarsUSA.Data;
 using EuroCarsUSA.Models;
-using EuroFormsUSA.Data.Interfaces;
+using EuroCarsUSA.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace EuroFormsUSA.Data.Repositories
+namespace EuroCarsUSA.Data.Repositories
 {
     public class FormRepository : IFormRepository
     {
