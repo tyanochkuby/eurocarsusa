@@ -1,6 +1,4 @@
-﻿@model Car
-@{
-}
+@model Car
 
 <div class="row">
     <div class="col-md-8">
@@ -10,7 +8,7 @@
         <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
             <div class="row justify-content-center">
                 <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                    <a href=@Model.Images[0] class="my-gallery" data-width="1200" data-height="900" itemprop="contentUrl"> 
+                    <a href=@Model.Images[0] id="carPhoto" data-width="1200" data-height="900" itemprop="contentUrl"> 
                         <img src=@Model.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
                     </a>
                 </figure>
@@ -25,7 +23,7 @@
                     @for (int i = 1; i < Model.Images.Count; i++)
                     {
                         <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                            <a href=@Model.Images[i] class="my-gallery" data-width="1200" data-height="900" itemprop="contentUrl">
+                            <a href=@Model.Images[i] id="carPhoto" data-width="1200" data-height="900" itemprop="contentUrl">
                                 <img src=@Model.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
                             </a>
                         </figure>
@@ -87,7 +85,13 @@
 
     <div class="col-md-4">
         <h1>@(Model.Make + " " + Model.Model)</h1>
-        @*Formularz*@
+
+        <a class="btn btn-secondary rounded-pill w-100 py-2" id="toggleButton">
+             <span id="showNumber">Show number</span>
+            <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90"></i>  +1234567890</span>
+        </a>
+
+     
     </div>
 </div>
 
@@ -149,7 +153,7 @@
             });
 
             // Define click event on gallery item
-            $('a').click(function (event) {
+            $("#carPhoto").click(function (event) {
 
                 // Prevent location change
                 event.preventDefault();
@@ -169,6 +173,17 @@
 
         }(jQuery));
     </script>
+    <script>
+        $(document).ready(function () {
+            $("#toggleButton").click(function () {
+                $("#phoneNumber").toggle();
+                $("#showNumber").toggle();
+            });
+
+        });
+    </script>
 }
+
+
 
 
