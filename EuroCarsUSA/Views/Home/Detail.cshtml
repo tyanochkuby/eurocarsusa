@@ -1,43 +1,114 @@
-﻿@model Car
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+@model Car
 
 <div class="row">
     <div class="col-md-8">
-        @*images*@
-        <div class="row justify-content-center">
-            <img src=@Model.Images[0] style="object-fit: cover; margin-bottom: 20px;">
-        </div>
-        
-        <div class="row justify-content-center">
-            <div class="d-flex flex-row align-items-center">
-                @for (int i = 1; i < Model.Images.Count; i++)
-                {
-                    <img src=@Model.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;">
-                }
+
+
+        @*Images*@
+        <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
+            <div class="row justify-content-center">
+                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                    <a href=@Model.Images[0] id="carPhoto" data-width="1200" data-height="900" itemprop="contentUrl"> 
+                        <img src=@Model.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
+                    </a>
+                </figure>
+            </div>
+
+       
+
+
+
+            <div class="row justify-content-center">
+                <div class="d-flex flex-row align-items-center">
+                    @for (int i = 1; i < Model.Images.Count; i++)
+                    {
+                        <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                            <a href=@Model.Images[i] id="carPhoto" data-width="1200" data-height="900" itemprop="contentUrl">
+                                <img src=@Model.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
+                            </a>
+                        </figure>
+                    }
+                </div>
             </div>
         </div>
     </div>
+
+
+    @*Swipe gallery scructure*@
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- Background of PhotoSwipe.
+             It's a separate element as animating opacity is faster than rgba(). -->
+        <div class="pswp__bg"></div>
+        <!-- Slides wrapper with overflow:hidden. -->
+        <div class="pswp__scroll-wrap">
+            <!-- Container that holds slides.
+                PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                Don't modify these 3 pswp__item elements, data is added later on. -->
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <!--  Controls are self-explanatory. Order can be changed. -->
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                    <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                    <!-- element will get class pswp__preloader--active when preloader is running -->
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                </button>
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                </button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="col-md-4">
         <h1>@(Model.Make + " " + Model.Model)</h1>
+
         <a class="btn btn-secondary rounded-pill w-100 py-2" id="toggleButton">
              <span id="showNumber">Show number</span>
             <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90"></i>  +1234567890</span>
         </a>
 
-        @*formularz*@
+     
     </div>
 </div>
+
+
+
+
+
+
+
+
 
 <hr style="border-top: 1px solid #000;"> @*divider*@
 
 <div class="row"> <h2>Details</h2></div>
 
 <div class="row">
-    <div class="col-md-2"> 
+    <div class="col-md-2">
         <p>Year</p>
         <p>Mileage</p>
         <p>Color</p>
@@ -49,13 +120,70 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function(){
-      $("#toggleButton").click(function(){
-        $("#phoneNumber").toggle();
-        $("#showNumber").toggle();
-      });
+<!-- PhotoSwipe HTML structure -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Rest of the PhotoSwipe HTML structure goes here -->
+</div>
 
-    });
-</script>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.0/photoswipe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.0/photoswipe-ui-default.min.js"></script>
+
+
+    <script>
+        'use strict';
+
+        /* global jQuery, PhotoSwipe, PhotoSwipeUI_Default, console */
+
+        (function ($) {
+
+            // Init empty gallery array
+            var container = [];
+
+            // Loop over gallery items and push it to the array
+            $('#gallery').find('figure').each(function () {
+                var $link = $(this).find('a'),
+                    item = {
+                        src: $link.attr('href'),
+                        w: $link.data('width'),
+                        h: $link.data('height'),
+                        title: $link.data('caption')
+                    };
+                container.push(item);
+            });
+
+            // Define click event on gallery item
+            $("#carPhoto").click(function (event) {
+
+                // Prevent location change
+                event.preventDefault();
+
+                // Define object and gallery options
+                var $pswp = $('.pswp')[0],
+                    options = {
+                        index: $(this).parent('figure').index(),
+                        bgOpacity: 0.85,
+                        showHideOpacity: true
+                    };
+
+                // Initialize PhotoSwipe
+                var gallery = new PhotoSwipe($pswp, PhotoSwipeUI_Default, container, options);
+                gallery.init();
+            });
+
+        }(jQuery));
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#toggleButton").click(function () {
+                $("#phoneNumber").toggle();
+                $("#showNumber").toggle();
+            });
+
+        });
+    </script>
+}
+
+
+
+
