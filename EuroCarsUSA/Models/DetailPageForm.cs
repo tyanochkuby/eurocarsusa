@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using EuroCarsUSA.Data.Attributes;
 
 namespace EuroCarsUSA.Models
 {
@@ -12,6 +13,7 @@ namespace EuroCarsUSA.Models
         public string? Name { get; set; }
 
         [EmailAddress]
+        [AtLeastOneProperty("Email", "PhoneNumber", ErrorMessage = "You must provide either an Email or a Phone Number.")]
         public string? Email { get; set; }
 
         [Phone]
@@ -20,7 +22,7 @@ namespace EuroCarsUSA.Models
 
         [ForeignKey("Car")]
         public Guid CarId { get; set; }
-        public Car Car { get; set; }
+        public Car? Car { get; set; }
 
         [MaxLength(200)]
         public string? Message { get; set; }

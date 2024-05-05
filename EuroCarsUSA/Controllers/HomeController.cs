@@ -11,11 +11,13 @@ namespace EuroCarsUSA.Controllers
     public class HomeController : Controller
     {
         private readonly ICarRepository _carRepository;
+        private readonly IDetailPageFormRepository _detailPageFormRepository;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository)
+        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository)
         {
             _carRepository = carRepository;
+            _detailPageFormRepository = detailPageFormRepository;
             _logger = logger;
         }
 
@@ -116,8 +118,24 @@ namespace EuroCarsUSA.Controllers
         public async Task<IActionResult> Detail(Guid id)
         {
             Car car = await _carRepository.GetById(id);
-            return View(car);
+            DetailPageForm detailPageForm = new DetailPageForm { CarId = car.Id };
+            ViewBag.Car = car;
+            return View(detailPageForm);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SendDetailPageForm(DetailPageForm form)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return Json(new { success = false, errors = errors });
+            }
+
+            bool result = await _detailPageFormRepository.Add(form);
+            return Json(new { success = result });
+        }
+
         public IActionResult Privacy()
         {
             return View();
