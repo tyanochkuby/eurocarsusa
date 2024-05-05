@@ -62,3 +62,7 @@ body {
         color: var(--bs-primary);
         opacity: 1; /* Firefox has reduced opacity on placeholders by default */
     }
+
+.rounded-xxl{
+    border-radius: .80rem;
+}

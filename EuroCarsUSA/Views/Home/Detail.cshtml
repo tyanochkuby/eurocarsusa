@@ -1,5 +1,10 @@
 @model DetailPageForm
 
+
+<div id="successMessage" class="alert alert-secondary text-primary border-primary rounded-xxl py-2 px-3 start-50 translate-middle fs-4" style="display: none; position: fixed; top: 0; text-align: center; z-index: 1000; margin-top: 5%">
+    Message sent!
+</div>
+
 <div class="row">
     <div class="col-md-8">
 
@@ -226,7 +231,7 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         if (response.success) {
-                            alert("Form submitted successfully.");
+                            $("#successMessage").slideDown().delay(3000).slideUp(); // Show the success message for 3 seconds
                             form.reset(); // Reset the form
                         } else {
                             alert(response.errors);
