@@ -4,6 +4,7 @@ using EuroCarsUSA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EuroCarsUSA.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240505073839_DetailPageFormsTableCreate")]
+    partial class DetailPageFormsTableCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +73,7 @@ namespace EuroCarsUSA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars", (string)null);
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("EuroCarsUSA.Models.DetailPageForm", b =>
@@ -101,7 +104,7 @@ namespace EuroCarsUSA.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("DetailPageForms", (string)null);
+                    b.ToTable("DetailPageForms");
                 });
 
             modelBuilder.Entity("EuroCarsUSA.Models.Form", b =>
@@ -150,7 +153,7 @@ namespace EuroCarsUSA.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Forms", (string)null);
+                    b.ToTable("Forms");
                 });
 
             modelBuilder.Entity("EuroCarsUSA.Models.User", b =>
@@ -203,7 +206,7 @@ namespace EuroCarsUSA.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("EuroCarsUSA.Models.DetailPageForm", b =>

@@ -39,7 +39,7 @@ namespace EuroCarsUSA.Data.Repositories
             return await _context.Forms.ToListAsync();
         }
 
-        async Task<Form> IFormRepository.GetByIdAsync(Guid id)
+        async Task<Form> IFormRepository.GetById(Guid id)
         {
             return await _context.Forms.FirstOrDefaultAsync(c => c.Id == id);
         }

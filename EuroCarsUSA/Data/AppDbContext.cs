@@ -10,5 +10,6 @@ namespace EuroCarsUSA.Data
         public DbSet<Car> Cars { get; set; }
         public DbSet<Form> Forms { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<DetailPageForm> DetailPageForms { get; set; }
     }
 }

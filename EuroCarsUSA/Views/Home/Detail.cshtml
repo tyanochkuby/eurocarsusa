@@ -1,4 +1,4 @@
-@model Car
+@model DetailPageForm
 
 <div class="row">
     <div class="col-md-8">
@@ -8,8 +8,8 @@
         <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
             <div class="row justify-content-center">
                 <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                    <a href=@Model.Images[0] class="carPhoto" data-width="1200" data-height="900" itemprop="contentUrl"> 
-                        <img src=@Model.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
+                    <a href=@ViewBag.Car.Images[0] class="carPhoto" data-width="1200" data-height="900" itemprop="contentUrl"> 
+                        <img src=@ViewBag.Car.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
                     </a>
                 </figure>
             </div>
@@ -20,11 +20,11 @@
 
             <div class="row justify-content-center">
                 <div class="d-flex flex-row align-items-center">
-                    @for (int i = 1; i < Model.Images.Count; i++)
+                    @for (int i = 1; i < ViewBag.Car.Images.Count; i++)
                     {
                         <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                            <a href=@Model.Images[i] class="carPhoto" data-width="1200" data-height="900" itemprop="contentUrl">
-                                <img src=@Model.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
+                            <a href=@ViewBag.Car.Images[i] class="carPhoto" data-width="1200" data-height="900" itemprop="contentUrl">
+                                <img src=@ViewBag.Car.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
                             </a>
                         </figure>
                     }
@@ -84,12 +84,41 @@
 
 
     <div class="col-md-4">
-        <h1>@(Model.Make + " " + Model.Model)</h1>
+        <h1>@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</h1>
 
-        <a class="btn btn-secondary rounded-pill w-100 py-2" id="toggleButton">
-             <span id="showNumber">Show number</span>
-            <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90"></i>  +1234567890</span>
-        </a>
+
+        <div class="bg-light align-items-center flex-column d-flex">
+            <p class="fs-4 mb-0 mt-2">Contact with seller</p>
+            <a class="btn btn-secondary rounded-pill w-75 py-2 mt-1 mb-2" id="toggleButton">
+                 <span id="showNumber">Show number</span>
+                <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90"></i>  +1234567890</span>
+            </a>
+
+            <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
+                    <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
+
+                <div class="form-group px-2 py-1">
+                    <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="Name" />
+                </div>
+
+                <div class="form-group px-2 py-1">
+                    <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="Email" />
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group px-2 py-1">
+                    <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="Phone Number" />
+                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group px-2 pt-1 pb-3">
+                    <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message"></textarea>
+                </div>
+                <div class="align-items-center flex-column d-flex pb-3">
+                    <button type="submit" class="btn btn-primary rounded-pill w-75 py-2"><i class="fas fa-envelope px-1"></i>  Send message</button>
+                </div>
+            </form>
+        </div>
 
      
     </div>
@@ -114,9 +143,9 @@
         <p>Color</p>
     </div>
     <div class="col-md-2">
-        <p>@Model.Year</p>
-        <p>@Model.Mileage</p>
-        <p>@Model.Color</p>
+        <p>@ViewBag.Car.Year</p>
+        <p>@ViewBag.Car.Mileage</p>
+        <p>@ViewBag.Car.Color</p>
     </div>
 </div>
 
@@ -128,6 +157,8 @@
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.0/photoswipe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.0/photoswipe-ui-default.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 
 
     <script>
@@ -182,6 +213,34 @@
 
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $("#detailPageForm").on("submit", function (event) {
+                event.preventDefault();
+
+                var form = this;
+
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: $(this).attr("method"),
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            alert("Form submitted successfully.");
+                            form.reset(); // Reset the form
+                        } else {
+                            alert(response.errors);
+                            // Display validation errors
+                            console.log(response.errors);
+                        }
+                    }
+                });
+
+            });
+        });
+    </script>
+
+
 }
 
 
