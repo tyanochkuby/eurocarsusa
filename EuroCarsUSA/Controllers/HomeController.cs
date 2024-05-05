@@ -115,7 +115,7 @@ namespace EuroCarsUSA.Controllers
 
         public async Task<IActionResult> Detail(Guid id)
         {
-            Car car = await _carRepository.GetByIdAsync(id);
+            Car car = await _carRepository.GetById(id);
             return View(car);
         }
         public IActionResult Privacy()
