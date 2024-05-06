@@ -12,5 +12,6 @@
         Pickup,
         Van,
         Wagon,
+        Sports
     }
 }
