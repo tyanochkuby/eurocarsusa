@@ -43,8 +43,14 @@ namespace EuroCarsUSA.Data.Repositories
             return await _context.Cars.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        
+        public async Task<IEnumerable<Car>> GetRange(int start, int count)
+        {
+            return await _context.Cars.Skip(start).Take(count).ToListAsync();
+        }
 
-        
+        public async Task<int> GetCount()
+        {
+            return await _context.Cars.CountAsync();
+        }
     }
 }
