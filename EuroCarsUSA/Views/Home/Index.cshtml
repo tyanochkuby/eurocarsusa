@@ -108,8 +108,8 @@
 </div>
 
 
-<div class="album py-5 px-5 bg-light">
-    <div class="container">
+<div class="album py-5 px-5 bg-light" >
+    <div class="container" id="carsListing">
         @foreach (Car car in Model)
         {
             <div class="row">
@@ -190,3 +190,42 @@
         }
     </div>
 </div>
+
+<div class="w-100 text-center mt-3">
+    <button class="btn btn-primary rounded-pill" id="showMoreButton">Show more</button>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var additionalCarsDisplayed = 0;
+
+            $('#showMoreButton').click(function () {
+                $.ajax({
+                    url: '/Home/GetMoreCars',
+                    data: { additionalCarsDisplayed: additionalCarsDisplayed },
+                    type: 'GET',
+                    success: function (data) {
+                        var newCars = $(data).filter('.newCar');
+                        $('#carsListing').append(newCars);
+
+                        additionalCarsDisplayed += newCars.length;
+
+                        if (newCars.data('show-more-button') == false) {
+                            $('#showMoreButton').hide();
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while loading more cars.');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $('#showMoreButton').click(function () {
+            $(this).blur();
+        });
+    </script>
+}

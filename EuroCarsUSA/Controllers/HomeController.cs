@@ -3,6 +3,7 @@ using EuroCarsUSA.Data.Enum;
 using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Collections;
 using System.Diagnostics;
 
@@ -13,12 +14,14 @@ namespace EuroCarsUSA.Controllers
         private readonly ICarRepository _carRepository;
         private readonly IDetailPageFormRepository _detailPageFormRepository;
         private readonly ILogger<HomeController> _logger;
+        private readonly int carsPerLoad = 5;
 
         public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository)
         {
             _carRepository = carRepository;
             _detailPageFormRepository = detailPageFormRepository;
             _logger = logger;
+            
         }
 
         public async Task<IActionResult> Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, CarFuelType? fuelType, CarTransmission? transmission, string color, string make)
@@ -26,8 +29,9 @@ namespace EuroCarsUSA.Controllers
             ViewBag.YearSortParm = sortOrder == SortOrder.ByYear ? SortOrder.ByYearDesc : SortOrder.ByYear;
             ViewBag.MileageSortParm = sortOrder == SortOrder.ByMileage ? SortOrder.ByMileageDesc : SortOrder.ByMileage;
             ViewBag.PriceSortParm = sortOrder == SortOrder.ByPrice ? SortOrder.ByPriceDesc : SortOrder.ByPrice;
+            ViewBag.ShowMoreButton = true;
 
-            IEnumerable<Car> cars = await _carRepository.GetAll();
+            IEnumerable<Car> cars = await _carRepository.GetRange(0, carsPerLoad);
 
             #region filters and sorting
             if(!string.IsNullOrEmpty(make))
@@ -134,6 +138,16 @@ namespace EuroCarsUSA.Controllers
 
             bool result = await _detailPageFormRepository.Add(form);
             return Json(new { success = result });
+        }
+
+        public async Task<IActionResult> GetMoreCars(int additionalCarsDisplayed)
+        {
+            var nextCars = await _carRepository.GetRange(carsPerLoad + additionalCarsDisplayed, carsPerLoad);
+            var carsCount = await _carRepository.GetCount();
+            var showMoreButton = carsCount > carsPerLoad + additionalCarsDisplayed + carsPerLoad;
+            ViewBag.ShowMoreButton = showMoreButton;
+
+            return PartialView(nextCars);
         }
 
         public IActionResult Privacy()
