@@ -66,3 +66,23 @@ body {
 .rounded-xxl{
     border-radius: .80rem;
 }
+
+img.rounded-xxl {
+    border-radius: .400rem;
+}
+
+.img-container {
+    position: relative;
+    
+    padding-bottom: 56.25%; /* 9 / 16 * 100 = 56.25% */
+    overflow: hidden;
+}
+
+    .img-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        height: 100%;
+        object-fit: cover;
+    }

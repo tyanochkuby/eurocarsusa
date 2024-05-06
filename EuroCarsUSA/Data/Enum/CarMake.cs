@@ -66,6 +66,7 @@
         Suzuki,
         Acura,
         Daihatsu,
-        Isuzu
+        Isuzu,
+        Lamborghini
     }
 }

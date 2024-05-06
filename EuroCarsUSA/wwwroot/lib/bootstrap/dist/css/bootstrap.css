@@ -5183,19 +5183,19 @@ fieldset:disabled .btn {
 .card-img,
 .card-img-bottom,
 .card-img-top {
-    width: 100%
+    width: 100%;
 }
 
 .card-img,
 .card-img-top {
-    border-top-left-radius: calc(.25rem - 1px);
-    border-top-right-radius: calc(.25rem - 1px)
+    border-top-left-radius: calc(.80rem - 1px);
+    border-top-right-radius: calc(.80rem - 1px)
 }
 
 .card-img,
 .card-img-bottom {
-    border-bottom-right-radius: calc(.25rem - 1px);
-    border-bottom-left-radius: calc(.25rem - 1px)
+    border-bottom-right-radius: calc(.80rem - 1px);
+    border-bottom-left-radius: calc(.80rem - 1px)
 }
 
 .card-group > .card {

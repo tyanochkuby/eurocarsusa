@@ -14,7 +14,7 @@ namespace EuroCarsUSA.Controllers
         private readonly ICarRepository _carRepository;
         private readonly IDetailPageFormRepository _detailPageFormRepository;
         private readonly ILogger<HomeController> _logger;
-        private readonly int carsPerLoad = 5;
+        private readonly int carsPerLoad = 6;
 
         public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository)
         {
@@ -147,7 +147,9 @@ namespace EuroCarsUSA.Controllers
             var showMoreButton = carsCount > carsPerLoad + additionalCarsDisplayed + carsPerLoad;
             ViewBag.ShowMoreButton = showMoreButton;
 
-            return PartialView(nextCars);
+
+            var partialView = PartialView(nextCars);
+            return partialView;
         }
 
         public IActionResult Privacy()

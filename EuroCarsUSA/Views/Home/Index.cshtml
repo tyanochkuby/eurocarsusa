@@ -15,65 +15,67 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-5">
-          
+
                     <label for="make">Make</label>
                     <input type="text" id="make" name="make" class="form-control" value="@ViewBag.Make" />
-           
-                <div class="form-group">
-                    <label for="fuelType">Fuel Type</label>
-                    <select id="fuelType" name="fuelType" class="form-control">
-                        <option value="">All</option>
-                        @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
-                        {
-                            @if(ViewBag.FuelType == fuelType){
-                                <option value="@fuelType" selected>@fuelType</option>
-                            }
-                            else{
-                                <option value="@fuelType">@fuelType</option>
-                            }
-                        }
-                        
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="color">Color</label>
-                    <input type="text" id="color" name="color" class="form-control" value="@ViewBag.Color" />
-                </div>
-                <div class="form-group">
-                    <label for="sortOrder">Sort order</label>
-                    <select id="sortOrder" name="sortOrder" class="form-control">
-                        <option value="">Default</option>
-                        @foreach(SortOrder sortOrderOption in Enum.GetValues(typeof(SortOrder)))
-                        {
-                            @if(ViewBag.SortOrder == sortOrderOption)
+
+                    <div class="form-group">
+                        <label for="fuelType">Fuel Type</label>
+                        <select id="fuelType" name="fuelType" class="form-control">
+                            <option value="">All</option>
+                            @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
                             {
-                                <option value="@sortOrderOption" selected>@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
+                                @if (ViewBag.FuelType == fuelType)
+                                {
+                                    <option value="@fuelType" selected>@fuelType</option>
+                                }
+                                else
+                                {
+                                    <option value="@fuelType">@fuelType</option>
+                                }
                             }
-                            else
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Color</label>
+                        <input type="text" id="color" name="color" class="form-control" value="@ViewBag.Color" />
+                    </div>
+                    <div class="form-group">
+                        <label for="sortOrder">Sort order</label>
+                        <select id="sortOrder" name="sortOrder" class="form-control">
+                            <option value="">Default</option>
+                            @foreach (SortOrder sortOrderOption in Enum.GetValues(typeof(SortOrder)))
                             {
-                                <option value="@sortOrderOption">@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
+                                @if (ViewBag.SortOrder == sortOrderOption)
+                                {
+                                    <option value="@sortOrderOption" selected>@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
+                                }
+                                else
+                                {
+                                    <option value="@sortOrderOption">@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
+                                }
                             }
-                        }
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="transmission">Sort order</label>
-                    <select id="transmission" name="transmission" class="form-control">
-                        <option value="">All</option>
-                        @foreach (CarTransmission transmissionOption in Enum.GetValues(typeof(CarTransmission)))
-                        {
-                            @if (ViewBag.Transmission == transmissionOption)
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transmission">Sort order</label>
+                        <select id="transmission" name="transmission" class="form-control">
+                            <option value="">All</option>
+                            @foreach (CarTransmission transmissionOption in Enum.GetValues(typeof(CarTransmission)))
                             {
-                                <option value="@transmissionOption" selected>@transmissionOption.ToString()</option>
+                                @if (ViewBag.Transmission == transmissionOption)
+                                {
+                                    <option value="@transmissionOption" selected>@transmissionOption.ToString()</option>
+                                }
+                                else
+                                {
+                                    <option value="@transmissionOption">@transmissionOption.ToString()</option>
+                                }
                             }
-                            else
-                            {
-                                <option value="@transmissionOption">@transmissionOption.ToString()</option>
-                            }
-                        }
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary mt-2">Filter</button>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Filter</button>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
@@ -108,84 +110,88 @@
 </div>
 
 
-<div class="album py-5 px-5 bg-light" >
+<div class="album py-5 px-5 bg-light">
     <div class="container" id="carsListing">
-        @foreach (Car car in Model)
+        @for (int i = 0; i < Math.Ceiling(Model.Count() / 3.0); i++)
         {
-            <div class="row">
-                <div class="card mb-4 pt-2 box-shadow">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <!-- Adjust the column size as needed -->
-                            <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id> <img class="card-img-top rounded float-left w-100" src=@car.Images[0] alt=@(car.Color + car.Make + car.Model)> </a>
-                        </div>
-                        <div class="col-md-9">
-                            <!-- Adjust the column size as needed -->
-                            <div class="row">
-                                <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none"> <h2>@(car.Make + " " + car.Model)</h2> </a>
-                            </div>
-                            <div class="row">
-                                <div class="mx-2 col">
-                                    <div class="row">
-                                        <b>Mileage</b>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.Mileage</p>
-                                    </div>
-                                </div>
-                                <div class="mx-2 col">
-                                    <div class="row">
-                                        <b>Year</b>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.Year</p>
-                                    </div>
-                                </div>
-                                <div class="mx-2 col">
-                                    <div class="row">
-                                        <b>Fuel type</b>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.FuelType</p>
-                                    </div>
-                                </div>
-                                <div class="mx-2 col">
-                                    <div class="row">
-                                        <b>Price</b>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.Price</p>
-                                    </div>
-                                </div>
-                                <div class="mx-2 col">
-                                    <div class="row">
-                                        <b>Transmission</b>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.Transmission.ToString()</p>
-                                    </div>
-                                </div>
-                                <div class="mx-2 col">
-                                    <div class="row">
-                                        <b>Engine Volume</b>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.EngineVolume</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-end align-items-end">
-                            <button type="button" class="btn btn-primary rounded-pill">
-                                <i class="fas fa-heart px-3 py-1"></i>
-                            </button>
-                        </div>
 
+            <div class="row">
+                @foreach(Car car in Model.Skip(i * 3).Take(3)){
+                    <div class="col-md-4">
+                        <div class="card mb-4 pt-2 box-shadow rounded-xxl">
+                            <div class="img-container overflow-hidden mx-3 mt-1">
+                                <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id>
+                                    <img class="card-img float-left rounded-xxl" src=@car.Images[0] alt=@(car.Color + car.Make + car.Model)>
+                                </a>
+                            </div>
+                                
+                            <div class="card-body">
+                                
+                                <div class="row justify-content-between">
+                                    <!-- Car name -->
+                                    <div class="col">
+                                        <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none"> <b>@(car.Make + " " + car.Model)</b> </a>
+                                    </div>
+                                    <!-- Price -->
+                                    <div class="col text-end">
+                                        <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none"> <p>@(car.Price)</p> </a>
+                                    </div>
+                                </div>
+
+                                <!-- divider -->
+                                <hr style="border-top: 1px solid #000;">
+
+
+                                <div class="row justify-content-between">
+                                    <div class="col">
+                                        <div class="row">
+                                            <b>Mileage</b>
+                                        </div>
+                                        <div class="row">
+                                            <p>@car.Mileage</p>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <b>Fuel type</b>
+                                        </div>
+                                        <div class="row">
+                                            <p>@car.FuelType.ToString()</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="col text-end">
+                                        <div class="row">
+                                            <b>Gearbox</b>
+                                        </div>
+                                        <div class="row">
+                                            <p>@car.Transmission.ToString()</p>
+                                        </div>
+
+                                        <div class="row">
+                                            <b>Year</b>
+                                        </div>
+                                        <div class="row">
+                                            <p>@car.Year</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="row d-flex justify-content-end align-items-end mb-3">
+                                <a class="btn btn-secondary rounded-pill me-2 w-25" asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id>
+                                    Details
+                                </a>
+
+                                <button type="button" class="btn btn-primary rounded-pill me-4 w-25">
+                                    <i class="fas fa-heart px-3 py-1"></i>
+                                </button>
+                            </div>
+
+                            
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         }
     </div>
@@ -196,7 +202,7 @@
 </div>
 
 
-@section Scripts{
+@section Scripts {
     <script>
         $(document).ready(function () {
             var additionalCarsDisplayed = 0;
@@ -207,15 +213,15 @@
                     data: { additionalCarsDisplayed: additionalCarsDisplayed },
                     type: 'GET',
                     success: function (data) {
-                        var newCars = $(data).filter('.newCar');
-                        $('#carsListing').append(newCars);
-
-                        additionalCarsDisplayed += newCars.length;
-
-                        if (newCars.data('show-more-button') == false) {
+                        var html = $(data);
+                        $('#carsListing').append(html);
+                        additionalCarsDisplayed += html.data('cars-in-view');
+                        console.log(html.data('show-more-button'));
+                        if (html.data('show-more-button') == "False") {
                             $('#showMoreButton').hide();
                         }
                     },
+
                     error: function () {
                         alert('An error occurred while loading more cars.');
                     }
