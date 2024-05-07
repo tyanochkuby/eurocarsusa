@@ -19,10 +19,6 @@
                 </figure>
             </div>
 
-       
-
-
-
             <div class="row justify-content-center">
                 <div class="d-flex flex-row align-items-center">
                     @for (int i = 1; i < ViewBag.Car.Images.Count; i++)
@@ -154,10 +150,7 @@
     </div>
 </div>
 
-<!-- PhotoSwipe HTML structure -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-    <!-- Rest of the PhotoSwipe HTML structure goes here -->
-</div>
+
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.0/photoswipe.min.js"></script>
@@ -185,19 +178,24 @@
                         h: $link.data('height'),
                         title: $link.data('caption')
                     };
+                console.log(item);
                 container.push(item);
             });
 
             // Define click event on gallery item
             $(".carPhoto").click(function (event) {
-
                 // Prevent location change
                 event.preventDefault();
+
+                var allImages = Array.from(document.getElementsByClassName('carPhoto'));
+
+                // Check if the clicked image is the main image
+                var index = allImages.indexOf(this);
 
                 // Define object and gallery options
                 var $pswp = $('.pswp')[0],
                     options = {
-                        index: $(this).parent('figure').index(),
+                        index: index,
                         bgOpacity: 0.85,
                         showHideOpacity: true
                     };
