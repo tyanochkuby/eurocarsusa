@@ -1,6 +1,5 @@
 @model DetailPageForm
 
-
 <div id="successMessage" class="alert alert-secondary text-primary border-primary rounded-xxl py-2 px-3 start-50 translate-middle fs-4" style="display: none; position: fixed; top: 0; text-align: center; z-index: 1000; margin-top: 5%">
     Message sent!
 </div>
@@ -138,15 +137,38 @@
 <div class="row"> <h2>Details</h2></div>
 
 <div class="row">
-    <div class="col-md-2">
+    
+    <div class="col-md-2 ">
         <p>Year</p>
         <p>Mileage</p>
         <p>Color</p>
+        <p>Type</p>
+        @(ViewBag.Car.EngineVolume != null ? "Engine volume" : "")
+    </div>
+   
+    <div class="col-md-2 text-lg-start">
+        <p class="fw-bolder">@ViewBag.Car.Year</p>
+        <p class="fw-bolder">@ViewBag.Car.Mileage</p>
+        <p class="fw-bolder">@ViewBag.Car.Color</p>
+        <p class="fw-bolder">@ViewBag.Car.Type</p>
+        <p class="fw-bolder"> @(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : "")</p>
+    </div>
+
+    <div class="col-md-1"></div>
+    
+    <div class="col-md-2">
+        <p>Make</p>
+        <p>Model</p>
+        <p>VIN</p>
+        <p>Fuel type</p>
+        <p>Transmission</p>
     </div>
     <div class="col-md-2">
-        <p>@ViewBag.Car.Year</p>
-        <p>@ViewBag.Car.Mileage</p>
-        <p>@ViewBag.Car.Color</p>
+         <p class="fw-bolder">@ViewBag.Car.Make</p>
+         <p class="fw-bolder">@ViewBag.Car.Model</p>
+         <p class="fw-bolder">@ViewBag.Car.VIN</p>
+         <p class="fw-bolder">@ViewBag.Car.FuelType</p>
+         <p class="fw-bolder">@ViewBag.Car.Transmission</p>
     </div>
 </div>
 
