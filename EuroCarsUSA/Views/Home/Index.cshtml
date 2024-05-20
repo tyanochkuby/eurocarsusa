@@ -15,13 +15,58 @@
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filterForm" aria-expanded="false" aria-controls="filterForm">
             Filters
         </button>
-        <div class="form-group collapse bg-secondary " id="filterForm">
-            <div class="row">
-                <div class="col-md-6">
+        <div class="form-group collapse bg-secondary mt-2" id="filterForm">
+            <div id="basicFilters" class="p-3">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 py-2">
+                        <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@ViewBag.Make" />
+                    </div>
+                    <div class="col-md-4 py-2">
+                        <input type="number" id="minYear" name="minYear" placeholder="Min year" class="form-control" value="@ViewBag.MinYear" />
+                    </div>
+                    <div class="col-md-4 py-2">
+                        <input type="number" id="maxYear" name="maxYear" placeholder="Max year" class="form-control" value="@ViewBag.MaxYear" />
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@ViewBag.Model" />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" id="minPrice" name="minPrice" placeholder="Min price" class="form-control" value="@ViewBag.MinPrice" />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="number" id="maxPrice" name="maxPrice" placeholder="Max price" class="form-control" value="@ViewBag.MaxPrice" />
+                    </div>
+                </div>
+            </div>
 
-                    <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@ViewBag.Make" />
+            <div class="form-group bg-secondary p-3" id="advancedFilters" style="display: none">
 
-                    <div class="form-group">
+                <div class="row my-1">
+                    <div class="col-md-3">
+                        <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@ViewBag.Make" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@ViewBag.Model" />
+                    </div>
+                    <div class="col-md-3">
+                        <select id="carType" name="carType" class="form-control w-100">
+                            <option value="" disabled selected>Car type</option>
+                            @foreach (CarType typeOption in Enum.GetValues(typeof(CarType)))
+                            {
+                                @if (ViewBag.CarType == typeOption)
+                                {
+                                    <option value="@typeOption" selected>@typeOption.ToString()</option>
+                                }
+                                else
+                                {
+                                    <option value="@typeOption">@typeOption.ToString()</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
                         <select id="fuelType" name="fuelType" class="form-control w-100">
                             <option value="" disabled selected>Fuel type</option>
                             @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
@@ -38,27 +83,9 @@
 
                         </select>
                     </div>
-                    <div class="form-group">
-                        <input type="text" id="color" name="color" placeholder="Color" class="form-control" value="@ViewBag.Color" />
-                    </div>
-                    <div class="form-group">
-                        <select id="sortOrder" name="sortOrder" class="form-control w-100">
-                            <option value="" disabled selected>Sort order</option>
-                            <option value="">New first</option>
-                            @foreach (SortOrder sortOrderOption in Enum.GetValues(typeof(SortOrder)))
-                            {
-                                @if (ViewBag.SortOrder == sortOrderOption)
-                                {
-                                    <option value="@sortOrderOption" selected>@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
-                                }
-                                else
-                                {
-                                    <option value="@sortOrderOption">@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group">
+                </div>
+                <div class="row my-1">
+                    <div class="col-md-3">
                         <select id="transmission" name="transmission" class="form-control w-100">
                             <option value="" disabled selected>Transmission</option>
                             @foreach (CarTransmission transmissionOption in Enum.GetValues(typeof(CarTransmission)))
@@ -73,32 +100,89 @@
                                 }
                             }
                         </select>
+
                     </div>
-                    <button type="submit" class="btn btn-primary mt-2">Filter</button>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="form-group">
+                    <div class="col-md-3">
+                        <input type="text" id="color" name="color" placeholder="Color" class="form-control" value="@ViewBag.Color" />
+
+                    </div>
+                    <div class="col-md-3">
                         <input type="number" id="minPrice" name="minPrice" placeholder="Min price" class="form-control" value="@ViewBag.MinPrice" />
                     </div>
-                    <div class="form-group">
+                    <div class="col-md-3">
                         <input type="number" id="maxPrice" name="maxPrice" placeholder="Max price" class="form-control" value="@ViewBag.MaxPrice" />
                     </div>
-                    <div class="form-group">
+                </div>
+                <div class="row my-1">
+                    <div class="col-md-3">
+                        <input type="number" id="minMileage" name="minMileage" placeholder="Min mileage" class="form-control" value="@ViewBag.MinMileage" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" id="maxMileage" name="maxMileage" placeholder="Max mileage" class="form-control" value="@ViewBag.MaxMileage" />
+                    </div>
+                    <div class="col-md-3">
                         <input type="number" id="minYear" name="minYear" placeholder="Min year" class="form-control" value="@ViewBag.MinYear" />
                     </div>
-                    <div class="form-group">
+                    <div class="col-md-3">
                         <input type="number" id="maxYear" name="maxYear" placeholder="Max year" class="form-control" value="@ViewBag.MaxYear" />
                     </div>
-                    <div class="form-group">
+                </div>
+                <div class="row my-1">
+                    <div class="col-md-3">
                         <input type="number" id="minEngineVolume" placeholder="Min engine volume" name="minEngineVolume" class="form-control" value="@ViewBag.MinEngineVolume" />
                     </div>
-                    <div class="form-group">
+                    <div class="col-md-3">
                         <input type="number" id="maxEngineVolume" placeholder="Max engine volume" name="maxEngineVolume" class="form-control" value="@ViewBag.MaxEngineVolume" />
                     </div>
-                </div>
-            </div>
-        </div>
 
+
+                    <div class="col-md-3">
+                        <select id="fuelType" name="fuelType" class="form-control w-100">
+                            <option value="" disabled selected>Fuel type</option>
+                            @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
+                            {
+                                @if (ViewBag.FuelType == fuelType)
+                                {
+                                    <option value="@fuelType" selected>@fuelType</option>
+                                }
+                                else
+                                {
+                                    <option value="@fuelType">@fuelType</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                    </div>
+                </div>
+            
+
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilters" aria-expanded="false" aria-controls="advancedFilters" id="moreFiltersButton">
+                More filters
+            </button>
+            <button type="submit" class="btn btn-primary mt-2">Filter</button>
+            
+        </div>
+            
+        
+
+        <div class="form-group">
+            <select id="sortOrder" name="sortOrder" class="form-control w-100">
+                <option value="" disabled selected>Sort order</option>
+                <option value="">New first</option>
+                @foreach (SortOrder sortOrderOption in Enum.GetValues(typeof(SortOrder)))
+                {
+                    @if (ViewBag.SortOrder == sortOrderOption)
+                    {
+                        <option value="@sortOrderOption" selected>@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
+                    }
+                    else
+                    {
+                        <option value="@sortOrderOption">@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
+                    }
+                }
+            </select>
+        </div>
     </form>
 </div>
 
@@ -199,6 +283,7 @@
 </div>
 
 
+
 @section Scripts {
     <script>
         $(document).ready(function () {
@@ -230,5 +315,61 @@
         $('#showMoreButton').click(function () {
             $(this).blur();
         });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            console.log("1");
+
+            var basicFiltersDimensions, advancedFiltersDimensions;
+
+            var filtersExpanded = false;
+
+            $('#filterForm').css('display', 'block');
+            $('#advancedFilters').removeClass('collapse');
+            setTimeout(function () {
+                basicFiltersDimensions = getActualDimensions('#basicFilters');
+                console.log(basicFiltersDimensions);
+                advancedFiltersDimensions = getActualDimensions('#advancedFilters');
+                console.log(advancedFiltersDimensions);
+                // Hide #filterForm and #advancedFilters again
+                $('#filterForm').css('display', '');
+                $('#advancedFilters').addClass('collapse');
+            }, 0);
+
+            $('#moreFiltersButton').click(function () {
+                console.log("expanding");
+                if (!filtersExpanded) {
+                    console.log("expanding");
+                    $('#filterForm').animate({ height: advancedFiltersDimensions.height, width: advancedFiltersDimensions.width }, 500);
+                    $('#basicFilters').fadeOut(200);
+                    $('#advancedFilters').fadeIn(200);
+                    filtersExpanded = true;
+                } else {
+                    console.log("inpanding");
+                    $('#advancedFilters').fadeOut(200);
+                    $('#filterForm').animate({ height: basicFiltersDimensions.height, width: basicFiltersDimensions.width }, 500);
+                    $('#basicFilters').fadeIn(200);
+                    filtersExpanded = false;
+                }
+            });
+
+
+
+        });
+
+        function getActualDimensions(selector) {
+            var previousCss = $(selector).attr("style");
+
+            var dimensions = {
+                height: $(selector).outerHeight(true),
+                width: $(selector).outerWidth(true)
+            };
+
+            $(selector).attr("style", previousCss ? previousCss : "");
+
+            return dimensions;
+        }
+
     </script>
 }
