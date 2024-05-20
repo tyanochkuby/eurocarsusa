@@ -21,11 +21,21 @@ body {
   margin-bottom: 60px;
 }
 
+select {
+    background-color: var(--bs-light);
+    color: var(--bs-primary);
+}
+
 .fas.fa-phone {
     font-size: 0.75em; /* Adjust as needed */
     position: relative;
     bottom: 1px;
     right: 5px;
+}
+
+.center-items {
+    display: grid;
+    place-items: center;
 }
 
 .btn-secondary{
@@ -92,4 +102,8 @@ img.rounded-xxl {
     border: 1px solid var(--bs-primary);
     box-shadow: 0 0 10px var(--bs-primary);
     transform: scale(1.05);
+}
+
+.w-15 {
+    width: 15% !important
 }
