@@ -1,6 +1,8 @@
-﻿using EuroCarsUSA.Data.Interfaces;
+﻿using EuroCarsUSA.Data.Enum;
+using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 
 namespace EuroCarsUSA.Data.Repositories
 {
@@ -43,14 +45,46 @@ namespace EuroCarsUSA.Data.Repositories
             return await _context.Cars.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<IEnumerable<Car>> GetRange(int start, int count)
+        public async Task<IEnumerable<Car>> GetRange(int start, int count, CarFilter? filters)
         {
-            return await _context.Cars.Skip(start).Take(count).ToListAsync();
+            var cars = _context.Cars.AsQueryable();
+
+            cars = ApplyFilters(cars, filters);
+
+            return await cars.Skip(start).Take(count).ToListAsync();
         }
 
-        public async Task<int> GetCount()
+        public async Task<int> GetCount(CarFilter? filters)
         {
-            return await _context.Cars.CountAsync();
+            var cars = _context.Cars.AsQueryable();
+
+            cars = ApplyFilters(cars, filters);
+
+            return await cars.CountAsync();
+        }
+
+        private IQueryable<Car> ApplyFilters(IQueryable<Car> cars, CarFilter? filters)
+        {
+            if (filters != null)
+            {
+                cars = _context.Cars.Where(c =>
+                    (!filters.Make.HasValue || c.Make == filters.Make.Value) &&
+                    (string.IsNullOrEmpty(filters.Model) || c.Model.Contains(filters.Model) || filters.Model.Contains(c.Model)) &&
+                    (!filters.MinPrice.HasValue || c.Price >= filters.MinPrice.Value) &&
+                    (!filters.MaxPrice.HasValue || c.Price <= filters.MaxPrice.Value) &&
+                    (!filters.MinYear.HasValue || c.Year >= filters.MinYear.Value) &&
+                    (!filters.MaxYear.HasValue || c.Year <= filters.MaxYear.Value) &&
+                    (!filters.MinMileage.HasValue || c.Year >= filters.MinMileage.Value) &&
+                    (!filters.MaxMileage.HasValue || c.Year <= filters.MaxMileage.Value) &&
+                    (!filters.MinEngineVolume.HasValue || c.EngineVolume >= filters.MinEngineVolume.Value) &&
+                    (!filters.MaxEngineVolume.HasValue || c.EngineVolume <= filters.MaxEngineVolume.Value) &&
+                    (!filters.FuelType.HasValue || c.FuelType == filters.FuelType.Value) &&
+                    (!filters.CarType.HasValue || c.Type == filters.CarType.Value) &&
+                    (!filters.Transmission.HasValue || c.Transmission == filters.Transmission.Value) &&
+                    (string.IsNullOrEmpty(filters.Color) || c.Color == filters.Color)
+                );
+            }
+            return cars;
         }
     }
 }

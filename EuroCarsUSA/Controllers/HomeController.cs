@@ -4,6 +4,7 @@ using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Diagnostics;
 
@@ -15,7 +16,15 @@ namespace EuroCarsUSA.Controllers
         private readonly IDetailPageFormRepository _detailPageFormRepository;
         private readonly ILogger<HomeController> _logger;
         private readonly int carsPerLoad = 6;
-
+        private Dictionary<SortOrder, Func<IEnumerable<Car>, IOrderedEnumerable<Car>>> sortFunctions = new Dictionary<SortOrder, Func<IEnumerable<Car>, IOrderedEnumerable<Car>>>
+        {
+            { SortOrder.ByYear, cars => cars.OrderBy(c => c.Year) },
+            { SortOrder.ByYearDesc, cars => cars.OrderByDescending(c => c.Year) },
+            { SortOrder.ByMileage, cars => cars.OrderBy(c => c.Mileage) },
+            { SortOrder.ByMileageDesc, cars => cars.OrderByDescending(c => c.Mileage) },
+            { SortOrder.ByPrice, cars => cars.OrderBy(c => c.Price) },
+            { SortOrder.ByPriceDesc, cars => cars.OrderByDescending(c => c.Price) },
+        };
         public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository)
         {
             _carRepository = carRepository;
@@ -24,97 +33,59 @@ namespace EuroCarsUSA.Controllers
             
         }
 
-        public async Task<IActionResult> Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, CarFuelType? fuelType, CarTransmission? transmission, string color, string make)
+        public async Task<IActionResult> Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, CarFuelType? fuelType, CarType? carType, CarTransmission? transmission, string color, string make, string model)
         {
-            ViewBag.YearSortParm = sortOrder == SortOrder.ByYear ? SortOrder.ByYearDesc : SortOrder.ByYear;
-            ViewBag.MileageSortParm = sortOrder == SortOrder.ByMileage ? SortOrder.ByMileageDesc : SortOrder.ByMileage;
-            ViewBag.PriceSortParm = sortOrder == SortOrder.ByPrice ? SortOrder.ByPriceDesc : SortOrder.ByPrice;
-            ViewBag.ShowMoreButton = true;
-
-            IEnumerable<Car> cars = await _carRepository.GetRange(0, carsPerLoad);
-
-            #region filters and sorting
-            if(!string.IsNullOrEmpty(make))
-            {
-                cars = cars.Where(c => (c.Make.ToString().Contains(make) || make.Contains(c.Make.ToString())));
-            }
-            if (minPrice.HasValue)
-            {
-                cars = cars.Where(c => c.Price >= minPrice.Value);
-            }
-            if (maxPrice.HasValue)
-            {
-                cars = cars.Where(c => c.Price <= maxPrice.Value);
-            }
-            if(minYear.HasValue)
-            {
-                cars = cars.Where(c => c.Year >= minYear.Value);
-            }
-            if (maxYear.HasValue)
-            {
-                cars = cars.Where(c => c.Year <= maxYear.Value);
-            }
-            if (minEngineVolume.HasValue)
-            {
-                cars = cars.Where(c => c.EngineVolume >= minEngineVolume.Value);
-            }
-            if (maxEngineVolume.HasValue)
-            {
-                cars = cars.Where(c => c.EngineVolume <= maxEngineVolume.Value);
-            }
-            if (fuelType.HasValue)
-            {
-                cars = cars.Where(c => c.FuelType == fuelType.Value);
-            }
-            if(transmission.HasValue)
-            {
-                cars = cars.Where(c => c.Transmission == transmission.Value);
-            }
-            if (!string.IsNullOrEmpty(color))
-            {
-                cars = cars.Where(c => c.Color == color);
-            }
+            //ViewBag.YearSortParm = sortOrder == SortOrder.ByYear ? SortOrder.ByYearDesc : SortOrder.ByYear;
+            //ViewBag.MileageSortParm = sortOrder == SortOrder.ByMileage ? SortOrder.ByMileageDesc : SortOrder.ByMileage;
+            //ViewBag.PriceSortParm = sortOrder == SortOrder.ByPrice ? SortOrder.ByPriceDesc : SortOrder.ByPrice;
             
+
+            var filters = new CarFilter()
+            {
+                MinPrice = minPrice,
+                MaxPrice = maxPrice,
+                MinMileage = minMileage,
+                MaxMileage = maxMileage,
+                MinYear = minYear,
+                MaxYear = maxYear,
+                MinEngineVolume = minEngineVolume,
+                MaxEngineVolume = maxEngineVolume,
+                FuelType = fuelType,
+                CarType = carType,
+                Transmission = transmission,
+                Color = color,
+                Make = !string.IsNullOrEmpty(make) ? Enum.GetValues(typeof(CarMake)).Cast<CarMake>().FirstOrDefault<CarMake>(c => c.ToString().Contains(make) || make.Contains(c.ToString())) : null,
+                Model = model
+            };
+            HttpContext.Session.SetString("CurrentFilters", JsonConvert.SerializeObject(filters));
+
+
+            IEnumerable<Car> cars = await _carRepository.GetRange(0, carsPerLoad, filters);
+
+            
+
+            if (sortFunctions.ContainsKey(sortOrder))
+            {
+                cars = sortFunctions[sortOrder](cars);
+            }
 
 
             ViewBag.MinPrice = minPrice; ViewBag.MaxPrice = maxPrice;
             ViewBag.FuelType = fuelType;
+            ViewBag.CarType = carType;
             ViewBag.Color = color;
             ViewBag.Make = make;
+            ViewBag.Model = model;
             ViewBag.MinYear = minYear; ViewBag.MaxYear = maxYear;
             ViewBag.MinEngineVolume = minEngineVolume; ViewBag.MaximumEngineVolume = maxEngineVolume;
+            ViewBag.MinMileage = minMileage; ViewBag.MaxMileage = maxMileage;
+            ViewBag.MinMileage = minMileage; ViewBag.MaxMileage = maxMileage;
             ViewBag.Transmission = transmission;
 
+            var carsCount = await _carRepository.GetCount(filters);
+            ViewBag.ShowMoreButton = carsCount > carsPerLoad;
+
             ViewBag.SortOrder = sortOrder;
-
-            switch (sortOrder)
-            {
-                case SortOrder.ByYear: 
-                    cars = cars.OrderBy(c => c.Year);
-                    break;
-                case SortOrder.ByYearDesc:
-                    cars = cars.OrderByDescending(c => c.Year);
-                    break;
-                case SortOrder.ByMileage:
-                    cars = cars.OrderBy(c => c.Mileage);
-                    break;
-                case SortOrder.ByMileageDesc:
-                    cars = cars.OrderByDescending(c => c.Mileage);
-                    break;
-                case SortOrder.ByPrice:
-                    cars = cars.OrderBy(c => c.Price);
-                    break;
-                case SortOrder.ByPriceDesc:
-                    cars = cars.OrderByDescending(c => c.Price);
-                    break;
-            }
-
-            
-
-            #endregion
-
-
-
             return View(cars.ToList());
         }
 
@@ -142,8 +113,15 @@ namespace EuroCarsUSA.Controllers
 
         public async Task<IActionResult> GetMoreCars(int additionalCarsDisplayed)
         {
-            var nextCars = await _carRepository.GetRange(carsPerLoad + additionalCarsDisplayed, carsPerLoad);
-            var carsCount = await _carRepository.GetCount();
+            CarFilter filters = new CarFilter();
+            var sessionData = HttpContext.Session.GetString("CurrentFilters");
+            if (!string.IsNullOrEmpty(sessionData))
+            {
+                filters = JsonConvert.DeserializeObject<CarFilter>(sessionData);
+            }
+             
+            var nextCars = await _carRepository.GetRange(carsPerLoad + additionalCarsDisplayed, carsPerLoad, filters);
+            var carsCount = await _carRepository.GetCount(filters);
             var showMoreButton = carsCount > carsPerLoad + additionalCarsDisplayed + carsPerLoad;
             ViewBag.ShowMoreButton = showMoreButton;
 

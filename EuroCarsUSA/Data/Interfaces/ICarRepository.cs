@@ -5,8 +5,8 @@ namespace EuroCarsUSA.Data.Interfaces
     public interface ICarRepository
     {
         Task<IEnumerable<Car>> GetAll();
-        Task<IEnumerable<Car>> GetRange(int start, int count);
-        Task<int> GetCount();
+        Task<IEnumerable<Car>> GetRange(int start, int count, CarFilter? filters);
+        Task<int> GetCount(CarFilter? filters);
         Task<Car> GetById(Guid id);
         Task<bool> Add(Car car);
         Task<bool> Update(Car car);

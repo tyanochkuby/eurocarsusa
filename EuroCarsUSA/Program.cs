@@ -13,6 +13,14 @@ builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDetailPageFormRepository, DetailPageFormRepository>();
 
+//Adding session services
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.Cookie.HttpOnly = true;
+});
+
+
 
 //Configure services
 var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
@@ -40,6 +48,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession(); // Use session middleware
 
 app.MapControllerRoute(
     name: "default",
