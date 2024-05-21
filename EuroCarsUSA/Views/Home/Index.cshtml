@@ -135,27 +135,8 @@
                         <div class="col-md-3">
                             <input type="number" id="maxEngineVolume" placeholder="Max engine volume" name="maxEngineVolume" class="form-control" value="@ViewBag.MaxEngineVolume" />
                         </div>
-
-
-                        <div class="col-md-3">
-                            <select id="fuelType" name="fuelType" class="form-control w-100">
-                                <option value="" disabled selected>Fuel type</option>
-                                @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
-                                {
-                                    @if (ViewBag.FuelType == fuelType)
-                                    {
-                                        <option value="@fuelType" selected>@fuelType</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@fuelType">@fuelType</option>
-                                    }
-                                }
-
-                            </select>
-                        </div>
-                        </div>
                     </div>
+                </div>
             
 
             </div>
@@ -388,5 +369,14 @@
             return dimensions;
         }
 
+    </script>
+    <script>
+        $(document).ready(function () {
+            var showShowMoreButton = '@ViewBag.ShowMoreButton' === 'True';
+            console.log(showShowMoreButton);
+            if (!showShowMoreButton) {
+                $('#showMoreButton').hide();
+            }
+        });
     </script>
 }

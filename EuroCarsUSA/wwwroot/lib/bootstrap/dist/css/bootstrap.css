@@ -3450,7 +3450,7 @@ fieldset:disabled .btn {
     }
 
 .btn-light {
-    color: var(--bs-primary);
+    color: #7E9DED;
     background-color: #fff;
     border-color: #fff
 }
