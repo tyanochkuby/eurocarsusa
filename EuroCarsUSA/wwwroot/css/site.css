@@ -107,3 +107,34 @@ img.rounded-xxl {
 .w-15 {
     width: 15% !important
 }
+
+.slick-slide {
+    width: auto !important;
+}
+
+    .slick-slide img {
+        height: 20vh; /* 20% of the viewport height */
+        object-fit: cover;
+    }
+
+.slider-container {
+    height: 20vh; /* 25% of the viewport height */
+}
+
+#imageMain img {
+    height: 50vh; /* Adjust this value to your needs */
+    width: 100%;
+    object-fit: cover;
+}
+
+
+
+div.carPhotoThumbnailSelected {
+    border: 3px solid var(--bs-primary);
+    box-sizing: border-box;
+}
+
+.btn-arrow{
+    flex: 1;
+}
+
