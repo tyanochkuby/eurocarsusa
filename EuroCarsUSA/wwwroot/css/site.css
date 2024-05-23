@@ -118,11 +118,23 @@ img.rounded-xxl {
     }
 
 .slider-container {
-    height: 25vh; /* 25% of the viewport height */
+    height: 20vh; /* 25% of the viewport height */
 }
 
 #imageMain img {
-    height: 60vh; /* Adjust this value to your needs */
+    height: 50vh; /* Adjust this value to your needs */
     width: 100%;
     object-fit: cover;
 }
+
+
+
+div.carPhotoThumbnailSelected {
+    border: 3px solid var(--bs-primary);
+    box-sizing: border-box;
+}
+
+.btn-arrow{
+    flex: 1;
+}
+

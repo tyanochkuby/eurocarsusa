@@ -10,12 +10,21 @@
 
         @*Images*@
         <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
-            <div class="row justify-content-center">
-                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                    <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0> 
-                        <img src=@ViewBag.Car.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
-                    </a>
-                </figure>
+            <div class="row justify-content-between">
+                <div class="col-md-1 d-flex align-items-center" >
+                    <button class="btn btn-primary btn-arrow rounded-pill" id="leftArrowButton"><i class="fas fa-arrow-left"></i></button>
+                </div>
+                <div class="col-md-10">
+                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                        <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0> 
+
+                            <img src=@ViewBag.Car.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
+                        </a>
+                    </figure>
+                </div>
+                <div class="col-md-1 d-flex align-items-center">
+                    <button class="btn btn-primary btn-arrow rounded-pill" id="rightArrowButton"><i class="fas fa-arrow-right"></i></button>
+                </div>
             </div>
 
 
@@ -26,8 +35,11 @@
                         {
                             <div class="slick-slide" data-slick-index="@i" aria-hidden="true">
                                 <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="slick-slide" data-slick-index="2"  aria-hidden="true" tabindex="-1" role="option" bis_skin_checked="1">
+
                                     <a href=@ViewBag.Car.Images[i] class="carPhotoThumbnail" id=@("car-figure-" + i) data-width="1200" data-height="900" itemprop="contentUrl" data-index=@i>
-                                        <img src=@ViewBag.Car.Images[i] class="me-2"  style="object-fit: cover;" itemprop="thumbnail">
+                                        <div class="me-2">
+                                            <img src=@ViewBag.Car.Images[i] style="object-fit: cover;" itemprop="thumbnail">
+                                        </div>
                                     </a>
                                 </figure>
                             </div>
@@ -262,6 +274,10 @@
 
                 var newImageSrc = $(this).attr('href');
 
+                
+                $('.carPhotoThumbnail div').removeClass('carPhotoThumbnailSelected');
+                $(this).find('div').addClass('carPhotoThumbnailSelected');
+
                 // Update the main image
                 $('#imageMain img').attr('src', newImageSrc);
                 $('#imageMain').attr('href', newImageSrc);
@@ -277,9 +293,68 @@
     </script>
     <script>
         $(document).ready(function () {
+            
+            var sliderPosition = 1;
+
             $("#toggleButton").click(function () {
                 $("#phoneNumber").toggle();
                 $("#showNumber").toggle();
+            });
+
+            $('#leftArrowButton').click(function () {
+                var index = parseInt($('#imageMain').attr('data-index'));
+                var allImages = Array.from(document.getElementsByClassName('carPhotoThumbnail'));
+                allImages = allImages.filter(function (element) {
+                    return !element.parentElement.parentElement.classList.contains('slick-cloned');
+                });
+                var count = allImages.length;
+                var newIndex = (index - 1 + count) % count;
+                console.log(newIndex);
+
+                var newImageSrc = allImages[newIndex]['href'];
+                
+                console.log(newImageSrc);
+                $('#imageMain img').attr('src', newImageSrc);
+                $('#imageMain').attr('href', newImageSrc);
+                $('#imageMain').attr('data-index', newIndex);
+                $('.carPhotoThumbnail div').removeClass('carPhotoThumbnailSelected');
+                //$('.carPhotoThumbnail').eq(newIndex).find('div').addClass('carPhotoThumbnailSelected');
+                $(allImages[newIndex]).find('div').addClass('carPhotoThumbnailSelected');
+
+                if((sliderPosition - 1) % 2 == 0)
+                {
+                    $('.slider-container').slick('slickPrev');
+                }
+                sliderPosition = sliderPosition - 1;
+
+            });
+
+            $('#rightArrowButton').click(function () {
+                var index = parseInt($('#imageMain').attr('data-index'));
+
+                var allImages = Array.from(document.getElementsByClassName('carPhotoThumbnail'));
+                allImages = allImages.filter(function (element) {
+                    return !element.parentElement.parentElement.classList.contains('slick-cloned');
+                });
+                var count = allImages.length;
+                console.log(count);
+                console.log('index');
+                console.log(index);
+                var newIndex = (index + 1) % count;
+                console.log(newIndex);
+                var newImageSrc = allImages[newIndex]['href'];
+
+                console.log(newImageSrc);
+                $('#imageMain img').attr('src', newImageSrc);
+                $('#imageMain').attr('href', newImageSrc);
+                $('#imageMain').attr('data-index', newIndex);
+                $('.carPhotoThumbnail div').removeClass('carPhotoThumbnailSelected');
+                //$('.carPhotoThumbnail').eq(newIndex).find('div').addClass('carPhotoThumbnailSelected');
+                $(allImages[newIndex]).find('div').addClass('carPhotoThumbnailSelected');
+                if ((sliderPosition + 1) % 2 == 1) {
+                    $('.slider-container').slick('slickNext');
+                }
+                sliderPosition = sliderPosition + 1;
             });
 
         });
@@ -317,6 +392,7 @@
             $('.slider-container').slick({
                 slidesToShow: 3,
                 slidesToScroll: 2,
+                infinite: true,
                 arrows: false, // This removes the navigation buttons
                 draggable: true,
             });
