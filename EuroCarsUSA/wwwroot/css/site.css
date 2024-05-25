@@ -33,6 +33,11 @@ select {
     right: 5px;
 }
 
+#filters {
+    width: fit-content;
+}
+
+
 .center-items {
     display: grid;
     place-items: center;

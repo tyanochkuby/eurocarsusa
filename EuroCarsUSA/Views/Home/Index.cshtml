@@ -10,149 +10,167 @@
     <h1 class="display-4">Welcome</h1>
 </div>
 
-<div class="py-4 px-4">
-    <form method="get" class="d-flex justify-content-center align-items-center  flex-column mb-3" id="filterForm">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filtersWithButtons" aria-expanded="false" aria-controls="filtersWithButtons">
+<div class="py-4 px-4 align-items-center justify-content-center d-flex flex-column" >
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filters"    aria-controls="filters">
             Filters
         </button>
-        <div class="form-group collapse bg-secondary mt-2" id="filtersWithButtons">
-            <div id="filterFields">
-                <div id="basicFilters" class="p-3">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 py-2">
-                            <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@ViewBag.Make" />
+        <div class="form-group collapse bg-secondary mt-2" id="filters">
+            <div class="justify-content-center align-items-center  pb-2"  id="basicFiltersForm">
+                <form method="get">
+
+                    <div id="basicFilters" class="p-3">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 py-2">
+                                <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@Context.Request.Query["make"]" />
+                            </div>
+                            <div class="col-md-4 py-2">
+                                <input type="number" id="minYear" name="minYear" placeholder="Min year" class="form-control" value="@Context.Request.Query["minYear"]" />
+                            </div>
+                            <div class="col-md-4 py-2">
+                                <input type="number" id="maxYear" name="maxYear" placeholder="Max year" class="form-control" value="@Context.Request.Query["maxYear"]" />
+                            </div>
                         </div>
-                        <div class="col-md-4 py-2">
-                            <input type="number" id="minYear" name="minYear" placeholder="Min year" class="form-control" value="@ViewBag.MinYear" />
-                        </div>
-                        <div class="col-md-4 py-2">
-                            <input type="number" id="maxYear" name="maxYear" placeholder="Max year" class="form-control" value="@ViewBag.MaxYear" />
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
+                                <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@Context.Request.Query["model"]" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" id="minPrice" name="minPrice" placeholder="Min price" class="form-control" value="@Context.Request.Query["minPrice"]" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" id="maxPrice" name="maxPrice" placeholder="Max price" class="form-control" value="@Context.Request.Query["maxPrice"]" />
+                            </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-4">
-                            <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@ViewBag.Model" />
-                        </div>
-                        <div class="col-md-4">
-                            <input type="number" id="minPrice" name="minPrice" placeholder="Min price" class="form-control" value="@ViewBag.MinPrice" />
-                        </div>
-                        <div class="col-md-4">
-                            <input type="number" id="maxPrice" name="maxPrice" placeholder="Max price" class="form-control" value="@ViewBag.MaxPrice" />
-                        </div>
+
+
+                    <div class="row justify-content-end my-2">
+                        <button class="btn btn-light w-15 rounded-pill me-2" type="button" id="clearButton">
+                            Clear
+                        </button>
+                        <button class="btn btn-light w-15 rounded-pill me-2" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilters" aria-expanded="false" aria-controls="advancedFilters" id="moreFiltersButton">
+                            More filters
+                        </button>
+                        <button type="submit" class="btn btn-primary w-15 rounded-pill me-4" id="basicFilterSubmitButton">
+                            Filter
+                        </button>
                     </div>
-                </div>
-
-                <div class="form-group bg-secondary p-3" id="advancedFilters" style="display: none">
-
-                    <div class="row my-1">
-                        <div class="col-md-3">
-                            <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@ViewBag.Make" />
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@ViewBag.Model" />
-                        </div>
-                        <div class="col-md-3">
-                            <select id="carType" name="carType" class="form-control w-100">
-                                <option value="" disabled selected>Car type</option>
-                                @foreach (CarType typeOption in Enum.GetValues(typeof(CarType)))
-                                {
-                                    @if (ViewBag.CarType == typeOption)
-                                    {
-                                        <option value="@typeOption" selected>@typeOption.ToString()</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@typeOption">@typeOption.ToString()</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select id="fuelType" name="fuelType" class="form-control w-100">
-                                <option value="" disabled selected>Fuel type</option>
-                                @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
-                                {
-                                    @if (ViewBag.FuelType == fuelType)
-                                    {
-                                        <option value="@fuelType" selected>@fuelType</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@fuelType">@fuelType</option>
-                                    }
-                                }
-
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-md-3">
-                            <select id="transmission" name="transmission" class="form-control w-100">
-                                <option value="" disabled selected>Transmission</option>
-                                @foreach (CarTransmission transmissionOption in Enum.GetValues(typeof(CarTransmission)))
-                                {
-                                    @if (ViewBag.Transmission == transmissionOption)
-                                    {
-                                        <option value="@transmissionOption" selected>@transmissionOption.ToString()</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@transmissionOption">@transmissionOption.ToString()</option>
-                                    }
-                                }
-                            </select>
-
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" id="color" name="color" placeholder="Color" class="form-control" value="@ViewBag.Color" />
-
-                        </div>
-                        <div class="col-md-3">
-                            <input type="number" id="minPrice" name="minPrice" placeholder="Min price" class="form-control" value="@ViewBag.MinPrice" />
-                        </div>
-                        <div class="col-md-3">
-                            <input type="number" id="maxPrice" name="maxPrice" placeholder="Max price" class="form-control" value="@ViewBag.MaxPrice" />
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-md-3">
-                            <input type="number" id="minMileage" name="minMileage" placeholder="Min mileage" class="form-control" value="@ViewBag.MinMileage" />
-                        </div>
-                        <div class="col-md-3">
-                            <input type="number" id="maxMileage" name="maxMileage" placeholder="Max mileage" class="form-control" value="@ViewBag.MaxMileage" />
-                        </div>
-                        <div class="col-md-3">
-                            <input type="number" id="minYear" name="minYear" placeholder="Min year" class="form-control" value="@ViewBag.MinYear" />
-                        </div>
-                        <div class="col-md-3">
-                            <input type="number" id="maxYear" name="maxYear" placeholder="Max year" class="form-control" value="@ViewBag.MaxYear" />
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-md-3">
-                            <input type="number" id="minEngineVolume" placeholder="Min engine volume" name="minEngineVolume" class="form-control" value="@ViewBag.MinEngineVolume" />
-                        </div>
-                        <div class="col-md-3">
-                            <input type="number" id="maxEngineVolume" placeholder="Max engine volume" name="maxEngineVolume" class="form-control" value="@ViewBag.MaxEngineVolume" />
-                        </div>
-                    </div>
-                </div>
-            
-
+                </form>
             </div>
 
-            <div class="row justify-content-end my-2">
-                <button class="btn btn-light w-15 rounded-pill me-2" type="button" id="clearButton">
-                    Clear
-                </button>
-                <button class="btn btn-light w-15 rounded-pill me-2" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilters" aria-expanded="false" aria-controls="advancedFilters" id="moreFiltersButton">
-                    More filters
-                </button>
-                <button type="submit" class="btn btn-primary w-15 rounded-pill me-4" id="filterSubmitButton">
-                    Filter
-                </button>
-            </div>
 
+            <div id="advancedFiltersForm" style="display: none" class="justify-content-center align-items-center collapse  flex-column mb-3">
+                <form method="get">
+                    <div class="form-group bg-secondary p-3" id="advancedFilters" >
+
+                        <div class="row my-1">
+                            <div class="col-md-3">
+                                <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@Context.Request.Query["make"]" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@Context.Request.Query["model"]" />
+                            </div>
+                            <div class="col-md-3">
+                                <select id="carType" name="carType" class="form-control w-100">
+                                    <option value="" disabled selected>Car type</option>
+                                    @foreach (CarType typeOption in Enum.GetValues(typeof(CarType)))
+                                    {
+                                        @if (ViewBag.CarType == typeOption)
+                                        {
+                                            <option value="@typeOption" selected>@typeOption.ToString()</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@typeOption">@typeOption.ToString()</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="fuelType" name="fuelType" class="form-control w-100">
+                                    <option value="" disabled selected>Fuel type</option>
+                                    @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
+                                    {
+                                        @if (ViewBag.FuelType == fuelType)
+                                        {
+                                            <option value="@fuelType" selected>@fuelType</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@fuelType">@fuelType</option>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-md-3">
+                                <select id="transmission" name="transmission" class="form-control w-100">
+                                    <option value="" disabled selected>Transmission</option>
+                                    @foreach (CarTransmission transmissionOption in Enum.GetValues(typeof(CarTransmission)))
+                                    {
+                                        @if (ViewBag.Transmission == transmissionOption)
+                                        {
+                                            <option value="@transmissionOption" selected>@transmissionOption.ToString()</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@transmissionOption">@transmissionOption.ToString()</option>
+                                        }
+                                    }
+                                </select>
+
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="color" name="color" placeholder="Color" class="form-control" value="@Context.Request.Query["color"]" />
+
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" id="minPriceAdvanced" name="minPrice" placeholder="Min price" class="form-control" value="@Context.Request.Query["minPrice"]" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" id="maxPriceAdvanced" name="maxPrice" placeholder="Max price" class="form-control" value="@Context.Request.Query["maxPrice"]" />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-md-3">
+                                <input type="number" id="minMileage" name="minMileage" placeholder="Min mileage" class="form-control" value="@Context.Request.Query["minMileage"]" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" id="maxMileage" name="maxMileage" placeholder="Max mileage" class="form-control" value="@Context.Request.Query["maxMileage"]" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" id="minYearAdvanced" name="minYear" placeholder="Min year" class="form-control" value="@Context.Request.Query["minYear"]" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" id="maxYearAdvanced" name="maxYear" placeholder="Max year" class="form-control" value="@Context.Request.Query["maxYear"]" />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-md-3">
+                                <input type="number" id="minEngineVolume" placeholder="Min engine volume" name="minEngineVolume" class="form-control" value="@Context.Request.Query["minEngineVolume"]" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" id="maxEngineVolume" placeholder="Max engine volume" name="maxEngineVolume" class="form-control" value="@Context.Request.Query["maxEngineVolume"]" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row justify-content-end my-2">
+                        <button class="btn btn-light w-15 rounded-pill me-2" type="button" id="clearButton">
+                            Clear
+                        </button>
+                        <button class="btn btn-light w-15 rounded-pill me-2" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilters" aria-expanded="false" aria-controls="advancedFilters" id="lessFiltersButton">
+                            Less filters
+                        </button>
+                        <button type="submit" class="btn btn-primary w-15 rounded-pill me-4" id="advancedFilterSubmitButton">
+                            Filter
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
         
         
@@ -174,7 +192,7 @@
                 }
             </select>
         </div>
-    </form>
+    
 </div>
 
 
@@ -314,31 +332,34 @@
 
             var filtersExpanded = false;
 
-            $('#filtersWithButtons').css('display', 'block');
-            $('#advancedFilters').removeClass('collapse');
+            $('#filters').css('display', 'block');
+            //$('#advancedFiltersForm').removeClass('collapse');
+
             setTimeout(function () {
-                basicFiltersDimensions = getActualDimensions('#basicFilters');
-                advancedFiltersDimensions = getActualDimensions('#advancedFilters');
-                // Hide #filterFields and #advancedFilters again
-                $('#filtersWithButtons').css('display', '');
-                $('#advancedFilters').addClass('collapse');
+                basicFiltersDimensions = getActualDimensions('#basicFiltersForm');
+                console.log(basicFiltersDimensions);
+                advancedFiltersDimensions = getActualDimensions('#advancedFiltersForm');
+                // Hide #filters and #advancedFilters again
+                $('#filters').css({
+                    'width': basicFiltersDimensions.width,
+                    'height': basicFiltersDimensions.height
+                });
+                $('#filters').css('display', '');
+                $('#advancedFiltersForm').addClass('collapse');
             }, 0);
 
             $('#moreFiltersButton').click(function () {
-                if (!filtersExpanded) {
-                    $('#filterFields').animate({ height: advancedFiltersDimensions.height, width: advancedFiltersDimensions.width }, 500);
-                    $('#basicFilters').fadeOut(200);
-                    $('#advancedFilters').fadeIn(200);
-                    filtersExpanded = true;
-                    $(this).text('Less filters');
-                } else {
-                    $('#advancedFilters').fadeOut(200);
-                    $('#filterFields').animate({ height: basicFiltersDimensions.height, width: basicFiltersDimensions.width }, 500);
-                    $('#basicFilters').fadeIn(200);
-                    filtersExpanded = false;
-                    $(this).text('More filters');
-                }
+                $('#filters').animate({ height: advancedFiltersDimensions.height, width: advancedFiltersDimensions.width }, 500);
+                $('#basicFiltersForm').fadeOut(200);
+                $('#advancedFiltersForm').fadeIn(200);
+                    filtersExpanded = true
                 $(this).blur();
+            });
+            $('#lessFiltersButton').click(function () {
+                $('#filters').animate({ height: basicFiltersDimensions.height, width: basicFiltersDimensions.width }, 500);
+                $('#advancedFiltersForm').fadeOut(200);
+                $('#basicFiltersForm').fadeIn(200);
+                filtersExpanded = false;
             });
 
             $('#clearButton').click(function () {
@@ -372,6 +393,8 @@
     </script>
     <script>
         $(document).ready(function () {
+            console.log(@Context.Request.Query["minYear"]);
+
             var showShowMoreButton = '@ViewBag.ShowMoreButton' === 'True';
             console.log(showShowMoreButton);
             if (!showShowMoreButton) {
