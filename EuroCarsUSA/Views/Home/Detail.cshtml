@@ -7,6 +7,19 @@
 <div class="row">
     <div class="col-md-8">
 
+        @*path*@
+        <div class="mb-3">
+            <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn btn-secondary rounded-pill me-1">
+                <- Back
+            </a>
+
+            <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" class="btn btn-secondary rounded-pill me-1">
+                @ViewBag.Car.Make
+            </a>
+            <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" asp-route-model="@ViewBag.Car.Model" class="btn btn-secondary rounded-pill">
+                @ViewBag.Car.Model
+            </a>
+        </div>
 
         @*Images*@
         <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">

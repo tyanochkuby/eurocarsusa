@@ -70,18 +70,7 @@ namespace EuroCarsUSA.Controllers
             }
 
 
-            ViewBag.MinPrice = minPrice; ViewBag.MaxPrice = maxPrice;
-            ViewBag.FuelType = fuelType;
-            ViewBag.CarType = carType;
-            ViewBag.Color = color;
-            ViewBag.Make = make;
-            ViewBag.Model = model;
-            ViewBag.MinYear = minYear; ViewBag.MaxYear = maxYear;
-            ViewBag.MinEngineVolume = minEngineVolume; ViewBag.MaximumEngineVolume = maxEngineVolume;
-            ViewBag.MinMileage = minMileage; ViewBag.MaxMileage = maxMileage;
-            ViewBag.MinMileage = minMileage; ViewBag.MaxMileage = maxMileage;
-            ViewBag.Transmission = transmission;
-
+            
             var carsCount = await _carRepository.GetCount(filters);
             ViewBag.ShowMoreButton = carsCount > carsPerLoad;
 
@@ -128,6 +117,17 @@ namespace EuroCarsUSA.Controllers
 
             var partialView = PartialView(nextCars);
             return partialView;
+        }
+
+        public IActionResult BackToIndexWithFilters()
+        {
+            var sessionData = HttpContext.Session.GetString("CurrentFilters");
+            if (!string.IsNullOrEmpty(sessionData))
+            {
+                var filters = JsonConvert.DeserializeObject<CarFilter>(sessionData);
+                return RedirectToAction("Index", filters);
+            }
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

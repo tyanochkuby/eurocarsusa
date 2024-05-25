@@ -15,8 +15,8 @@
             Filters
         </button>
         <div class="form-group collapse bg-secondary mt-2" id="filters">
-            <div class="justify-content-center align-items-center  pb-2"  id="basicFiltersForm">
-                <form method="get">
+            <div class="justify-content-center align-items-center  pb-2"  id="basicFiltersFormWrapper">
+            <form method="get" id="basicFiltersForm">
 
                     <div id="basicFilters" class="p-3">
                         <div class="row justify-content-center">
@@ -59,8 +59,8 @@
             </div>
 
 
-            <div id="advancedFiltersForm" style="display: none" class="justify-content-center align-items-center collapse  flex-column mb-3">
-                <form method="get">
+            <div id="advancedFiltersFormWrapper" style="display: none" class="justify-content-center align-items-center collapse  flex-column mb-3">
+            <form method="get" id="advancedFiltersForm">
                     <div class="form-group bg-secondary p-3" id="advancedFilters" >
 
                         <div class="row my-1">
@@ -321,7 +321,7 @@
         });
     </script>
     <script>
-        $('#showMoreButton').click(function () {
+        $('.btn').click(function () {
             $(this).blur();
         });
     </script>
@@ -333,39 +333,43 @@
             var filtersExpanded = false;
 
             $('#filters').css('display', 'block');
-            //$('#advancedFiltersForm').removeClass('collapse');
+            //$('#advancedFiltersFormWrapper').removeClass('collapse');
 
             setTimeout(function () {
-                basicFiltersDimensions = getActualDimensions('#basicFiltersForm');
+                basicFiltersDimensions = getActualDimensions('#basicFiltersFormWrapper');
                 console.log(basicFiltersDimensions);
-                advancedFiltersDimensions = getActualDimensions('#advancedFiltersForm');
+                advancedFiltersDimensions = getActualDimensions('#advancedFiltersFormWrapper');
                 // Hide #filters and #advancedFilters again
                 $('#filters').css({
                     'width': basicFiltersDimensions.width,
                     'height': basicFiltersDimensions.height
                 });
                 $('#filters').css('display', '');
-                $('#advancedFiltersForm').addClass('collapse');
+                $('#advancedFiltersFormWrapper').addClass('collapse');
             }, 0);
 
             $('#moreFiltersButton').click(function () {
                 $('#filters').animate({ height: advancedFiltersDimensions.height, width: advancedFiltersDimensions.width }, 500);
-                $('#basicFiltersForm').fadeOut(200);
-                $('#advancedFiltersForm').fadeIn(200);
+                $('#basicFiltersFormWrapper').fadeOut(200);
+                $('#advancedFiltersFormWrapper').fadeIn(200);
                     filtersExpanded = true
                 $(this).blur();
             });
             $('#lessFiltersButton').click(function () {
                 $('#filters').animate({ height: basicFiltersDimensions.height, width: basicFiltersDimensions.width }, 500);
-                $('#advancedFiltersForm').fadeOut(200);
-                $('#basicFiltersForm').fadeIn(200);
+                $('#advancedFiltersFormWrapper').fadeOut(200);
+                $('#basicFiltersFormWrapper').fadeIn(200);
                 filtersExpanded = false;
             });
 
             $('#clearButton').click(function () {
-                $('#filterForm input[type="text"], #filterForm input[type="number"]').val('');
+                $('#basicFiltersForm input[type="text"], #basicFiltersForm input[type="number"]').val('');
 
-                $('#filterForm select').prop('selectedIndex', 0);
+                $('#basicFiltersForm select').prop('selectedIndex', 0);
+
+                $('#advancedFiltersForm input[type="text"], #advancedFiltersForm input[type="number"]').val('');
+
+                $('#advancedFiltersForm select').prop('selectedIndex', 0);
                 $(this).blur();
             });
             $('#filterSubmitButton').click(function () {
