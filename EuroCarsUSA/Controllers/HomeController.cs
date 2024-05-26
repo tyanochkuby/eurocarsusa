@@ -1,6 +1,7 @@
 using EuroCarsUSA.Data;
 using EuroCarsUSA.Data.Enum;
 using EuroCarsUSA.Data.Interfaces;
+using EuroCarsUSA.Data.Services;
 using EuroCarsUSA.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -15,7 +16,8 @@ namespace EuroCarsUSA.Controllers
         private readonly ICarRepository _carRepository;
         private readonly IDetailPageFormRepository _detailPageFormRepository;
         private readonly ILogger<HomeController> _logger;
-        private readonly int carsPerLoad = 6;
+        private readonly IEmailService _emailService;
+        private const int carsPerLoad = 6;
         private Dictionary<SortOrder, Func<IEnumerable<Car>, IOrderedEnumerable<Car>>> sortFunctions = new Dictionary<SortOrder, Func<IEnumerable<Car>, IOrderedEnumerable<Car>>>
         {
             { SortOrder.ByYear, cars => cars.OrderBy(c => c.Year) },
@@ -25,12 +27,12 @@ namespace EuroCarsUSA.Controllers
             { SortOrder.ByPrice, cars => cars.OrderBy(c => c.Price) },
             { SortOrder.ByPriceDesc, cars => cars.OrderByDescending(c => c.Price) },
         };
-        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository)
+        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService)
         {
             _carRepository = carRepository;
             _detailPageFormRepository = detailPageFormRepository;
             _logger = logger;
-            
+            _emailService = emailService;
         }
 
         public async Task<IActionResult> Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, CarFuelType? fuelType, CarType? carType, CarTransmission? transmission, string color, string make, string model)
@@ -97,7 +99,30 @@ namespace EuroCarsUSA.Controllers
             }
 
             bool result = await _detailPageFormRepository.Add(form);
-            return Json(new { success = result });
+
+            if (result)
+            {
+                var car = await _carRepository.GetById(form.CarId);
+
+                string phoneNumberMessage = string.IsNullOrEmpty(form.PhoneNumber) ? "No phone number provided" : $"Phone: {form.PhoneNumber}";
+                string emailMessage = string.IsNullOrEmpty(form.Email) ? "No email provided" : $"Email: {form.Email}";
+                string message = string.IsNullOrEmpty(form.Message) ? "No message provided" : $"Message: {form.Message}";
+                string emailBody = $"Name: {form.Name}\nEmail: {emailMessage}\nPhone: {phoneNumberMessage}\nMessage: {message}\n\nCar: {car.Make} {car.Model} {car.Year}";
+                try
+                {
+                    _emailService.SendEmail("romyud1994@gmail.com", "New form submitted", emailBody);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return Json(new { success = true, errors = new List<string> { "Failed to send email" } });
+                }
+                return Json(new { success = true });
+            }
+            else
+            {
+                return Json(new { success = false, errors = new List<string> { "Failed to submit form" } });
+            }
         }
 
         public async Task<IActionResult> GetMoreCars(int additionalCarsDisplayed)
