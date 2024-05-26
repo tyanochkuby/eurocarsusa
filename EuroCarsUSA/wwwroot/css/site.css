@@ -143,3 +143,8 @@ div.carPhotoThumbnailSelected {
     flex: 1;
 }
 
+.carIcon {
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+}
