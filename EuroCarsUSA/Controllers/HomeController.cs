@@ -107,9 +107,13 @@ namespace EuroCarsUSA.Controllers
                 string phoneNumberMessage = string.IsNullOrEmpty(form.PhoneNumber) ? "No phone number provided" : $"Phone: {form.PhoneNumber}";
                 string emailMessage = string.IsNullOrEmpty(form.Email) ? "No email provided" : $"Email: {form.Email}";
                 string message = string.IsNullOrEmpty(form.Message) ? "No message provided" : $"Message: {form.Message}";
-                string emailBody = $"Name: {form.Name}\nEmail: {emailMessage}\nPhone: {phoneNumberMessage}\nMessage: {message}\n\nCar: {car.Make} {car.Model} {car.Year}";
+                string emailBody = $"Name: {form.Name}\n{emailMessage}\n{phoneNumberMessage}\n{message}\n\nCar: {car.Make} {car.Model} {car.Year}";
                 try
                 {
+                    //email to client
+                    if (!string.IsNullOrEmpty(form.Email))
+                        _emailService.SendEmail(form.Email, "EuroCarsUSA - Form received", $"Hello!\n\nWe just received you form and we're now asking you for a little bit of patience. We will contact you shortly.\n\nAnd thank you for your interest in our car - {car.Make} {car.Model}.\n\nBest regards\nEuroCarsUSA team");
+                    //email to admin
                     _emailService.SendEmail("romyud1994@gmail.com", "New form submitted", emailBody);
                 }
                 catch (Exception e)

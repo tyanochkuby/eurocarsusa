@@ -5,8 +5,8 @@ namespace EuroCarsUSA.Data.Services
     {
         public void SendEmail(string to, string subject, string body)
         {
-            string email = Environment.GetEnvironmentVariable("GMAIL_LOGIN");
-            string password = Environment.GetEnvironmentVariable("GMAIL_PASSWORD");
+            string email = Environment.GetEnvironmentVariable("OUTLOOK_LOGIN");
+            string password = Environment.GetEnvironmentVariable("OUTLOOK_PASSWORD");
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 throw new Exception("Email and password are not set in environment variables.");
@@ -18,7 +18,7 @@ namespace EuroCarsUSA.Data.Services
             mail.Body = body;
 
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
+            smtp.Host = "smtp-mail.outlook.com";
             smtp.Port = 587;
             smtp.Credentials = new System.Net.NetworkCredential(email, password);
             smtp.EnableSsl = true;
