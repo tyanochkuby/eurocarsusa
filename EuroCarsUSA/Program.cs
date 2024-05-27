@@ -1,6 +1,7 @@
 using EuroCarsUSA.Data;
 using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Data.Repositories;
+using EuroCarsUSA.Data.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -12,6 +13,7 @@ builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDetailPageFormRepository, DetailPageFormRepository>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 //Adding session services
 builder.Services.AddSession(options =>
