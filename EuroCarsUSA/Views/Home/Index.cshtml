@@ -196,26 +196,26 @@
 </div>
 
 
-<div class="album py-5 px-5 bg-light">
-    <div class="container" id="carsListing">
+<div class="album py-5 px-3 bg-light">
+    <div id="carsListing">
         <div class="row">
         @foreach(Car car in Model)
         {
-            <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                 <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none">
                     <div class="card mb-4 pt-2 box-shadow rounded-xxl">
-                        <div class="img-container overflow-hidden mx-3 mt-1">
+                        <div class="img-container overflow-hidden mx-0 mt-1">
                                 <img class="card-img float-left rounded-xxl" src=@car.Images[0] alt=@(car.Color + car.Make + car.Model)>
                         </div>
 
                         <div class="card-body">
                             <div class="row justify-content-between">
-                                <!-- Car name -->
-                                <div class="col">
-                                        <b>@(car.Make + " " + car.Model)</b> 
+                                <!-- Car nam -->
+                                    <div class="col-8">
+                                        <b>@(car.Make + " " + car.Model)</b>
                                 </div>
                                 <!-- Price -->
-                                <div class="col text-end">
+                                    <div class="col-4 text-end">
                                         <p>@(car.Price)</p>
                                 </div>
                             </div>
@@ -271,12 +271,12 @@
                             </div>
                         </div>
                             <div class="row d-flex justify-content-end">
-                                <div class="col-xl-4 col-md-5 col-sm-6 mb-3 ps-4 pe-1">
+                                <div class="col-xl-4 col-md-6 col-sm-6 col-6 mb-3 ps-4 pe-1">
                                     <a class="btn btn-secondary rounded-pill w-100" asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id>
                                         Details
                                     </a>
                                 </div>
-                                <div class="col-xl-4 col-md-5 col-sm-6 mb-3 pe-4 ps-1">
+                                <div class="col-xl-4 col-md-6 col-sm-6 col-6 mb-3 pe-4 ps-1">
                                     <button type="button" class="btn btn-primary rounded-pill w-100">
                                         <i class="fas fa-heart px-3 py-1"></i>
                                     </button>
