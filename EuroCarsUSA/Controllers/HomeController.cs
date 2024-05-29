@@ -77,6 +77,7 @@ namespace EuroCarsUSA.Controllers
             ViewBag.ShowMoreButton = carsCount > carsPerLoad;
 
             ViewBag.SortOrder = sortOrder;
+            //ViewBag.CarsListing = PartialView("_CarsListing", cars.ToList());
             return View(cars.ToList());
         }
 
@@ -129,7 +130,7 @@ namespace EuroCarsUSA.Controllers
             }
         }
 
-        public async Task<IActionResult> GetMoreCars(int additionalCarsDisplayed)
+        public async Task<IActionResult> GetCars(int carsDisplayed)
         {
             CarFilter filters = new CarFilter();
             var sessionData = HttpContext.Session.GetString("CurrentFilters");
@@ -138,9 +139,9 @@ namespace EuroCarsUSA.Controllers
                 filters = JsonConvert.DeserializeObject<CarFilter>(sessionData);
             }
              
-            var nextCars = await _carRepository.GetRange(carsPerLoad + additionalCarsDisplayed, carsPerLoad, filters);
+            var nextCars = await _carRepository.GetRange(carsDisplayed, carsPerLoad, filters);
             var carsCount = await _carRepository.GetCount(filters);
-            var showMoreButton = carsCount > carsPerLoad + additionalCarsDisplayed + carsPerLoad;
+            var showMoreButton = carsCount > carsDisplayed + carsPerLoad;
             ViewBag.ShowMoreButton = showMoreButton;
 
 

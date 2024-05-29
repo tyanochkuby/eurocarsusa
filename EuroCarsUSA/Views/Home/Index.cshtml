@@ -198,95 +198,7 @@
 
 <div class="album py-5 px-3 bg-light">
     <div id="carsListing">
-        <div class="row">
-        @foreach(Car car in Model)
-        {
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none">
-                    <div class="card mb-4 pt-2 box-shadow rounded-xxl">
-                        <div class="img-container overflow-hidden mx-0 mt-1">
-                                <img class="card-img float-left rounded-xxl" src=@car.Images[0] alt=@(car.Color + car.Make + car.Model)>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="row justify-content-between">
-                                <!-- Car nam -->
-                                    <div class="col-8">
-                                        <b>@(car.Make + " " + car.Model)</b>
-                                </div>
-                                <!-- Price -->
-                                    <div class="col-4 text-end">
-                                        <p>@(car.Price)</p>
-                                </div>
-                            </div>
-
-                            <!-- divider -->
-                            <hr style="border-top: 1px solid #000;">
-
-
-                            <div class="row justify-content-between">
-                                <div class="col">
-                                    <div class="row">
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <img class="carIcon" src="/icons/car_millage.svg">
-                                            <b class="ms-2">Mileage</b>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.Mileage</p>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <img class="carIcon" src="/icons/car_fueltype.svg">
-                                            <b class="ms-2">Fuel type</b>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.FuelType.ToString()</p>
-                                    </div>
-
-                                </div>
-                                <div class="col text-end">
-                                    <div class="row">
-                                        <div class="d-flex align-items-center justify-content-end">
-                                            <img class="carIcon" src="/icons/car_gearbox.svg">
-                                            <b class="ms-2">Gearbox</b>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.Transmission.ToString()</p>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="d-flex align-items-center justify-content-end">
-                                            <img class="carIcon" src="/icons/car_year.svg">
-                                            <b class="ms-2">Year</b>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <p>@car.Year</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                            <div class="row d-flex justify-content-end">
-                                <div class="col-xl-4 col-md-6 col-sm-6 col-6 mb-3 ps-4 pe-1">
-                                    <a class="btn btn-secondary rounded-pill w-100" asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id>
-                                        Details
-                                    </a>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6 col-6 mb-3 pe-4 ps-1">
-                                    <button type="button" class="btn btn-primary rounded-pill w-100">
-                                        <i class="fas fa-heart px-3 py-1"></i>
-                                    </button>
-                                </div>
-                            </div>
-                    </div>
-                </a>
-            </div>            
-        }
-            </div>
+        @*All cars go here*@
     </div>
 </div>
 
@@ -299,27 +211,32 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            var additionalCarsDisplayed = 0;
+            var carsDisplayed = 0;
 
-            $('#showMoreButton').click(function () {
+            function getCars() {
                 $.ajax({
-                    url: '/Home/GetMoreCars',
-                    data: { additionalCarsDisplayed: additionalCarsDisplayed },
+                    url: '/Home/GetCars',
+                    data: { carsDisplayed: carsDisplayed },
                     type: 'GET',
                     success: function (data) {
                         var html = $(data);
                         $('#carsListing').append(html);
-                        additionalCarsDisplayed += html.data('cars-in-view');
+                        carsDisplayed += html.data('cars-in-view');
                         console.log(html.data('show-more-button'));
                         if (html.data('show-more-button') == "False") {
                             $('#showMoreButton').hide();
                         }
                     },
-
                     error: function () {
                         alert('An error occurred while loading more cars.');
                     }
                 });
+            }
+
+            getCars();
+
+            $('#showMoreButton').click(function () {
+                getCars();
             });
         });
     </script>
