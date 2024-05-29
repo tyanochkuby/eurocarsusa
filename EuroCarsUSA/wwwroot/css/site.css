@@ -79,11 +79,11 @@ select {
     }
 
 .rounded-xxl{
-    border-radius: .80rem;
+    border-radius: 5%;
 }
 
 img.rounded-xxl {
-    border-radius: .400rem;
+    border-radius: 4%;
 }
 
 .img-container {
@@ -147,4 +147,9 @@ div.carPhotoThumbnailSelected {
     height: 1em;
     width: 1em;
     vertical-align: middle;
+}
+@media only screen and (max-width: 576px) {
+    html {
+        font-size: calc(1em + 1vw);
+    }
 }
