@@ -153,3 +153,7 @@ div.carPhotoThumbnailSelected {
         font-size: calc(1em + 1vw);
     }
 }
+
+textarea{
+    resize: none;
+}
