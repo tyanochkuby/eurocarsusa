@@ -42,12 +42,12 @@
 
                                     <div class="row">
                                         <div class="d-flex align-items-center justify-content-start">
-                                            <img class="carIcon" src="/icons/car_fueltype.svg">
-                                            <b class="ms-2">Fuel type</b>
+                                            <img class="carIcon" src="/icons/car_engine.svg">
+                                            <b class="ms-2">Engine volume</b>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <p>@car.FuelType.ToString()</p>
+                                        <p>@(car.FuelType == EuroCarsUSA.Data.Enum.CarFuelType.Electric ? "Electric" : car.EngineVolume.ToString())</p>
                                     </div>
 
                                 </div>
