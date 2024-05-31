@@ -1,4 +1,5 @@
-﻿using EuroCarsUSA.Models;
+﻿using EuroCarsUSA.Data.Enum;
+using EuroCarsUSA.Models;
 
 namespace EuroCarsUSA.Data.Interfaces
 {
@@ -6,6 +7,7 @@ namespace EuroCarsUSA.Data.Interfaces
     {
         Task<IEnumerable<Car>> GetAll();
         Task<IEnumerable<Car>> GetRange(int start, int count, CarFilter? filters);
+        Task<IEnumerable<CarMake>> GetMakes();
         Task<int> GetCount(CarFilter? filters);
         Task<Car> GetById(Guid id);
         Task<bool> Add(Car car);

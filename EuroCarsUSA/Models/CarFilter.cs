@@ -5,7 +5,7 @@ namespace EuroCarsUSA.Models
     public class CarFilter
     {
         
-        public CarMake? Make { get; set; }
+        public List<CarMake> Make { get; set; }
         public string Model { get; set; }
         public int? MinPrice { get; set; }
         public int? MaxPrice { get; set; }

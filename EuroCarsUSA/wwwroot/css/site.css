@@ -2,6 +2,11 @@ html {
   font-size: 14px;
 }
 
+label{
+    color: black;
+)
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -148,8 +153,85 @@ div.carPhotoThumbnailSelected {
     width: 1em;
     vertical-align: middle;
 }
+
+.filterIcon {
+    height: 1.5em;
+    width: 1.5em;
+    vertical-align: middle;
+}
 @media only screen and (max-width: 576px) {
     html {
         font-size: calc(1em + 1vw);
     }
 }
+
+@media (max-width: 767px) {
+    .filters-desktop {
+        display: none !important;
+    }
+    #filters-mobile-list {
+        box-sizing: border-box;
+
+        position: fixed;
+        top: 0;
+        right: -100%; /* Start off the screen (to the right) */
+        width: 100%; /* Use 80% of the screen width */
+        height: 100%; /* Use 100% of the screen height */
+        overflow: auto; /* Add scroll if content is larger than screen */
+        transition: right 0.3s ease-in-out; /* Animate the right property */
+        z-index: 1; /* Make sure it appears on top of other content */
+        background-color: #fff; /* Add a background color */
+    }
+
+        /* When the filters panel has the 'open' class, slide it in */
+        #filters-mobile-list.open {
+            right: 0;
+        }
+}
+
+@media (min-width: 768px) {
+    .filters-mobile {
+        display: none;
+    }
+    
+}
+
+.row-mobile-filter{
+    height: 4em;
+}
+
+.text-ellipsis {
+    margin-bottom: 0px;
+    white-space: nowrap;      /* Prevents the text from wrapping onto the next line */
+    overflow: hidden;         /* Hides the text that overflows the container */
+    text-overflow: ellipsis;  /* Adds the ... at the end when the text overflows */
+    font-size: 15px;
+}
+
+.mobile-filter-select-screen {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background: white;
+    transition: right 0.3s ease-in-out;
+    overflow-y: auto;
+    padding: 20px;
+    z-index: 2;
+}
+    .mobile-filter-select-screen.open {
+        right: 0;
+    }
+
+.mobile-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+    .mobile-list-item label {
+        margin-right: 10px;
+    }

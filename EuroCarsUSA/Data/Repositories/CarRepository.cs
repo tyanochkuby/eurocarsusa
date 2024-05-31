@@ -68,7 +68,7 @@ namespace EuroCarsUSA.Data.Repositories
             if (filters != null)
             {
                 cars = _context.Cars.Where(c =>
-                    (!filters.Make.HasValue || c.Make == filters.Make.Value) &&
+                    (filters.Make.Count == 0 || filters.Make.Any(m => m == c.Make)) &&
                     (string.IsNullOrEmpty(filters.Model) || c.Model.Contains(filters.Model) || filters.Model.Contains(c.Model)) &&
                     (!filters.MinPrice.HasValue || c.Price >= filters.MinPrice.Value) &&
                     (!filters.MaxPrice.HasValue || c.Price <= filters.MaxPrice.Value) &&
@@ -85,6 +85,12 @@ namespace EuroCarsUSA.Data.Repositories
                 );
             }
             return cars;
+        }
+
+        public async Task<IEnumerable<CarMake>> GetMakes()
+        {
+            var makes = await _context.Cars.Select(c => c.Make).Distinct().ToListAsync();
+            return makes;
         }
     }
 }

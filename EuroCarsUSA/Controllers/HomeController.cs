@@ -56,29 +56,20 @@ namespace EuroCarsUSA.Controllers
                 CarType = carType,
                 Transmission = transmission,
                 Color = color,
-                Make = !string.IsNullOrEmpty(make) ? Enum.GetValues(typeof(CarMake)).Cast<CarMake>().FirstOrDefault<CarMake>(c => c.ToString().Contains(make) || make.Contains(c.ToString())) : null,
+                Make = !string.IsNullOrEmpty(make) ? 
+                    Enum.GetValues(typeof(CarMake))
+                        .Cast<CarMake>()
+                        .Where(m => make.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
+                        .ToList() 
+                    : new List<CarMake>(),
                 Model = model
             };
             HttpContext.Session.SetString("CurrentFilters", JsonConvert.SerializeObject(filters));
 
+            var makes = await _carRepository.GetMakes();
+            ViewBag.CarMakes = makes.Select(make => Enum.GetName(typeof(CarMake), make));
 
-            IEnumerable<Car> cars = await _carRepository.GetRange(0, carsPerLoad, filters);
-
-            
-
-            if (sortFunctions.ContainsKey(sortOrder))
-            {
-                cars = sortFunctions[sortOrder](cars);
-            }
-
-
-            
-            var carsCount = await _carRepository.GetCount(filters);
-            ViewBag.ShowMoreButton = carsCount > carsPerLoad;
-
-            ViewBag.SortOrder = sortOrder;
-            //ViewBag.CarsListing = PartialView("_CarsListing", cars.ToList());
-            return View(cars.ToList());
+            return View();
         }
 
 
