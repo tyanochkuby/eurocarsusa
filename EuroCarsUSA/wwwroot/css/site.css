@@ -235,3 +235,7 @@ div.carPhotoThumbnailSelected {
     .mobile-list-item label {
         margin-right: 10px;
     }
+
+button#mobile-filter-select-save-button .carIcon {
+    fill: white;
+}

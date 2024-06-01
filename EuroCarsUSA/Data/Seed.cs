@@ -25,7 +25,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.Tesla,
                             Type = CarType.Sedan,
                             Model = "Model S P100D",
-                            Color = "Red",
+                            Color = CarColor.Red,
                             VIN = "12345364758",
                             Images = new List<string> {
                                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2EqfTpmjeC6G23-aYZFOV55RfNpZ7rdRj7FQkzqCXjQ&s",
@@ -44,7 +44,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.MINI,
                             Type = CarType.Hatchback,
                             Model = "Countryman",
-                            Color = "Blue",
+                            Color = CarColor.Blue,
                             VIN = "8765432",
                             Images = new List<string> { "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDMkmd2hpZbC6_PeQRW9lViM3Aq17Bj2SU92A8FMOTyA&s" },
                             FuelType = Enum.CarFuelType.Benzine,
@@ -59,7 +59,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.Ford,
                             Type = CarType.Crossover,
                             Model = "Bronco Sport",
-                            Color = "Grey",
+                            Color = CarColor.Gray,
                             VIN = "3196244231",
                             Images = new List<string>
                             {
@@ -80,7 +80,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.Ford,
                             Type = CarType.Sedan,
                             Model = "Mustang GT",
-                            Color = "Black",
+                            Color = CarColor.Black,
                             VIN = "147526830",
                             Images = new List<string>
                             {
@@ -101,7 +101,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.Tesla,
                             Type = CarType.Sedan,
                             Model = "Model 3",
-                            Color = "Black",
+                            Color = CarColor.Black,
                             VIN = "234678134",
                             Images = new List<string>
                             {
@@ -122,7 +122,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.BMW,
                             Type = CarType.Sedan,
                             Model = "M5",
-                            Color = "Blue",
+                            Color = CarColor.Blue,
                             VIN = "247856123",
                             Images = new List<string>
                             {
@@ -144,7 +144,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.Audi,
                             Type = CarType.Sedan,
                             Model = "A8",
-                            Color = "White",
+                            Color = CarColor.White,
                             VIN = "123456789",
                             Images = new List<string>
                             {
@@ -162,7 +162,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.MercedesBenz,
                             Type = CarType.SUV,
                             Model = "GLC",
-                            Color = "Black",
+                            Color = CarColor.Black,
                             VIN = "987654321",
                             Images = new List<string>
                             {
@@ -180,7 +180,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.BMW,
                             Type = CarType.Sedan,
                             Model = "7 Series",
-                            Color = "Blue",
+                            Color = CarColor.Blue,
                             VIN = "246813579",
                             Images = new List<string>
                             {
@@ -198,7 +198,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.Tesla,
                             Type = CarType.Sedan,
                             Model = "Model X",
-                            Color = "Red",
+                            Color = CarColor.Red,
                             VIN = "135792468",
                             Images = new List<string>
                             {
@@ -215,7 +215,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.Porsche,
                             Type = CarType.Sports,
                             Model = "911",
-                            Color = "Yellow",
+                            Color = CarColor.Yellow,
                             VIN = "864209753",
                             Images = new List<string>
                             {
@@ -233,7 +233,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.Lamborghini,
                             Type = CarType.Sports,
                             Model = "Aventador",
-                            Color = "Green",
+                            Color = CarColor.Green,
                             VIN = "102938475",
                             Images = new List<string>
                             {

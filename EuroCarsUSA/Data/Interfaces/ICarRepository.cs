@@ -7,7 +7,7 @@ namespace EuroCarsUSA.Data.Interfaces
     {
         Task<IEnumerable<Car>> GetAll();
         Task<IEnumerable<Car>> GetRange(int start, int count, CarFilter? filters);
-        Task<IEnumerable<CarMake>> GetMakes();
+        Task<Dictionary<string, List<string>>> GetAvailableFilters();
         Task<int> GetCount(CarFilter? filters);
         Task<Car> GetById(Guid id);
         Task<bool> Add(Car car);

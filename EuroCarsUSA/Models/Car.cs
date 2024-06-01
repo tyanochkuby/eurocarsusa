@@ -10,14 +10,14 @@ namespace EuroCarsUSA.Models
         public CarMake Make { get; set; }
         public CarType Type { get; set; }
         public string Model { get; set; }
-        public string Color { get; set; }
+        public CarColor Color { get; set; }
         public string VIN { get; set; }
         public List<string> Images { get; set; }
         public int Mileage { get; set; }
         public int Year { get; set; }
         public CarFuelType FuelType { get; set; }
         public int? EngineVolume { get; set; }
-        public CarTransmission? Transmission { get; set; }
+        public CarTransmission Transmission { get; set; }
         public int Price { get; set; }
 
         public Car() { }
