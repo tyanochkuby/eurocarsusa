@@ -35,7 +35,7 @@ namespace EuroCarsUSA.Controllers
             _emailService = emailService;
         }
 
-        public async Task<IActionResult> Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, CarFuelType? fuelType, CarType? carType, CarTransmission? transmission, string color, string make, string model)
+        public async Task<IActionResult> Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
         {
             //ViewBag.YearSortParm = sortOrder == SortOrder.ByYear ? SortOrder.ByYearDesc : SortOrder.ByYear;
             //ViewBag.MileageSortParm = sortOrder == SortOrder.ByMileage ? SortOrder.ByMileageDesc : SortOrder.ByMileage;
@@ -52,33 +52,45 @@ namespace EuroCarsUSA.Controllers
                 MaxYear = maxYear,
                 MinEngineVolume = minEngineVolume,
                 MaxEngineVolume = maxEngineVolume,
-                FuelType = fuelType,
-                CarType = carType,
-                Transmission = transmission,
-                Color = color,
-                Make = !string.IsNullOrEmpty(make) ? Enum.GetValues(typeof(CarMake)).Cast<CarMake>().FirstOrDefault<CarMake>(c => c.ToString().Contains(make) || make.Contains(c.ToString())) : null,
+                FuelType = !string.IsNullOrEmpty(fuelType) ?
+                    Enum.GetValues(typeof(CarFuelType))
+                        .Cast<CarFuelType>()
+                        .Where(m => fuelType.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
+                        .ToList()
+                    : new List<CarFuelType>(),
+                CarType = !string.IsNullOrEmpty(carType) ?
+                    Enum.GetValues(typeof(CarType))
+                        .Cast<CarType>()
+                        .Where(m => carType.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
+                        .ToList()
+                    : new List<CarType>(),
+                Transmission = !string.IsNullOrEmpty(transmission) ?
+                    Enum.GetValues(typeof(CarTransmission))
+                        .Cast<CarTransmission>()
+                        .Where(m => transmission.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
+                        .ToList()
+                    : new List<CarTransmission>(),
+                Color = !string.IsNullOrEmpty(color) ?
+                    Enum.GetValues(typeof(CarColor))
+                        .Cast<CarColor>()
+                        .Where(m => color.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
+                        .ToList()
+                    : new List<CarColor>(),
+                Make = !string.IsNullOrEmpty(make) ? 
+                    Enum.GetValues(typeof(CarMake))
+                        .Cast<CarMake>()
+                        .Where(m => make.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
+                        .ToList() 
+                    : new List<CarMake>(),
                 Model = model
             };
             HttpContext.Session.SetString("CurrentFilters", JsonConvert.SerializeObject(filters));
 
+            var availableFilters = await _carRepository.GetAvailableFilters();
 
-            IEnumerable<Car> cars = await _carRepository.GetRange(0, carsPerLoad, filters);
+            ViewBag.AvailableFilters = availableFilters;
 
-            
-
-            if (sortFunctions.ContainsKey(sortOrder))
-            {
-                cars = sortFunctions[sortOrder](cars);
-            }
-
-
-            
-            var carsCount = await _carRepository.GetCount(filters);
-            ViewBag.ShowMoreButton = carsCount > carsPerLoad;
-
-            ViewBag.SortOrder = sortOrder;
-            //ViewBag.CarsListing = PartialView("_CarsListing", cars.ToList());
-            return View(cars.ToList());
+            return View();
         }
 
 
@@ -108,7 +120,7 @@ namespace EuroCarsUSA.Controllers
                 string phoneNumberMessage = string.IsNullOrEmpty(form.PhoneNumber) ? "No phone number provided" : $"Phone: {form.PhoneNumber}";
                 string emailMessage = string.IsNullOrEmpty(form.Email) ? "No email provided" : $"Email: {form.Email}";
                 string message = string.IsNullOrEmpty(form.Message) ? "No message provided" : $"Message: {form.Message}";
-                string emailBody = $"Name: {form.Name}\n{emailMessage}\n{phoneNumberMessage}\n{message}\n\nCar: {car.Make} {car.Model} {car.Year}";
+                string emailBody = $"Name: {form.Name}\n{emailMessage}\n{phoneNumberMessage}\n{message}\n\nCar: {car.Make.ToString()} {car.Model} {car.Year}";
                 try
                 {
                     //email to client

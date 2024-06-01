@@ -5,7 +5,7 @@ namespace EuroCarsUSA.Models
     public class CarFilter
     {
         
-        public CarMake? Make { get; set; }
+        public List<CarMake> Make { get; set; }
         public string Model { get; set; }
         public int? MinPrice { get; set; }
         public int? MaxPrice { get; set; }
@@ -15,10 +15,10 @@ namespace EuroCarsUSA.Models
         public int? MaxEngineVolume { get; set; }
         public int? MinMileage { get; set; }
         public int? MaxMileage { get; set; }
-        public CarFuelType? FuelType { get; set; }
-        public CarType? CarType { get; set; }
-        public CarTransmission? Transmission { get; set; }
-        public string Color { get; set; }
+        public List<CarFuelType> FuelType { get; set; }
+        public List<CarType> CarType { get; set; }
+        public List<CarTransmission> Transmission { get; set; }
+        public List<CarColor> Color { get; set; }
 
             
         public CarFilter() { }

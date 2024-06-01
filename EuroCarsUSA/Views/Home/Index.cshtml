@@ -10,11 +10,8 @@
     <h1 class="display-4">Welcome</h1>
 </div>
 
-<div class="py-4 px-4 align-items-center justify-content-center d-flex flex-column" >
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filters"    aria-controls="filters">
-            Filters
-        </button>
-        <div class="form-group collapse bg-secondary mt-2" id="filters">
+<div class="py-4 px-4 align-items-center justify-content-center d-flex flex-column filters-desktop">
+        <div class="form-group bg-secondary mt-2" id="filters">
             <div class="justify-content-center align-items-center  pb-2"  id="basicFiltersFormWrapper">
             <form method="get" id="basicFiltersForm">
 
@@ -194,6 +191,146 @@
         </div>
     
 </div>
+<div class="row justify-content-around mx-0 mb-3 w-100">
+    <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="filters-mobile-button">
+        Filters
+    </button>
+
+    <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="filter-mobile-sort">
+        Sort by
+    </button>
+</div>
+
+<div class="filters-mobile" id="filters-mobile-list">
+    <div class="row mt-4 justify-content-between w-100">
+            <div class="col-5 "></div>
+            <div class="col-6 "><p class="fs-5">Filters</p></div>
+        <div class="col-1 "><img class="filterIcon filter-mobile-close-button" src="~/icons/clear.svg" /></div>
+    </div>
+    <form method="get" id="mobileFiltersForm">
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
+            <label class="ps-3" for="minPrice">Price</label>
+            <div class="col-6 pe-1">
+                <input type="number" id="minPrice" name="minPrice" placeholder="Min" class="form-control" value="@Context.Request.Query["minPrice"]" />
+            </div>
+        
+            <div class="col-6 ps-1">
+                <input type="number" id="maxPrice" name="maxPrice" placeholder="Max" class="form-control" value="@Context.Request.Query["maxPrice"]" />
+            </div>
+
+        </div>
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
+            <label class="ps-3" for="minYear">Year</label>
+            <div class="col-6 pe-1">
+                <input type="number" id="minYear" name="minYear" placeholder="Min" class="form-control" value="@Context.Request.Query["minYear"]" />
+            </div>
+            <div class="col-6 ps-1">
+                <input type="number" id="maxYear" name="maxYear" placeholder="Max" class="form-control" value="@Context.Request.Query["maxYear"]" />
+            </div>
+        </div>
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
+            <label class="ps-3" for="minYear">Mileage</label>
+            <div class="col-6 pe-1">
+                <input type="number" id="minMileage" name="minMileage" placeholder="Min" class="form-control" value="@Context.Request.Query["minMileage"]" />
+            </div>
+            <div class="col-6 ps-1">
+                <input type="number" id="maxMileage" name="maxMileage" placeholder="Max" class="form-control" value="@Context.Request.Query["maxMileage"]" />
+            </div>
+        </div>
+
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="make">
+            <div class="col-3">
+                <label class="ps-1" for="make">Make</label>
+            </div>
+            <div class="col-8 text-end">
+                <p name="make" class="text-ellipsis"> @Context.Request.Query["make"].ToString() </p>
+            </div>
+            <div class="col-1 ps-0">
+                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
+            </div>
+        </div>
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
+            <label class="ps-3" for="minYear">Model</label>
+            <div class="col-12">
+                <input type="text" id="model" name="model" class="form-control" value="@Context.Request.Query["model"]" />
+            </div>
+        </div>
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="carType">
+            <div class="col-4">
+                <label class="ps-1" for="make">Car type</label>
+            </div>
+            <div class="col-7 text-end">
+                <p name="carType" class="text-ellipsis"> @Context.Request.Query["carType"].ToString() </p>
+            </div>
+            <div class="col-1 ps-0">
+                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
+            </div>
+        </div>
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="fuelType">
+            <div class="col-4">
+                <label class="ps-1" for="make">Fuel type</label>
+            </div>
+            <div class="col-7 text-end">
+                <p name="fuelType" class="text-ellipsis"> @Context.Request.Query["fuelType"].ToString() </p>
+            </div>
+            <div class="col-1 ps-0">
+                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
+            </div>
+        </div>
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
+            <label class="ps-3" for="minYear">Engine volume</label>
+            <div class="col-6 pe-1">
+                <input type="number" id="minEngineVolume" name="minEngineVolume" placeholder="Min" class="form-control" value="@Context.Request.Query["minEngineVolume"]" />
+            </div>
+            <div class="col-6 ps-1">
+                <input type="number" id="maxEngineVolume" name="maxEngineVolume" placeholder="Max" class="form-control" value="@Context.Request.Query["maxEngineVolume"]" />
+            </div>
+        </div>
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="transmission">
+            <div class="col-3">
+                <label class="ps-1" for="make">Transmission</label>
+            </div>
+            <div class="col-8 text-end">
+                <p name="transmission" class="text-ellipsis"> @Context.Request.Query["transmission"].ToString() </p>
+            </div>
+            <div class="col-1 ps-0">
+                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
+            </div>
+        </div>
+        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="color">
+            <div class="col-3">
+                <label class="ps-1" for="make">Color</label>
+            </div>
+            <div class="col-8 text-end">
+                <p name="color" class="text-ellipsis"> @Context.Request.Query["color"].ToString() </p>
+            </div>
+            <div class="col-1 ps-0">
+                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
+            </div>
+        </div>
+   
+
+        <input type="hidden" id="makeMobileInput" name="make" value="@Context.Request.Query["make"].ToString()" />
+        <input type="hidden" id="colorMobileInput" name="color" value="@Context.Request.Query["color"].ToString()" />
+        <input type="hidden" id="transmissionMobileInput" name="transmission" value="@Context.Request.Query["transmission"].ToString()" />
+        <input type="hidden" id="fuelTypeMobileInput" name="fuelType" value="@Context.Request.Query["fuelType"].ToString()" />
+        <input type="hidden" id="carTypeMobileInput" name="carType" value="@Context.Request.Query["carType"].ToString()" />
+        <div class="row row-mobile-filter mx-0 justify-content-between">
+            <div class="col-6">
+                <button class="btn btn-secondary rounded-pill me-4 w-100 d-flex align-items-center justify-content-center filter-mobile-close-button">
+                    <img class="carIcon me-2" src="~/icons/clear.svg" /> Close
+                </button>
+            </div>
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary rounded-pill w-100" id="mobileFilterSubmitButton">
+                    <img class="carIcon" src="~/icons/search.svg" /> Find
+                </button>
+            </div>
+        </div>
+        
+    </form>
+    
+</div>
 
 
 <div class="album py-5 px-3 bg-light">
@@ -249,10 +386,11 @@
     <script>
         $(document).ready(function () {
             var basicFiltersDimensions, advancedFiltersDimensions;
-
+            console.log('loaded');
             var filtersExpanded = false;
+            
+           
 
-            $('#filters').css('display', 'block');
             //$('#advancedFiltersFormWrapper').removeClass('collapse');
 
             setTimeout(function () {
@@ -272,7 +410,7 @@
                 $('#filters').animate({ height: advancedFiltersDimensions.height, width: advancedFiltersDimensions.width }, 500);
                 $('#basicFiltersFormWrapper').fadeOut(200);
                 $('#advancedFiltersFormWrapper').fadeIn(200);
-                    filtersExpanded = true
+                filtersExpanded = true
                 $(this).blur();
             });
             $('#lessFiltersButton').click(function () {
@@ -296,8 +434,103 @@
                 $(this).blur();
             });
 
+            $('#filters-mobile-button').click(function () {
+                $('#filters-mobile-list').toggleClass('open');
+            });
+
+            $('.filter-mobile-close-button').click(function () {
+                $('#filters-mobile-list').removeClass('open');
+            });
+
+            var carMakes = @Json.Serialize(ViewBag.AvailableFilters["Makes"]);
+            var carColors = @Json.Serialize(ViewBag.AvailableFilters["Colors"]);
+            var carTransmissions = @Json.Serialize(ViewBag.AvailableFilters["Transmissions"]);
+            var carFuelTypes = @Json.Serialize(ViewBag.AvailableFilters["FuelTypes"]);
+            var carTypes = @Json.Serialize(ViewBag.AvailableFilters["CarTypes"]);
+            var filterValues = {
+                'make': carMakes,
+                'color': carColors,
+                'transmission': carTransmissions,
+                'fuelType': carFuelTypes,
+                'carType': carTypes,
+            };
 
 
+            $('.mobile-filter-select').click(function () {
+                var filterType = $(this).attr('filterType');
+                var values = filterValues[filterType];
+                if (values) {
+                    var newScreen = $('.mobile-filter-select-screen');
+                    if (newScreen.length === 0) {
+                        // If the screen doesn't exist, create it
+                        newScreen = $('<div></div>').addClass('mobile-filter-select-screen').addClass('d-flex').addClass('flex-column').addClass('vh-100');
+                        $('body').append(newScreen);
+                    } else {
+                        console.log('emptying');
+                        newScreen.empty();
+                    }
+                    var labelText = filterType.charAt(0).toUpperCase() + filterType.slice(1);
+                    newScreen.append('<div class="row mt-4 justify-content-between w-100"> <div class="col-5 "></div> <div class="col-6 "><p class="fs-5">' + labelText + '</p></div> <div class="col-1 " id="filter-mobile-select-close-button"><img class="filterIcon"  src="/icons/clear.svg" /></div> </div>');
+                    var listItems = $('<div></div>').addClass('mobile-list-items').addClass('mb-auto');
+                    
+                    var filterSelectedValues = $('input[name="' + filterType + '"]').val().split(', ');
+
+                    values.forEach(function (value) {
+                        var listItem = $('<div></div>').addClass('mobile-list-item');
+                        var label = $('<label></label>').text(value);
+                        var checkbox = $('<input>').attr({ type: 'checkbox', value: value });
+
+                        
+                        if (filterSelectedValues.includes(value)) {
+                            checkbox.prop('checked', true);
+                        }
+
+                        listItem.append(label);
+                        listItem.append(checkbox);
+                        listItem.click(function (event) {
+                            // Prevent the event from bubbling up to the list item if the checkbox is clicked
+                            if (event.target !== checkbox[0]) {
+                                checkbox.prop('checked', !checkbox.prop('checked'));
+                            }
+                        });
+                        listItems.append(listItem);
+                    });
+                    newScreen.append(listItems);
+                    newScreen.append('<div class="row mt-auto"> <div class="col-6"><button id="filter-mobile-select-clear-button" class="btn btn-secondary rounded-pill py-2 w-100"> <img class="carIcon" src="/icons/clear.svg" /> Clear</button></div> <div class="col-6">  <button class="btn btn-primary rounded-pill py-2 w-100" id="mobile-filter-select-save-button"> <svg class="carIcon" width="96" height="96" viewBox="0 0 96 96" fill="white" xmlns="http://www.w3.org/2000/svg">< g clip - path="url(#clip0_449_5772)" ><path d="M36.0001 64.8L19.2001 48L13.6001 53.6L36.0001 76L84.0001 28L78.4001 22.4L36.0001 64.8Z" fill = "white" /></g>< defs ><clipPath id="clip0_449_5772" ><rect width="96" height = "96" fill = "white" /></clipPath>< /defs></svg> Save </button> </div > </div>');
+
+                    $('body').append(newScreen);
+                    var saveButton = newScreen.find('#mobile-filter-select-save-button');
+                    var clearButton = newScreen.find('#filter-mobile-select-clear-button');
+                    var closeButton = newScreen.find('#filter-mobile-select-close-button');
+
+                    newScreen.toggleClass('open');
+                    saveButton.click(function () {
+                        var values = [];
+                        $('input[type="checkbox"]').each(function () {
+
+                            var value = $(this).val();
+                            if ($(this).prop('checked')) {
+                                values.push(value);
+                            }
+                        });
+                        console.log(values);
+                        console.log(filterType);
+                        $('input[name="' + filterType + '"]').val(values.join(', '));
+                        $('p[name="' + filterType + '"]').text(values.join(', '));
+                        $('.mobile-filter-select-screen').remove();
+                    });
+                    clearButton.click(function () {
+                        newScreen.find('input[type="checkbox"]').prop('checked', false);
+                    });
+                    closeButton.click(function () {
+                        newScreen.remove();
+                    });
+                }
+            });
+
+            
+
+           
 
         });
 
@@ -313,6 +546,7 @@
 
             return dimensions;
         }
+       
 
     </script>
     <script>

@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <!-- Adjust the column size as needed -->
-                            <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id> <img class="card-img-top rounded float-left w-100" src=@car.Images[0] alt=@(car.Color + car.Make + car.Model)> </a>
+                            <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id> <img class="card-img-top rounded float-left w-100" src=@car.Images[0] alt=@(car.Color.ToString() + car.Make.ToString() + car.Model)> </a>
                         </div>
                         <div class="col-md-9">
                             <!-- Adjust the column size as needed -->

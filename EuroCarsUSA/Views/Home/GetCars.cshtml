@@ -9,7 +9,7 @@
                 <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none">
                     <div class="card mb-4 pt-2 box-shadow rounded-xxl">
                         <div class="img-container overflow-hidden mx-3 mt-1">
-                                <img class="card-img float-left rounded-xxl" src=@car.Images[0] alt=@(car.Color + car.Make + car.Model)>
+                                <img class="card-img float-left rounded-xxl" src=@car.Images[0] alt=@(car.Color.ToString() + car.Make.ToString() + car.Model)>
                         </div>
 
                         <div class="card-body">

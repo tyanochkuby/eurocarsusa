@@ -68,7 +68,7 @@ namespace EuroCarsUSA.Data.Repositories
             if (filters != null)
             {
                 cars = _context.Cars.Where(c =>
-                    (!filters.Make.HasValue || c.Make == filters.Make.Value) &&
+                    (filters.Make.Count == 0 || filters.Make.Any(m => m == c.Make)) &&
                     (string.IsNullOrEmpty(filters.Model) || c.Model.Contains(filters.Model) || filters.Model.Contains(c.Model)) &&
                     (!filters.MinPrice.HasValue || c.Price >= filters.MinPrice.Value) &&
                     (!filters.MaxPrice.HasValue || c.Price <= filters.MaxPrice.Value) &&
@@ -78,13 +78,34 @@ namespace EuroCarsUSA.Data.Repositories
                     (!filters.MaxMileage.HasValue || c.Year <= filters.MaxMileage.Value) &&
                     (!filters.MinEngineVolume.HasValue || c.EngineVolume >= filters.MinEngineVolume.Value) &&
                     (!filters.MaxEngineVolume.HasValue || c.EngineVolume <= filters.MaxEngineVolume.Value) &&
-                    (!filters.FuelType.HasValue || c.FuelType == filters.FuelType.Value) &&
-                    (!filters.CarType.HasValue || c.Type == filters.CarType.Value) &&
-                    (!filters.Transmission.HasValue || c.Transmission == filters.Transmission.Value) &&
-                    (string.IsNullOrEmpty(filters.Color) || c.Color == filters.Color)
+                    (filters.FuelType.Count == 0 || filters.FuelType.Any(f => f == c.FuelType)) &&
+                    (filters.CarType.Count == 0|| filters.CarType.Any(f => f == c.Type)) &&
+                    (filters.Transmission.Count == 0|| filters.Transmission.Any(f => f == c.Transmission)) &&
+                    (filters.Color.Count == 0 || filters.Color.Any(f => f == c.Color))
                 );
             }
             return cars;
         }
+
+        public async Task<Dictionary<string, List<string>>> GetAvailableFilters()
+        {
+            var makes = await _context.Cars.Select(c => c.Make.ToString()).Distinct().ToListAsync();
+            var colors = await _context.Cars.Select(c => c.Color.ToString()).Distinct().ToListAsync();
+            var carTypes = await _context.Cars.Select(c => c.Type.ToString()).Distinct().ToListAsync();
+            var fuelTypes = await _context.Cars.Select(c => c.FuelType.ToString()).Distinct().ToListAsync();
+            var transmissions = await _context.Cars.Select(c => c.Transmission.ToString()).Distinct().ToListAsync();
+
+            
+
+            return new Dictionary<string, List<string>>
+            {
+                { "Makes", makes },
+                { "Colors", colors },
+                { "CarTypes", carTypes },
+                { "FuelTypes", fuelTypes },
+                { "Transmissions", transmissions }
+            };
+        }
+
     }
 }
