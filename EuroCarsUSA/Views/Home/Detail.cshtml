@@ -23,21 +23,19 @@
 
         @*Images*@
         <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
-            <div class="row justify-content-between">
-                <div class="col-md-1 d-flex align-items-center" >
-                    <button class="btn btn-primary btn-arrow rounded-pill" id="leftArrowButton"><i class="fas fa-arrow-left"></i></button>
+            <div class="position-relative" id="mainPictureContainer">
+                <div class="arrow-container">
+                   <img  id="leftArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_left.svg" />
+                    <img id="rightArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_right.svg" />
                 </div>
-                <div class="col-md-10">
-                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                        <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0> 
+                
+                <figure class="position-relative" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                    <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0> 
 
-                            <img src=@ViewBag.Car.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
-                        </a>
-                    </figure>
-                </div>
-                <div class="col-md-1 d-flex align-items-center">
-                    <button class="btn btn-primary btn-arrow rounded-pill" id="rightArrowButton"><i class="fas fa-arrow-right"></i></button>
-                </div>
+                        <img src=@ViewBag.Car.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
+                    </a>
+                </figure>
+                
             </div>
 
 
@@ -159,7 +157,7 @@
                 </div>
 
                 <div class="form-group px-2 pt-1 pb-3">
-                    <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message"></textarea>
+                    <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message" rows="5"></textarea>
                 </div>
                 <div class="align-items-center flex-column d-flex pb-3">
                     <button type="submit" class="btn btn-primary rounded-pill w-75 py-2"><i class="fas fa-envelope px-1"></i>  Send message</button>

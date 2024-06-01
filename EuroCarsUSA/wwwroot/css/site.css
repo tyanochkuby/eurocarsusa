@@ -154,16 +154,46 @@ div.carPhotoThumbnailSelected {
     vertical-align: middle;
 }
 
+
 .filterIcon {
     height: 1.5em;
     width: 1.5em;
     vertical-align: middle;
 }
+.arrow-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none; /* This allows clicks to pass through to the image */
+}
+
+
+#leftArrowButton, #rightArrowButton {
+    position: static; /* Remove the absolute positioning */
+    pointer-events: auto; /* This allows the arrows to be clickable */
+}
+
+.galleryIcon {
+    height: 5em;
+    width: 5em;
+    vertical-align: middle;
+    z-index: 1000;
+    transition: transform 0.1s ease-in-out;
+}
+    .galleryIcon:hover {
+        transform: scale(1.2);
+    }
+
 @media only screen and (max-width: 576px) {
     html {
         font-size: calc(1em + 1vw);
     }
 }
+
 
 @media (max-width: 767px) {
     .filters-desktop {
@@ -238,4 +268,7 @@ div.carPhotoThumbnailSelected {
 
 button#mobile-filter-select-save-button .carIcon {
     fill: white;
+
+textarea{
+    resize: none;
 }
