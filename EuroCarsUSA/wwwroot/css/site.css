@@ -1,5 +1,6 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    
 }
 
 label{
@@ -8,10 +9,56 @@ label{
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
+
+
+.fh-regular {
+    font-size: 14px;
+    font-family: "Roboto"
+}
+.fh-header {
+    font-size: 24px;
+    font-family: "Roboto"
+}
+
+.fh-header-bold {
+    font-size: 24px;
+    font-family: "Roboto"
+}
+
+.fh-filter-text {
+    font-size: 16px;
+    font-family: "Roboto"
+}
+
+.fh-title-subhead {
+    font-size: 20px;
+    font-family: "Roboto"
+}
+
+.fh-button-text {
+    font-size: 14px;
+    font-family: "Roboto"
+}
+
+.fh-card-title {
+    font-size: 16px;
+    font-family: "Roboto"
+}
+
+.fh-card-header {
+    font-size: 16px;
+    font-family: "Roboto"
+}
+
+.fh-card-subhead {
+    font-size: 14px;
+    font-family: "Roboto"
+}
+
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -41,6 +88,7 @@ select {
 #filters {
     width: fit-content;
 }
+
 
 
 .center-items {
@@ -83,6 +131,8 @@ select {
         opacity: 1; /* Firefox has reduced opacity on placeholders by default */
     }
 
+
+
 .rounded-xxl{
     border-radius: 5%;
 }
@@ -113,6 +163,8 @@ img.rounded-xxl {
     box-shadow: 0 0 10px var(--bs-primary);
     transform: scale(1.05);
 }
+
+
 
 .w-15 {
     width: 15% !important
@@ -177,6 +229,8 @@ div.carPhotoThumbnailSelected {
     pointer-events: auto; /* This allows the arrows to be clickable */
 }
 
+
+
 .galleryIcon {
     height: 5em;
     width: 5em;
@@ -190,9 +244,11 @@ div.carPhotoThumbnailSelected {
 
 @media only screen and (max-width: 576px) {
     html {
-        font-size: calc(1em + 1vw);
+        font-size: 16px;
+        /*font-size: calc(1em + 1vw);*/
     }
 }
+
 
 
 @media (max-width: 767px) {
@@ -254,6 +310,7 @@ div.carPhotoThumbnailSelected {
         right: 0;
     }
 
+
 .mobile-list-item {
     display: flex;
     justify-content: space-between;
@@ -265,10 +322,17 @@ div.carPhotoThumbnailSelected {
     .mobile-list-item label {
         margin-right: 10px;
     }
-
 button#mobile-filter-select-save-button .carIcon {
     fill: white;
-
-textarea{
+}
+/textarea{
     resize: none;
+}
+
+
+/* to rename classes */
+@media (max-width: 767px) {
+    .row.mb-md-3 > .col-md-6:nth-child(odd) {
+        background-color: var(--bs-secondary);
+    }
 }
