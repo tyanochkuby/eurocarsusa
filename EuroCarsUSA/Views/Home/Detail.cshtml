@@ -6,9 +6,8 @@
 
 <div class="row">
     <div class="col-md-8">
-
         @*path*@
-        <div class="mb-3">
+        <div class="ms-xl-0 ms-2 mb-3">
             <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn px-3 py-2 btn-secondary border-0 rounded-pill me-1">
                 <- Back
             </a>
@@ -25,17 +24,17 @@
         <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
             <div class="position-relative" id="mainPictureContainer">
                 <div class="arrow-container">
-                   <img  id="leftArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_left.svg" />
+                    <img id="leftArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_left.svg" />
                     <img id="rightArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_right.svg" />
                 </div>
-                
+
                 <figure class="position-relative" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                    <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0> 
+                    <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0>
 
                         <img src=@ViewBag.Car.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
                     </a>
                 </figure>
-                
+
             </div>
 
 
@@ -45,7 +44,7 @@
                         @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
                         {
                             <div class="slick-slide" data-slick-index="@i" aria-hidden="true">
-                                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="slick-slide" data-slick-index="2"  aria-hidden="true" tabindex="-1" role="option" bis_skin_checked="1">
+                                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" bis_skin_checked="1">
 
                                     <a href=@ViewBag.Car.Images[i] class="carPhotoThumbnail" id=@("car-figure-" + i) data-width="1200" data-height="900" itemprop="contentUrl" data-index=@i>
                                         <div class="me-2">
@@ -59,17 +58,17 @@
                 </div>
             </div>
             @*
-                <div class="row justify-content-center">
-                <div class="d-flex flex-row align-items-center">
-                    @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
-                    {
-                        <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                            <a href=@ViewBag.Car.Images[i] class="carPhotoThumbnail" data-width="1200" data-height="900" itemprop="contentUrl" index=@i>
-                                <img src=@ViewBag.Car.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
-                            </a>
-                        </figure>
-                    }
-                </div>
+            <div class="row justify-content-center">
+            <div class="d-flex flex-row align-items-center">
+            @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
+            {
+            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+            <a href=@ViewBag.Car.Images[i] class="carPhotoThumbnail" data-width="1200" data-height="900" itemprop="contentUrl" index=@i>
+            <img src=@ViewBag.Car.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
+            </a>
+            </figure>
+            }
+            </div>
             </div> *@
 
 
@@ -125,22 +124,66 @@
                 </div>
             </div>
         </div>
+
+
+        <hr style="border-top: 1px solid #000;"> @*divider*@
+
+        <div class="row"> <h2>Details</h2></div>
+
+        <div class="row">
+
+            <div class="col-md-3 ">
+                <p>Year</p>
+                <p>Mileage</p>
+                <p>Color</p>
+                <p>Type</p>
+                @(ViewBag.Car.EngineVolume != null ? "Engine volume" : "")
+            </div>
+
+            <div class="col-md-3">
+                <p class="fw-bolder">@ViewBag.Car.Year</p>
+                <p class="fw-bolder">@ViewBag.Car.Mileage</p>
+                <p class="fw-bolder">@ViewBag.Car.Color</p>
+                <p class="fw-bolder">@ViewBag.Car.Type</p>
+                <p class="fw-bolder"> @(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : "")</p>
+            </div>
+
+            
+
+            <div class="col-md-3">
+                <p>Make</p>
+                <p>Model</p>
+                <p>VIN</p>
+                <p>Fuel type</p>
+                <p>Transmission</p>
+            </div>
+            <div class="col-md-3">
+                <p class="fw-bolder">@ViewBag.Car.Make</p>
+                <p class="fw-bolder">@ViewBag.Car.Model</p>
+                <p class="fw-bolder">@ViewBag.Car.VIN</p>
+                <p class="fw-bolder">@ViewBag.Car.Mileage</p>
+                <p class="fw-bolder">@ViewBag.Car.Transmission</p>
+            </div>
+        </div>
     </div>
+    
 
 
     <div class="col-md-4">
-        <h1>@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</h1>
-
+        <div>
+            <div class="fs-4 fw-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
+        </div>
+        
 
         <div class="bg-light align-items-center flex-column d-flex">
-            <p class="fs-4 mb-0 mt-2">Contact with seller</p>
-            <a class="btn btn-secondary rounded-pill w-75 py-2 mt-1 mb-2" id="toggleButton">
-                 <span id="showNumber">Show number</span>
-                <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90"></i>  +1234567890</span>
+            <p class="fs-4 fw-light mb-0 mt-2 border-bottom border-primary">Contact with seller</p>
+            <a class="btn btn-secondary rounded-pill px-4 py-2 mt-1 mb-2" id="toggleButton">
+                <span id="showNumber">Show number</span>
+                <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90"></i>  +12 34 567 890</span>
             </a>
 
             <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
-                    <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
+                <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
 
                 <div class="form-group px-2 py-1">
                     <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="Name" />
@@ -165,57 +208,11 @@
             </form>
         </div>
 
-     
+
     </div>
 </div>
 
 
-
-
-
-
-
-
-
-<hr style="border-top: 1px solid #000;"> @*divider*@
-
-<div class="row"> <h2>Details</h2></div>
-
-<div class="row">
-    
-    <div class="col-md-2 ">
-        <p>Year</p>
-        <p>Mileage</p>
-        <p>Color</p>
-        <p>Type</p>
-        @(ViewBag.Car.EngineVolume != null ? "Engine volume" : "")
-    </div>
-   
-    <div class="col-md-2 text-lg-start">
-        <p class="fw-bolder">@ViewBag.Car.Year</p>
-        <p class="fw-bolder">@ViewBag.Car.Mileage</p>
-        <p class="fw-bolder">@ViewBag.Car.Color</p>
-        <p class="fw-bolder">@ViewBag.Car.Type</p>
-        <p class="fw-bolder"> @(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : "")</p>
-    </div>
-
-    <div class="col-md-1"></div>
-    
-    <div class="col-md-2">
-        <p>Make</p>
-        <p>Model</p>
-        <p>VIN</p>
-        <p>Fuel type</p>
-        <p>Transmission</p>
-    </div>
-    <div class="col-md-2">
-         <p class="fw-bolder">@ViewBag.Car.Make</p>
-         <p class="fw-bolder">@ViewBag.Car.Model</p>
-         <p class="fw-bolder">@ViewBag.Car.VIN</p>
-         <p class="fw-bolder">@ViewBag.Car.FuelType</p>
-         <p class="fw-bolder">@ViewBag.Car.Transmission</p>
-    </div>
-</div>
 
 
 
@@ -263,7 +260,7 @@
 
 
                 console.log(allImages);
-                
+
                 var index = $(this).attr('data-index');
                 // Define object and gallery options
                 var $pswp = $('.pswp')[0],
@@ -278,14 +275,14 @@
                 gallery.init();
             });
 
-            $(".carPhotoThumbnail").click(function (event) { 
+            $(".carPhotoThumbnail").click(function (event) {
                 event.preventDefault();
 
                 var index = $(this).attr('data-index');
 
                 var newImageSrc = $(this).attr('href');
 
-                
+
                 $('.carPhotoThumbnail div').removeClass('carPhotoThumbnailSelected');
                 $(this).find('div').addClass('carPhotoThumbnailSelected');
 
@@ -295,7 +292,7 @@
                 $('#imageMain').attr('data-index', index);
 
 
-                
+
 
             });
 
@@ -304,7 +301,7 @@
     </script>
     <script>
         $(document).ready(function () {
-            
+
             var sliderPosition = 1;
 
             $("#toggleButton").click(function () {
@@ -324,7 +321,7 @@
                 console.log(newIndex);
 
                 var newImageSrc = allImages[newIndex]['href'];
-                
+
                 console.log(newImageSrc);
                 $('#imageMain img').attr('src', newImageSrc);
                 $('#imageMain').attr('href', newImageSrc);
@@ -333,8 +330,7 @@
                 //$('.carPhotoThumbnail').eq(newIndex).find('div').addClass('carPhotoThumbnailSelected');
                 $(allImages[newIndex]).find('div').addClass('carPhotoThumbnailSelected');
 
-                if((sliderPosition - 1) % 2 == 0)
-                {
+                if ((sliderPosition - 1) % 2 == 0) {
                     $('.slider-container').slick('slickPrev');
                 }
                 sliderPosition = sliderPosition - 1;
