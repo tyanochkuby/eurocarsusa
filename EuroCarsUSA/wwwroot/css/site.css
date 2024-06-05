@@ -336,3 +336,14 @@ button#mobile-filter-select-save-button .carIcon {
         background-color: var(--bs-secondary);
     }
 }
+
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background-color: #333; /* Цвет фона прямоугольника */
+    color: #fff; /* Цвет текста в прямоугольнике */
+    padding: 0px; /* Отступы внутри прямоугольника */
+}
