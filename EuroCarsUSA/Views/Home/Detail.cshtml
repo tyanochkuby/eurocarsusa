@@ -5,8 +5,9 @@
     Message sent!
 </div>
 
-<div class="row">
-    <div class="col-md-8">
+<div class="row justify-content-md-center">
+    
+    <div class="col-md-8 px-3">
         @*path*@
         <div class="ms-xl-0 ms-2 mb-3">
             <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
@@ -215,47 +216,68 @@
             </div>
 
         </div>
+
+        
     </div>
 
-    <div class="col-md-4">
-        <div class="d-none d-md-block sticky-top">
-            <div>
-                <div class="fs-4 fw-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
+
+    <div class="col-md-4 ps-3">
+        <div class="d-none d-md-block sticky-top pt-2">
+            <div class="border px-3 py-3">
+                <div class="pb-2">
+                    <div class="fh-header-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
+                    <div class="fh-regular row mx-0">
+                        <div class="col-auto ps-0 pe-2">@ViewBag.Car.Year</div>
+                        <div class="col-auto ps-0 pe-2">@ViewBag.Car.Mileage</div>
+                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : @ViewBag.Car.FuelType.ToString())</div>
+                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.FuelType.ToString() : "")</div>
+                    </div>
+                </div>
+
+                <div class="center-items bg-warning">
+                    <div class="row mx-0 text-danger">
+                        <div class="col-auto ps-0 pe-2 fh-header-bold">@ViewBag.Car.Price.ToString()</div>
+                        <div class="col-auto px-0 fh-header">PLN</div>
+                    </div>
+                </div>
+
+                <div class="py-3"></div>
+
+                <div class="bg-light align-items-center flex-column d-flex">
+                    <p class="fs-4 fw-light mb-0 mt-2 border-bottom border-primary">Contact with seller</p>
+                    <a class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 mt-1 mb-2" id="toggleButton">
+                        <span id="showNumber"><i class="fas fa-phone fa-rotate-90"></i><i class="px-1"></i>Show phone number</span>
+                        <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90 "></i>  +12 34 567 890</span>
+                    </a>
+
+                    <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
+                        <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
+                        <div class="form-group px-2 py-1">
+                            <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="Name" />
+                        </div>
+
+                        <div class="form-group px-2 py-1">
+                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="Email" />
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group px-2 py-1">
+                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="Phone Number" />
+                            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group px-2 pt-1 pb-3">
+                            <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message" rows="5"></textarea>
+                        </div>
+
+                        <div class="align-items-center flex-column d-flex pb-3">
+                            <button type="submit" class="btn btn-primary rounded-pill py-2 px-4"><i class="fas fa-envelope px-1"><i class="px-1"></i></i>Send message</button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
-
-            <div class="bg-light align-items-center flex-column d-flex">
-                <p class="fs-4 fw-light mb-0 mt-2 border-bottom border-primary">Contact with seller</p>
-                <a class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 mt-1 mb-2" id="toggleButton">
-                    <span id="showNumber"><i class="fas fa-phone fa-rotate-90"></i>Show phone number</span>
-                    <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90"></i>  +12 34 567 890</span>
-                </a>
-
-                <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
-                    <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
-                    <div class="form-group px-2 py-1">
-                        <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="Name" />
-                    </div>
-
-                    <div class="form-group px-2 py-1">
-                        <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="Email" />
-                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group px-2 py-1">
-                        <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="Phone Number" />
-                        <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group px-2 pt-1 pb-3">
-                        <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message" rows="5"></textarea>
-                    </div>
-
-                    <div class="align-items-center flex-column d-flex pb-3">
-                        <button type="submit" class="btn btn-primary rounded-pill w-75 py-2"><i class="fas fa-envelope px-1"></i>  Send message</button>
-                    </div>
-
-                </form>
-            </div>
+            
         </div>
 
         <div class="row fixed-bottom d-md-none w-100">
