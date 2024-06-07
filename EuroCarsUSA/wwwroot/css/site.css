@@ -348,3 +348,34 @@ button#mobile-filter-select-save-button .carIcon {
     color: #fff; /* Цвет текста в прямоугольнике */
     padding: 0px; /* Отступы внутри прямоугольника */
 }
+
+.bg-byzantine {
+    background-color: #bd33a4
+}
+.text-antique {
+    color: #FAEBD7
+}
+
+.br-0 {
+    border-radius: 0
+}
+
+.br-1 {
+    border-radius: .25rem
+}
+.br-2 {
+    border-radius: 8px
+}
+
+.br-3 {
+    border-radius: 1rem
+}
+.br-4 {
+    border-radius: 1.5rem
+}
+
+.br-5 {
+    border-radius: 3rem
+}
+
+
