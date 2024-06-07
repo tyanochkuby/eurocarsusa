@@ -378,4 +378,16 @@ button#mobile-filter-select-save-button .carIcon {
     border-radius: 3rem
 }
 
+.text-primary {
+    color: var(--bs-primary)
+}
+
+.text-secondary {
+    color: var(--bs-secondary)
+}
+
+.text-subhead {
+    color: var(--bs-subhead)
+}
+
 
