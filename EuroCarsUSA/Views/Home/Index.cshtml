@@ -6,198 +6,13 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div>
-
-<div class="py-4 px-4 align-items-center justify-content-center d-flex flex-column filters-desktop">
-        <div class="form-group bg-secondary mt-2" id="filters">
-            <div class="justify-content-center align-items-center  pb-2"  id="basicFiltersFormWrapper">
-            <form method="get" id="basicFiltersForm">
-
-                    <div id="basicFilters" class="p-3">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4 py-2">
-                                <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@Context.Request.Query["make"]" />
-                            </div>
-                            <div class="col-md-4 py-2">
-                                <input type="number" id="minYear" name="minYear" placeholder="Min year" class="form-control" value="@Context.Request.Query["minYear"]" />
-                            </div>
-                            <div class="col-md-4 py-2">
-                                <input type="number" id="maxYear" name="maxYear" placeholder="Max year" class="form-control" value="@Context.Request.Query["maxYear"]" />
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-md-4">
-                                <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@Context.Request.Query["model"]" />
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" id="minPrice" name="minPrice" placeholder="Min price" class="form-control" value="@Context.Request.Query["minPrice"]" />
-                            </div>
-                            <div class="col-md-4">
-                                <input type="number" id="maxPrice" name="maxPrice" placeholder="Max price" class="form-control" value="@Context.Request.Query["maxPrice"]" />
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row justify-content-end my-2">
-                        <button class="btn btn-light w-15 rounded-pill me-2" type="button" id="clearButton">
-                            Clear
-                        </button>
-                        <button class="btn btn-light w-15 rounded-pill me-2" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilters" aria-expanded="false" aria-controls="advancedFilters" id="moreFiltersButton">
-                            More filters
-                        </button>
-                        <button type="submit" class="btn btn-primary w-15 rounded-pill me-4" id="basicFilterSubmitButton">
-                            Filter
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-
-            <div id="advancedFiltersFormWrapper" style="display: none" class="justify-content-center align-items-center collapse  flex-column mb-3">
-            <form method="get" id="advancedFiltersForm">
-                    <div class="form-group bg-secondary p-3" id="advancedFilters" >
-
-                        <div class="row my-1">
-                            <div class="col-md-3">
-                                <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@Context.Request.Query["make"]" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@Context.Request.Query["model"]" />
-                            </div>
-                            <div class="col-md-3">
-                                <select id="carType" name="carType" class="form-control w-100">
-                                    <option value="" disabled selected>Car type</option>
-                                    @foreach (CarType typeOption in Enum.GetValues(typeof(CarType)))
-                                    {
-                                        @if (ViewBag.CarType == typeOption)
-                                        {
-                                            <option value="@typeOption" selected>@typeOption.ToString()</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@typeOption">@typeOption.ToString()</option>
-                                        }
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <select id="fuelType" name="fuelType" class="form-control w-100">
-                                    <option value="" disabled selected>Fuel type</option>
-                                    @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
-                                    {
-                                        @if (ViewBag.FuelType == fuelType)
-                                        {
-                                            <option value="@fuelType" selected>@fuelType</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@fuelType">@fuelType</option>
-                                        }
-                                    }
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row my-1">
-                            <div class="col-md-3">
-                                <select id="transmission" name="transmission" class="form-control w-100">
-                                    <option value="" disabled selected>Transmission</option>
-                                    @foreach (CarTransmission transmissionOption in Enum.GetValues(typeof(CarTransmission)))
-                                    {
-                                        @if (ViewBag.Transmission == transmissionOption)
-                                        {
-                                            <option value="@transmissionOption" selected>@transmissionOption.ToString()</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@transmissionOption">@transmissionOption.ToString()</option>
-                                        }
-                                    }
-                                </select>
-
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" id="color" name="color" placeholder="Color" class="form-control" value="@Context.Request.Query["color"]" />
-
-                            </div>
-                            <div class="col-md-3">
-                                <input type="number" id="minPriceAdvanced" name="minPrice" placeholder="Min price" class="form-control" value="@Context.Request.Query["minPrice"]" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="number" id="maxPriceAdvanced" name="maxPrice" placeholder="Max price" class="form-control" value="@Context.Request.Query["maxPrice"]" />
-                            </div>
-                        </div>
-                        <div class="row my-1">
-                            <div class="col-md-3">
-                                <input type="number" id="minMileage" name="minMileage" placeholder="Min mileage" class="form-control" value="@Context.Request.Query["minMileage"]" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="number" id="maxMileage" name="maxMileage" placeholder="Max mileage" class="form-control" value="@Context.Request.Query["maxMileage"]" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="number" id="minYearAdvanced" name="minYear" placeholder="Min year" class="form-control" value="@Context.Request.Query["minYear"]" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="number" id="maxYearAdvanced" name="maxYear" placeholder="Max year" class="form-control" value="@Context.Request.Query["maxYear"]" />
-                            </div>
-                        </div>
-                        <div class="row my-1">
-                            <div class="col-md-3">
-                                <input type="number" id="minEngineVolume" placeholder="Min engine volume" name="minEngineVolume" class="form-control" value="@Context.Request.Query["minEngineVolume"]" />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="number" id="maxEngineVolume" placeholder="Max engine volume" name="maxEngineVolume" class="form-control" value="@Context.Request.Query["maxEngineVolume"]" />
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row justify-content-end my-2">
-                        <button class="btn btn-light w-15 rounded-pill me-2" type="button" id="clearButton">
-                            Clear
-                        </button>
-                        <button class="btn btn-light w-15 rounded-pill me-2" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilters" aria-expanded="false" aria-controls="advancedFilters" id="lessFiltersButton">
-                            Less filters
-                        </button>
-                        <button type="submit" class="btn btn-primary w-15 rounded-pill me-4" id="advancedFilterSubmitButton">
-                            Filter
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        
-        
-
-        <div class="form-group mt-2">
-            <select id="sortOrder" name="sortOrder" class="form-control w-100">
-                <option value="" disabled selected>Sort order</option>
-                <option value="">New first</option>
-                @foreach (SortOrder sortOrderOption in Enum.GetValues(typeof(SortOrder)))
-                {
-                    @if (ViewBag.SortOrder == sortOrderOption)
-                    {
-                        <option value="@sortOrderOption" selected>@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
-                    }
-                    else
-                    {
-                        <option value="@sortOrderOption">@System.Text.RegularExpressions.Regex.Replace(sortOrderOption.ToString(), "(\\B[A-Z])", " $1")</option>
-                    }
-                }
-            </select>
-        </div>
-    
-</div>
 <div class="row justify-content-around mx-0 mb-3 w-100">
-    <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="filters-mobile-button">
-        Filters
-    </button>
-
     <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="filter-mobile-sort">
         Sort by
+    </button>
+    
+    <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="filters-mobile-button">
+        Filters
     </button>
 </div>
 
@@ -332,12 +147,106 @@
     
 </div>
 
+<div class="row">
+    <div class="col-3">
+        <div class="fh-header"> Filters:</div>
+        <div class="row">
+            <div class="col-12">
+                <div class="py-2">
+                    <input type="text" id="make" name="make" class="form-control" placeholder="Make" value="@Context.Request.Query["make"]" />
+                </div>
+                <div class="py-2">
+                    <input type="number" id="minYear" name="minYear" placeholder="Min year" class="form-control" value="@Context.Request.Query["minYear"]" />
+                </div>
+                <div class="py-2">
+                    <input type="number" id="maxYear" name="maxYear" placeholder="Max year" class="form-control" value="@Context.Request.Query["maxYear"]" />
+                </div>
+                <div class="py-2">
+                    <input type="text" id="model" name="model" class="form-control" placeholder="Model" value="@Context.Request.Query["model"]" />
+                </div>
+                <div class="py-2">
+                    <input type="number" id="minPrice" name="minPrice" placeholder="Min price" class="form-control" value="@Context.Request.Query["minPrice"]" />
+                </div>
+                <div class="py-2">
+                    <input type="number" id="maxPrice" name="maxPrice" placeholder="Max price" class="form-control" value="@Context.Request.Query["maxPrice"]" />
+                </div>
+                <div class="py-2">
+                    <select id="carType" name="carType" class="form-control w-100">
+                        <option value="" disabled selected>Car type</option>
+                        @foreach (CarType typeOption in Enum.GetValues(typeof(CarType)))
+                        {
+                            @if (ViewBag.CarType == typeOption)
+                            {
+                                <option value="@typeOption" selected>@typeOption.ToString()</option>
+                            }
+                            else
+                            {
+                                <option value="@typeOption">@typeOption.ToString()</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="py-2">
+                    <select id="fuelType" name="fuelType" class="form-control w-100">
+                        <option value="" disabled selected>Fuel type</option>
+                        @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
+                        {
+                            @if (ViewBag.FuelType == fuelType)
+                            {
+                                <option value="@fuelType" selected>@fuelType</option>
+                            }
+                            else
+                            {
+                                <option value="@fuelType">@fuelType</option>
+                            }
+                        }
 
-<div class="album py-5 px-3 bg-light">
-    <div id="carsListing">
-        @*All cars go here*@
+                    </select>
+                </div>
+                <div class="py-2">
+                    <select id="transmission" name="transmission" class="form-control w-100">
+                        <option value="" disabled selected>Transmission</option>
+                        @foreach (CarTransmission transmissionOption in Enum.GetValues(typeof(CarTransmission)))
+                        {
+                            @if (ViewBag.Transmission == transmissionOption)
+                            {
+                                <option value="@transmissionOption" selected>@transmissionOption.ToString()</option>
+                            }
+                            else
+                            {
+                                <option value="@transmissionOption">@transmissionOption.ToString()</option>
+                            }
+                        }
+                    </select>
+
+                </div>
+                <div class="py-2">
+                    <input type="text" id="color" name="color" placeholder="Color" class="form-control" value="@Context.Request.Query["color"]" />
+
+                </div>
+                <div class="py-2">
+                    <input type="number" id="minMileage" name="minMileage" placeholder="Min mileage" class="form-control" value="@Context.Request.Query["minMileage"]" />
+                </div>
+                <div class="py-2">
+                    <input type="number" id="maxMileage" name="maxMileage" placeholder="Max mileage" class="form-control" value="@Context.Request.Query["maxMileage"]" />
+                </div>
+                <div class="py-2">
+                    <input type="number" id="minEngineVolume" placeholder="Min engine volume" name="minEngineVolume" class="form-control" value="@Context.Request.Query["minEngineVolume"]" />
+                </div>
+                <div class="py-2">
+                    <input type="number" id="maxEngineVolume" placeholder="Max engine volume" name="maxEngineVolume" class="form-control" value="@Context.Request.Query["maxEngineVolume"]" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="album py-5 px-3 bg-light col-9">
+        <div id="carsListing">
+            @*All cars go here*@
+        </div>
     </div>
 </div>
+
 
 <div class="w-100 text-center mt-3">
     <button class="btn btn-primary rounded-pill" id="showMoreButton">Show more</button>
