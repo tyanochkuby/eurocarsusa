@@ -149,33 +149,40 @@
 
 <div class="row">
     <div class="col-md-4 col-lg-3 d-none d-md-block">
-        <div class="fh-header"> Filters:</div>
+        <div class="fh-header mt-2 mb-1"> Filters:</div>
+        <hr style="border-top: 1px solid #000;" class="my-0">
         <div class="row">
             <div class="col-12">
+                
+                @* <div class="py-2">
+                <div fh-regular>Min price:</div>
+                <input type="number" id="minPrice" name="minPrice" placeholder="From" class="form-control" value="@Context.Request.Query["minPrice"]" />
+                </div>
                 <div class="py-2">
+                <div fh-regular>Max price:</div>
+                <input type="number" id="maxPrice" name="maxPrice" placeholder="To" class="form-control" value="@Context.Request.Query["maxPrice"]" />
+                </div> *@
+                <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
+                    <label class="px-0" for="minPrice">Price</label>
+                    <div class="col-6 ps-0 pe-1">
+                        <input type="number" id="minPrice" name="minPrice" placeholder="From" class="form-control" value="@Context.Request.Query["minPrice"]" />
+                    </div>
+                    <div class="col-6 ps-1 pe-0">
+                        <input type="number" id="maxPrice" name="maxPrice" placeholder="To" class="form-control" value="@Context.Request.Query["maxPrice"]" />
+                    </div>
+                </div>
+                
+                <div class="pb-2 pt-0">
                     <div fh-regular>Make:</div>
                     <input type="text" id="make" name="make" class="form-control" placeholder="Any" value="@Context.Request.Query["make"]" />
                 </div>
-                <div class="py-2">
-                    <div fh-regular>Min year:</div>
-                    <input type="number" id="minYear" name="minYear" placeholder="From" class="form-control" value="@Context.Request.Query["minYear"]" />
-                </div>
-                <div class="py-2">
-                    <div fh-regular>Max year:</div>
-                    <input type="number" id="maxYear" name="maxYear" placeholder="To" class="form-control" value="@Context.Request.Query["maxYear"]" />
-                </div>
+
                 <div class="py-2">
                     <div fh-regular>Model:</div>
                     <input type="text" id="model" name="model" class="form-control" placeholder="Any" value="@Context.Request.Query["model"]" />
                 </div>
-                <div class="py-2">
-                    <div fh-regular>Min price:</div>
-                    <input type="number" id="minPrice" name="minPrice" placeholder="From" class="form-control" value="@Context.Request.Query["minPrice"]" />
-                </div>
-                <div class="py-2">
-                    <div fh-regular>Max price:</div>
-                    <input type="number" id="maxPrice" name="maxPrice" placeholder="To" class="form-control" value="@Context.Request.Query["maxPrice"]" />
-                </div>
+                
+                
                 <div class="py-2">
                     <div fh-regular>Car type:</div>
                     <select id="carType" name="carType" class="form-control w-100">
@@ -227,14 +234,33 @@
                             }
                         }
                     </select>
-
                 </div>
+
                 <div class="py-2">
                     <div fh-regular>Color:</div>
                     <input type="text" id="color" name="color" placeholder="Any" class="form-control" value="@Context.Request.Query["color"]" />
+                </div>
 
+                @* <div class="py-2">
+                <div fh-regular>Min year:</div>
+                <input type="number" id="minYear" name="minYear" placeholder="From" class="form-control" value="@Context.Request.Query["minYear"]" />
                 </div>
                 <div class="py-2">
+                <div fh-regular>Max year:</div>
+                <input type="number" id="maxYear" name="maxYear" placeholder="To" class="form-control" value="@Context.Request.Query["maxYear"]" />
+                </div> *@
+
+                <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
+                    <label class="px-0" for="minYear">Year</label>
+                    <div class="col-6 ps-0 pe-1">
+                        <input type="number" id="minYear" name="minYear" placeholder="From" class="form-control" value="@Context.Request.Query["minYear"]" />
+                    </div>
+                    <div class="col-6 ps-1 pe-0">
+                        <input type="number" id="maxYear" name="maxYear" placeholder="To" class="form-control" value="@Context.Request.Query["maxYear"]" />
+                    </div>
+                </div>
+
+                @* <div class="py-2">
                     <div fh-regular>Min mileage:</div>
                     <input type="number" id="minMileage" name="minMileage" placeholder="From" class="form-control" value="@Context.Request.Query["minMileage"]" />
                 </div>
@@ -249,6 +275,24 @@
                 <div class="py-2">
                     <div fh-regular>Max engine volume:</div>
                     <input type="number" id="maxEngineVolume" placeholder="To" name="maxEngineVolume" class="form-control" value="@Context.Request.Query["maxEngineVolume"]" />
+                </div> *@
+                <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
+                    <label class="px-0" for="minMileage">Mileage</label>
+                    <div class="col-6 ps-0 pe-1">
+                        <input type="number" id="minMileage" name="minMileage" placeholder="From" class="form-control" value="@Context.Request.Query["minMileage"]" />
+                    </div>
+                    <div class="col-6 ps-1 pe-0">
+                        <input type="number" id="maxMileage" name="maxMileage" placeholder="To" class="form-control" value="@Context.Request.Query["maxMileage"]" />
+                    </div>
+                </div>
+                <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
+                    <label class="px-0" for="minEngineVolume">Engine Volume</label>
+                    <div class="col-6 ps-0 pe-1">
+                        <input type="number" id="minEngineVolume" name="minEngineVolume" placeholder="From" class="form-control" value="@Context.Request.Query["minEngineVolume"]" />
+                    </div>
+                    <div class="col-6 ps-1 pe-0">
+                        <input type="number" id="maxEngineVolume" name="maxEngineVolume" placeholder="To" class="form-control" value="@Context.Request.Query["maxEngineVolume"]" />
+                    </div>
                 </div>
             </div>
         </div>

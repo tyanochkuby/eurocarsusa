@@ -387,7 +387,8 @@ button#mobile-filter-select-save-button .carIcon {
 }
 
 .text-subhead {
-    color: var(--bs-subhead)
+    color: var(--bs-subhead);
+    color: #49454F
 }
 
 
