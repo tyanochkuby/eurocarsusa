@@ -192,8 +192,20 @@
                 
                 <div class="pb-2 pt-0">
                     <div fh-regular>Make:</div>
-                    <select id="make" name="make" class="form-control w-100">
-                        <option value="" disabled selected>Any</option>
+                    <div class="dropdown w-100">
+                        <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            Make
+                        </button>
+                        <ul class="dropdown-menu w-100" name="make" aria-labelledby="dropdownMenuButton">
+                            @foreach (string makeOption in ViewBag.AvailableFilters["Makes"])
+                            {
+                                <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@makeOption"> @makeOption</a></li>
+                            }
+                        </ul>
+
+                    </div>
+                    <input type="hidden" id="makeInput" name="make">
+                    @* <select data-placeholder="Type a make" id="make" name="make" class="form-control w-100 chosen-select" multiple >
                         @foreach (string makeOption in ViewBag.AvailableFilters["Makes"])
                         {
                             @if (Context.Request.Query["make"] == makeOption)
@@ -205,7 +217,7 @@
                                 <option value="@makeOption">@makeOption.ToString()</option>
                             }
                         }
-                    </select>
+                    </select> *@
                 </div>
 
                 <div class="py-2">
@@ -418,7 +430,7 @@
 
             //$('#advancedFiltersFormWrapper').removeClass('collapse');
 
-            setTimeout(function () {
+            setTimeout(function () {l
                 basicFiltersDimensions = getActualDimensions('#basicFiltersFormWrapper');
                 console.log(basicFiltersDimensions);
                 advancedFiltersDimensions = getActualDimensions('#advancedFiltersFormWrapper');
@@ -472,6 +484,28 @@
                 console.log('clearing');
                 $('#filtersForm input[type="text"], #filtersForm input[type="number"]').val('');
                 $('#filtersForm select').prop('selectedIndex', 0);
+            });
+
+            $(".chosen-select").chosen({
+                no_results_text: "Oops, nothing found!"
+            })
+
+            $('.showDropdownOptionsButton').click(function () {
+                var dropdownOptions = $(this).next('.dropdownOptions');
+                dropdownOptions.style.display = dropdownOptions.style.display === "block" ? "none" : "block";
+            });
+
+            $('.dropdownCheckbox').change(function () {
+                var dropdownOptions = $(this).parent().parent().parent();
+                var checkboxes = dropdownOptions.find("input[type='checkbox']");
+                var selectedOptions = [];
+                checkboxes.each(function () {
+                    if ($(this).is(':checked')) {
+                        selectedOptions.push($(this).val());
+                    }
+                });
+                var dropdownName = dropdownOptions.attr('name');
+                $("#" + dropdownName + "Input").val(selectedOptions.join(','));
             });
 
 

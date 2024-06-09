@@ -391,3 +391,22 @@ button#mobile-filter-select-save-button .carIcon {
 }
 
 
+.dropdown-toggle {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    color: var(--bs-primary);
+
+}
+    .dropdown-toggle:hover {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        color: var(--bs-primary);
+    }
+.dropdown-item input[type='checkbox'] {
+    width: 14px;
+    height: 14px;
+}
+
+.dropdown-item {
+    font-size: 16px;
+}
