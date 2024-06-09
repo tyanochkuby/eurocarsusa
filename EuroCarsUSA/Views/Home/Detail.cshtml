@@ -10,8 +10,8 @@
     <div class="col-md-8 px-3">
         @*path*@
         <div class="ms-xl-0 ms-2 mb-3">
-            <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
-                <- Back
+            <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1 d-inline-flex align-items-center">
+                <img class="carIcon" src="~/icons/arrow_left_alt.svg" /> <span>Back</span>
             </a>
 
             <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
@@ -245,9 +245,8 @@
 
                 <div class="bg-light align-items-center flex-column d-flex">
                     <p class="fs-4 fw-light mb-0 mt-2 border-bottom border-primary">Contact with seller</p>
-                    <a class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2" id="toggleButton">
-                        <span id="showNumber"><i class="fas fa-phone fa-rotate-90"></i><i class="px-1"></i>Show phone number</span>
-                        <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90 "></i>  +12 34 567 890</span>
+                    <a class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2 d-inline-flex align-items-center">
+                        <img class="carIcon" src="~/icons/phone.svg" /> <span class="ms-1">+48 567 849 201</span>
                     </a>
 
                     <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
@@ -271,7 +270,20 @@
                         </div>
 
                         <div class="align-items-center flex-column d-flex pb-3">
-                            <button type="submit" class="btn btn-primary rounded-pill py-2 px-4"><i class="fas fa-envelope px-1"><i class="px-1"></i></i>Send message</button>
+                            <button type="submit" class="btn btn-primary rounded-pill py-2 px-4">
+                                <svg class="carIcon me-1" width="96" height="96" viewBox="0 0 96 96" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_292_959)">
+                                        <path d="M80 16H16C11.6 16 8.04 19.6 8.04 24L8 72C8 76.4 11.6 80 16 80H80C84.4 80 88 76.4 88 72V24C88 19.6 84.4 16 80 16ZM80 32L48 52L16 32V24L48 44L80 24V32Z" fill="#ffffff" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_292_959">
+                                            <rect width="96" height="96" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+                                <span>Send message</span>
+                            </button>
                         </div>
 
                     </form>
