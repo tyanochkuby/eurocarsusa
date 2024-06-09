@@ -9,6 +9,16 @@ namespace EuroCarsUSA.Data.Repositories
     public class CarRepository : ICarRepository
     {
         private readonly AppDbContext _context;
+
+        private Dictionary<SortOrder, Func<IQueryable<Car>, IOrderedQueryable<Car>>> sortFunctions = new Dictionary<SortOrder, Func<IQueryable<Car>, IOrderedQueryable<Car>>>
+        {
+            { SortOrder.ByYear, cars => cars.OrderBy(c => c.Year) },
+            { SortOrder.ByYearDesc, cars => cars.OrderByDescending(c => c.Year) },
+            { SortOrder.ByMileage, cars => cars.OrderBy(c => c.Mileage) },
+            { SortOrder.ByMileageDesc, cars => cars.OrderByDescending(c => c.Mileage) },
+            { SortOrder.ByPrice, cars => cars.OrderBy(c => c.Price) },
+            { SortOrder.ByPriceDesc, cars => cars.OrderByDescending(c => c.Price) },
+        };
         public CarRepository(AppDbContext context) 
         {
             _context = context;
@@ -45,13 +55,19 @@ namespace EuroCarsUSA.Data.Repositories
             return await _context.Cars.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<IEnumerable<Car>> GetRange(int start, int count, CarFilter? filters)
+        public async Task<IEnumerable<Car>> GetRange(int start, int count, CarFilter? filters, SortOrder? sortOrder)
         {
             var cars = _context.Cars.AsQueryable();
 
             cars = ApplyFilters(cars, filters);
-
-            return await cars.Skip(start).Take(count).ToListAsync();
+            sortOrder = sortOrder ?? SortOrder.NewFirst;
+            if(sortFunctions.ContainsKey(sortOrder.Value))
+            {
+                cars = sortFunctions[sortOrder.Value](cars);
+            }
+            cars = cars.Skip(start).Take(count);
+            var carsList = await cars.ToListAsync();
+            return carsList;
         }
 
         public async Task<int> GetCount(CarFilter? filters)
@@ -74,18 +90,19 @@ namespace EuroCarsUSA.Data.Repositories
                     (!filters.MaxPrice.HasValue || c.Price <= filters.MaxPrice.Value) &&
                     (!filters.MinYear.HasValue || c.Year >= filters.MinYear.Value) &&
                     (!filters.MaxYear.HasValue || c.Year <= filters.MaxYear.Value) &&
-                    (!filters.MinMileage.HasValue || c.Year >= filters.MinMileage.Value) &&
-                    (!filters.MaxMileage.HasValue || c.Year <= filters.MaxMileage.Value) &&
+                    (!filters.MinMileage.HasValue || c.Mileage >= filters.MinMileage.Value) && // Corrected here
+                    (!filters.MaxMileage.HasValue || c.Mileage <= filters.MaxMileage.Value) && // Corrected here
                     (!filters.MinEngineVolume.HasValue || c.EngineVolume >= filters.MinEngineVolume.Value) &&
                     (!filters.MaxEngineVolume.HasValue || c.EngineVolume <= filters.MaxEngineVolume.Value) &&
                     (filters.FuelType.Count == 0 || filters.FuelType.Any(f => f == c.FuelType)) &&
-                    (filters.CarType.Count == 0|| filters.CarType.Any(f => f == c.Type)) &&
-                    (filters.Transmission.Count == 0|| filters.Transmission.Any(f => f == c.Transmission)) &&
+                    (filters.CarType.Count == 0 || filters.CarType.Any(f => f == c.Type)) &&
+                    (filters.Transmission.Count == 0 || filters.Transmission.Any(f => f == c.Transmission)) &&
                     (filters.Color.Count == 0 || filters.Color.Any(f => f == c.Color))
                 );
             }
             return cars;
         }
+
 
         public async Task<Dictionary<string, List<string>>> GetAvailableFilters()
         {

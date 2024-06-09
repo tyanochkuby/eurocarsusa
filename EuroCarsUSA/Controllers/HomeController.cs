@@ -18,15 +18,7 @@ namespace EuroCarsUSA.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IEmailService _emailService;
         private const int carsPerLoad = 6;
-        private Dictionary<SortOrder, Func<IEnumerable<Car>, IOrderedEnumerable<Car>>> sortFunctions = new Dictionary<SortOrder, Func<IEnumerable<Car>, IOrderedEnumerable<Car>>>
-        {
-            { SortOrder.ByYear, cars => cars.OrderBy(c => c.Year) },
-            { SortOrder.ByYearDesc, cars => cars.OrderByDescending(c => c.Year) },
-            { SortOrder.ByMileage, cars => cars.OrderBy(c => c.Mileage) },
-            { SortOrder.ByMileageDesc, cars => cars.OrderByDescending(c => c.Mileage) },
-            { SortOrder.ByPrice, cars => cars.OrderBy(c => c.Price) },
-            { SortOrder.ByPriceDesc, cars => cars.OrderByDescending(c => c.Price) },
-        };
+        
         public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService)
         {
             _carRepository = carRepository;
@@ -35,7 +27,7 @@ namespace EuroCarsUSA.Controllers
             _emailService = emailService;
         }
 
-        public async Task<IActionResult> Index(SortOrder sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
+        public async Task<IActionResult> Index(string sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
         {
             //ViewBag.YearSortParm = sortOrder == SortOrder.ByYear ? SortOrder.ByYearDesc : SortOrder.ByYear;
             //ViewBag.MileageSortParm = sortOrder == SortOrder.ByMileage ? SortOrder.ByMileageDesc : SortOrder.ByMileage;
@@ -82,8 +74,14 @@ namespace EuroCarsUSA.Controllers
                         .Where(m => make.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
                         .ToList() 
                     : new List<CarMake>(),
-                Model = model
+                Model = model,
             };
+            SortOrder sortOrderEnum;
+            if (Enum.TryParse(sortOrder, true, out sortOrderEnum))
+            {
+                filters.SortOrder = sortOrderEnum;
+            }
+
             HttpContext.Session.SetString("CurrentFilters", JsonConvert.SerializeObject(filters));
 
             var availableFilters = await _carRepository.GetAvailableFilters();
@@ -151,7 +149,7 @@ namespace EuroCarsUSA.Controllers
                 filters = JsonConvert.DeserializeObject<CarFilter>(sessionData);
             }
              
-            var nextCars = await _carRepository.GetRange(carsDisplayed, carsPerLoad, filters);
+            var nextCars = await _carRepository.GetRange(carsDisplayed, carsPerLoad, filters, filters.SortOrder);
             var carsCount = await _carRepository.GetCount(filters);
             var showMoreButton = carsCount > carsDisplayed + carsPerLoad;
             ViewBag.ShowMoreButton = showMoreButton;
