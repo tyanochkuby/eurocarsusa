@@ -28,10 +28,10 @@ namespace EuroCarsUSA.Data
                             Color = CarColor.Red,
                             VIN = "12345364758",
                             Images = new List<string> {
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2EqfTpmjeC6G23-aYZFOV55RfNpZ7rdRj7FQkzqCXjQ&s",
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGIRxwSRMqNNnahDvBfT3dsBfTC-nwAtph5DfNtXONaA&s",
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8noXZd9o7-nHxx4jZjG7NEcdbSt-Xn_8PxvKTSjr3yA&s",
-                                "https://i.pinimg.com/736x/02/f9/eb/02f9ebc30503b86c7bbbc7c20915a5d2.jpg"
+                                "https://ireland.apollo.olxcdn.com/v1/files/cztpfk9k5fly2-PL/image;s=1000x700",
+                                "https://ireland.apollo.olxcdn.com/v1/files/d7rpbu4v9xsk-PL/image;s=1000x700",
+                                "https://ireland.apollo.olxcdn.com/v1/files/e0gvt3e84zp53-PL/image;s=1000x700",
+                                "https://ireland.apollo.olxcdn.com/v1/files/7nbsrjhbrs1u1-PL/image;s=1000x700",
                             },
                             FuelType = Enum.CarFuelType.Electric,
                             Year = 2018,
@@ -46,7 +46,13 @@ namespace EuroCarsUSA.Data
                             Model = "Countryman",
                             Color = CarColor.Blue,
                             VIN = "8765432",
-                            Images = new List<string> { "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDMkmd2hpZbC6_PeQRW9lViM3Aq17Bj2SU92A8FMOTyA&s" },
+                            Images = new List<string>
+                            { 
+                                "https://ireland.apollo.olxcdn.com/v1/files/utz5f9234x912-PL/image;s=1000x700",
+                                "https://ireland.apollo.olxcdn.com/v1/files/as9w7zi464pi1-PL/image;s=1000x700",
+                                "https://ireland.apollo.olxcdn.com/v1/files/4lkywrz7kpx53-PL/image;s=1000x700"
+
+                            },
                             FuelType = Enum.CarFuelType.Benzine,
                             Year = 2020,
                             Mileage = 16734,
@@ -84,10 +90,9 @@ namespace EuroCarsUSA.Data
                             VIN = "147526830",
                             Images = new List<string>
                             {
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb5H2UFTdzEUhh8TL-9qB45BXUAxWB-lmKABlL34H0wA&s",
-                                "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2022/07/896/500/black-accent.jpg?ve=1&tl=1",
-                                "https://www.mustangspecs.com/wp-content/uploads/2022/01/maxresdefault.jpeg",
-                                "https://www.ford.it/content/dam/guxeu/rhd/central/cars/2020-mustang-mach-1/launch/gallery/interior/Ford-Mach1-eu-FordMustangMach1_FighterJetGray_024-16x9-2160x1215-Gallery_D_T_M-2.jpg.renditions.original.png",
+                                "https://ireland.apollo.olxcdn.com/v1/files/xvni7hytqkg52-PL/image;s=1000x700",
+                                "https://ireland.apollo.olxcdn.com/v1/files/me75bbca0o4s1-PL/image;s=1000x700",
+                                "https://ireland.apollo.olxcdn.com/v1/files/jfwak44z982u3-PL/image;s=1000x700",
                             },
                             FuelType = CarFuelType.Benzine,
                             Year = 2021,
@@ -126,11 +131,9 @@ namespace EuroCarsUSA.Data
                             VIN = "247856123",
                             Images = new List<string>
                             {
-                                "https://file.kelleybluebookimages.com/kbb/base/house/2018/2018-BMW-M5-FrontSide_BMM51801_640x480.jpg",
-                                "https://media.carsandbids.com/cdn-cgi/image/width=2080,quality=70/da4b9237bacccdf19c0760cab7aec4a8359010b0/photos/bVoBatLPE.4ch5lOvtM.jpg?t=161498178659",
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxCWqrCLJtsxp54pssXxhoSw0SYQNiFtiH4R6BW6B9Pw&s",
-                                "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6IjF0NjhneHdiZ2d1czMtT1RPTU9UT1BMIiwidyI6W3siZm4iOiJ3ZzRnbnFwNnkxZi1PVE9NT1RPUEwiLCJzIjoiMTYiLCJwIjoiMTAsLTEwIiwiYSI6IjAifV19.OTLlKoVeUIMbA5N_H985qFH5hRmxNPfE9F-Wjd54L70/image;s=0x450;q=70",
-                                "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6ImE4djg5eWFndzAxYy1PVE9NT1RPUEwiLCJ3IjpbeyJmbiI6IndnNGducXA2eTFmLU9UT01PVE9QTCIsInMiOiIxNiIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.t6iEfyvXdY9zvIzAuEBRVWuX7OweMHByo2SUpxBN2zY/image;s=0x450;q=70"
+                                "https://ireland.apollo.olxcdn.com/v1/files/j6mky1s62dqw1-PL/image;s=1000x700",
+                                "https://ireland.apollo.olxcdn.com/v1/files/24hdvd64sb702-PL/image;s=1000x700",
+                                "https://ireland.apollo.olxcdn.com/v1/files/wo16f6bd0076-PL/image;s=1000x700",
                             },
                             FuelType = CarFuelType.Benzine,
                             Year = 2018,
