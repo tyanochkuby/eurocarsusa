@@ -162,6 +162,24 @@
                 <div fh-regular>Max price:</div>
                 <input type="number" id="maxPrice" name="maxPrice" placeholder="To" class="form-control" value="@Context.Request.Query["maxPrice"]" />
                 </div> *@
+                <form method="get" id="filtersForm">
+                <div class="pb-2 pt-0">
+                    <div fh-regular>Sort Order:</div>
+                    <select id="sortOrder" name="sortOrder" class="form-control w-100">
+                        @foreach (SortOrder sortOrder in Enum.GetValues(typeof(SortOrder)))
+                        {
+                            if (Context.Request.Query["sortOrder"] == sortOrder.ToString())
+                            {
+                                <option value="@sortOrder" selected>@sortOrder.ToCustomString()</option>
+                            }
+                            else
+                            {
+                                <option value="@sortOrder">@sortOrder.ToCustomString()</option>
+                            }
+                        }
+                    </select>
+                </div>
+
                 <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
                     <label class="px-0" for="minPrice">Price</label>
                     <div class="col-6 ps-0 pe-1">
@@ -174,7 +192,20 @@
                 
                 <div class="pb-2 pt-0">
                     <div fh-regular>Make:</div>
-                    <input type="text" id="make" name="make" class="form-control" placeholder="Any" value="@Context.Request.Query["make"]" />
+                    <select id="make" name="make" class="form-control w-100">
+                        <option value="" disabled selected>Any</option>
+                        @foreach (string makeOption in ViewBag.AvailableFilters["Makes"])
+                        {
+                            @if (Context.Request.Query["make"] == makeOption)
+                            {
+                                <option value="@makeOption" selected>@makeOption.ToString()</option>
+                            }
+                            else
+                            {
+                                <option value="@makeOption">@makeOption.ToString()</option>
+                            }
+                        }
+                    </select>
                 </div>
 
                 <div class="py-2">
@@ -187,9 +218,9 @@
                     <div fh-regular>Car type:</div>
                     <select id="carType" name="carType" class="form-control w-100">
                         <option value="" disabled selected>Any</option>
-                        @foreach (CarType typeOption in Enum.GetValues(typeof(CarType)))
+                        @foreach (string typeOption in ViewBag.AvailableFilters["CarTypes"])
                         {
-                            @if (ViewBag.CarType == typeOption)
+                            @if (Context.Request.Query["carType"] == typeOption)
                             {
                                 <option value="@typeOption" selected>@typeOption.ToString()</option>
                             }
@@ -204,15 +235,15 @@
                     <div fh-regular>Fuel type:</div>
                     <select id="fuelType" name="fuelType" class="form-control w-100">
                         <option value="" disabled selected>Any</option>
-                        @foreach (CarFuelType fuelType in Enum.GetValues(typeof(CarFuelType)))
+                        @foreach (string option in ViewBag.AvailableFilters["FuelTypes"])
                         {
-                            @if (ViewBag.FuelType == fuelType)
+                            @if (Context.Request.Query["fuelType"] == option)
                             {
-                                <option value="@fuelType" selected>@fuelType</option>
+                                <option value="@option" selected>@option.ToString()</option>
                             }
                             else
                             {
-                                <option value="@fuelType">@fuelType</option>
+                                <option value="@option">@option.ToString()</option>
                             }
                         }
 
@@ -222,15 +253,15 @@
                     <div fh-regular>Transmission:</div>
                     <select id="transmission" name="transmission" class="form-control w-100">
                         <option value="" disabled selected>Any</option>
-                        @foreach (CarTransmission transmissionOption in Enum.GetValues(typeof(CarTransmission)))
+                        @foreach (string option in ViewBag.AvailableFilters["Transmissions"])
                         {
-                            @if (ViewBag.Transmission == transmissionOption)
+                            @if (Context.Request.Query["transmission"] == option)
                             {
-                                <option value="@transmissionOption" selected>@transmissionOption.ToString()</option>
+                                <option value="@option" selected>@option.ToString()</option>
                             }
                             else
                             {
-                                <option value="@transmissionOption">@transmissionOption.ToString()</option>
+                                <option value="@option">@option.ToString()</option>
                             }
                         }
                     </select>
@@ -238,7 +269,20 @@
 
                 <div class="py-2">
                     <div fh-regular>Color:</div>
-                    <input type="text" id="color" name="color" placeholder="Any" class="form-control" value="@Context.Request.Query["color"]" />
+                    <select id="color" name="color" class="form-control w-100">
+                        <option value="" disabled selected>Any</option>
+                        @foreach (string option in ViewBag.AvailableFilters["Colors"])
+                        {
+                            @if (Context.Request.Query["color"] == option)
+                            {
+                                <option value="@option" selected>@option.ToString()</option>
+                            }
+                            else
+                            {
+                                <option value="@option">@option.ToString()</option>
+                            }
+                        }
+                    </select>
                 </div>
 
                 @* <div class="py-2">
@@ -294,6 +338,20 @@
                         <input type="number" id="maxEngineVolume" name="maxEngineVolume" placeholder="To" class="form-control" value="@Context.Request.Query["maxEngineVolume"]" />
                     </div>
                 </div>
+
+                    <div class="row row-mobile-filter mx-0 justify-content-between">
+                        <div class="col-6">
+                            <button class="btn btn-secondary rounded-pill me-4 w-100 d-flex align-items-center justify-content-center" id="filter-clear-button">
+                                <img class="carIcon me-2" src="~/icons/clear.svg" /> Clear
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary rounded-pill w-100" id="filterSubmitButton">
+                                <img class="carIcon" src="~/icons/search.svg" /> Find
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -326,8 +384,8 @@
                         var html = $(data);
                         $('#carsListing').append(html);
                         carsDisplayed += html.data('cars-in-view');
-                        console.log(html.data('show-more-button'));
                         if (html.data('show-more-button') == "False") {
+                            console.log('hiding');
                             $('#showMoreButton').hide();
                         }
                     },
@@ -408,6 +466,14 @@
             $('.filter-mobile-close-button').click(function () {
                 $('#filters-mobile-list').removeClass('open');
             });
+
+            $('#filter-clear-button').click(function (event) {
+                event.preventDefault();
+                console.log('clearing');
+                $('#filtersForm input[type="text"], #filtersForm input[type="number"]').val('');
+                $('#filtersForm select').prop('selectedIndex', 0);
+            });
+
 
             var carMakes = @Json.Serialize(ViewBag.AvailableFilters["Makes"]);
             var carColors = @Json.Serialize(ViewBag.AvailableFilters["Colors"]);
@@ -515,16 +581,5 @@
         }
        
 
-    </script>
-    <script>
-        $(document).ready(function () {
-            console.log(@Context.Request.Query["minYear"]);
-
-            var showShowMoreButton = '@ViewBag.ShowMoreButton' === 'True';
-            console.log(showShowMoreButton);
-            if (!showShowMoreButton) {
-                $('#showMoreButton').hide();
-            }
-        });
     </script>
 }
