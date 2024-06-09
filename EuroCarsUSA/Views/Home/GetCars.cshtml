@@ -2,24 +2,24 @@
 
 
 <div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">
-    <div class="row">
+    <div class="row mx-0">
         @foreach (Car car in Model)
         {
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 px-1 px-sm-2">
                 <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none">
                     <div class="card mb-4 pt-2 box-shadow rounded-xxl">
-                        <div class="img-container overflow-hidden mx-3 mt-1">
+                        <div class="img-container overflow-hidden mx-2 mt-1">
                             <img class="card-img float-left rounded-xxl" src=@car.Images[0] alt=@(car.Color.ToString() + car.Make.ToString() + car.Model)>
                         </div>
 
                         <div class="card-body">
-                            <div class="row justify-content-between">
+                            <div class="row justify-content-between fh-regular">
                                 <!-- Car nam -->
-                                <div class="col-8 fh-card-header">
+                                <div class="col-sm-8 col-12 px-1 px-sm-2 fh-card-header">
                                     <b>@(car.Make + " " + car.Model)</b>
                                 </div>
                                 <!-- Price -->
-                                <div class="col-4 text-end fh-card-title">
+                                <div class="col-sm-4 col-12 px-1 px-sm-2 text-sm-end fh-card-title">
                                     <div class="mb-0">@(car.Price)</div>
                                 </div>
                             </div>
@@ -29,8 +29,8 @@
 
 
                             <div class="row justify-content-between fh-regular">
-                                <div class="col ">
-                                    <div class="row pb-2">
+                                <div class="col-12 col-sm-6">
+                                    <div class="row">
                                         <div class="d-flex align-items-center justify-content-start">
                                             <img class="carIcon" src="/icons/car_millage.svg">
                                             <div class="ms-2 text-subhead">@car.Mileage</div>
@@ -38,39 +38,32 @@
                                         </div>
                                     </div>
 
-
                                     <div class="row">
                                         <div class="d-flex align-items-center justify-content-start">
                                             <img class="carIcon" src="/icons/car_engine.svg">
                                             <div class="ms-2 text-subhead">@(car.FuelType == EuroCarsUSA.Data.Enum.CarFuelType.Electric ? "Electric" : car.EngineVolume.ToString() + " cm3")</div>
                                         </div>
                                     </div>
-
                                 </div>
-                                <div class="col text-end">
-                                    <div class="row pb-2">
-                                        <div class="d-flex align-items-center justify-content-end">
+                                <div class="col-12 col-sm-6 text-sm-end">
+                                    <div class="row">
+                                        <div class="d-flex align-items-center justify-content-start justify-content-sm-end">
                                             <img class="carIcon" src="/icons/car_gearbox.svg">
                                             <div class="ms-2 text-subhead">@car.Transmission.ToString()</div>
                                         </div>
                                     </div>
 
-
                                     <div class="row">
-                                        <div class="d-flex align-items-center justify-content-end">
+                                        <div class="d-flex align-items-center justify-content-start justify-content-sm-end">
                                             <img class="carIcon" src="/icons/car_year.svg">
                                             <div class="ms-2 text-subhead">@car.Year</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="row d-flex justify-content-end">
-                            <div class="col-xl-4 col-md-6 col-sm-6 col-6 mb-3 ps-4 pe-1">
-                                <a class="btn btn-secondary rounded-pill w-100" asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id>
-                                    Details
-                                </a>
-                            </div>
                             <div class="col-xl-4 col-md-6 col-sm-6 col-6 mb-3 pe-4 ps-1">
                                 <button type="button" class="btn btn-primary rounded-pill w-100">
                                     <i class="fas fa-heart px-3 py-1"></i>
