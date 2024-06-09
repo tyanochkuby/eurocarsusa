@@ -1,22 +1,23 @@
 @model DetailPageForm
 
+
 <div id="successMessage" class="alert alert-secondary text-primary border-primary rounded-xxl py-2 px-3 start-50 translate-middle fs-4" style="display: none; position: fixed; top: 0; text-align: center; z-index: 1000; margin-top: 5%">
     Message sent!
 </div>
 
-<div class="row">
-    <div class="col-md-8">
-
+<div class="row justify-content-md-center">
+    
+    <div class="col-md-8 px-3">
         @*path*@
-        <div class="mb-3">
-            <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn px-3 py-2 btn-secondary border-0 rounded-pill me-1">
+        <div class="ms-xl-0 ms-2 mb-3">
+            <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
                 <- Back
             </a>
 
-            <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" class="btn px-3 py-2 btn-secondary border-0 rounded-pill me-1">
+            <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
                 @ViewBag.Car.Make
             </a>
-            <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" asp-route-model="@ViewBag.Car.Model" class="btn px-3 py-2 btn-secondary border-0 rounded-pill">
+            <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" asp-route-model="@ViewBag.Car.Model" class="btn fh-button-text  px-3 py-2 btn-secondary border-0 rounded-pill">
                 @ViewBag.Car.Model
             </a>
         </div>
@@ -25,17 +26,17 @@
         <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
             <div class="position-relative" id="mainPictureContainer">
                 <div class="arrow-container">
-                   <img  id="leftArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_left.svg" />
+                    <img id="leftArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_left.svg" />
                     <img id="rightArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_right.svg" />
                 </div>
-                
+
                 <figure class="position-relative" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                    <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0> 
+                    <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0>
 
                         <img src=@ViewBag.Car.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
                     </a>
                 </figure>
-                
+
             </div>
 
 
@@ -45,7 +46,7 @@
                         @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
                         {
                             <div class="slick-slide" data-slick-index="@i" aria-hidden="true">
-                                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="slick-slide" data-slick-index="2"  aria-hidden="true" tabindex="-1" role="option" bis_skin_checked="1">
+                                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" bis_skin_checked="1">
 
                                     <a href=@ViewBag.Car.Images[i] class="carPhotoThumbnail" id=@("car-figure-" + i) data-width="1200" data-height="900" itemprop="contentUrl" data-index=@i>
                                         <div class="me-2">
@@ -59,17 +60,17 @@
                 </div>
             </div>
             @*
-                <div class="row justify-content-center">
-                <div class="d-flex flex-row align-items-center">
-                    @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
-                    {
-                        <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                            <a href=@ViewBag.Car.Images[i] class="carPhotoThumbnail" data-width="1200" data-height="900" itemprop="contentUrl" index=@i>
-                                <img src=@ViewBag.Car.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
-                            </a>
-                        </figure>
-                    }
-                </div>
+            <div class="row justify-content-center">
+            <div class="d-flex flex-row align-items-center">
+            @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
+            {
+            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+            <a href=@ViewBag.Car.Images[i] class="carPhotoThumbnail" data-width="1200" data-height="900" itemprop="contentUrl" index=@i>
+            <img src=@ViewBag.Car.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
+            </a>
+            </figure>
+            }
+            </div>
             </div> *@
 
 
@@ -125,97 +126,177 @@
                 </div>
             </div>
         </div>
-    </div>
 
+        @*Details*@
+        <div class="ms-xl-0 ms-2 mb-3">
+            <hr style="border-top: 1px solid #000;"> @*divider*@
 
-    <div class="col-md-4">
-        <h1>@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</h1>
+            <div class="row"> <h2 class="fh-header">Details</h2></div>
 
+            <div class="fh-regular">
+                <div class="row mb-md-3">
+                    <div class="col-md-6">
+                        <div class="row my-md-0 my-1">
+                            <div class="col-6 text-subhead">Year</div>
+                            <div class="col-6">@ViewBag.Car.Year</div>
+                        </div>
+                    </div>
 
-        <div class="bg-light align-items-center flex-column d-flex">
-            <p class="fs-4 mb-0 mt-2">Contact with seller</p>
-            <a class="btn btn-secondary rounded-pill w-75 py-2 mt-1 mb-2" id="toggleButton">
-                 <span id="showNumber">Show number</span>
-                <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90"></i>  +1234567890</span>
-            </a>
-
-            <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
-                    <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
-
-                <div class="form-group px-2 py-1">
-                    <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="Name" />
+                    <div class="col-md-6">
+                        <div class="row my-md-0 my-1">
+                            <div class="col-6 text-subhead">Make</div>
+                            <div class="col-6">@ViewBag.Car.Make</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group px-2 py-1">
-                    <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="Email" />
-                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                <div class="row mb-md-3">
+                    <div class="col-md-6">
+                        <div class="row my-md-0 my-1">
+                            <div class="col-6 text-subhead">Mileage</div>
+                            <div class="col-6">@ViewBag.Car.Mileage</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 my-md-0 my-1">
+                        <div class="row">
+                            <div class="col-6 text-subhead">Model</div>
+                            <div class="col-6">@ViewBag.Car.Model</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group px-2 py-1">
-                    <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="Phone Number" />
-                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                <div class="row mb-md-3">
+                    <div class="col-md-6">
+                        <div class="row my-md-0 my-1">
+                            <div class="col-6 text-subhead">Color</div>
+                            <div class="col-6">@ViewBag.Car.Color</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row my-md-0 my-1">
+                            <div class="col-6 text-subhead">VIN</div>
+                            <div class="col-6">@ViewBag.Car.VIN</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group px-2 pt-1 pb-3">
-                    <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message" rows="5"></textarea>
+                <div class="row mb-md-3">
+                    <div class="col-md-6">
+                        <div class="row my-md-0 my-1">
+                            <div class="col-6 text-subhead">Type</div>
+                            <div class="col-6">@ViewBag.Car.Type</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row my-md-0 my-1">
+                            <div class="col-6 text-subhead">Fuel Type</div>
+                            <div class="col-6">@ViewBag.Car.FuelType</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="align-items-center flex-column d-flex pb-3">
-                    <button type="submit" class="btn btn-primary rounded-pill w-75 py-2"><i class="fas fa-envelope px-1"></i>  Send message</button>
+
+                <div class="row mb-md-3">
+                    <div class="col-md-6">
+                        <div class="row my-md-0 my-1">
+                            <div class="col-6 text-subhead">Transmission</div>
+                            <div class="col-6">@ViewBag.Car.Transmission</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row my-md-0 my-1">
+                            <div class="col-6 text-subhead">@(ViewBag.Car.EngineVolume != null ? "Engine volume" : "")</div>
+                            <div class="col-6">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : "")</div>
+                        </div>
+                    </div>
                 </div>
-            </form>
+            </div>
+
         </div>
 
-     
+        
+    </div>
+
+
+    <div class="col-md-4 ps-3">
+        <div class="d-none d-md-block sticky-top pt-2">
+            <div class="border px-3 py-3">
+                <div class="pb-2">
+                    <div class="fh-header-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
+                    <div class="fh-regular row mx-0">
+                        <div class="col-auto ps-0 pe-2">@ViewBag.Car.Year</div>
+                        <div class="col-auto ps-0 pe-2">@ViewBag.Car.Mileage</div>
+                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : @ViewBag.Car.FuelType.ToString())</div>
+                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.FuelType.ToString() : "")</div>
+                    </div>
+                </div>
+
+                <div class="center-items bg-byzantine br-2">
+                    <div class="row mx-0 text-antique">
+                        <div class="col-auto ps-0 pe-2 fh-header-bold">@ViewBag.Car.Price.ToString()</div>
+                        <div class="col-auto px-0 fh-header">PLN</div>
+                    </div>
+                </div>
+
+                <div class="py-3"></div>
+
+                <div class="bg-light align-items-center flex-column d-flex">
+                    <p class="fs-4 fw-light mb-0 mt-2 border-bottom border-primary">Contact with seller</p>
+                    <a class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2" id="toggleButton">
+                        <span id="showNumber"><i class="fas fa-phone fa-rotate-90"></i><i class="px-1"></i>Show phone number</span>
+                        <span id="phoneNumber" style="display: none;"><i class="fas fa-phone fa-rotate-90 "></i>  +12 34 567 890</span>
+                    </a>
+
+                    <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
+                        <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
+                        <div class="form-group px-2 py-1">
+                            <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="Name" />
+                        </div>
+
+                        <div class="form-group px-2 py-1">
+                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="Email" />
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group px-2 py-1">
+                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="Phone Number" />
+                            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group px-2 pt-1 pb-3">
+                            <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message" rows="5"></textarea>
+                        </div>
+
+                        <div class="align-items-center flex-column d-flex pb-3">
+                            <button type="submit" class="btn btn-primary rounded-pill py-2 px-4"><i class="fas fa-envelope px-1"><i class="px-1"></i></i>Send message</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row fixed-bottom d-md-none w-100">
+            <div class="col-6 px-0">
+                <div class="align-items-center h-100">
+                    <button type="submit" class="btn btn-secondary w-100 h-100 py-3"><i class="fas fa-phone fa-rotate-90 px-1"></i>  Call</button>
+                </div>
+            </div>
+            <div class="col-6 px-0">
+                <div class="align-items-center h-100">
+                    <button type="submit" class="btn btn-secondary w-100 h-100"><i class="fas fa-envelope px-1"></i>  Send message</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 
 
-
-
-
-
-
-
-<hr style="border-top: 1px solid #000;"> @*divider*@
-
-<div class="row"> <h2>Details</h2></div>
-
-<div class="row">
-    
-    <div class="col-md-2 ">
-        <p>Year</p>
-        <p>Mileage</p>
-        <p>Color</p>
-        <p>Type</p>
-        @(ViewBag.Car.EngineVolume != null ? "Engine volume" : "")
-    </div>
-   
-    <div class="col-md-2 text-lg-start">
-        <p class="fw-bolder">@ViewBag.Car.Year</p>
-        <p class="fw-bolder">@ViewBag.Car.Mileage</p>
-        <p class="fw-bolder">@ViewBag.Car.Color</p>
-        <p class="fw-bolder">@ViewBag.Car.Type</p>
-        <p class="fw-bolder"> @(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : "")</p>
-    </div>
-
-    <div class="col-md-1"></div>
-    
-    <div class="col-md-2">
-        <p>Make</p>
-        <p>Model</p>
-        <p>VIN</p>
-        <p>Fuel type</p>
-        <p>Transmission</p>
-    </div>
-    <div class="col-md-2">
-         <p class="fw-bolder">@ViewBag.Car.Make</p>
-         <p class="fw-bolder">@ViewBag.Car.Model</p>
-         <p class="fw-bolder">@ViewBag.Car.VIN</p>
-         <p class="fw-bolder">@ViewBag.Car.FuelType</p>
-         <p class="fw-bolder">@ViewBag.Car.Transmission</p>
-    </div>
-</div>
 
 
 
@@ -263,7 +344,7 @@
 
 
                 console.log(allImages);
-                
+
                 var index = $(this).attr('data-index');
                 // Define object and gallery options
                 var $pswp = $('.pswp')[0],
@@ -278,14 +359,14 @@
                 gallery.init();
             });
 
-            $(".carPhotoThumbnail").click(function (event) { 
+            $(".carPhotoThumbnail").click(function (event) {
                 event.preventDefault();
 
                 var index = $(this).attr('data-index');
 
                 var newImageSrc = $(this).attr('href');
 
-                
+
                 $('.carPhotoThumbnail div').removeClass('carPhotoThumbnailSelected');
                 $(this).find('div').addClass('carPhotoThumbnailSelected');
 
@@ -295,7 +376,7 @@
                 $('#imageMain').attr('data-index', index);
 
 
-                
+
 
             });
 
@@ -304,7 +385,7 @@
     </script>
     <script>
         $(document).ready(function () {
-            
+
             var sliderPosition = 1;
 
             $("#toggleButton").click(function () {
@@ -324,7 +405,7 @@
                 console.log(newIndex);
 
                 var newImageSrc = allImages[newIndex]['href'];
-                
+
                 console.log(newImageSrc);
                 $('#imageMain img').attr('src', newImageSrc);
                 $('#imageMain').attr('href', newImageSrc);
@@ -333,8 +414,7 @@
                 //$('.carPhotoThumbnail').eq(newIndex).find('div').addClass('carPhotoThumbnailSelected');
                 $(allImages[newIndex]).find('div').addClass('carPhotoThumbnailSelected');
 
-                if((sliderPosition - 1) % 2 == 0)
-                {
+                if ((sliderPosition - 1) % 2 == 0) {
                     $('.slider-container').slick('slickPrev');
                 }
                 sliderPosition = sliderPosition - 1;
