@@ -176,6 +176,25 @@
             </div>
         </div>
 
+        @*Price*@
+        <div class="d-md-none pt-2 px-2">
+            <div class="pb-2">
+                <div class="fh-header-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
+                <div class="fh-regular row mx-0">
+                    <div class="col-auto ps-0 pe-2">@ViewBag.Car.Year</div>
+                    <div class="col-auto ps-0 pe-2">@ViewBag.Car.Mileage</div>
+                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : @ViewBag.Car.FuelType.ToString())</div>
+                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.FuelType.ToString() : "")</div>
+                </div>
+            </div>
+
+
+            <div class="row mx-0 text-byzantine">
+                <div class="col-auto ps-0 pe-2 fh-header-bold">@ViewBag.Car.Price.ToString()</div>
+                <div class="col-auto px-0 fh-header">PLN</div>
+            </div>
+        </div>
+
         @*Details*@
         <div class="ms-xl-0 ms-2 mb-3">
             <hr style="border-top: 1px solid #000;"> @*divider*@
@@ -265,8 +284,6 @@
             </div>
 
         </div>
-
-        
     </div>
 
 
