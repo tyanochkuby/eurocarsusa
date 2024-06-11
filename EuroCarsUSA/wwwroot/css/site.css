@@ -70,7 +70,7 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  padding-bottom: 160px;
 }
 
 select {
@@ -272,6 +272,21 @@ div.carPhotoThumbnailSelected {
         /* When the filters panel has the 'open' class, slide it in */
         #filters-mobile-list.open {
             right: 0;
+        }
+    #sort-mobile-list {
+        box-sizing: border-box;
+        position: fixed;
+        top: 0;
+        left: -100%; 
+        width: 100%;
+        height: 100%; 
+        overflow: auto;
+        transition: left 0.3s ease-in-out; 
+        z-index: 1; 
+        background-color: #fff; 
+    }
+        #sort-mobile-list.open {
+            left: 0;
         }
 }
 

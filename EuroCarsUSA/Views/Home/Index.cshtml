@@ -7,7 +7,7 @@
 }
 
 <div class="row justify-content-around mx-0 mb-3">
-    <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="filter-mobile-sort">
+    <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="sort-mobile-button">
         Sort by
     </button>
     
@@ -23,7 +23,7 @@
         <div class="col-1 "><img class="filterIcon filter-mobile-close-button" src="~/icons/clear.svg" /></div>
     </div>
     <form method="get" id="mobileFiltersForm">
-
+        <input hidden id="mobileSortOrder" name="sortOrder" value=""></input>
         <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="make">
             <div class="col-3">
                 <label class="ps-1" for="make">Make</label>
@@ -154,6 +154,27 @@
         
     </form>
     
+</div>
+
+
+<div class="filters-mobile" id="sort-mobile-list">
+    <div class="row mt-4 justify-content-between w-100">
+        <div class="col-5 "></div>
+        <div class="col-6 "><p class="fs-5">Sort order</p></div>
+        <div class="col-1 "><img class="filterIcon sort-mobile-close-button" src="~/icons/clear.svg" /></div>
+    </div>
+    @foreach (SortOrder sortOrder in Enum.GetValues(typeof(SortOrder)))
+    {
+        <div class="row w-100 justify-content-between mb-2 mx-0 mobile-sort-option row-mobile-filter d-inline-flex align-items-center">
+            <div class="col-11">
+                <label class="ps-3 fh-filter-text" value="@sortOrder">@sortOrder.ToCustomString()</label>
+            </div>
+            <div @* style="display: @(Context.Request.Query["sortOrder"] == sortOrder ? "block" : "none")" *@ class="col-1">
+                <img src="~/icons/done.svg" class="carIcon"/>
+            </div>
+        </div>
+        <hr style="border-top: 1px solid #000;" class="my-0">
+    }
 </div>
 
 <div class="row mx-0">
@@ -489,8 +510,17 @@
                 $('#filters-mobile-list').toggleClass('open');
             });
 
+            $('#sort-mobile-button').click(function () {
+                $('#sort-mobile-list').toggleClass('open');
+            });
+
             $('.filter-mobile-close-button').click(function () {
                 $('#filters-mobile-list').removeClass('open');
+            });
+
+            $('.sort-mobile-close-button').click(function () {
+                console.log('closing')
+                $('#sort-mobile-list').removeClass('open');
             });
 
             $('#filter-clear-button').click(function (event) {
@@ -498,6 +528,12 @@
                 console.log('clearing');
                 $('#filtersForm input[type="text"], #filtersForm input[type="number"]').val('');
                 $('#filtersForm select').prop('selectedIndex', 0);
+            });
+
+            $('.mobile-sort-option').click(function () {
+                var sortOrder = $(this).find("label").first().attr('value');
+                $('#mobileSortOrder').val(sortOrder);
+                $('#mobileFiltersForm').submit();
             });
 
             $('.showDropdownOptionsButton').click(function () {
