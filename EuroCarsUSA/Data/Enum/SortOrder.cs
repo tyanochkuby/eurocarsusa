@@ -7,7 +7,6 @@
         ByYear,
         ByYearDesc,
         ByMileage,
-        ByMileageDesc,
         ByPrice,
         ByPriceDesc,
     }
@@ -19,19 +18,17 @@
             switch (sortOrder)
             {
                 case SortOrder.NewFirst:
-                    return "Newest First";
+                    return "Freshly added";
                 case SortOrder.ByYear:
-                    return "By Year (Ascending)";
+                    return "Oldest first";
                 case SortOrder.ByYearDesc:
-                    return "By Year (Descending)";
+                    return "Newest first";
                 case SortOrder.ByMileage:
-                    return "By Mileage (Ascending)";
-                case SortOrder.ByMileageDesc:
-                    return "By Mileage (Descending)";
+                    return "Lowest mileage";
                 case SortOrder.ByPrice:
-                    return "By Price (Ascending)";
+                    return "Lowest price";
                 case SortOrder.ByPriceDesc:
-                    return "By Price (Descending)";
+                    return "Highest price";
                 default:
                     return sortOrder.ToString();
             }
