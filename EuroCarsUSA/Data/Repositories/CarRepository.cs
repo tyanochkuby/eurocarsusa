@@ -15,7 +15,6 @@ namespace EuroCarsUSA.Data.Repositories
             { SortOrder.ByYear, cars => cars.OrderBy(c => c.Year) },
             { SortOrder.ByYearDesc, cars => cars.OrderByDescending(c => c.Year) },
             { SortOrder.ByMileage, cars => cars.OrderBy(c => c.Mileage) },
-            { SortOrder.ByMileageDesc, cars => cars.OrderByDescending(c => c.Mileage) },
             { SortOrder.ByPrice, cars => cars.OrderBy(c => c.Price) },
             { SortOrder.ByPriceDesc, cars => cars.OrderByDescending(c => c.Price) },
         };
