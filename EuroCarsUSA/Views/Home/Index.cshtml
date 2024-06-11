@@ -430,7 +430,7 @@
 
             //$('#advancedFiltersFormWrapper').removeClass('collapse');
 
-            setTimeout(function () {l
+            setTimeout(function () {
                 basicFiltersDimensions = getActualDimensions('#basicFiltersFormWrapper');
                 console.log(basicFiltersDimensions);
                 advancedFiltersDimensions = getActualDimensions('#advancedFiltersFormWrapper');
@@ -486,10 +486,6 @@
                 $('#filtersForm select').prop('selectedIndex', 0);
             });
 
-            $(".chosen-select").chosen({
-                no_results_text: "Oops, nothing found!"
-            })
-
             $('.showDropdownOptionsButton').click(function () {
                 var dropdownOptions = $(this).next('.dropdownOptions');
                 dropdownOptions.style.display = dropdownOptions.style.display === "block" ? "none" : "block";
@@ -526,6 +522,7 @@
             $('.mobile-filter-select').click(function () {
                 var filterType = $(this).attr('filterType');
                 var values = filterValues[filterType];
+                console.log(values);
                 if (values) {
                     var newScreen = $('.mobile-filter-select-screen');
                     if (newScreen.length === 0) {
