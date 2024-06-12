@@ -166,14 +166,29 @@
     @foreach (SortOrder sortOrder in Enum.GetValues(typeof(SortOrder)))
     {
         <div class="row w-100 justify-content-between mb-2 mx-0 mobile-sort-option row-mobile-filter d-inline-flex align-items-center">
-            <div class="col-11">
+            <div class="col-10 d-flex align-items-center">
+                <!-- Add d-flex align-items-center -->
                 <label class="ps-3 fh-filter-text" value="@sortOrder">@sortOrder.ToCustomString()</label>
             </div>
-            <div @* style="display: @(Context.Request.Query["sortOrder"] == sortOrder ? "block" : "none")" *@ class="col-1">
-                <img src="~/icons/done.svg" class="carIcon"/>
-            </div>
+            @if (Context.Request.Query["sortOrder"] == sortOrder.ToString() || (Context.Request.Query["sortOrder"] == String.Empty && sortOrder == SortOrder.NewFirst))
+            {
+                <div class="col-2 d-flex align-items-center">
+                    <!-- Add d-flex align-items-center -->
+                    <svg width="96" height="96" viewBox="0 0 96 96" class="carIcon" fill="#7E9DED" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_449_5772)">
+                            <path d="M36.0001 64.8L19.2001 48L13.6001 53.6L36.0001 76L84.0001 28L78.4001 22.4L36.0001 64.8Z" fill="#7E9DED" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_449_5772">
+                                <rect width="96" height="96" fill="#7E9DED" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+            }
         </div>
         <hr style="border-top: 1px solid #000;" class="my-0">
+
     }
 </div>
 

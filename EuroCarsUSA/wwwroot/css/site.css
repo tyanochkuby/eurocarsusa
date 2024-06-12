@@ -78,13 +78,6 @@ select {
     color: var(--bs-primary);
 }
 
-.fas.fa-phone {
-    font-size: 0.75em; /* Adjust as needed */
-    position: relative;
-    bottom: 1px;
-    right: 5px;
-}
-
 #filters {
     width: fit-content;
 }
