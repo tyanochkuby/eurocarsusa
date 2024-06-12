@@ -175,20 +175,27 @@ img.rounded-xxl {
 }
 
     .slick-slide img {
-        height: 20vh; /* 20% of the viewport height */
+        height: 8vh;
         object-fit: cover;
     }
 
-.slider-container {
-    height: 20vh; /* 25% of the viewport height */
+@media (min-width: 768px) {
+    .slick-slide img {
+        height: 12vh;
+    }
 }
 
 #imageMain img {
-    height: 50vh; /* Adjust this value to your needs */
+    height: 240px; /* Adjust this value to your needs */
     width: 100%;
     object-fit: cover;
 }
 
+@media (min-width: 768px) {
+    #imageMain img {
+        height: 440px;
+    }
+}
 
 
 div.carPhotoThumbnailSelected {

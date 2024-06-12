@@ -79,17 +79,17 @@
                     <img id="rightArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_right.svg" />
                 </div>
 
-                <figure class="position-relative" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                <figure class="position-relative mb-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                     <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0>
 
-                        <img src=@ViewBag.Car.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
+                        <img src=@ViewBag.Car.Images[0] style="object-fit: cover; width: 100%" itemprop="thumbnail">
                     </a>
                 </figure>
 
             </div>
 
 
-            <div class="slider variable-width slick-initialized slick-slider slick-dotted" id="carsSlider" role="toolbar" bis_skin_checked="1">
+            <div class="d-none d-sm-block slider variable-width slick-initialized slick-slider slick-dotted" id="carsSlider" role="toolbar" bis_skin_checked="1">
                 <div aria-live="polite" class="slick-list draggable" bis_skin_checked="1">
                     <div class="slick-track slider-container" style="opacity: 1;" role="listbox" bis_skin_checked="1">
                         @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
@@ -177,7 +177,7 @@
         </div>
 
         @*Price*@
-        <div class="d-md-none pt-2 px-2">
+        <div class="d-md-none px-2">
             <div class="pb-2">
                 <div class="fh-header-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
                 <div class="fh-regular row mx-0">
