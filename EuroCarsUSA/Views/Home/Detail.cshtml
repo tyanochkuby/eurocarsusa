@@ -5,7 +5,7 @@
     Message sent!
 </div>
 
-<div id="yahor-haleznik-popUP" class="col-12 d-md-none justify-content-center align-items-center d-none" style="position: fixed; top: 0; left: 0; z-index: 10000; background: rgba(0, 0, 0, 0.5); width: 100; height: 100%;">
+<div id="communication-mobile-popUP" class="col-12 d-md-none justify-content-center align-items-center d-none" style="position: fixed; top: 0; left: 0; z-index: 10000; background: rgba(0, 0, 0, 0.5); width: 100; height: 100%;">
     <div class="col-8 bg-light align-items-center flex-column d-flex br-2 px-2">
         <p class="fs-4 fw-light mb-0 mt-3 border-bottom border-primary">Contact with seller</p>
         <a class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2 d-inline-flex align-items-center">
@@ -601,18 +601,18 @@
         });
 
         document.getElementById('showPopupButton').addEventListener('click', function () {
-            var popup = document.getElementById('yahor-haleznik-popUP');
+            var popup = document.getElementById('communication-mobile-popUP');
             popup.classList.remove('d-none');
             popup.classList.add('d-flex');
         });
 
         function closePopup() {
-            var popup = document.getElementById('yahor-haleznik-popUP');
+            var popup = document.getElementById('communication-mobile-popUP');
             popup.classList.remove('d-flex');
             popup.classList.add('d-none');
         }
 
-        document.getElementById('yahor-haleznik-popUP').addEventListener('click', function (event) {
+        document.getElementById('communication-mobile-popUP').addEventListener('click', function (event) {
             if (event.target === this) {
                 closePopup();
             }
