@@ -1,9 +1,58 @@
 @model DetailPageForm
 
 
-<div id="successMessage" class="alert alert-secondary text-primary border-primary rounded-xxl py-2 px-3 start-50 translate-middle fs-4" style="display: none; position: fixed; top: 0; text-align: center; z-index: 1000; margin-top: 5%">
+<div id="successMessage" class="alert alert-secondary text-primary border-primary rounded-xxl py-2 px-3 start-50 translate-middle fs-4" style="display: none; position: fixed; top: 0; text-align: center; z-index: 10000; margin-top: 5%">
     Message sent!
 </div>
+
+<div id="communication-mobile-popUP" class="col-12 d-md-none justify-content-center align-items-center d-none" style="position: fixed; top: 0; left: 0; z-index: 10000; background: rgba(0, 0, 0, 0.5); width: 100; height: 100%;">
+    <div class="col-8 bg-light align-items-center flex-column d-flex br-2 px-2">
+        <p class="fs-4 fw-light mb-0 mt-3 border-bottom border-primary">Contact with seller</p>
+        <a class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2 d-inline-flex align-items-center">
+            <img class="carIcon" src="~/icons/phone.svg" /> <span class="ms-1">+48 567 849 201</span>
+        </a>
+
+        <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageFormPopUp" class="w-100">
+            <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
+            <div class="form-group px-2 py-1">
+                <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="Name" />
+            </div>
+
+            <div class="form-group px-2 py-1">
+                <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="Email" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group px-2 py-1">
+                <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="Phone Number" />
+                <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group px-2 pt-1 pb-3">
+                <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message" rows="5"></textarea>
+            </div>
+
+            <div class="align-items-center flex-column d-flex pb-3">
+                <button type="submit" class="btn btn-primary rounded-pill py-2 px-4">
+                    <svg class="carIcon me-1" width="96" height="96" viewBox="0 0 96 96" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_292_959)">
+                            <path d="M80 16H16C11.6 16 8.04 19.6 8.04 24L8 72C8 76.4 11.6 80 16 80H80C84.4 80 88 76.4 88 72V24C88 19.6 84.4 16 80 16ZM80 32L48 52L16 32V24L48 44L80 24V32Z" fill="#ffffff" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_292_959">
+                                <rect width="96" height="96" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+
+                    <span>Send message</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
 
 <div class="row justify-content-md-center">
     
@@ -30,18 +79,19 @@
                     <img id="rightArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_right.svg" />
                 </div>
 
-                <figure class="position-relative" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                <figure class="position-relative mb-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                     <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0>
 
-                        <img src=@ViewBag.Car.Images[0] style="object-fit: cover; margin-bottom: 20px; width: 100%" itemprop="thumbnail">
+                        <img src=@ViewBag.Car.Images[0] style="object-fit: cover; width: 100%" itemprop="thumbnail">
                     </a>
                 </figure>
 
             </div>
 
 
-            <div class="slider variable-width slick-initialized slick-slider slick-dotted" id="carsSlider" role="toolbar" bis_skin_checked="1">
+            <div class="d-none d-sm-block slider variable-width slick-initialized slick-slider slick-dotted" id="carsSlider" role="toolbar" bis_skin_checked="1">
                 <div aria-live="polite" class="slick-list draggable" bis_skin_checked="1">
+
                     <div class="slick-track slider-container" style="opacity: 1;" role="listbox" bis_skin_checked="1">
                         @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
                         {
@@ -123,6 +173,27 @@
                     <div class="pswp__caption">
                         <div class="pswp__caption__center"></div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        @*Price*@
+        <div class="d-md-none px-2">
+            <div class="pb-2">
+                <div class="fh-header-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
+                <div class="fh-regular row mx-0">
+                    <div class="col-auto ps-0 pe-2">@ViewBag.Car.Year</div>
+                    <div class="col-auto ps-0 pe-2">@ViewBag.Car.Mileage</div>
+                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : @ViewBag.Car.FuelType.ToString())</div>
+                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.FuelType.ToString() : "")</div>
+                </div>
+            </div>
+
+
+            <div class="center-items bg-primary br-2">
+                <div class="row mx-0 py-1 text-antique">
+                    <div class="col-auto ps-0 pe-2 fh-header-bold">@ViewBag.Car.Price.ToString()</div>
+                    <div class="col-auto px-0 fh-header">PLN</div>
                 </div>
             </div>
         </div>
@@ -216,8 +287,6 @@
             </div>
 
         </div>
-
-        
     </div>
 
 
@@ -295,12 +364,12 @@
         <div class="row fixed-bottom d-md-none w-100">
             <div class="col-6 px-0">
                 <div class="align-items-center h-100">
-                    <button type="submit" class="btn btn-secondary w-100 h-100 py-3"><i class="fas fa-phone fa-rotate-90 px-1"></i>  Call</button>
+                    <button class="btn btn-secondary w-100 h-100 py-3"><i class="fas fa-phone fa-rotate-90 px-1"></i>  Call</button>
                 </div>
             </div>
-            <div class="col-6 px-0">
+            <div id="to_rename_parent" class="col-6 px-0">
                 <div class="align-items-center h-100">
-                    <button type="submit" class="btn btn-secondary w-100 h-100"><i class="fas fa-envelope px-1"></i>  Send message</button>
+                    <button id="showPopupButton" type="to_rename" class="btn btn-secondary w-100 h-100"><i class="fas fa-envelope px-1"></i>  Send message</button>
                 </div>
             </div>
         </div>
@@ -504,8 +573,54 @@
         });
 
     </script>
+    <script>
+        $(document).ready(function () {
+            $("#detailPageFormPopUp").on("submit", function (event) {
+                event.preventDefault();
+
+                var form = this;
+
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: $(this).attr("method"),
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            closePopup();
+                            $("#successMessage").slideDown().delay(3000).slideUp(); // Show the success message for 3 seconds
+                            form.reset(); // Reset the form
+                        } else {
+                            alert(response.errors);
+                            // Display validation errors
+                            console.log(response.errors);
+                        }
+                    }
+                });
+
+            });
 
 
+        });
+
+        document.getElementById('showPopupButton').addEventListener('click', function () {
+            var popup = document.getElementById('communication-mobile-popUP');
+            popup.classList.remove('d-none');
+            popup.classList.add('d-flex');
+        });
+
+        function closePopup() {
+            var popup = document.getElementById('communication-mobile-popUP');
+            popup.classList.remove('d-flex');
+            popup.classList.add('d-none');
+        }
+
+        document.getElementById('communication-mobile-popUP').addEventListener('click', function (event) {
+            if (event.target === this) {
+                closePopup();
+            }
+        });
+        
+    </script>
 }
 
 
