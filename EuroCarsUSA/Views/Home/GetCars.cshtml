@@ -15,12 +15,12 @@
                         <div class="card-body">
                             <div class="row justify-content-between fh-regular">
                                 <!-- Car nam -->
-                                <div class="col-sm-8 col-12 px-1 px-sm-2 fh-card-header">
+                                <div class="col-sm-7 col-12 px-1 px-sm-2 fh-card-header">
                                     <b>@(car.Make + " " + car.Model)</b>
                                 </div>
                                 <!-- Price -->
-                                <div class="col-sm-4 col-12 px-1 px-sm-2 text-sm-end fh-card-title">
-                                    <div class="mb-0">@(car.Price)</div>
+                                <div class="col-sm-5 col-12 px-1 px-sm-2 text-sm-end fh-card-title">
+                                    <div class="mb-0">@string.Format(new System.Globalization.CultureInfo("pl-PL"), "{0:N0}", car.Price) PLN</div>
                                 </div>
                             </div>
 
