@@ -3,10 +3,16 @@ namespace EuroCarsUSA.Data.Services
 {
     public class EmailService : IEmailService
     {
+
+        private readonly IConfiguration _configuration;
+        public EmailService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public void SendEmail(string to, string subject, string body)
         {
-            string email = Environment.GetEnvironmentVariable("OUTLOOK_LOGIN");
-            string password = Environment.GetEnvironmentVariable("OUTLOOK_PASSWORD");
+            string email = _configuration["EmailSettings:Email"];
+            string password = _configuration["EmailSettings:Password"];
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 throw new Exception("Email and password are not set in environment variables.");
