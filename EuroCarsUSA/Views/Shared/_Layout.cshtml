@@ -33,10 +33,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="ms-auto me-3">
-                    <button asp-controller="Home" asp-action="Likes" id="likeButton" type="button" class="btn btn-secondary rounded-pill like-button">
+                    <a asp-controller="Home" asp-action="Likes" type="button" class="btn @(ViewContext.RouteData.Values["action"].ToString() == "Likes" && ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "btn-primary" : "btn-secondary") rounded-pill">
                         <svg class="carIcon" width="96" height="96" viewBox="0 0 96 96" fill="#7e9ded" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_292_967)">
-                                <path d="M48 85.4L42.2 80.12C21.6 61.44 8 49.12 8 34C8 21.68 17.68 12 30 12C36.96 12 43.64 15.24 48 20.36C52.36 15.24 59.04 12 66 12C78.32 12 88 21.68 88 34C88 49.12 74.4 61.44 53.8 80.16L48 85.4Z" fill="#7e9ded" />
+                                <path d="M48 85.4L42.2 80.12C21.6 61.44 8 49.12 8 34C8 21.68 17.68 12 30 12C36.96 12 43.64 15.24 48 20.36C52.36 15.24 59.04 12 66 12C78.32 12 88 21.68 88 34C88 49.12 74.4 61.44 53.8 80.16L48 85.4Z" fill="@(ViewContext.RouteData.Values["action"].ToString() == "Likes" && ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "white" : "#7e9ded")" />
                             </g>
                             <defs>
                                 <clipPath id="clip0_292_967">
@@ -44,7 +44,7 @@
                                 </clipPath>
                             </defs>
                         </svg>
-                    </button>
+                    </a>
                 </div>
             </div>
         </nav>

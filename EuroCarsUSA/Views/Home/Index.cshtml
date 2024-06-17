@@ -460,18 +460,12 @@
             }
 
             function updateLikeButtons() {
-                
-                console.log('updating likes');
-                var likedCars = getCookie('likes'); // Assuming the cookie name is 'likes'
-                console.log(likedCars);
+                var likedCars = getCookie('likes'); 
                 if (likedCars) {
-                    // Parse the JSON string to an array
                     likedCars = JSON.parse(likedCars);
                     likedCars.forEach(function (carId) {
-                        console.log(carId);
                         var likeButton = $('.like-button[data-car-id="' + carId + '"]');
                         likeButton.addClass('btn-primary').removeClass('btn-secondary');
-                        // If using SVG within the button, you can also change the SVG fill here
                         likeButton.find('svg path').attr('fill', 'white');
                     });
                 }
@@ -501,26 +495,17 @@
             $(buttonElement).blur();
             $(buttonElement).toggleClass('btn-primary btn-secondary');
             var newFillColor = $(buttonElement).hasClass('btn-secondary') ? '#7e9ded' : 'white';
-            // Find the SVG element within the button and change its fill color
             $(buttonElement).find('svg path').attr('fill', newFillColor);
-            // console.log('liked');
-            // console.log(carId);
             var likes = getCookie("likes");
             var likesArray = likes ? JSON.parse(likes) : [];
-            
-            
-
-            // Check if the car is already liked
             if (!likesArray.includes(carId)) {
                 likesArray.push(carId);
             } else {
-                // Optional: Remove like
                 likesArray = likesArray.filter(id => id !== carId);
             }
             
 
             // Save updated likes back to cookie
-            console.log(likesArray);
             setCookie("likes", JSON.stringify(likesArray), 7); // Expires in 7 days
         }
         function setCookie(name, value, days) {
@@ -530,7 +515,7 @@
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 expires = "; expires=" + date.toUTCString();
             }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            document.cookie = name + "=" + (value || "") + expires + "; path=/; Secure; SameSite=Lax";
         }
 
         function getCookie(name) {
