@@ -13,7 +13,11 @@ builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDetailPageFormRepository, DetailPageFormRepository>();
-builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IEmailService>(serviceProvider =>
+{
+    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+    return new EmailService(configuration);
+});
 
 //Adding session services
 builder.Services.AddSession(options =>
