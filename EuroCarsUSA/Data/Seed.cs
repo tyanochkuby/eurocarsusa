@@ -17,7 +17,7 @@ namespace EuroCarsUSA.Data
 
                 if (true)//!context.Cars.Any())
                 {
-                    //context.Database.ExecuteSqlRaw("TRUNCATE TABLE Cars");
+                    context.Database.ExecuteSqlRaw("DELETE from Cars");
                     context.Cars.AddRange(new List<Car>()
                     {
                         new Car()
@@ -25,7 +25,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.Tesla,
                             Type = CarType.Sedan,
                             Model = "Model S P100D",
-                            Color = CarColor.Red,
+                            Color = CarColor.White,
                             VIN = "12345364758",
                             Images = new List<string> {
                                 "https://ireland.apollo.olxcdn.com/v1/files/cztpfk9k5fly2-PL/image;s=1000x700",
@@ -44,7 +44,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.MINI,
                             Type = CarType.Hatchback,
                             Model = "Countryman",
-                            Color = CarColor.Blue,
+                            Color = CarColor.White,
                             VIN = "8765432",
                             Images = new List<string>
                             { 
@@ -127,7 +127,7 @@ namespace EuroCarsUSA.Data
                             Make = CarMake.BMW,
                             Type = CarType.Sedan,
                             Model = "M5",
-                            Color = CarColor.Blue,
+                            Color = CarColor.White,
                             VIN = "247856123",
                             Images = new List<string>
                             {

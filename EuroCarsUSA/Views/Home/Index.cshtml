@@ -4,6 +4,11 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    var selectedMakes = Context.Request.Query["make"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
+    var selectedCarTypes = Context.Request.Query["carType"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
+    var selectedFuelTypes = Context.Request.Query["fuelType"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
+    var selectedTransmissions = Context.Request.Query["transmission"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
+    var selectedColors = Context.Request.Query["color"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
 }
 
 <div class="row justify-content-around mx-0 mb-3">
@@ -50,7 +55,7 @@
         </div>
         <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="fuelType">
             <div class="col-4">
-                <label class="ps-1" for="make">Fuel type</label>
+                <label class="ps-1" for="fuelType">Fuel type</label>
             </div>
             <div class="col-7 text-end">
                 <p name="fuelType" class="text-ellipsis"> @Context.Request.Query["fuelType"].ToString() </p>
@@ -62,7 +67,7 @@
 
         <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="transmission">
             <div class="col-3">
-                <label class="ps-1" for="make">Transmission</label>
+                <label class="ps-1" for="transmission">Transmission</label>
             </div>
             <div class="col-8 text-end">
                 <p name="transmission" class="text-ellipsis"> @Context.Request.Query["transmission"].ToString() </p>
@@ -73,7 +78,7 @@
         </div>
         <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="color">
             <div class="col-3">
-                <label class="ps-1" for="make">Color</label>
+                <label class="ps-1" for="color">Color</label>
             </div>
             <div class="col-8 text-end">
                 <p name="color" class="text-ellipsis"> @Context.Request.Query["color"].ToString() </p>
@@ -84,7 +89,7 @@
         </div>
 
         <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
-            <label class="ps-3" for="minYear">Model</label>
+            <label class="ps-3" for="model">Model</label>
             <div class="col-12">
                 <input type="text" id="model" name="model" class="form-control" value="@Context.Request.Query["model"]" />
             </div>
@@ -111,7 +116,7 @@
             </div>
         </div>
         <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
-            <label class="ps-3" for="minYear">Mileage</label>
+            <label class="ps-3" for="minMileage">Mileage</label>
             <div class="col-6 pe-1">
                 <input type="number" id="minMileage" name="minMileage" placeholder="Min" class="form-control" value="@Context.Request.Query["minMileage"]" />
             </div>
@@ -123,7 +128,7 @@
 
        
         <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
-            <label class="ps-3" for="minYear">Engine volume</label>
+            <label class="ps-3" for="minEngineVolume">Engine volume</label>
             <div class="col-6 pe-1">
                 <input type="number" id="minEngineVolume" name="minEngineVolume" placeholder="Min" class="form-control" value="@Context.Request.Query["minEngineVolume"]" />
             </div>
@@ -239,33 +244,24 @@
                     </div>
                 
                     <div class="pb-2 pt-0">
-                        <div fh-regular>Make:</div>
+                        <div class="fh-regular">Make:</div>
                         <div class="dropdown w-100">
                             <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Make
+                                <span>@(selectedMakes.Any() ? string.Join(", ", selectedMakes) : "Any")</span>
                             </button>
                             <ul class="dropdown-menu w-100" name="make" aria-labelledby="dropdownMenuButton">
                                 @foreach (string makeOption in ViewBag.AvailableFilters["Makes"])
                                 {
-                                    <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@makeOption"> @makeOption</a></li>
+                                    <li>
+                                        <a class="dropdown-item">
+                                            <input type="checkbox" class="dropdownCheckbox" value="@makeOption" @(selectedMakes.Contains(makeOption) ? "checked" : "")> @makeOption
+                                        </a>
+                                    </li>
                                 }
                             </ul>
 
                         </div>
-                        <input type="hidden" id="makeInput" name="make">
-                        @* <select data-placeholder="Type a make" id="make" name="make" class="form-control w-100 chosen-select" multiple >
-                            @foreach (string makeOption in ViewBag.AvailableFilters["Makes"])
-                            {
-                                @if (Context.Request.Query["make"] == makeOption)
-                                {
-                                    <option value="@makeOption" selected>@makeOption.ToString()</option>
-                                }
-                                else
-                                {
-                                    <option value="@makeOption">@makeOption.ToString()</option>
-                                }
-                            }
-                        </select> *@
+                        <input value="@Context.Request.Query["make"]" type="hidden" id="makeInput" name="make">
                     </div>
 
                     <div class="py-2">
@@ -273,76 +269,70 @@
                         <input type="text" id="model" name="model" class="form-control" placeholder="Any" value="@Context.Request.Query["model"]" />
                     </div>
                 
-                
-                    <div class="py-2">
-                        <div fh-regular>Car type:</div>
-                        <select id="carType" name="carType" class="form-control w-100">
-                            <option value="" disabled selected>Any</option>
-                            @foreach (string typeOption in ViewBag.AvailableFilters["CarTypes"])
-                            {
-                                @if (Context.Request.Query["carType"] == typeOption)
+                    <div class="pb-2 pt-0">
+                        <div class="fh-regular">Car type:</div>
+                        <div class="dropdown w-100">
+                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownCarTypeButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span>@(selectedCarTypes.Any() ? string.Join(", ", selectedCarTypes) : "Any")</span>
+                            </button>
+                            <ul class="dropdown-menu w-100" name="carType" aria-labelledby="dropdownCarTypeButton">
+                                @foreach (string option in ViewBag.AvailableFilters["CarTypes"])
                                 {
-                                    <option value="@typeOption" selected>@typeOption.ToString()</option>
+                                    <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedCarTypes.Contains(option) ? "checked" : "")> @option</a></li>
                                 }
-                                else
-                                {
-                                    <option value="@typeOption">@typeOption.ToString()</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="py-2">
-                        <div fh-regular>Fuel type:</div>
-                        <select id="fuelType" name="fuelType" class="form-control w-100">
-                            <option value="" disabled selected>Any</option>
-                            @foreach (string option in ViewBag.AvailableFilters["FuelTypes"])
-                            {
-                                @if (Context.Request.Query["fuelType"] == option)
-                                {
-                                    <option value="@option" selected>@option.ToString()</option>
-                                }
-                                else
-                                {
-                                    <option value="@option">@option.ToString()</option>
-                                }
-                            }
+                            </ul>
 
-                        </select>
+                        </div>
+                        <input value="@Context.Request.Query["carType"]" type="hidden" id="carTypeInput" name="carType">
                     </div>
-                    <div class="py-2">
-                        <div fh-regular>Transmission:</div>
-                        <select id="transmission" name="transmission" class="form-control w-100">
-                            <option value="" disabled selected>Any</option>
-                            @foreach (string option in ViewBag.AvailableFilters["Transmissions"])
-                            {
-                                @if (Context.Request.Query["transmission"] == option)
+                    <div class="pb-2 pt-0">
+                        <div class="fh-regular">Fuel type:</div>
+                        <div class="dropdown w-100">
+                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownFuelTypeButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span>@(selectedFuelTypes.Any() ? string.Join(", ", selectedFuelTypes) : "Any")</span>
+                            </button>
+                            <ul class="dropdown-menu w-100" name="fuelType" aria-labelledby="dropdownFuelTypeButton">
+                                @foreach (string option in ViewBag.AvailableFilters["FuelTypes"])
                                 {
-                                    <option value="@option" selected>@option.ToString()</option>
+                                    <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedFuelTypes.Contains(option) ? "checked" : "")> @option</a></li>
                                 }
-                                else
+                            </ul>
+
+                        </div>
+                        <input value="@Context.Request.Query["fuelType"]" type="hidden" id="fuelTypeInput" name="fuelType">
+                    </div>
+                    <div class="pb-2 pt-0">
+                        <div class="fh-regular">Transmission:</div>
+                        <div class="dropdown w-100">
+                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownTransmissionButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span>@(selectedTransmissions.Any() ? string.Join(", ", selectedTransmissions) : "Any")</span>
+                            </button>
+                            <ul class="dropdown-menu w-100" name="transmission" aria-labelledby="dropdownTransmissionButton">
+                                @foreach (string option in ViewBag.AvailableFilters["Transmissions"])
                                 {
-                                    <option value="@option">@option.ToString()</option>
+                                    <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedTransmissions.Contains(option) ? "checked" : "")> @option</a></li>
                                 }
-                            }
-                        </select>
+                            </ul>
+
+                        </div>
+                        <input value="@Context.Request.Query["transmission"]" type="hidden" id="transmissionInput" name="transmission">
                     </div>
 
-                    <div class="py-2">
-                        <div fh-regular>Color:</div>
-                        <select id="color" name="color" class="form-control w-100">
-                            <option value="" disabled selected>Any</option>
-                            @foreach (string option in ViewBag.AvailableFilters["Colors"])
-                            {
-                                @if (Context.Request.Query["color"] == option)
+                    <div class="pb-2 pt-0">
+                        <div class="fh-regular">Color:</div>
+                        <div class="dropdown w-100">
+                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownColorButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span>@(selectedColors.Any() ? string.Join(", ", selectedColors) : "Any")</span>
+                            </button>
+                            <ul class="dropdown-menu w-100" name="color" aria-labelledby="dropdownColorButton">
+                                @foreach (string option in ViewBag.AvailableFilters["Colors"])
                                 {
-                                    <option value="@option" selected>@option.ToString()</option>
+                                    <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedColors.Contains(option) ? "checked" : "")> @option</a></li>
                                 }
-                                else
-                                {
-                                    <option value="@option">@option.ToString()</option>
-                                }
-                            }
-                        </select>
+                            </ul>
+
+                        </div>
+                        <input value="@Context.Request.Query["color"]" type="hidden" id="colorInput" name="color">
                     </div>
 
                     @* <div class="py-2">
@@ -363,23 +353,6 @@
                             <input type="number" id="maxYear" name="maxYear" placeholder="To" class="form-control" value="@Context.Request.Query["maxYear"]" />
                         </div>
                     </div>
-
-                    @* <div class="py-2">
-                        <div fh-regular>Min mileage:</div>
-                        <input type="number" id="minMileage" name="minMileage" placeholder="From" class="form-control" value="@Context.Request.Query["minMileage"]" />
-                    </div>
-                    <div class="py-2">
-                        <div fh-regular>Max mileage:</div>
-                        <input type="number" id="maxMileage" name="maxMileage" placeholder="To" class="form-control" value="@Context.Request.Query["maxMileage"]" />
-                    </div>
-                    <div class="py-2">
-                        <div fh-regular>Min engine volume:</div>
-                        <input type="number" id="minEngineVolume" placeholder="From" name="minEngineVolume" class="form-control" value="@Context.Request.Query["minEngineVolume"]" />
-                    </div>
-                    <div class="py-2">
-                        <div fh-regular>Max engine volume:</div>
-                        <input type="number" id="maxEngineVolume" placeholder="To" name="maxEngineVolume" class="form-control" value="@Context.Request.Query["maxEngineVolume"]" />
-                    </div> *@
                     <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
                         <label class="px-0" for="minMileage">Mileage</label>
                         <div class="col-6 ps-0 pe-1">
@@ -604,6 +577,9 @@
                 console.log('clearing');
                 $('#filtersForm input[type="text"], #filtersForm input[type="number"]').val('');
                 $('#filtersForm select').prop('selectedIndex', 0);
+                $('#filtersForm input[type="checkbox"]').prop('checked', false);
+                $('#filtersForm input[type="hidden"]').val('');
+                $('#filtersForm span').text('Any');
             });
 
             $('.mobile-sort-option').click(function () {
@@ -628,6 +604,8 @@
                 });
                 var dropdownName = dropdownOptions.attr('name');
                 $("#" + dropdownName + "Input").val(selectedOptions.join(','));
+                var span = dropdownOptions.prev().find('span');
+                span.text(selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Any');
             });
 
 
