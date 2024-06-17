@@ -444,17 +444,32 @@
                     type: 'GET',
                     success: function (data) {
                         var html = $(data);
+
                         $('#carsListing').append(html);
                         carsDisplayed += html.data('cars-in-view');
                         if (html.data('show-more-button') == "False") {
                             console.log('hiding');
                             $('#showMoreButton').hide();
                         }
+                        updateLikeButtons();
                     },
                     error: function () {
                         alert('An error occurred while loading more cars.');
                     }
                 });
+            }
+
+            function updateLikeButtons() {
+                var likedCars = getCookie('likes'); 
+                if (likedCars) {
+                    likedCars = JSON.parse(likedCars);
+                    likedCars.forEach(function (carId) {
+                        var likeButton = $('.like-button[data-car-id="' + carId + '"]');
+                        likeButton.addClass('btn-primary').removeClass('btn-secondary');
+                        likeButton.find('svg path').attr('fill', 'white');
+                    });
+                }
+               
             }
 
             getCars();
@@ -480,28 +495,18 @@
             $(buttonElement).blur();
             $(buttonElement).toggleClass('btn-primary btn-secondary');
             var newFillColor = $(buttonElement).hasClass('btn-secondary') ? '#7e9ded' : 'white';
-            // Find the SVG element within the button and change its fill color
             $(buttonElement).find('svg path').attr('fill', newFillColor);
-
-            // console.log('liked');
-            // console.log(carId);
             var likes = getCookie("likes");
             var likesArray = likes ? JSON.parse(likes) : [];
-            console.log(likesArray);
-            
-
-            // Check if the car is already liked
             if (!likesArray.includes(carId)) {
                 likesArray.push(carId);
             } else {
-                // Optional: Remove like
                 likesArray = likesArray.filter(id => id !== carId);
             }
             
 
             // Save updated likes back to cookie
             setCookie("likes", JSON.stringify(likesArray), 7); // Expires in 7 days
-            // Option
         }
         function setCookie(name, value, days) {
             var expires = "";
@@ -510,7 +515,7 @@
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 expires = "; expires=" + date.toUTCString();
             }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            document.cookie = name + "=" + (value || "") + expires + "; path=/; Secure; SameSite=Lax";
         }
 
         function getCookie(name) {

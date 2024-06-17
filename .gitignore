@@ -3,4 +3,5 @@ EuroCarsUSA/bin/
 EuroCarsUSA/obj/
 EuroCarsUSA/appsettings.json
 EuroCarsUSA.csproj.user
-Properties/PublishProfiles/
+EuroCarsUSA/Properties/PublishProfiles/FolderProfile.pubxml
+EuroCarsUSA/Properties/PublishProfiles/FolderProfile.pubxml.user
