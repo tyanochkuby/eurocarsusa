@@ -444,17 +444,38 @@
                     type: 'GET',
                     success: function (data) {
                         var html = $(data);
+
                         $('#carsListing').append(html);
                         carsDisplayed += html.data('cars-in-view');
                         if (html.data('show-more-button') == "False") {
                             console.log('hiding');
                             $('#showMoreButton').hide();
                         }
+                        updateLikeButtons();
                     },
                     error: function () {
                         alert('An error occurred while loading more cars.');
                     }
                 });
+            }
+
+            function updateLikeButtons() {
+                
+                console.log('updating likes');
+                var likedCars = getCookie('likes'); // Assuming the cookie name is 'likes'
+                console.log(likedCars);
+                if (likedCars) {
+                    // Parse the JSON string to an array
+                    likedCars = JSON.parse(likedCars);
+                    likedCars.forEach(function (carId) {
+                        console.log(carId);
+                        var likeButton = $('.like-button[data-car-id="' + carId + '"]');
+                        likeButton.addClass('btn-primary').removeClass('btn-secondary');
+                        // If using SVG within the button, you can also change the SVG fill here
+                        likeButton.find('svg path').attr('fill', 'white');
+                    });
+                }
+               
             }
 
             getCars();
@@ -482,12 +503,11 @@
             var newFillColor = $(buttonElement).hasClass('btn-secondary') ? '#7e9ded' : 'white';
             // Find the SVG element within the button and change its fill color
             $(buttonElement).find('svg path').attr('fill', newFillColor);
-
             // console.log('liked');
             // console.log(carId);
             var likes = getCookie("likes");
             var likesArray = likes ? JSON.parse(likes) : [];
-            console.log(likesArray);
+            
             
 
             // Check if the car is already liked
@@ -500,8 +520,8 @@
             
 
             // Save updated likes back to cookie
+            console.log(likesArray);
             setCookie("likes", JSON.stringify(likesArray), 7); // Expires in 7 days
-            // Option
         }
         function setCookie(name, value, days) {
             var expires = "";

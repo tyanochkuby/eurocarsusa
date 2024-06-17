@@ -25,7 +25,7 @@ builder.Services.AddSession(options =>
 
 
 //Configure services
-var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
+var connectionString = builder.Configuration.GetConnectionString("Local");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString, options => options.CommandTimeout(90));

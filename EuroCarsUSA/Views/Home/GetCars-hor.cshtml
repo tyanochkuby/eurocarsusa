@@ -7,7 +7,7 @@
     
         @foreach (Car car in Model)
         {
-            <div class="row newCar" data-show-more-button="false">
+            <div class="row newCar" data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">
                 <div class="card mb-4 pt-2 box-shadow">
                     <div class="row">
                         <div class="col-md-3">
