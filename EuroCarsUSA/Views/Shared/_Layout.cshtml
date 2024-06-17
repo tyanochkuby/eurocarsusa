@@ -28,10 +28,6 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/icons/logo.svg" alt="EuroCarsUSA" />
                  </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="ms-auto me-3">
                     <a asp-controller="Home" asp-action="Likes" type="button" class="btn @(ViewContext.RouteData.Values["action"].ToString() == "Likes" && ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "btn-primary" : "btn-secondary") rounded-pill">
                         <svg class="carIcon" width="96" height="96" viewBox="0 0 96 96" fill="#7e9ded" xmlns="http://www.w3.org/2000/svg">
