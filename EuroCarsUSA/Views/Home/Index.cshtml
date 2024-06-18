@@ -246,7 +246,7 @@
                     <div class="pb-2 pt-0">
                         <div class="fh-regular">Make:</div>
                         <div class="dropdown w-100">
-                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownMenuButton" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span>@(selectedMakes.Any() ? string.Join(", ", selectedMakes) : "Any")</span>
                             </button>
                             <ul class="dropdown-menu w-100" name="make" aria-labelledby="dropdownMenuButton">
@@ -272,7 +272,7 @@
                     <div class="pb-2 pt-0">
                         <div class="fh-regular">Car type:</div>
                         <div class="dropdown w-100">
-                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownCarTypeButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownCarTypeButton"  data-bs-toggle="dropdown" aria-expanded="false">
                                 <span>@(selectedCarTypes.Any() ? string.Join(", ", selectedCarTypes) : "Any")</span>
                             </button>
                             <ul class="dropdown-menu w-100" name="carType" aria-labelledby="dropdownCarTypeButton">
