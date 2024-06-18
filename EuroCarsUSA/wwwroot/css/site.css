@@ -157,6 +157,11 @@ img.rounded-xxl {
     transform: scale(1.05);
 }
 
+.dropdown-toggle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 
 .w-15 {
