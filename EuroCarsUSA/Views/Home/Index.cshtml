@@ -253,9 +253,9 @@
                                 @foreach (string makeOption in ViewBag.AvailableFilters["Makes"])
                                 {
                                     <li>
-                                        <a class="dropdown-item">
+                                        <label class="dropdown-item">
                                             <input type="checkbox" class="dropdownCheckbox" value="@makeOption" @(selectedMakes.Contains(makeOption) ? "checked" : "")> @makeOption
-                                        </a>
+                                        </label>
                                     </li>
                                 }
                             </ul>
@@ -278,7 +278,11 @@
                             <ul class="dropdown-menu w-100" name="carType" aria-labelledby="dropdownCarTypeButton">
                                 @foreach (string option in ViewBag.AvailableFilters["CarTypes"])
                                 {
-                                    <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedCarTypes.Contains(option) ? "checked" : "")> @option</a></li>
+                                    <li>
+                                        <label class="dropdown-item">
+                                            <input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedCarTypes.Contains(option) ? "checked" : "")> @option
+                                        </label>
+                                    </li>
                                 }
                             </ul>
 
@@ -294,7 +298,7 @@
                             <ul class="dropdown-menu w-100" name="fuelType" aria-labelledby="dropdownFuelTypeButton">
                                 @foreach (string option in ViewBag.AvailableFilters["FuelTypes"])
                                 {
-                                    <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedFuelTypes.Contains(option) ? "checked" : "")> @option</a></li>
+                                    <li><label class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedFuelTypes.Contains(option) ? "checked" : "")> @option</label></li>
                                 }
                             </ul>
 
@@ -310,7 +314,7 @@
                             <ul class="dropdown-menu w-100" name="transmission" aria-labelledby="dropdownTransmissionButton">
                                 @foreach (string option in ViewBag.AvailableFilters["Transmissions"])
                                 {
-                                    <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedTransmissions.Contains(option) ? "checked" : "")> @option</a></li>
+                                    <li><label class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedTransmissions.Contains(option) ? "checked" : "")> @option</label></li>
                                 }
                             </ul>
 
@@ -327,7 +331,7 @@
                             <ul class="dropdown-menu w-100" name="color" aria-labelledby="dropdownColorButton">
                                 @foreach (string option in ViewBag.AvailableFilters["Colors"])
                                 {
-                                    <li><a class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedColors.Contains(option) ? "checked" : "")> @option</a></li>
+                                    <li><label class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option" @(selectedColors.Contains(option) ? "checked" : "")> @option</label></li>
                                 }
                             </ul>
 
@@ -607,6 +611,11 @@
                 var span = dropdownOptions.prev().find('span');
                 span.text(selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Any');
             });
+
+            $('.dropdown-item').click(function (e) {
+                e.stopPropagation();
+            });
+
 
 
             var carMakes = @Json.Serialize(ViewBag.AvailableFilters["Makes"]);
