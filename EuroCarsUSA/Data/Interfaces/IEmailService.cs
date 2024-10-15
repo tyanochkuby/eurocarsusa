@@ -1,4 +1,4 @@
-﻿namespace EuroCarsUSA.Data.Services
+﻿namespace EuroCarsUSA.Data.Interfaces
 {
     public interface IEmailService
     {

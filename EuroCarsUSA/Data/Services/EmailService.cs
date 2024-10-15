@@ -1,4 +1,5 @@
 ﻿using System.Net.Mail;
+using EuroCarsUSA.Data.Interfaces;
 namespace EuroCarsUSA.Data.Services
 {
     public class EmailService : IEmailService

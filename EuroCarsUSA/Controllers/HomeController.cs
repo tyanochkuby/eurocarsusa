@@ -1,7 +1,6 @@
 using EuroCarsUSA.Data;
 using EuroCarsUSA.Data.Enum;
 using EuroCarsUSA.Data.Interfaces;
-using EuroCarsUSA.Data.Services;
 using EuroCarsUSA.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -166,7 +165,7 @@ namespace EuroCarsUSA.Controllers
             HttpContext.Request.Headers.TryGetValue("Cookie", out values);
             var cookies = values.ToString().Split(';').ToList();
             var result = cookies.Select(c => new { Key = c.Split('=')[0].Trim(), Value = c.Split('=')[1].Trim() }).ToList();
-            var likesCookieValue = result.Where(r => r.Key == "likes").FirstOrDefault().Value;
+            var likesCookieValue = result.FirstOrDefault(r => r.Key == "likes")?.Value;
             List<Guid> likes = new List<Guid>();
             if (!string.IsNullOrEmpty(likesCookieValue))
             {

@@ -25,10 +25,26 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
 
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                <img src="~/icons/logo.svg" alt="EuroCarsUSA" />
+                <a class="navbar-brand me-auto" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/icons/logo.svg" alt="EuroCarsUSA" />
                  </a>
-                <div class="ms-auto me-3">
+
+                 @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Admin" asp-action="EditCatalog" type="button" class="btn btn-secondary rounded-pill me-3">
+                        Edit Catalog
+                    </a>
+                    <a asp-controller="Admin" asp-action="Statistics" type="button" class="btn btn-secondary rounded-pill me-3">
+                        Statistics
+                    </a>
+                    <a asp-controller="Admin" asp-action="Orders" type="button" class="btn btn-secondary rounded-pill me-3">
+                        Orders
+                    </a>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="btn btn btn-secondary rounded-pill text-decoration-none me-3">Logout</button>
+                    </form>
+                }
+                <div class="me-3">
                     <a asp-controller="Home" asp-action="Likes" type="button" class="btn @(ViewContext.RouteData.Values["action"].ToString() == "Likes" && ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "btn-primary" : "btn-secondary") rounded-pill">
                         <svg class="carIcon" width="96" height="96" viewBox="0 0 96 96" fill="#7e9ded" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_292_967)">
