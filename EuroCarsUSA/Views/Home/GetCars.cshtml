@@ -1,6 +1,11 @@
-﻿@model IEnumerable<Car>
+﻿@using EuroCarsUSA.Controllers
+@using EuroCarsUSA.Data.Enum
+@using EuroCarsUSA.Helpers
+@using Microsoft.Extensions.Localization
+@model IEnumerable<Car>
+@inject IStringLocalizer<HomeController> Translator
 
-
+    
 <div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">
     <div class="row mx-0">
         @foreach (Car car in Model)
@@ -41,7 +46,7 @@
                                     <div class="row">
                                         <div class="d-flex align-items-center justify-content-start">
                                             <img class="carIcon" src="/icons/car_engine.svg">
-                                            <div class="ms-2 text-subhead">@(car.FuelType == EuroCarsUSA.Data.Enum.CarFuelType.Electric ? "Electric" : car.EngineVolume.ToString() + " cm3")</div>
+                                            <div class="ms-2 text-subhead">@(car.FuelType == EuroCarsUSA.Data.Enum.CarFuelType.Electric ? Translator["Electric"] : car.EngineVolume.ToString() + " cm3")</div>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +54,7 @@
                                     <div class="row">
                                         <div class="d-flex align-items-center justify-content-start justify-content-sm-end">
                                             <img class="carIcon" src="/icons/car_gearbox.svg">
-                                            <div class="ms-2 text-subhead">@car.Transmission.ToString()</div>
+                                            <div class="ms-2 text-subhead">@(((CarTransmission) car.Transmission).ToLocalizedString(Translator))</div>
                                         </div>
                                     </div>
 

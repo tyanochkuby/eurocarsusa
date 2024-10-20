@@ -1,13 +1,19 @@
 using EuroCarsUSA.Data;
 using EuroCarsUSA.Data.Enum;
 using EuroCarsUSA.Data.Interfaces;
+using EuroCarsUSA.Helpers;
 using EuroCarsUSA.Models;
+using EuroCarsUSA.Views.Home.Components.ViewModels;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Diagnostics;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace EuroCarsUSA.Controllers
 {
@@ -17,23 +23,23 @@ namespace EuroCarsUSA.Controllers
         private readonly IDetailPageFormRepository _detailPageFormRepository;
         private readonly ILogger<HomeController> _logger;
         private readonly IEmailService _emailService;
+        private readonly IStringLocalizer<HomeController> _localizer;
         private const int carsPerLoad = 6;
+        private Dictionary<string, List<FilterOptionViewModel>> _availableFilters; 
         
-        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService)
+        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService, IStringLocalizer<HomeController> localizer)
         {
             _carRepository = carRepository;
             _detailPageFormRepository = detailPageFormRepository;
             _logger = logger;
             _emailService = emailService;
+            _localizer = localizer;
+
         }
 
         public async Task<IActionResult> Index(string sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
         {
-            //ViewBag.YearSortParm = sortOrder == SortOrder.ByYear ? SortOrder.ByYearDesc : SortOrder.ByYear;
-            //ViewBag.MileageSortParm = sortOrder == SortOrder.ByMileage ? SortOrder.ByMileageDesc : SortOrder.ByMileage;
-            //ViewBag.PriceSortParm = sortOrder == SortOrder.ByPrice ? SortOrder.ByPriceDesc : SortOrder.ByPrice;
-            
-
+            ViewData["SortBy"] = _localizer["SortBy"];
             var filters = new CarFilter()
             {
                 MinPrice = minPrice,
@@ -44,36 +50,11 @@ namespace EuroCarsUSA.Controllers
                 MaxYear = maxYear,
                 MinEngineVolume = minEngineVolume,
                 MaxEngineVolume = maxEngineVolume,
-                FuelType = !string.IsNullOrEmpty(fuelType) ?
-                    Enum.GetValues(typeof(CarFuelType))
-                        .Cast<CarFuelType>()
-                        .Where(m => fuelType.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
-                        .ToList()
-                    : new List<CarFuelType>(),
-                CarType = !string.IsNullOrEmpty(carType) ?
-                    Enum.GetValues(typeof(CarType))
-                        .Cast<CarType>()
-                        .Where(m => carType.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
-                        .ToList()
-                    : new List<CarType>(),
-                Transmission = !string.IsNullOrEmpty(transmission) ?
-                    Enum.GetValues(typeof(CarTransmission))
-                        .Cast<CarTransmission>()
-                        .Where(m => transmission.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
-                        .ToList()
-                    : new List<CarTransmission>(),
-                Color = !string.IsNullOrEmpty(color) ?
-                    Enum.GetValues(typeof(CarColor))
-                        .Cast<CarColor>()
-                        .Where(m => color.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
-                        .ToList()
-                    : new List<CarColor>(),
-                Make = !string.IsNullOrEmpty(make) ? 
-                    Enum.GetValues(typeof(CarMake))
-                        .Cast<CarMake>()
-                        .Where(m => make.ToLower().Split(new[] { ' ', ',' }).Any(s => s == m.ToString().ToLower()))
-                        .ToList() 
-                    : new List<CarMake>(),
+                FuelType = EnumHelper.GetEnumListFromString<CarFuelType>(fuelType),
+                CarType = EnumHelper.GetEnumListFromString<CarType>(carType),
+                Transmission = EnumHelper.GetEnumListFromString<CarTransmission>(transmission),
+                Color = EnumHelper.GetEnumListFromString<CarColor>(color),
+                Make = EnumHelper.GetEnumListFromString<CarMake>(make),
                 Model = model,
             };
             SortOrder sortOrderEnum;
@@ -84,9 +65,9 @@ namespace EuroCarsUSA.Controllers
 
             HttpContext.Session.SetString("CurrentFilters", JsonConvert.SerializeObject(filters));
 
-            var availableFilters = await _carRepository.GetAvailableFilters();
+            _availableFilters = await _carRepository.GetAvailableFilters(_localizer);
 
-            ViewBag.AvailableFilters = availableFilters;
+            ViewBag.AvailableFilters = _availableFilters;
 
             return View();
         }
@@ -140,8 +121,14 @@ namespace EuroCarsUSA.Controllers
             }
         }
 
-        public async Task<IActionResult> GetCars(int carsDisplayed)
+        public async Task<IActionResult> GetCars(int carsDisplayed, string culture)
         {
+            // Set the culture from the request
+            if (!string.IsNullOrEmpty(culture))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(culture);
+                CultureInfo.CurrentUICulture = new CultureInfo(culture);
+            }
             CarFilter filters = new CarFilter();
             var sessionData = HttpContext.Session.GetString("CurrentFilters");
             if (!string.IsNullOrEmpty(sessionData))
@@ -159,8 +146,13 @@ namespace EuroCarsUSA.Controllers
             return partialView;
         }
 
-        public async Task<IActionResult> Likes()
+        public async Task<IActionResult> Likes(string culture)
         {
+            if (!string.IsNullOrEmpty(culture))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(culture);
+                CultureInfo.CurrentUICulture = new CultureInfo(culture);
+            }
             StringValues values;
             HttpContext.Request.Headers.TryGetValue("Cookie", out values);
             var cookies = values.ToString().Split(';').ToList();
@@ -181,6 +173,39 @@ namespace EuroCarsUSA.Controllers
                 }
             }
             return View(likedCars);
+        }
+
+        public async Task<IActionResult> GetFilterOptions(string filterType, string culture)
+        {
+            if (!string.IsNullOrEmpty(culture))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(culture);
+                CultureInfo.CurrentUICulture = new CultureInfo(culture);
+            }
+            
+            if (_availableFilters == null)
+            {
+                _availableFilters = await _carRepository.GetAvailableFilters(_localizer);
+            }
+
+            if (!_availableFilters.ContainsKey(filterType))
+            {
+                return NotFound($"Filter type '{filterType}' is not available.");
+            }
+
+            return PartialView("~/Views/Home/Components/_MobileFilterSelect.cshtml", _availableFilters[filterType]);
+        }
+
+        public IActionResult ChangeLanguage(string culture)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            var returnUrl = Request.Headers["Referer"].ToString();
+            return LocalRedirect(returnUrl);
         }
 
         public IActionResult BackToIndexWithFilters()
