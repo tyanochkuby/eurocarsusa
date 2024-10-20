@@ -3,13 +3,18 @@ using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Data.Repositories;
 using EuroCarsUSA.Data.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IDetailPageFormRepository, DetailPageFormRepository>();
@@ -60,6 +65,22 @@ if (args.Length == 1 && args[0].ToLower() == "seeddata")
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+var supportedCultures = new[] {  new CultureInfo("pl-PL"), new CultureInfo("en") };
+var requestLocalizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("pl-PL"), 
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+    RequestCultureProviders = new IRequestCultureProvider[]
+    {
+        new QueryStringRequestCultureProvider(),
+        new CookieRequestCultureProvider(),
+        new AcceptLanguageHeaderRequestCultureProvider()
+    }
+};
+
+app.UseRequestLocalization(requestLocalizationOptions);
 
 app.UseRouting();
 

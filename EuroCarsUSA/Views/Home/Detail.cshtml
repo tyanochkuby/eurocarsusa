@@ -1,13 +1,19 @@
+@using EuroCarsUSA.Controllers
+@using EuroCarsUSA.Data.Enum
+@using Microsoft.Extensions.Localization
+@using EuroCarsUSA.Helpers
+
 @model DetailPageForm
+@inject IStringLocalizer<HomeController> Translator
 
 
 <div id="successMessage" class="alert alert-secondary text-primary border-primary rounded-xxl py-2 px-3 start-50 translate-middle fs-4" style="display: none; position: fixed; top: 0; text-align: center; z-index: 10000; margin-top: 5%">
-    Message sent!
+    @Translator["MessageSent"]
 </div>
 
 <div id="communication-mobile-popUP" class="col-12 d-md-none justify-content-center align-items-center d-none" style="position: fixed; top: 0; left: 0; z-index: 10000; background: rgba(0, 0, 0, 0.5); width: 100; height: 100%;">
     <div class="col-8 bg-light align-items-center flex-column d-flex br-2 px-2">
-        <p class="fs-4 fw-light mb-0 mt-3 border-bottom border-primary">Contact with seller</p>
+        <p class="fs-4 fw-light mb-0 mt-3 border-bottom border-primary">@Translator["ContactSeller"]</p>
         <a href="tel:+48534422089" class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2 d-inline-flex align-items-center">
             <img class="carIcon" src="~/icons/phone.svg" /> <span class="ms-1">+48 534 422 089</span>
         </a>
@@ -15,21 +21,21 @@
         <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageFormPopUp" class="w-100">
             <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
             <div class="form-group px-2 py-1">
-                <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="Name" />
+                <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="@Translator["Name"]" />
             </div>
 
             <div class="form-group px-2 py-1">
-                <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="Email" />
+                <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="@Translator["Email"]" />
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group px-2 py-1">
-                <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="Phone Number" />
+                <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
                 <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group px-2 pt-1 pb-3">
-                <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message" rows="5"></textarea>
+                <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="@Translator["Message"]" rows="5"></textarea>
             </div>
 
             <div class="align-items-center flex-column d-flex pb-3">
@@ -45,7 +51,7 @@
                         </defs>
                     </svg>
 
-                    <span>Send message</span>
+                    <span>@Translator["SendMessage"]</span>
                 </button>
             </div>
 
@@ -60,7 +66,7 @@
         @*path*@
         <div class="ms-xl-0 ms-2 mb-3">
             <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1 d-inline-flex align-items-center">
-                <img class="carIcon" src="~/icons/arrow_left_alt.svg" /> <span>Back</span>
+                <img class="carIcon" src="~/icons/arrow_left_alt.svg" /> <span>@Translator["Back"]</span>
             </a>
 
             <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
@@ -183,9 +189,9 @@
                 <div class="fh-header-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
                 <div class="fh-regular row mx-0">
                     <div class="col-auto ps-0 pe-2">@ViewBag.Car.Year</div>
-                    <div class="col-auto ps-0 pe-2">@ViewBag.Car.Mileage</div>
-                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : @ViewBag.Car.FuelType.ToString())</div>
-                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.FuelType.ToString() : "")</div>
+                    <div class="col-auto ps-0 pe-2">@($"{ViewBag.Car.Mileage} km")</div>
+                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? $"{ViewBag.Car.EngineVolume} cm3" : "")</div>
+                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ((CarFuelType) ViewBag.Car.FuelType).ToLocalizedString(Translator) : "")</div>
                 </div>
             </div>
 
@@ -202,20 +208,20 @@
         <div class="ms-xl-0 ms-2 mb-5 mb-sm-3">
             <hr style="border-top: 1px solid #000;"> @*divider*@
 
-            <div class="row"> <h2 class="fh-header">Details</h2></div>
+            <div class="row"> <h2 class="fh-header">@Translator["Details"]</h2></div>
 
             <div class="fh-regular">
                 <div class="row mb-md-3">
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">Year</div>
+                            <div class="col-6 text-subhead">@Translator["Year"]</div>
                             <div class="col-6">@ViewBag.Car.Year</div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">Make</div>
+                            <div class="col-6 text-subhead">@Translator["Make"]</div>
                             <div class="col-6">@ViewBag.Car.Make</div>
                         </div>
                     </div>
@@ -224,14 +230,14 @@
                 <div class="row mb-md-3">
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">Mileage</div>
-                            <div class="col-6">@ViewBag.Car.Mileage</div>
+                            <div class="col-6 text-subhead">@Translator["Mileage"]</div>
+                            <div class="col-6">@($"{ViewBag.Car.Mileage} km")</div>
                         </div>
                     </div>
 
                     <div class="col-md-6 my-md-0 my-1">
                         <div class="row">
-                            <div class="col-6 text-subhead">Model</div>
+                            <div class="col-6 text-subhead">@Translator["Model"]</div>
                             <div class="col-6">@ViewBag.Car.Model</div>
                         </div>
                     </div>
@@ -240,7 +246,7 @@
                 <div class="row mb-md-3">
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">Color</div>
+                            <div class="col-6 text-subhead">@Translator["Color"]</div>
                             <div class="col-6">@ViewBag.Car.Color</div>
                         </div>
                     </div>
@@ -256,14 +262,14 @@
                 <div class="row mb-md-3">
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">Type</div>
+                            <div class="col-6 text-subhead">@Translator["CarType"]</div>
                             <div class="col-6">@ViewBag.Car.Type</div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">Fuel Type</div>
+                            <div class="col-6 text-subhead">@Translator["FuelType"]</div>
                             <div class="col-6">@ViewBag.Car.FuelType</div>
                         </div>
                     </div>
@@ -272,15 +278,15 @@
                 <div class="row mb-md-3">
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">Transmission</div>
+                            <div class="col-6 text-subhead">@Translator["Transmission"]</div>
                             <div class="col-6">@ViewBag.Car.Transmission</div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@(ViewBag.Car.EngineVolume != null ? "Engine volume" : "")</div>
-                            <div class="col-6">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : "")</div>
+                            <div class="col-6 text-subhead">@(ViewBag.Car.EngineVolume != null ? Translator["EngineVolume"] : "")</div>
+                            <div class="col-6">@(ViewBag.Car.EngineVolume != null ? $"{ViewBag.Car.EngineVolume} cm3" : "")</div>
                         </div>
                     </div>
                 </div>
@@ -297,9 +303,9 @@
                     <div class="fh-header-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
                     <div class="fh-regular row mx-0">
                         <div class="col-auto ps-0 pe-2">@ViewBag.Car.Year</div>
-                        <div class="col-auto ps-0 pe-2">@ViewBag.Car.Mileage</div>
-                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.EngineVolume.ToString() : @ViewBag.Car.FuelType.ToString())</div>
-                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ViewBag.Car.FuelType.ToString() : "")</div>
+                        <div class="col-auto ps-0 pe-2">@($"{ViewBag.Car.Mileage} km")</div>
+                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? $"{ViewBag.Car.EngineVolume} cm3" : "")</div>
+                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ((CarFuelType) ViewBag.Car.FuelType).ToLocalizedString(Translator) : "")</div>
                     </div>
                 </div>
 
@@ -313,7 +319,7 @@
                 <div class="py-3"></div>
 
                 <div class="bg-light align-items-center flex-column d-flex">
-                    <p class="fs-4 fw-light mb-0 mt-2 border-bottom border-primary">Contact with seller</p>
+                    <p class="fs-4 fw-light mb-0 mt-2 border-bottom border-primary">@Translator["ContactSeller"]</p>
                     <a href="tel:+48534422089" class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2 d-inline-flex align-items-center">
                         <img class="carIcon" src="~/icons/phone.svg" /> <span class="ms-1">+48 534 422 089</span>
                     </a>
@@ -321,21 +327,21 @@
                     <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
                         <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
                         <div class="form-group px-2 py-1">
-                            <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="Name" />
+                            <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="@Translator["Name"]" />
                         </div>
 
                         <div class="form-group px-2 py-1">
-                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="Email" />
+                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="@Translator["Email"]" />
                             <span asp-validation-for="@Model.Email" class="text-danger"></span>
                         </div>
 
                         <div class="form-group px-2 py-1">
-                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="Phone Number" />
+                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
                             <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
                         </div>
 
                         <div class="form-group px-2 pt-1 pb-3">
-                            <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="Message" rows="5"></textarea>
+                            <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="@Translator["Message"]" rows="5"></textarea>
                         </div>
 
                         <div class="align-items-center flex-column d-flex pb-3">
@@ -351,7 +357,7 @@
                                     </defs>
                                 </svg>
 
-                                <span>Send message</span>
+                                <span>@Translator["SendMessage"]</span>
                             </button>
                         </div>
 
@@ -364,12 +370,12 @@
         <div class="row fixed-bottom d-md-none w-100">
             <div class="col-6 px-0">
                 <div class="align-items-center h-100">
-                    <a href="tel:+48534422089" class="btn btn-secondary w-100 h-100 py-3"><i class="fas fa-phone fa-rotate-90 px-1"></i>  Call</a>
+                    <a href="tel:+48534422089" class="btn btn-secondary w-100 h-100 py-3"><i class="fas fa-phone fa-rotate-90 px-1"></i>@Translator["Call"]</a>
                 </div>
             </div>
             <div id="to_rename_parent" class="col-6 px-0">
                 <div class="align-items-center h-100">
-                    <button id="showPopupButton" type="to_rename" class="btn btn-secondary w-100 h-100"><i class="fas fa-envelope px-1"></i>  Send message</button>
+                    <button id="showPopupButton" type="to_rename" class="btn btn-secondary w-100 h-100"><i class="fas fa-envelope px-1"></i>  @Translator["SendMessage"]</button>
                 </div>
             </div>
         </div>

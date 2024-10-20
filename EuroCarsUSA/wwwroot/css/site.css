@@ -433,3 +433,22 @@ button#mobile-filter-select-save-button .carIcon {
 .dropdown-item {
     font-size: 16px;
 }
+
+#languageDropdown.dropdown-toggle {
+    color: var(--bs-primary);
+    background-color: var(--bs-secondary);
+    border: 1px solid var(--bs-primary);
+}
+
+#languageDropdown::after {
+    display: none;
+}
+
+.btn-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    width: 45px;
+    padding: 0;
+}

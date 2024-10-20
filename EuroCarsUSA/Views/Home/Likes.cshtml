@@ -1,7 +1,10 @@
-﻿@model IEnumerable<Car>
+﻿@using EuroCarsUSA.Controllers
+@using Microsoft.Extensions.Localization
+@model IEnumerable<Car>
 
+@inject IStringLocalizer<HomeController> Translator
 
-<h1 class="fh-header text-center mb-3">Your favoutite cars</h1>
+<h1 class="fh-header text-center mb-3">@Translator["LikesHeader"]</h1>
 
 <div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">
     <div class="row mx-0">

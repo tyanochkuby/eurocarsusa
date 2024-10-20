@@ -1,0 +1,40 @@
+﻿@using EuroCarsUSA.Controllers
+@using EuroCarsUSA.Views.Home.Components.ViewModels
+@using Microsoft.Extensions.Localization
+@model IEnumerable<FilterOptionViewModel>
+
+@inject IStringLocalizer<HomeController> Translator
+
+
+<div class="mobile-filter-select-screen d-flex flex-column vh-100" style="z-index: 1000;">
+    <div class="row mt-4 justify-content-between w-100">
+        <div class="col-5"></div>
+        <div class="col-6">
+            <p class="fs-5">Select Filter</p>
+        </div>
+        <div class="col-1" id="filter-mobile-select-close-button">
+            <img class="filterIcon" src="/icons/clear.svg" />
+        </div>
+    </div>
+    <div class="mobile-list-items mb-auto">
+        @foreach (var option in Model)
+        {
+            <div class="mobile-list-item d-flex justify-content-between align-items-center py-2 border-bottom" style="cursor: pointer;">
+                <label for="@option.OriginalValue" class="mb-0">@option.TranslatedValue</label>
+                <input type="checkbox" value="@option.OriginalValue" id="@option.OriginalValue" class="ml-auto" />
+            </div>
+        }
+    </div>
+    <div class="row mt-auto">
+        <div class="col-6">
+            <button id="filter-mobile-select-clear-button" class="btn btn-secondary rounded-pill py-2 w-100">
+                <img class="carIcon" src="/icons/clear.svg" /> @Translator["Clear"]
+            </button>
+        </div>
+        <div class="col-6">
+            <button class="btn btn-primary rounded-pill py-2 w-100" id="mobile-filter-select-save-button">
+                @Translator["Save"]
+            </button>
+        </div>
+    </div>
+</div>

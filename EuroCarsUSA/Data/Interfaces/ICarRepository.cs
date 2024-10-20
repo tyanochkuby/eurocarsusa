@@ -1,5 +1,7 @@
 ﻿using EuroCarsUSA.Data.Enum;
 using EuroCarsUSA.Models;
+using EuroCarsUSA.Views.Home.Components.ViewModels;
+using Microsoft.Extensions.Localization;
 
 namespace EuroCarsUSA.Data.Interfaces
 {
@@ -7,7 +9,7 @@ namespace EuroCarsUSA.Data.Interfaces
     {
         Task<IEnumerable<Car>> GetAll();
         Task<IEnumerable<Car>> GetRange(int start, int count, CarFilter? filters, SortOrder? sortOrder);
-        Task<Dictionary<string, List<string>>> GetAvailableFilters();
+        Task<Dictionary<string, List<FilterOptionViewModel>>> GetAvailableFilters(IStringLocalizer localizer);
         Task<int> GetCount(CarFilter? filters);
         Task<Car> GetById(Guid id);
         Task<bool> Add(Car car);
