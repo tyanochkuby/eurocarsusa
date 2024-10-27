@@ -1,19 +1,20 @@
-using EuroCarsUSA.Data;
 using EuroCarsUSA.Data.Enum;
 using EuroCarsUSA.Data.Interfaces;
-using EuroCarsUSA.Helpers;
+using EuroCarsUSA.Extensions;
 using EuroCarsUSA.Models;
+using EuroCarsUSA.Services.Interfaces;
+using EuroCarsUSA.ViewModels;
 using EuroCarsUSA.Views.Home.Components.ViewModels;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
-using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace EuroCarsUSA.Controllers
 {
@@ -24,17 +25,23 @@ namespace EuroCarsUSA.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IEmailService _emailService;
         private readonly IStringLocalizer<HomeController> _localizer;
+        private readonly ICookieService _cookieService;
+        private readonly IStatisticsService _statisticsService;
+        private readonly ICompositeViewEngine _viewEngine;
+
         private const int carsPerLoad = 6;
         private Dictionary<string, List<FilterOptionViewModel>> _availableFilters; 
         
-        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService, IStringLocalizer<HomeController> localizer)
+        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService, IStringLocalizer<HomeController> localizer, ICookieService cookieService, IStatisticsService statisticsService, ICompositeViewEngine viewEngine)
         {
             _carRepository = carRepository;
             _detailPageFormRepository = detailPageFormRepository;
             _logger = logger;
             _emailService = emailService;
             _localizer = localizer;
-
+            _cookieService = cookieService;
+            _statisticsService = statisticsService;
+            _viewEngine = viewEngine;
         }
 
         public async Task<IActionResult> Index(string sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
@@ -75,10 +82,16 @@ namespace EuroCarsUSA.Controllers
 
         public async Task<IActionResult> Detail(Guid id)
         {
+            await _statisticsService.ViewCar(id);
             Car car = await _carRepository.GetById(id);
-            DetailPageForm detailPageForm = new DetailPageForm { CarId = car.Id };
-            ViewBag.Car = car;
-            return View(detailPageForm);
+
+            DetailViewModel viewModel = new()
+            {
+                Car = car,
+                DetailPageForm = new DetailPageForm { CarId = car.Id }
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -123,7 +136,6 @@ namespace EuroCarsUSA.Controllers
 
         public async Task<IActionResult> GetCars(int carsDisplayed, string culture)
         {
-            // Set the culture from the request
             if (!string.IsNullOrEmpty(culture))
             {
                 CultureInfo.CurrentCulture = new CultureInfo(culture);
@@ -141,8 +153,13 @@ namespace EuroCarsUSA.Controllers
             var showMoreButton = carsCount > carsDisplayed + carsPerLoad;
             ViewBag.ShowMoreButton = showMoreButton;
 
+            var model = new GetCarsViewModel
+            {
+                Cars = nextCars,
+                LikedCars = _cookieService.GetUserLikedCars()
+            };
 
-            var partialView = PartialView(nextCars);
+            var partialView = PartialView(model);
             return partialView;
         }
 
@@ -153,16 +170,8 @@ namespace EuroCarsUSA.Controllers
                 CultureInfo.CurrentCulture = new CultureInfo(culture);
                 CultureInfo.CurrentUICulture = new CultureInfo(culture);
             }
-            StringValues values;
-            HttpContext.Request.Headers.TryGetValue("Cookie", out values);
-            var cookies = values.ToString().Split(';').ToList();
-            var result = cookies.Select(c => new { Key = c.Split('=')[0].Trim(), Value = c.Split('=')[1].Trim() }).ToList();
-            var likesCookieValue = result.FirstOrDefault(r => r.Key == "likes")?.Value;
-            List<Guid> likes = new List<Guid>();
-            if (!string.IsNullOrEmpty(likesCookieValue))
-            {
-                likes = JsonConvert.DeserializeObject<List<Guid>>(likesCookieValue);
-            }
+
+            var likes = _cookieService.GetUserLikedCars();
             List<Car> likedCars = new List<Car>();
             foreach(Guid guid in likes)
             {
@@ -196,6 +205,16 @@ namespace EuroCarsUSA.Controllers
             return PartialView("~/Views/Home/Components/_MobileFilterSelect.cshtml", _availableFilters[filterType]);
         }
 
+        public IActionResult PressedLikeButton(Guid carId)
+        {
+            var html = RenderPartialViewToString("~/Views/Home/Components/Buttons/LikePressed.cshtml", carId);
+            return Json(new { success = true, html });
+        }
+        public IActionResult UnpressedLikeButton(Guid carId)
+        {
+            var html = RenderPartialViewToString("~/Views/Home/Components/Buttons/LikeUnpressed.cshtml", carId);
+            return Json(new { success = true, html });
+        }
         public IActionResult ChangeLanguage(string culture)
         {
             Response.Cookies.Append(
@@ -208,6 +227,20 @@ namespace EuroCarsUSA.Controllers
             return LocalRedirect(returnUrl);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> LikeCar(Guid carId)
+        {
+            await _statisticsService.LikeCar(carId);
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnlikeCar(Guid carId)
+        {
+            await _statisticsService.UnlikeCar(carId);
+            return Json(new { success = true });
+        }
+
         public IActionResult BackToIndexWithFilters()
         {
             var sessionData = HttpContext.Session.GetString("CurrentFilters");
@@ -218,6 +251,37 @@ namespace EuroCarsUSA.Controllers
             }
             return RedirectToAction("Index");
         }
+        private string RenderPartialViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var writer = new StringWriter())
+            {
+                var viewResult = _viewEngine.GetView(null, viewName, false);
+                if (!viewResult.Success)
+                {
+                    viewResult = _viewEngine.FindView(ControllerContext, viewName, false);
+                }
+
+                if (!viewResult.Success)
+                {
+                    _logger.LogError($"View '{viewName}' not found.");
+                    throw new InvalidOperationException($"View '{viewName}' not found.");
+                }
+
+                var viewContext = new ViewContext(
+                    ControllerContext,
+                    viewResult.View,
+                    ViewData,
+                    TempData,
+                    writer,
+                    new HtmlHelperOptions()
+                );
+
+                viewResult.View.RenderAsync(viewContext).Wait();
+                return writer.GetStringBuilder().ToString();
+            }
+        }
+
 
         public IActionResult Privacy()
         {

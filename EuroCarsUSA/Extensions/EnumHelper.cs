@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Localization;
 
-namespace EuroCarsUSA.Helpers
+namespace EuroCarsUSA.Extensions
 {
     public static class EnumHelper
     {

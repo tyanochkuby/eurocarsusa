@@ -1,9 +1,10 @@
 @using EuroCarsUSA.Controllers
 @using EuroCarsUSA.Data.Enum
+@using EuroCarsUSA.ViewModels
 @using Microsoft.Extensions.Localization
-@using EuroCarsUSA.Helpers
+@using EuroCarsUSA.Extensions
 
-@model DetailPageForm
+@model DetailViewModel
 @inject IStringLocalizer<HomeController> Translator
 
 
@@ -11,7 +12,7 @@
     @Translator["MessageSent"]
 </div>
 
-<div id="communication-mobile-popUP" class="col-12 d-md-none justify-content-center align-items-center d-none" style="position: fixed; top: 0; left: 0; z-index: 10000; background: rgba(0, 0, 0, 0.5); width: 100; height: 100%;">
+<div id="communication-mobile-popUP" class="col-12 d-md-none justify-content-center align-items-center d-none" style="position: fixed; top: 0; left: 0; z-index: 10000; background: rgba(0, 0, 0, 0.5); width: 100%; height: 100%;">
     <div class="col-8 bg-light align-items-center flex-column d-flex br-2 px-2">
         <p class="fs-4 fw-light mb-0 mt-3 border-bottom border-primary">@Translator["ContactSeller"]</p>
         <a href="tel:+48534422089" class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2 d-inline-flex align-items-center">
@@ -19,23 +20,23 @@
         </a>
 
         <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageFormPopUp" class="w-100">
-            <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
+            <input type="hidden" asp-for="DetailPageForm.CarId" value="@Model.Car.Id" />
             <div class="form-group px-2 py-1">
-                <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="@Translator["Name"]" />
+                <input class="form-control border-bottom-only text-primary w-100" asp-for="DetailPageForm.Name" placeholder="@Translator["Name"]" />
             </div>
 
             <div class="form-group px-2 py-1">
-                <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="@Translator["Email"]" />
-                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Email" placeholder="@Translator["Email"]" />
+                <span asp-validation-for="DetailPageForm.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group px-2 py-1">
-                <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
-                <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
+                <span asp-validation-for="DetailPageForm.PhoneNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group px-2 pt-1 pb-3">
-                <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="@Translator["Message"]" rows="5"></textarea>
+                <textarea class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Message" placeholder="@Translator["Message"]" rows="5"></textarea>
             </div>
 
             <div class="align-items-center flex-column d-flex pb-3">
@@ -54,7 +55,6 @@
                     <span>@Translator["SendMessage"]</span>
                 </button>
             </div>
-
         </form>
     </div>
 </div>
@@ -69,11 +69,11 @@
                 <img class="carIcon" src="~/icons/arrow_left_alt.svg" /> <span>@Translator["Back"]</span>
             </a>
 
-            <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
-                @ViewBag.Car.Make
+            <a asp-controller="Home" asp-action="Index" asp-route-make="@Model.Car.Make" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
+                @Model.Car.Make
             </a>
-            <a asp-controller="Home" asp-action="Index" asp-route-make="@ViewBag.Car.Make" asp-route-model="@ViewBag.Car.Model" class="btn fh-button-text  px-3 py-2 btn-secondary border-0 rounded-pill">
-                @ViewBag.Car.Model
+            <a asp-controller="Home" asp-action="Index" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model" class="btn fh-button-text  px-3 py-2 btn-secondary border-0 rounded-pill">
+                @Model.Car.Model
             </a>
         </div>
 
@@ -86,9 +86,9 @@
                 </div>
 
                 <figure class="position-relative mb-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                    <a href=@ViewBag.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0>
+                    <a href=@Model.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0>
 
-                        <img src=@ViewBag.Car.Images[0] style="object-fit: cover; width: 100%" itemprop="thumbnail">
+                        <img src=@Model.Car.Images[0] style="object-fit: cover; width: 100%" itemprop="thumbnail">
                     </a>
                 </figure>
 
@@ -99,14 +99,14 @@
                 <div aria-live="polite" class="slick-list draggable" bis_skin_checked="1">
 
                     <div class="slick-track slider-container" style="opacity: 1;" role="listbox" bis_skin_checked="1">
-                        @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
+                        @for (int i = 0; i < Model.Car.Images.Count; i++)
                         {
                             <div class="slick-slide" data-slick-index="@i" aria-hidden="true">
                                 <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" bis_skin_checked="1">
 
-                                    <a href=@ViewBag.Car.Images[i] class="carPhotoThumbnail" id=@("car-figure-" + i) data-width="1200" data-height="900" itemprop="contentUrl" data-index=@i>
+                                    <a href=@Model.Car.Images[i] class="carPhotoThumbnail" id=@("car-figure-" + i) data-width="1200" data-height="900" itemprop="contentUrl" data-index=@i>
                                         <div class="me-2">
-                                            <img src=@ViewBag.Car.Images[i] style="object-fit: cover;" itemprop="thumbnail">
+                                            <img src=@Model.Car.Images[i] style="object-fit: cover;" itemprop="thumbnail">
                                         </div>
                                     </a>
                                 </figure>
@@ -118,11 +118,11 @@
             @*
             <div class="row justify-content-center">
             <div class="d-flex flex-row align-items-center">
-            @for (int i = 0; i < ViewBag.Car.Images.Count; i++)
+            @for (int i = 0; i < Model.Car.Images.Count; i++)
             {
             <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-            <a href=@ViewBag.Car.Images[i] class="carPhotoThumbnail" data-width="1200" data-height="900" itemprop="contentUrl" index=@i>
-            <img src=@ViewBag.Car.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
+            <a href=@Model.Car.Images[i] class="carPhotoThumbnail" data-width="1200" data-height="900" itemprop="contentUrl" index=@i>
+            <img src=@Model.Car.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
             </a>
             </figure>
             }
@@ -186,19 +186,19 @@
         @*Price*@
         <div class="d-md-none px-2">
             <div class="pb-2">
-                <div class="fh-header-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
+                <div class="fh-header-bold">@(Model.Car.Make + " " + Model.Car.Model)</div>
                 <div class="fh-regular row mx-0">
-                    <div class="col-auto ps-0 pe-2">@ViewBag.Car.Year</div>
-                    <div class="col-auto ps-0 pe-2">@($"{ViewBag.Car.Mileage} km")</div>
-                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? $"{ViewBag.Car.EngineVolume} cm3" : "")</div>
-                    <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ((CarFuelType) ViewBag.Car.FuelType).ToLocalizedString(Translator) : "")</div>
+                    <div class="col-auto ps-0 pe-2">@Model.Car.Year</div>
+                    <div class="col-auto ps-0 pe-2">@($"{Model.Car.Mileage} km")</div>
+                    <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
+                    <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? ((CarFuelType) Model.Car.FuelType).ToLocalizedString(Translator) : "")</div>
                 </div>
             </div>
 
 
             <div class="center-items bg-primary br-2">
                 <div class="row mx-0 py-1 text-antique">
-                    <div class="col-auto ps-0 pe-2 fh-header-bold">@ViewBag.Car.Price.ToString()</div>
+                    <div class="col-auto ps-0 pe-2 fh-header-bold">@Model.Car.Price.ToString()</div>
                     <div class="col-auto px-0 fh-header">PLN</div>
                 </div>
             </div>
@@ -215,14 +215,14 @@
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
                             <div class="col-6 text-subhead">@Translator["Year"]</div>
-                            <div class="col-6">@ViewBag.Car.Year</div>
+                            <div class="col-6">@Model.Car.Year</div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
                             <div class="col-6 text-subhead">@Translator["Make"]</div>
-                            <div class="col-6">@ViewBag.Car.Make</div>
+                            <div class="col-6">@Model.Car.Make</div>
                         </div>
                     </div>
                 </div>
@@ -231,14 +231,14 @@
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
                             <div class="col-6 text-subhead">@Translator["Mileage"]</div>
-                            <div class="col-6">@($"{ViewBag.Car.Mileage} km")</div>
+                            <div class="col-6">@($"{Model.Car.Mileage} km")</div>
                         </div>
                     </div>
 
                     <div class="col-md-6 my-md-0 my-1">
                         <div class="row">
                             <div class="col-6 text-subhead">@Translator["Model"]</div>
-                            <div class="col-6">@ViewBag.Car.Model</div>
+                            <div class="col-6">@Model.Car.Model</div>
                         </div>
                     </div>
                 </div>
@@ -247,14 +247,14 @@
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
                             <div class="col-6 text-subhead">@Translator["Color"]</div>
-                            <div class="col-6">@ViewBag.Car.Color</div>
+                            <div class="col-6">@Model.Car.Color</div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
                             <div class="col-6 text-subhead">VIN</div>
-                            <div class="col-6">@ViewBag.Car.VIN</div>
+                            <div class="col-6">@Model.Car.VIN</div>
                         </div>
                     </div>
                 </div>
@@ -263,14 +263,14 @@
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
                             <div class="col-6 text-subhead">@Translator["CarType"]</div>
-                            <div class="col-6">@ViewBag.Car.Type</div>
+                            <div class="col-6">@Model.Car.Type</div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
                             <div class="col-6 text-subhead">@Translator["FuelType"]</div>
-                            <div class="col-6">@ViewBag.Car.FuelType</div>
+                            <div class="col-6">@Model.Car.FuelType</div>
                         </div>
                     </div>
                 </div>
@@ -279,14 +279,14 @@
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
                             <div class="col-6 text-subhead">@Translator["Transmission"]</div>
-                            <div class="col-6">@ViewBag.Car.Transmission</div>
+                            <div class="col-6">@Model.Car.Transmission</div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@(ViewBag.Car.EngineVolume != null ? Translator["EngineVolume"] : "")</div>
-                            <div class="col-6">@(ViewBag.Car.EngineVolume != null ? $"{ViewBag.Car.EngineVolume} cm3" : "")</div>
+                            <div class="col-6 text-subhead">@(Model.Car.EngineVolume != null ? Translator["EngineVolume"] : "")</div>
+                            <div class="col-6">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
                         </div>
                     </div>
                 </div>
@@ -300,18 +300,18 @@
         <div class="d-none d-md-block sticky-top pt-2">
             <div class="border px-3 py-3">
                 <div class="pb-2">
-                    <div class="fh-header-bold">@(ViewBag.Car.Make + " " + ViewBag.Car.Model)</div>
+                    <div class="fh-header-bold">@(Model.Car.Make + " " + Model.Car.Model)</div>
                     <div class="fh-regular row mx-0">
-                        <div class="col-auto ps-0 pe-2">@ViewBag.Car.Year</div>
-                        <div class="col-auto ps-0 pe-2">@($"{ViewBag.Car.Mileage} km")</div>
-                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? $"{ViewBag.Car.EngineVolume} cm3" : "")</div>
-                        <div class="col-auto ps-0 pe-2">@(ViewBag.Car.EngineVolume != null ? ((CarFuelType) ViewBag.Car.FuelType).ToLocalizedString(Translator) : "")</div>
+                        <div class="col-auto ps-0 pe-2">@Model.Car.Year</div>
+                        <div class="col-auto ps-0 pe-2">@($"{Model.Car.Mileage} km")</div>
+                        <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
+                        <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? ((CarFuelType) Model.Car.FuelType).ToLocalizedString(Translator) : "")</div>
                     </div>
                 </div>
 
                 <div class="center-items bg-primary br-2">
                     <div class="row mx-0 py-1 text-antique">
-                        <div class="col-auto ps-0 pe-2 fh-header-bold">@ViewBag.Car.Price.ToString()</div>
+                        <div class="col-auto ps-0 pe-2 fh-header-bold">@Model.Car.Price.ToString()</div>
                         <div class="col-auto px-0 fh-header">PLN</div>
                     </div>
                 </div>
@@ -325,23 +325,23 @@
                     </a>
 
                     <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
-                        <input type="hidden" asp-for="@Model.CarId" value="@ViewBag.Car.Id" />
+                        <input type="hidden" asp-for="DetailPageForm.CarId" value="@Model.Car.Id" />
                         <div class="form-group px-2 py-1">
-                            <input class="form-control border-bottom-only text-primary w-100" asp-for="@Model.Name" placeholder="@Translator["Name"]" />
+                            <input class="form-control border-bottom-only text-primary w-100" asp-for="DetailPageForm.Name" placeholder="@Translator["Name"]" />
                         </div>
 
                         <div class="form-group px-2 py-1">
-                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.Email" placeholder="@Translator["Email"]" />
-                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                            <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Email" placeholder="@Translator["Email"]" />
+                            <span asp-validation-for="DetailPageForm.Email" class="text-danger"></span>
                         </div>
 
                         <div class="form-group px-2 py-1">
-                            <input class="form-control border-bottom-only text-primary" asp-for="@Model.PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
-                            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                            <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
+                            <span asp-validation-for="DetailPageForm.PhoneNumber" class="text-danger"></span>
                         </div>
 
                         <div class="form-group px-2 pt-1 pb-3">
-                            <textarea class="form-control border-bottom-only text-primary" asp-for="@Model.Message" placeholder="@Translator["Message"]" rows="5"></textarea>
+                            <textarea class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Message" placeholder="@Translator["Message"]" rows="5"></textarea>
                         </div>
 
                         <div class="align-items-center flex-column d-flex pb-3">

@@ -1,28 +1,32 @@
 using EuroCarsUSA.Data;
 using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Data.Repositories;
-using EuroCarsUSA.Data.Services;
+using EuroCarsUSA.Services;
+using EuroCarsUSA.Extensions;
+using EuroCarsUSA.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Localization;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddRazorOptions(options =>
+    {
+        options.ViewLocationFormats.Add("/Views/Home/Components/Buttons/{0}.cshtml");
+    });
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IDetailPageFormRepository, DetailPageFormRepository>();
-builder.Services.AddTransient<IEmailService>(serviceProvider =>
-{
-    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-    return new EmailService(configuration);
-});
+builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
+builder.Services.AddScoped<IStatisticsService, StatisticsService>();
+builder.Services.AddScoped<ICookieService, CookieService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 //Adding session services
 builder.Services.AddSession(options =>
@@ -35,6 +39,12 @@ builder.Services.AddSession(options =>
 
 //Configure services
 var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
+builder.Services.Configure<CookieNames>(
+            builder.Configuration.GetSection("CookieNames")
+        );
+builder.Services.Configure<EmailSettings>(
+               builder.Configuration.GetSection("EmailSettings")
+        );
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString, options => options.CommandTimeout(90));

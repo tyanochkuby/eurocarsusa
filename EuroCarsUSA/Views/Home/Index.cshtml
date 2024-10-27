@@ -1,6 +1,6 @@
 ﻿@using EuroCarsUSA.Controllers
 @using EuroCarsUSA.Data.Enum
-@using EuroCarsUSA.Helpers
+@using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Views.Home.Components.ViewModels
 @using Microsoft.Extensions.Localization
 @using System.Globalization
@@ -179,13 +179,11 @@
     {
         <div class="row w-100 justify-content-between mb-2 mx-0 mobile-sort-option row-mobile-filter d-inline-flex align-items-center">
             <div class="col-10 d-flex align-items-center">
-                <!-- Add d-flex align-items-center -->
                 <label class="ps-3 fh-filter-text" value="@sortOrder">@sortOrder.ToLocalizedString(Translator)</label>
             </div>
             @if (Context.Request.Query["sortOrder"] == sortOrder.ToString() || (Context.Request.Query["sortOrder"] == String.Empty && sortOrder == SortOrder.NewFirst))
             {
                 <div class="col-2 d-flex align-items-center">
-                    <!-- Add d-flex align-items-center -->
                     <svg width="96" height="96" viewBox="0 0 96 96" class="carIcon" fill="#7E9DED" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_449_5772)">
                             <path d="M36.0001 64.8L19.2001 48L13.6001 53.6L36.0001 76L84.0001 28L78.4001 22.4L36.0001 64.8Z" fill="#7E9DED" />
@@ -229,17 +227,6 @@
             <hr style="border-top: 1px solid #000;" class="my-0">
             <div class="row">
                 <div class="col-12">
-                
-                    @* <div class="py-2">
-                    <div fh-regular>Min price:</div>
-                    <input type="number" id="minPrice" name="minPrice" placeholder="@Translator["From"]" class="form-control" value="@Context.Request.Query["minPrice"]" />
-                    </div>
-                    <div class="py-2">
-                    <div fh-regular>Max price:</div>
-                    <input type="number" id="maxPrice" name="maxPrice" placeholder="@Translator["To"]" class="form-control" value="@Context.Request.Query["maxPrice"]" />
-                    </div> *@
-                
-
                     <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
                         <label class="px-0" for="minPrice">Price</label>
                         <div class="col-6 ps-0 pe-1">
@@ -436,7 +423,6 @@
                             console.log('hiding');
                             $('#showMoreButton').hide();
                         }
-                        updateLikeButtons();
                     },
                     error: function () {
                         alert('An error occurred while loading more cars.');
@@ -472,27 +458,44 @@
 
     <script>
 
-        
+
         function likeCar(carId, event, buttonElement) {
-            // Prevent default action and event propagation
             event.preventDefault();
             event.stopPropagation();
             $(buttonElement).blur();
-            $(buttonElement).toggleClass('btn-primary btn-secondary');
-            var newFillColor = $(buttonElement).hasClass('btn-secondary') ? '#7e9ded' : 'white';
-            $(buttonElement).find('svg path').attr('fill', newFillColor);
-            var likes = getCookie("likes");
-            var likesArray = likes ? JSON.parse(likes) : [];
-            if (!likesArray.includes(carId)) {
-                likesArray.push(carId);
-            } else {
-                likesArray = likesArray.filter(id => id !== carId);
-            }
-            
 
-            // Save updated likes back to cookie
-            setCookie("likes", JSON.stringify(likesArray), 7); // Expires in 7 days
+            var isPressed = $(buttonElement).hasClass('btn-secondary');
+            console.log(isPressed);
+            var partialViewUrl = isPressed ? '@Url.Action("PressedLikeButton", "Home")' : '@Url.Action("UnpressedLikeButton", "Home")';
+            var actionUrl = isPressed ? '@Url.Action("LikeCar", "Home")' : '@Url.Action("UnlikeCar", "Home")'
+
+            $.ajax({
+                url: partialViewUrl,
+                type: 'GET',
+                data: { carId: carId },
+                success: function (response) {
+                    $(buttonElement).replaceWith(response.html);
+                },
+                error: function () {
+                    console.error('Error loading button state');
+                }
+            });
+
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: { carId: carId },
+                success: function (response) {
+                    if (response.success) {
+                        console.log('Car liked/unliked successfully');
+                    }
+                },
+                error: function () {
+                    console.error('Error liking/unliking car');
+                }
+            });
         }
+
         function setCookie(name, value, days) {
             var expires = "";
             if (days) {
