@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EuroCarsUSA.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EuroCarsUSA.Controllers
 {
     public class AdminController : Controller
     {
-        public IActionResult Statistics()
+        private readonly IStatisticsService _statisticsService;
+        public AdminController(IStatisticsService statisticsService)
         {
-            return View();
+            _statisticsService = statisticsService;
+        }
+
+        public async Task<IActionResult> Statistics()
+        {
+            var model = await _statisticsService.GetCarsStatistics(1, 20);
+            return View(model);
         }
         public IActionResult EditCatalog()
         {
