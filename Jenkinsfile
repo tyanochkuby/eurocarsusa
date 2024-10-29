@@ -9,8 +9,15 @@ pipeline {
     stages {
         stage('Prepare for Deployment') {
             steps {
-                echo 'Creating app_offline.htm to disable application temporarily...'
-                writeFile file: OFFLINE_FILE, text: 'Application offline for update.'
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'network-share-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                        // Map network drive using the retrieved credentials
+                        bat "NET USE Z: ${IIS_SHARE} /user:%USER% %PASS%"
+                        
+                        // Ensure Z: is mapped correctly and create app_offline.htm
+                        writeFile file: 'Z:\\app_offline.htm', text: 'Application offline for maintenance'
+                    }
+                }
             }
         }
 
@@ -42,12 +49,8 @@ pipeline {
 
         stage('Cleanup') {
             steps {
-                echo 'Removing app_offline.htm to bring application back online...'
-                script {
-                    if (fileExists(OFFLINE_FILE)) {
-                        bat "del ${OFFLINE_FILE}"
-                    }
-                }
+                deleteFile 'Z:\\app_offline.htm'
+                bat "NET USE Z: /DELETE"
             }
         }
     }
