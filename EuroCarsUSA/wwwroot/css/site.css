@@ -448,7 +448,134 @@ button#mobile-filter-select-save-button .carIcon {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    width: 40px;
     padding: 0;
+}
+
+
+.bg-primary-50 {
+    background-color: #F3F5FD
+}
+.bg-primary-100 {
+    background-color: #D9E0F9
+}
+.bg-primary-200 {
+    background-color: #C6D1F6
+}
+.bg-primary-300 {
+    background-color: #ADBCF2
+}
+.bg-primary-400 {
+    background-color: #9DAFF0
+}
+.bg-primary-500 {
+    background-color: #849BEC
+}
+.bg-primary-600 {
+    background-color: #788DD7
+}
+.bg-primary-700 {
+    background-color: #5E6EA8
+}
+.bg-primary-800 {
+    background-color: #495582
+}
+.bg-primary-900 {
+    background-color: #374163
+}
+
+
+
+.bg-secondary-50 {
+    background-color: #FBFDFF
+}
+
+.bg-secondary-100 {
+    background-color: #F3F9FE
+}
+
+.bg-secondary-200 {
+    background-color: #EEF7FE
+}
+
+.bg-secondary-300 {
+    background-color: #E6F3FD
+}
+
+.bg-secondary-400 {
+    background-color: #E1F1FD
+}
+
+.bg-secondary-500 {
+    background-color: #D9EDFC
+}
+
+.bg-secondary-600 {
+    background-color: #C5D8E5
+}
+
+.bg-secondary-700 {
+    background-color: #9AA8B3
+}
+
+.bg-secondary-800 {
+    background-color: #77828B
+}
+
+.bg-secondary-900 {
+    background-color: #5B646A
+}
+
+
+.bg-neutral-50 {
+    background-color: #FDFDFE
+}
+
+.bg-neutral-100 {
+    background-color: #F9FAFD
+}
+
+.bg-neutral-200 {
+    background-color: #F7F8FC
+}
+
+.bg-neutral-300 {
+    background-color: #F3F4FA
+}
+
+.bg-neutral-400 {
+    background-color: #F1F2F9
+}
+
+.bg-neutral-500 {
+    background-color: #EDEFF8
+}
+
+.bg-neutral-600 {
+    background-color: #D8D9E2
+}
+
+.bg-neutral-700 {
+    background-color: #A8AAB0
+}
+
+.bg-neutral-800 {
+    background-color: #828388
+}
+
+.bg-neutral-900 {
+    background-color: #646468
+}
+
+
+
+.sidebar {
+    width: 80px;
+    height: 100vh;
+    position: fixed;
+}
+.main {
+    margin-top: 56px; /* height of header */
+    margin-left: 80px; /* width of sidebar*/
 }
