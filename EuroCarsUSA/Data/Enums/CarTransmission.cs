@@ -2,8 +2,8 @@
 {
     public enum CarTransmission
     {
-        Automatic,
-        Manual,
-        Robot,
+        Automatic = 0,
+        Manual = 1,
+        Robot = 2,
     }
 }

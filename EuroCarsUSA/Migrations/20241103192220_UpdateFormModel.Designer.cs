@@ -4,6 +4,7 @@ using EuroCarsUSA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EuroCarsUSA.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241103192220_UpdateFormModel")]
+    partial class UpdateFormModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,21 +135,23 @@ namespace EuroCarsUSA.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MaxMileage")
+                    b.Property<int>("MaxMileage")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MaxPrice")
+                    b.Property<int>("MaxPrice")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MaxYear")
+                    b.Property<int>("MaxYear")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MinYear")
+                    b.Property<int>("MinYear")
                         .HasColumnType("int");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -209,25 +214,6 @@ namespace EuroCarsUSA.Migrations
                     b.HasIndex("FormId");
 
                     b.ToTable("FormCarMakes");
-                });
-
-            modelBuilder.Entity("EuroCarsUSA.Models.Form.FormCarTransmission", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("CarTransmission")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("FormId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FormId");
-
-                    b.ToTable("FormCarTransmission");
                 });
 
             modelBuilder.Entity("EuroCarsUSA.Models.Form.FormCarType", b =>
@@ -502,17 +488,6 @@ namespace EuroCarsUSA.Migrations
                     b.Navigation("Form");
                 });
 
-            modelBuilder.Entity("EuroCarsUSA.Models.Form.FormCarTransmission", b =>
-                {
-                    b.HasOne("EuroCarsUSA.Models.Form.Form", "Form")
-                        .WithMany("FormCarTransmissions")
-                        .HasForeignKey("FormId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Form");
-                });
-
             modelBuilder.Entity("EuroCarsUSA.Models.Form.FormCarType", b =>
                 {
                     b.HasOne("EuroCarsUSA.Models.Form.Form", "Form")
@@ -582,8 +557,6 @@ namespace EuroCarsUSA.Migrations
                     b.Navigation("FormCarFuelTypes");
 
                     b.Navigation("FormCarMakes");
-
-                    b.Navigation("FormCarTransmissions");
 
                     b.Navigation("FormCarTypes");
                 });

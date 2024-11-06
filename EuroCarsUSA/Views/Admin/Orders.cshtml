@@ -1,1 +1,67 @@
-﻿<h1>Orders</h1>
+﻿@using EuroCarsUSA.ViewModels
+@model IEnumerable<FormViewModel>
+
+<h1>Orders</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Model</th>
+            <th>Max Price</th>
+            <th>Max Mileage</th>
+            <th>Min Year</th>
+            <th>Max Year</th>
+            <th>Description</th>
+            <th>Makes</th>
+            <th>Colors</th>
+            <th>Car Types</th>
+            <th>Fuel Types</th>
+            <th>Transmission</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var form in Model)
+        {
+            <tr>
+                <td>@form.Id</td>
+                <td>@form.Model</td>
+                <td>@form.MaxPrice</td>
+                <td>@form.MaxMileage</td>
+                <td>@form.MinYear</td>
+                <td>@form.MaxYear</td>
+                <td>@form.Description</td>
+                <td>
+                    @foreach (var make in form.CarMakes)
+                    {
+                        <span>@make</span>
+                    }
+                </td>
+                <td>
+                    @foreach (var color in form.CarColors)
+                    {
+                        <span>@color</span>
+                    }
+                </td>
+                <td>
+                    @foreach (var carType in form.CarTypes)
+                    {
+                        <span>@carType</span>
+                    }
+                </td>
+                <td>
+                    @foreach (var fuelType in form.CarFuelTypes)
+                    {
+                        <span>@fuelType</span>
+                    }
+                </td>
+                <td>
+                    @foreach (var transmission in form.CarTransmissions)
+                    {
+                        <span>@transmission</span>
+                    })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

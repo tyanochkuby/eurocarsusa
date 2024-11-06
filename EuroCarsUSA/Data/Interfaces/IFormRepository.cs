@@ -1,4 +1,4 @@
-﻿using EuroCarsUSA.Models;
+﻿using EuroCarsUSA.Models.Form;
 
 namespace EuroCarsUSA.Data.Interfaces
 {
