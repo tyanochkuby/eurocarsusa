@@ -1,4 +1,5 @@
-﻿using EuroCarsUSA.Services.Interfaces;
+﻿using EuroCarsUSA.Data.Interfaces;
+using EuroCarsUSA.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EuroCarsUSA.Controllers
@@ -6,9 +7,11 @@ namespace EuroCarsUSA.Controllers
     public class AdminController : Controller
     {
         private readonly IStatisticsService _statisticsService;
-        public AdminController(IStatisticsService statisticsService)
+        private readonly IFormService _formService;
+        public AdminController(IStatisticsService statisticsService, IFormService formService)
         {
             _statisticsService = statisticsService;
+            _formService = formService;
         }
 
         public async Task<IActionResult> Statistics()
@@ -20,9 +23,12 @@ namespace EuroCarsUSA.Controllers
         {
             return View();
         }
-        public IActionResult Orders()
+        public async Task<IActionResult> Orders()
         {
-            return View();
+            var recievedForms = await _formService.GetAll();
+            return View(recievedForms);
         }
+
+
     }
 }

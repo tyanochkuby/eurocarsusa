@@ -1,7 +1,7 @@
 ﻿using EuroCarsUSA.Data;
-using EuroCarsUSA.Models;
 using EuroCarsUSA.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using EuroCarsUSA.Models.Form;
 
 namespace EuroCarsUSA.Data.Repositories
 {
@@ -36,12 +36,25 @@ namespace EuroCarsUSA.Data.Repositories
 
         async Task<IEnumerable<Form>> IFormRepository.GetAll()
         {
-            return await _context.Forms.ToListAsync();
+            return await _context.Forms
+                .Include(f => f.FormCarMakes)
+                .Include(f => f.FormCarColors)
+                .Include(f => f.FormCarTypes)
+                .Include(f => f.FormCarFuelTypes)
+                .Include(f => f.FormCarTransmissions)
+                .ToListAsync();
         }
 
         async Task<Form> IFormRepository.GetById(Guid id)
         {
-            return await _context.Forms.FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.Forms
+                .Include(f => f.FormCarMakes)
+                .Include(f => f.FormCarColors)
+                .Include(f => f.FormCarTypes)
+                .Include(f => f.FormCarFuelTypes)
+                .Include(f => f.FormCarTransmissions)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
         }
 
 

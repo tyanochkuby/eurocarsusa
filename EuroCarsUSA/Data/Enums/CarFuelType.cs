@@ -2,8 +2,8 @@
 {
     public enum CarFuelType
     {
-        Electric,
-        Benzine,
-        Disel
+        Electric = 0,
+        Benzine = 1,
+        Disel = 2
     }
 }
