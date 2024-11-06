@@ -1,0 +1,24 @@
+@{
+    string color = ViewData["Color"] as string ?? "white";
+    bool hasLeftIcon = ViewData["LeftIcon"] as bool? ?? false;
+    bool hasRightIcon = ViewData["RightIcon"] as bool? ?? false;
+    string text = ViewData["Text"] as string ?? "Label";
+    string leftIconSrc = ViewData["LeftIconSrc"] as string;
+    string rightIconSrc = ViewData["RightIconSrc"] as string;
+}
+
+<button class="text-white text-title-sm btn-custom @(hasLeftIcon ? "with-left-icon" : "no-left-icon") @(hasRightIcon ? "with-right-icon" : "no-right-icon")">
+    
+    @if (hasLeftIcon)
+    {
+        @Html.Partial("_Icon", new { IconName = "home", Color = "dsada" })
+
+    }
+
+    <span>@(text)</span>
+
+    @if (hasRightIcon)
+    {
+        
+    }
+</button>

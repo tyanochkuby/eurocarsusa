@@ -578,4 +578,39 @@ button#mobile-filter-select-save-button .carIcon {
 .main {
     margin-top: 56px; /* height of header */
     margin-left: 80px; /* width of sidebar*/
+
+
+}
+.btn-custom {
+    padding: 10px 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 100px;
+    border-width: 0px;
+    background-color: var(--bs-primary);
+}
+
+.btn-custom.no-left-icon {
+    padding-left: 24px; /* Больше отступ, если нет левой иконки */
+}
+
+.btn-custom.with-left-icon {
+    padding-left: 16px; /* Меньше отступ, если иконка есть */
+}
+
+.btn-custom.no-right-icon {
+    padding-left: 24px; /* Больше отступ, если нет левой иконки */
+}
+
+.btn-custom.with-right-icon {
+    padding-left: 16px; /* Меньше отступ, если иконка есть */
+}
+
+
+.text-title-sm{
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
 }

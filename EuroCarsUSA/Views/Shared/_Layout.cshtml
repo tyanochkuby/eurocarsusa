@@ -139,6 +139,27 @@
         </div>
         }
         <main role="main" class="main pb-3">
+            
+            @{
+                ViewData["Color"] = "secondary";
+                ViewData["LeftIcon"] = true;
+                ViewData["RightIcon"] = true;
+                ViewData["Text"] = "kghjhi";
+                ViewData["LeftIconSrc"] = Url.Content("~/icons/car_year.svg");
+                ViewData["RightIconSrc"] = Url.Content("~/icons/car_year.svg");
+            }
+
+            @Html.Partial("_Button")
+            @{
+                ViewData["Color"] = "secondary";
+                ViewData["LeftIcon"] = true;
+                ViewData["RightIcon"] = true;
+            }
+            @Html.Partial("_Icon");
+
+
+
+
             @RenderBody()
 
             <footer class="border-top footer text-muted" style="height: 130px;">
