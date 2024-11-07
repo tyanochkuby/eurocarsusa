@@ -1,4 +1,5 @@
-﻿using EuroCarsUSA.Models;
+﻿using EuroCarsUSA.Data.Interfaces;
+using EuroCarsUSA.Models;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,13 @@ namespace EuroCarsUSA.Controllers
     public class AdminController : Controller
     {
         private readonly IStatisticsService _statisticsService;
+        private readonly IFormService _formService;
         private readonly ICatalogEditingService _catalogEditingService;
 
-        public AdminController(IStatisticsService statisticsService, ICatalogEditingService catalogEditingService)
+        public AdminController(IStatisticsService statisticsService, IFormService formService, ICatalogEditingService catalogEditingService)
         {
             _statisticsService = statisticsService;
+            _formService = formService;
             _catalogEditingService = catalogEditingService;
         }
 
@@ -83,9 +86,12 @@ namespace EuroCarsUSA.Controllers
 
             return View("EditCatalog", updatedCarsVM);
         }
-        public IActionResult Orders()
+        public async Task<IActionResult> Orders()
         {
-            return View();
+            var recievedForms = await _formService.GetAll();
+            return View(recievedForms);
         }
+
+
     }
 }
