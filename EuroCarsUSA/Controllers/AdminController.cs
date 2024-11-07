@@ -69,7 +69,7 @@ namespace EuroCarsUSA.Controllers
                     Mileage = car.Mileage,
                     Color = car.Color,
                     Images = JsonSerializer.Deserialize<List<string>>(car.ImagesJson)
-                });
+                }).ToList();
                 try
                 {
                     await _catalogEditingService.UpdateRange(updatedCars);

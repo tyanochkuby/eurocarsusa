@@ -14,14 +14,14 @@ namespace EuroCarsUSA.Services
 
         public async Task UpdateRange(IEnumerable<Car> cars)
         {
-            if(await _carRepository.UpdateRange(cars))
+            if(!await _carRepository.UpdateRange(cars))
             {
                 throw new Exception("Failed to update cars");
             }
         }
         public async Task DeleteRange(IEnumerable<Car> cars)
         {
-            if(await _carRepository.DeleteRange(cars))
+            if(!await _carRepository.DeleteRange(cars))
             {
                 throw new Exception("Failed to delete cars");
             }
