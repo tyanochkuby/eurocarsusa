@@ -14,7 +14,9 @@ namespace EuroCarsUSA.Data.Interfaces
         Task<Car> GetById(Guid id);
         Task<bool> Add(Car car);
         Task<bool> Update(Car car);
+        Task<bool> UpdateRange(IEnumerable<Car> cars);
         Task<bool> Delete(Car car);
+        Task<bool> DeleteRange(IEnumerable<Car> cars);
         Task<bool> Save();
 
     }

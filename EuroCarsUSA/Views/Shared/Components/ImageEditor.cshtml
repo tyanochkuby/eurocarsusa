@@ -1,0 +1,39 @@
+@model Tuple<List<string>, string>
+
+@{
+    var images = Model.Item1;
+    var uniqueId = Model.Item2;
+}
+
+<div>
+    <button type="button" class="btn btn-primary" onclick="showModal('@uniqueId')">Edit Images</button>
+
+    <div id="imageEditorModal-@uniqueId" class="modal" tabindex="-1" style="display:none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Images</h5>
+                    <button type="button" class="btn-close" onclick="hideModal('@uniqueId')"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        @for (int i = 0; i < images.Count; i++)
+                        {
+                            <li class="list-group-item">
+                                <img src="@images[i]" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px;" />
+                                <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('@uniqueId', @i)">Remove</button>
+                            </li>
+                        }
+                    </ul>
+                    <input type="text" id="newImageUrl-@uniqueId" placeholder="Enter image URL" class="form-control mt-2" />
+                    <button type="button" class="btn btn-success mt-2" onclick="addImage('@uniqueId')">Add Image</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="hideModal('@uniqueId')">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveChanges('@uniqueId')">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalBackdrop-@uniqueId" class="modal-backdrop" style="display:none;"></div>
+</div>

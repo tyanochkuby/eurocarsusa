@@ -1,0 +1,33 @@
+﻿﻿@using System.Net.Http
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+
+@typeparam TEnum
+
+<select @bind="SelectedValue" @bind:event="onchange" class="form-control" name="@Name">
+    @foreach (var option in Enum.GetValues(typeof(TEnum)).Cast<TEnum>())
+    {
+        <option value="@option">@option.ToString()</option>
+    }
+</select>
+
+@code {
+    [Parameter]
+    public TEnum SelectedValue { get; set; }
+
+    [Parameter]
+    public EventCallback<TEnum> SelectedValueChanged { get; set; }
+
+    [Parameter]
+    required public string Name { get; set; }
+
+    private async Task OnSelectedValueChanged(ChangeEventArgs e)
+    {
+        SelectedValue = (TEnum)Enum.Parse(typeof(TEnum), e.Value.ToString());
+        await SelectedValueChanged.InvokeAsync(SelectedValue);
+    }
+}

@@ -163,6 +163,16 @@ namespace EuroCarsUSA.Data.Repositories
             };
         }
 
+        public async Task<bool> UpdateRange(IEnumerable<Car> cars)
+        {
+            _context.Cars.UpdateRange(cars);
+            return await Save();
+        }
 
+        public async Task<bool> DeleteRange(IEnumerable<Car> cars)
+        {
+            _context.Cars.RemoveRange(cars);
+            return await Save();
+        }
     }
 }
