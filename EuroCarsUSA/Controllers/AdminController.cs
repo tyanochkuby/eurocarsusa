@@ -50,41 +50,46 @@ namespace EuroCarsUSA.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveCatalogChanges(List<CatalogEditionViewModel> updatedCarsVM)
+        public async Task<IActionResult> SaveCatalogChanges(List<CatalogEditionViewModel> updatedCarsVM, string deletedCarsIds)
         {
-            if (ModelState.IsValid)
-            {
-                var updatedCars = updatedCarsVM.Select(car => new Car
-                {
-                    Id = car.Id,
-                    Make = car.Make,
-                    Type = car.Type,
-                    Model = car.Model,
-                    VIN = car.VIN,
-                    FuelType = car.FuelType,
-                    EngineVolume = car.EngineVolume,
-                    Transmission = car.Transmission,
-                    Price = car.Price,
-                    Year = car.Year,
-                    Mileage = car.Mileage,
-                    Color = car.Color,
-                    Images = JsonSerializer.Deserialize<List<string>>(car.ImagesJson)
-                }).ToList();
-                try
-                {
-                    await _catalogEditingService.UpdateRange(updatedCars);
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError(string.Empty, e.Message);
-                    return View("EditCatalog", updatedCarsVM);
-                }
+            updatedCarsVM.ForEach(car => car.Images = JsonSerializer.Deserialize<List<string>>(car.ImagesJson));
 
-                // Redirect to the EditCatalog view after successful save
-                return RedirectToAction("EditCatalog");
+            var deletedCarsIdsList = new List<Guid>();
+            if (deletedCarsIds is not null)
+            {
+                deletedCarsIdsList = JsonSerializer.Deserialize<List<Guid>>(deletedCarsIds);
             }
 
-            return View("EditCatalog", updatedCarsVM);
+            var updatedCars = updatedCarsVM.Select(car => new Car
+            {
+                Id = car.Id,
+                Make = car.Make,
+                Type = car.Type,
+                Model = car.Model,
+                VIN = car.VIN,
+                FuelType = car.FuelType,
+                EngineVolume = car.EngineVolume,
+                Transmission = car.Transmission,
+                Price = car.Price,
+                Year = car.Year,
+                Mileage = car.Mileage,
+                Color = car.Color,
+                Images = car.Images,
+            }).ToList();
+
+            try
+            {
+                await _catalogEditingService.UpdateRange(updatedCars);
+                await _catalogEditingService.DeleteRange(deletedCarsIdsList);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View("EditCatalog", updatedCarsVM);
+            }
+
+            // Redirect to the EditCatalog view after successful save
+            return RedirectToAction("EditCatalog");
         }
         public async Task<IActionResult> Orders()
         {

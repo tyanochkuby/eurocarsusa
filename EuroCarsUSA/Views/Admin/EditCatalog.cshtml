@@ -7,6 +7,7 @@
 <h1>Catalog Edition</h1>
 
 <form method="post" asp-action="SaveCatalogChanges">
+    <input type="hidden" id="deletedCarsIds" name="deletedCarsIds" value="" />
     <table>
         <thead>
             <tr>
@@ -22,6 +23,7 @@
                 <th>Engine Volume</th>
                 <th>Transmission</th>
                 <th>Price</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +31,7 @@
             {
                 var car = Model.ElementAt(i);
                 var uniqueId = $"car-{i}";
-                <tr>
+                <tr id="car-row-@uniqueId">
                     <td><component type="typeof(EditableField<Guid>)" render-mode="ServerPrerendered" param-Value="car.Id" param-Name="@($"[{i}].Id")" param-IsVisible="false" /></td>
                     <td><component type="typeof(EnumDropdown<CarMake>)" render-mode="ServerPrerendered" param-SelectedValue="car.Make" param-SelectedValueChanged="@EventCallback.Factory.Create<CarMake>(this, value => car.Make = value)" param-Name="@($"[{i}].Make")" /></td>
                     <td><component type="typeof(EnumDropdown<CarType>)" render-mode="ServerPrerendered" param-SelectedValue="car.Type" param-SelectedValueChanged="@EventCallback.Factory.Create<CarType>(this, value => car.Type = value)" param-Name="@($"[{i}].Type")" /></td>
@@ -46,6 +48,9 @@
                     <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.EngineVolume?.ToString()" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.EngineVolume = string.IsNullOrEmpty(value) ? (int?)null : int.Parse(value))" param-Name="@($"[{i}].EngineVolume")" /></td>
                     <td><component type="typeof(EnumDropdown<CarTransmission>)" render-mode="ServerPrerendered" param-SelectedValue="car.Transmission" param-SelectedValueChanged="@EventCallback.Factory.Create<CarTransmission>(this, value => car.Transmission = value)" param-Name="@($"[{i}].Transmission")" /></td>
                     <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.Price.ToString()" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.Price = int.Parse(value))" param-Name="@($"[{i}].Price")" /></td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="deleteCar('@car.Id', '@uniqueId')">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -91,6 +96,17 @@
             });
             document.getElementById('ImagesJson-' + uniqueId).value = JSON.stringify(images);
             hideModal(uniqueId);
+        }
+
+        function deleteCar(carId, uniqueId) {
+            var deletedCarsIdsInput = document.getElementById('deletedCarsIds');
+            var deletedCarsIds = deletedCarsIdsInput.value ? JSON.parse(deletedCarsIdsInput.value) : [];
+            deletedCarsIds.push(carId);
+
+            deletedCarsIdsInput.value = JSON.stringify(deletedCarsIds);
+
+            var carRow = document.getElementById('car-row-' + uniqueId);
+            carRow.parentElement.removeChild(carRow);
         }
     </script>
 }

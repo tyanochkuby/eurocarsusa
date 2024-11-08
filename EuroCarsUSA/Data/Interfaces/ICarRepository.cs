@@ -16,7 +16,7 @@ namespace EuroCarsUSA.Data.Interfaces
         Task<bool> Update(Car car);
         Task<bool> UpdateRange(IEnumerable<Car> cars);
         Task<bool> Delete(Car car);
-        Task<bool> DeleteRange(IEnumerable<Car> cars);
+        Task<bool> DeleteRange(IEnumerable<Guid> carIds);
         Task<bool> Save();
 
     }

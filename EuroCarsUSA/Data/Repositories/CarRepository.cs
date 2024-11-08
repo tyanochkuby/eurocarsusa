@@ -169,9 +169,9 @@ namespace EuroCarsUSA.Data.Repositories
             return await Save();
         }
 
-        public async Task<bool> DeleteRange(IEnumerable<Car> cars)
+        public async Task<bool> DeleteRange(IEnumerable<Guid> carIds)
         {
-            _context.Cars.RemoveRange(cars);
+            _context.Cars.RemoveRange(_context.Cars.Where(c => carIds.Contains(c.Id)));
             return await Save();
         }
     }
