@@ -18,6 +18,7 @@ builder.Services.AddControllersWithViews()
     {
         options.ViewLocationFormats.Add("/Views/Home/Components/Buttons/{0}.cshtml");
     });
+builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
@@ -27,18 +28,17 @@ builder.Services.AddScoped<IDetailPageFormRepository, DetailPageFormRepository>(
 builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddScoped<ICookieService, CookieService>();
+builder.Services.AddScoped<ICatalogEditingService, CatalogEditingService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 
-//Adding session services
+// Adding session services
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30); 
     options.Cookie.HttpOnly = true;
 });
 
-
-
-//Configure services
+// Configure services
 var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
 builder.Services.Configure<CookieNames>(
             builder.Configuration.GetSection("CookieNames")
@@ -66,18 +66,17 @@ var app = builder.Build();
 if (args.Length == 1 && args[0].ToLower() == "seeddata")
     Seed.SeedData(app);
 
-    // Configure the HTTP request pipeline.
-    if (!app.Environment.IsDevelopment())
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-var supportedCultures = new[] {  new CultureInfo("pl-PL"), new CultureInfo("en") };
+var supportedCultures = new[] { new CultureInfo("pl-PL"), new CultureInfo("en") };
 var requestLocalizationOptions = new RequestLocalizationOptions
 {
     DefaultRequestCulture = new RequestCulture("pl-PL"), 
@@ -96,6 +95,7 @@ app.UseRequestLocalization(requestLocalizationOptions);
 app.UseRouting();
 
 app.UseAuthorization();
+app.MapBlazorHub();
 
 app.UseSession(); // Use session middleware
 

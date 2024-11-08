@@ -1,1 +1,112 @@
-﻿<h1>Catalog Edition</h1>
+﻿@using EuroCarsUSA.Data.Enum
+@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
+@using Microsoft.AspNetCore.Components
+@model IEnumerable<CatalogEditionViewModel>
+
+<h1>Catalog Edition</h1>
+
+<form method="post" asp-action="SaveCatalogChanges">
+    <input type="hidden" id="deletedCarsIds" name="deletedCarsIds" value="" />
+    <table>
+        <thead>
+            <tr>
+                <th>Make</th>
+                <th>Type</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Images</th>
+                <th>VIN</th>
+                <th>Mileage</th>
+                <th>Year</th>
+                <th>Fuel Type</th>
+                <th>Engine Volume</th>
+                <th>Transmission</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var car = Model.ElementAt(i);
+                var uniqueId = $"car-{i}";
+                <tr id="car-row-@uniqueId">
+                    <td><component type="typeof(EditableField<Guid>)" render-mode="ServerPrerendered" param-Value="car.Id" param-Name="@($"[{i}].Id")" param-IsVisible="false" /></td>
+                    <td><component type="typeof(EnumDropdown<CarMake>)" render-mode="ServerPrerendered" param-SelectedValue="car.Make" param-SelectedValueChanged="@EventCallback.Factory.Create<CarMake>(this, value => car.Make = value)" param-Name="@($"[{i}].Make")" /></td>
+                    <td><component type="typeof(EnumDropdown<CarType>)" render-mode="ServerPrerendered" param-SelectedValue="car.Type" param-SelectedValueChanged="@EventCallback.Factory.Create<CarType>(this, value => car.Type = value)" param-Name="@($"[{i}].Type")" /></td>
+                    <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.Model" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.Model = value)" param-Name="@($"[{i}].Model")" /></td>
+                    <td><component type="typeof(EnumDropdown<CarColor>)" render-mode="ServerPrerendered" param-SelectedValue="car.Color" param-SelectedValueChanged="@EventCallback.Factory.Create<CarColor>(this, value => car.Color = value)" param-Name="@($"[{i}].Color")" /></td>
+                    <td>
+                        <partial name="~/Views/Shared/Components/ImageEditor.cshtml" model="Tuple.Create(car.Images, uniqueId)" />
+                        <input type="hidden" id="ImagesJson-@uniqueId" name="@($"[{i}].ImagesJson")" value="@car.ImagesJson" />
+                    </td>
+                    <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.VIN" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.VIN = value)" param-Name="@($"[{i}].VIN")" /></td>
+                    <td><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.Mileage" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Mileage = value)" param-Name="@($"[{i}].Mileage")" /></td>
+                    <td><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.Year" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Year = value)" param-Name="@($"[{i}].Year")" /></td>
+                    <td><component type="typeof(EnumDropdown<CarFuelType>)" render-mode="ServerPrerendered" param-SelectedValue="car.FuelType" param-SelectedValueChanged="@EventCallback.Factory.Create<CarFuelType>(this, value => car.FuelType = value)" param-Name="@($"[{i}].FuelType")" /></td>
+                    <td><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.EngineVolume" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.EngineVolume = value)" param-Name="@($"[{i}].EngineVolume")" /></td>
+                    <td><component type="typeof(EnumDropdown<CarTransmission>)" render-mode="ServerPrerendered" param-SelectedValue="car.Transmission" param-SelectedValueChanged="@EventCallback.Factory.Create<CarTransmission>(this, value => car.Transmission = value)" param-Name="@($"[{i}].Transmission")" /></td>
+                    <td><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.Price" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Price = value)" param-Name="@($"[{i}].Price")" /></td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="deleteCar('@car.Id', '@uniqueId')">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit">Save Changes</button>
+</form>
+
+@section Scripts {
+    <script>
+        function showModal(uniqueId) {
+            document.getElementById('imageEditorModal-' + uniqueId).style.display = 'block';
+            document.getElementById('modalBackdrop-' + uniqueId).style.display = 'block';
+        }
+
+        function hideModal(uniqueId) {
+            document.getElementById('imageEditorModal-' + uniqueId).style.display = 'none';
+            document.getElementById('modalBackdrop-' + uniqueId).style.display = 'none';
+        }
+
+        function addImage(uniqueId) {
+            var newImageUrl = document.getElementById('newImageUrl-' + uniqueId).value;
+            if (newImageUrl) {
+                var listGroup = document.querySelector('#imageEditorModal-' + uniqueId + ' .list-group');
+                var newItem = document.createElement('li');
+                newItem.className = 'list-group-item';
+                newItem.innerHTML = '<img src="' + newImageUrl + '" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px;" />' +
+                                    '<button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">Remove</button>';
+                listGroup.appendChild(newItem);
+                document.getElementById('newImageUrl-' + uniqueId).value = '';
+            }
+        }
+
+        function removeImage(button) {
+            var listItem = button.parentElement;
+            listItem.parentElement.removeChild(listItem);
+        }
+
+        function saveChanges(uniqueId) {
+            var images = [];
+            var listItems = document.querySelectorAll('#imageEditorModal-' + uniqueId + ' .list-group-item img');
+            listItems.forEach(function(img) {
+                images.push(img.src);
+            });
+            document.getElementById('ImagesJson-' + uniqueId).value = JSON.stringify(images);
+            hideModal(uniqueId);
+        }
+
+        function deleteCar(carId, uniqueId) {
+            var deletedCarsIdsInput = document.getElementById('deletedCarsIds');
+            var deletedCarsIds = deletedCarsIdsInput.value ? JSON.parse(deletedCarsIdsInput.value) : [];
+            deletedCarsIds.push(carId);
+
+            deletedCarsIdsInput.value = JSON.stringify(deletedCarsIds);
+
+            var carRow = document.getElementById('car-row-' + uniqueId);
+            carRow.parentElement.removeChild(carRow);
+        }
+    </script>
+}

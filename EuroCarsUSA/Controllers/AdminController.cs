@@ -1,6 +1,9 @@
 ﻿using EuroCarsUSA.Data.Interfaces;
+using EuroCarsUSA.Models;
 using EuroCarsUSA.Services.Interfaces;
+using EuroCarsUSA.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace EuroCarsUSA.Controllers
 {
@@ -8,10 +11,13 @@ namespace EuroCarsUSA.Controllers
     {
         private readonly IStatisticsService _statisticsService;
         private readonly IFormService _formService;
-        public AdminController(IStatisticsService statisticsService, IFormService formService)
+        private readonly ICatalogEditingService _catalogEditingService;
+
+        public AdminController(IStatisticsService statisticsService, IFormService formService, ICatalogEditingService catalogEditingService)
         {
             _statisticsService = statisticsService;
             _formService = formService;
+            _catalogEditingService = catalogEditingService;
         }
 
         public async Task<IActionResult> Statistics()
@@ -19,9 +25,71 @@ namespace EuroCarsUSA.Controllers
             var model = await _statisticsService.GetCarsStatistics(1, 20);
             return View(model);
         }
-        public IActionResult EditCatalog()
+        public async Task<IActionResult> EditCatalog()
         {
-            return View();
+            var allCars = await _catalogEditingService.GetAll();
+            var viewModel = allCars.Select(car => new CatalogEditionViewModel
+            {
+                Id = car.Id,
+                Make = car.Make,
+                Type = car.Type,
+                Model = car.Model,
+                VIN = car.VIN,
+                FuelType = car.FuelType,
+                EngineVolume = car.EngineVolume,
+                Transmission = car.Transmission,
+                Price = car.Price,
+                Year = car.Year,
+                Mileage = car.Mileage,
+                Color = car.Color,
+                Images = car.Images,
+                ImagesJson = JsonSerializer.Serialize(car.Images)
+
+            }).ToList();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveCatalogChanges(List<CatalogEditionViewModel> updatedCarsVM, string deletedCarsIds)
+        {
+            updatedCarsVM.ForEach(car => car.Images = JsonSerializer.Deserialize<List<string>>(car.ImagesJson));
+
+            var deletedCarsIdsList = new List<Guid>();
+            if (deletedCarsIds is not null)
+            {
+                deletedCarsIdsList = JsonSerializer.Deserialize<List<Guid>>(deletedCarsIds);
+            }
+
+            var updatedCars = updatedCarsVM.Select(car => new Car
+            {
+                Id = car.Id,
+                Make = car.Make,
+                Type = car.Type,
+                Model = car.Model,
+                VIN = car.VIN,
+                FuelType = car.FuelType,
+                EngineVolume = car.EngineVolume,
+                Transmission = car.Transmission,
+                Price = car.Price,
+                Year = car.Year,
+                Mileage = car.Mileage,
+                Color = car.Color,
+                Images = car.Images,
+            }).ToList();
+
+            try
+            {
+                await _catalogEditingService.UpdateRange(updatedCars);
+                await _catalogEditingService.DeleteRange(deletedCarsIdsList);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View("EditCatalog", updatedCarsVM);
+            }
+
+            // Redirect to the EditCatalog view after successful save
+            return RedirectToAction("EditCatalog");
         }
         public async Task<IActionResult> Orders()
         {

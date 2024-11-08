@@ -1,0 +1,48 @@
+﻿﻿@using System.Net.Http
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+
+@typeparam T
+
+@if (IsVisible)
+{
+    var inputType = typeof(T).Name switch
+    {
+        "Int32" => "number",
+        "String" => "text",
+        "Guid" => "text",
+        _ => "text"
+    };
+    <input @bind="Value" @bind:event="oninput" name="@Name" style="width:@Width;" type="@inputType" />
+}
+else
+{
+    <input type="hidden" @bind="Value" name="@Name" />
+}
+
+@code {
+    [Parameter]
+    public T? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<T> ValueChanged { get; set; }
+
+    [Parameter]
+    required public string Name { get; set; }
+
+    [Parameter]
+    public bool IsVisible { get; set; } = true;
+
+    [Parameter]
+    public string Width { get; set; } = "100%"; // Default width
+
+    private async Task OnValueChanged(ChangeEventArgs e)
+    {
+        Value = (T)Convert.ChangeType(e.Value, typeof(T));
+        await ValueChanged.InvokeAsync(Value);
+    }
+}
