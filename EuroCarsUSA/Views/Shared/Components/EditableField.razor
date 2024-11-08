@@ -10,7 +10,14 @@
 
 @if (IsVisible)
 {
-    <input @bind="Value" @bind:event="oninput" name="@Name" style="width:@Width;" />
+    var inputType = typeof(T).Name switch
+    {
+        "Int32" => "number",
+        "String" => "text",
+        "Guid" => "text",
+        _ => "text"
+    };
+    <input @bind="Value" @bind:event="oninput" name="@Name" style="width:@Width;" type="@inputType" />
 }
 else
 {
@@ -19,7 +26,7 @@ else
 
 @code {
     [Parameter]
-    public T Value { get; set; }
+    public T? Value { get; set; }
 
     [Parameter]
     public EventCallback<T> ValueChanged { get; set; }

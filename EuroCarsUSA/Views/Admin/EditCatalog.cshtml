@@ -15,8 +15,8 @@
                 <th>Type</th>
                 <th>Model</th>
                 <th>Color</th>
-                <th>VIN</th>
                 <th>Images</th>
+                <th>VIN</th>
                 <th>Mileage</th>
                 <th>Year</th>
                 <th>Fuel Type</th>
@@ -42,12 +42,12 @@
                         <input type="hidden" id="ImagesJson-@uniqueId" name="@($"[{i}].ImagesJson")" value="@car.ImagesJson" />
                     </td>
                     <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.VIN" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.VIN = value)" param-Name="@($"[{i}].VIN")" /></td>
-                    <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.Mileage.ToString()" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.Mileage = int.Parse(value))" param-Name="@($"[{i}].Mileage")" /></td>
-                    <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.Year.ToString()" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.Year = int.Parse(value))" param-Name="@($"[{i}].Year")" /></td>
+                    <td><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.Mileage" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Mileage = value)" param-Name="@($"[{i}].Mileage")" /></td>
+                    <td><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.Year" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Year = value)" param-Name="@($"[{i}].Year")" /></td>
                     <td><component type="typeof(EnumDropdown<CarFuelType>)" render-mode="ServerPrerendered" param-SelectedValue="car.FuelType" param-SelectedValueChanged="@EventCallback.Factory.Create<CarFuelType>(this, value => car.FuelType = value)" param-Name="@($"[{i}].FuelType")" /></td>
-                    <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.EngineVolume?.ToString()" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.EngineVolume = string.IsNullOrEmpty(value) ? (int?)null : int.Parse(value))" param-Name="@($"[{i}].EngineVolume")" /></td>
+                    <td><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.EngineVolume" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.EngineVolume = value)" param-Name="@($"[{i}].EngineVolume")" /></td>
                     <td><component type="typeof(EnumDropdown<CarTransmission>)" render-mode="ServerPrerendered" param-SelectedValue="car.Transmission" param-SelectedValueChanged="@EventCallback.Factory.Create<CarTransmission>(this, value => car.Transmission = value)" param-Name="@($"[{i}].Transmission")" /></td>
-                    <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.Price.ToString()" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.Price = int.Parse(value))" param-Name="@($"[{i}].Price")" /></td>
+                    <td><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.Price" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Price = value)" param-Name="@($"[{i}].Price")" /></td>
                     <td>
                         <button type="button" class="btn btn-danger" onclick="deleteCar('@car.Id', '@uniqueId')">Delete</button>
                     </td>
