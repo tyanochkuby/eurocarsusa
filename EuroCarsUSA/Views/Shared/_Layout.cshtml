@@ -23,8 +23,8 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary-100 border-bottom box-shadow fixed-top">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary-100 border-bottom box-shadow fixed-top px-3 py-0">
+            <div class="container-fluid align-items-center d-flex topbar py-2">
 
                 <div class="me-auto d-flex">
                     <a class= "d-flex me-3" asp-area="" asp-controller="Home" asp-action="Index">
@@ -35,14 +35,26 @@
                         ViewData["Color"] = "primary";
                         ViewData["Text"] = "+48 53 00-00-000";
                         ViewData["LeftIcon"] = true;
-                        ViewData["LeftIconSrc"] = Url.Content("favorite");
+                        ViewData["LeftIconSrc"] = Url.Content("phone");
                     }
                     <a asp-controller="Home" asp-action="Likes">
                         @Html.Partial("_Button")
                     </a>
                 </div>
 
-                <div class="dropdown me-3">
+                <div class="me-3">
+                    <a asp-controller="Home"
+                       asp-action="Likes"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        @{
+                            ViewData["Color"] = "secondary";
+                            ViewData["IconSrc"] = Url.Content("favorite");
+                        }
+                        @Html.Partial("_IconButton")
+                    </a>
+                </div>
+                
+                <div class="dropdown">
                     <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
                         @{
                             // wtf is                 role="button" data-bs-toggle="dropdown" aria-expanded="false" ????
@@ -57,19 +69,6 @@
                         <li><a class="dropdown-item" href="?culture=pl-PL&ui-culture=pl-PL">Polski</a></li>
                     </ul>
                 </div>
-
-                <div class="me-3">
-                    
-                    <a asp-controller="Home"
-                        asp-action="Likes"
-                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                        @{
-                            ViewData["Color"] = "secondary";
-                            ViewData["IconSrc"] = Url.Content("favorite");
-                        }
-                        @Html.Partial("_IconButton")
-                    </a>
-                </div>
             </div>
         </nav>
     </header>
@@ -81,66 +80,34 @@
                 <div>
                     <a asp-controller="Admin"
                        asp-action="Statistics"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name"
-                       type="button"
-                       class="btn btn-header btn-primary rounded-pill">
-                        <svg class="carIcon" width="96" height="96" viewBox="0 0 96 96" fill="#7e9ded" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_3304_2855)">
-                                <path d="M19 17.7V19.5C19 19.6333 19.05 19.75 19.15 19.85C19.25 19.95 19.3667 20 19.5 20C19.6333 20 19.75 19.95 19.85 19.85C19.95 19.75 20 19.6333 20 19.5V16.5C20 16.3667 19.95 16.25 19.85 16.15C19.75 16.05 19.6333 16 19.5 16H16.5C16.3667 16 16.25 16.05 16.15 16.15C16.05 16.25 16 16.3667 16 16.5C16 16.6333 16.05 16.75 16.15 16.85C16.25 16.95 16.3667 17 16.5 17H18.3L15.85 19.45C15.75 19.55 15.7 19.6667 15.7 19.8C15.7 19.9333 15.75 20.05 15.85 20.15C15.95 20.25 16.0667 20.3 16.2 20.3C16.3333 20.3 16.45 20.25 16.55 20.15L19 17.7ZM18 23C16.6167 23 15.4377 22.5127 14.463 21.538C13.4877 20.5627 13 19.3833 13 18C13 16.6167 13.4877 15.4373 14.463 14.462C15.4377 13.4873 16.6167 13 18 13C19.3833 13 20.5627 13.4873 21.538 14.462C22.5127 15.4373 23 16.6167 23 18C23 19.3833 22.5127 20.5627 21.538 21.538C20.5627 22.5127 19.3833 23 18 23ZM8 9H16C16.2833 9 16.5207 8.904 16.712 8.712C16.904 8.52067 17 8.28333 17 8C17 7.71667 16.904 7.479 16.712 7.287C16.5207 7.09567 16.2833 7 16 7H8C7.71667 7 7.479 7.09567 7.287 7.287C7.09567 7.479 7 7.71667 7 8C7 8.28333 7.09567 8.52067 7.287 8.712C7.479 8.904 7.71667 9 8 9ZM11.675 21H5C4.45 21 3.979 20.8043 3.587 20.413C3.19567 20.021 3 19.55 3 19V5C3 4.45 3.19567 3.979 3.587 3.587C3.979 3.19567 4.45 3 5 3H19C19.55 3 20.021 3.19567 20.413 3.587C20.8043 3.979 21 4.45 21 5V11.7C20.5167 11.4667 20.0293 11.2917 19.538 11.175C19.046 11.0583 18.5333 11 18 11C17.8167 11 17.646 11.004 17.488 11.012C17.3293 11.0207 17.1667 11.0417 17 11.075C16.85 11.0417 16.6833 11.0207 16.5 11.012C16.3167 11.004 16.15 11 16 11H8C7.71667 11 7.479 11.0957 7.287 11.287C7.09567 11.479 7 11.7167 7 12C7 12.2833 7.09567 12.5207 7.287 12.712C7.479 12.904 7.71667 13 8 13H13.125C12.825 13.2833 12.554 13.5917 12.312 13.925C12.0707 14.2583 11.8583 14.6167 11.675 15H8C7.71667 15 7.479 15.0957 7.287 15.287C7.09567 15.479 7 15.7167 7 16C7 16.2833 7.09567 16.5207 7.287 16.712C7.479 16.904 7.71667 17 8 17H11.075C11.0417 17.1667 11.0207 17.3293 11.012 17.488C11.004 17.646 11 17.8167 11 18C11 18.55 11.05 19.0627 11.15 19.538C11.25 20.0127 11.425 20.5 11.675 21Z" fill="white" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_292_967">
-                                    <rect width="96" height="96" fill="#ffffff" />
-                                </clipPath>
-                            </defs>
-                        </svg>
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        @{
+                            ViewData["Color"] = "secondary";
+                            ViewData["IconSrc"] = Url.Content("Home");
+                        }
+                        @Html.Partial("_IconButton")
                     </a>
                 </div>
             <div>
                 <a asp-controller="Admin"
-                       asp-action="EditCatalog"
-                   asp-route-culture="@CultureInfo.CurrentUICulture.Name"
-                   type="button"
-                   class="btn btn-header btn-primary rounded-pill">
-                    <svg class="carIcon" width="96" height="96" viewBox="0 0 96 96" fill="#7e9ded" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_3304_2843)">
-                            <g clip-path="url(#clip1_3304_2843)">
-                                <path d="M2 7H6V17H2V7ZM7 19H17V5H7V19ZM18 7H22V17H18V7Z" fill="white" />
-                            </g>
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_3304_2843">
-                                    <rect width="96" height="96" fill="#7e9ded" />
-                            </clipPath>
-                            <clipPath id="clip1_3304_2843">
-                                    <rect width="96" height="96" fill="#7e9ded" />
-                            </clipPath>
-                        </defs>
-                    </svg>
+                    asp-action="EditCatalog"
+                    asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                    @{
+                        ViewData["Color"] = "secondary";
+                            ViewData["IconSrc"] = Url.Content("View carousel");
+                    }
+                    @Html.Partial("_IconButton")
                 </a>
             </div>
             <div>
                 <a asp-controller="Admin"
-                   asp-action="Orders"
-                   asp-route-culture="@CultureInfo.CurrentUICulture.Name"
-                   type="button"
-                   class="btn btn-header btn-primary rounded-pill">
-                    
-                    <svg class="carIcon" width="96" height="96" viewBox="0 0 96 96" fill="#7e9ded" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_3304_2849)">
-                            <g clip-path="url(#clip1_3304_2849)">
-                                <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="white" />
-                            </g>
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_3304_2849">
-                                <rect width="96" height="96" fill="#7e9ded" />
-                            </clipPath>
-                            <clipPath id="clip1_3304_2849">
-                                <rect width="96" height="96" fill="#7e9ded" />
-                            </clipPath>
-                        </defs>
-                    </svg>
+                    asp-action="Orders"
+                    asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                    @{
+                        ViewData["Color"] = "secondary";
+                        ViewData["IconSrc"] = Url.Content("Search");
+                    }
+                    @Html.Partial("_IconButton")
                 </a>
             </div>
         </div>

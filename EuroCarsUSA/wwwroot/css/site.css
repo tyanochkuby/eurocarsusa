@@ -568,6 +568,10 @@ button#mobile-filter-select-save-button .carIcon {
     background-color: #646468
 }
 
+.topbar {
+    height: 56px;
+}
+
 
 
 .sidebar {
