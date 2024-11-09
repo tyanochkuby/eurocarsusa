@@ -581,6 +581,7 @@ button#mobile-filter-select-save-button .carIcon {
 
 
 }
+/* Исходные стили для btn-custom */
 .btn-custom {
     padding: 10px 24px;
     display: inline-flex;
@@ -590,27 +591,130 @@ button#mobile-filter-select-save-button .carIcon {
     border-radius: 100px;
     border-width: 0px;
     background-color: var(--bs-primary);
+    color: white;
+    transition: all 0.3s ease; 
 }
 
+    .btn-custom:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-custom:active {
+        background-color: var(--bs-secondary) !important;
+        color: var(--bs-primary) !important;
+    }
+
+    .btn-custom.bg-secondary:active {
+        background-color: var(--bs-primary) !important;
+        color: white !important;
+    }
+
+    .btn-custom .icon-container svg path,
+    .btn-custom .icon-container svg path {
+        transition: fill 0.3s ease; 
+    }
+
+    .btn-custom:active .icon-container svg path {
+        fill: var(--bs-primary) !important;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    }
+
+    .btn-custom.bg-secondary:active .icon-container svg path {
+        fill: white !important;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    }
+
+    .btn-custom .icon-container svg path {
+        fill: currentColor;
+    }
+
+    .btn-custom .icon-size svg {
+        width: 18px;
+        height: 18px;
+    }
+
+.icon-size svg {
+    width: 24px;
+    height: 24px;
+}
 .btn-custom.no-left-icon {
-    padding-left: 24px; /* Больше отступ, если нет левой иконки */
+    padding-left: 24px; 
 }
 
 .btn-custom.with-left-icon {
-    padding-left: 16px; /* Меньше отступ, если иконка есть */
+    padding-left: 16px; 
 }
 
 .btn-custom.no-right-icon {
-    padding-left: 24px; /* Больше отступ, если нет левой иконки */
+    padding-left: 24px; 
 }
 
 .btn-custom.with-right-icon {
-    padding-left: 16px; /* Меньше отступ, если иконка есть */
+    padding-left: 16px; 
 }
 
+.icon-btn-custom {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0) !important;
+    border-width: 0px;
+    transition: all 0.3s ease;
+}
 
-.text-title-sm{
+    .icon-btn-custom .icon-size svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .icon-btn-custom .rounded-pill.bg-primary {
+        background-color: rgba(0,0,0,0) !important;
+    }
+    .icon-btn-custom .rounded-pill.bg-secondary {
+        background-color: --bs-secondary-rgb !important;
+    }
+
+    .icon-btn-custom .p-2 {
+        transition: all 0.3s ease;
+    }
+
+    .icon-btn-custom .p-2.bg-primary {
+        background-color: rgba(0,0,0,0) !important;
+    }
+
+    .icon-btn-custom .p-2.bg-secondary {
+        background-color: rgba(0,0,0,0) !important;
+    }
+
+
+    .icon-btn-custom:hover .p-2{
+        background-color: rgba(var(--bs-primary-rgb), 0.08) !important;
+    }
+
+    .icon-btn-custom:active .p-2{
+        background-color: rgba(var(--bs-primary-rgb), 0.12) !important;
+    }
+
+
+
+
+
+
+
+.text-title-sm {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.1px;
+}
+
+.text-primary-900 {
+    color: #354264;
+}
+.text-neutral-900 {
+    color: #646468;
+}
+.text-neutral {
+    color: #EDEFF8;
 }

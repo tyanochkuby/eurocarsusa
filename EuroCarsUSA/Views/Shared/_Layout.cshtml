@@ -28,23 +28,25 @@
 
                 <div class="me-auto d-flex">
                     <a class= "d-flex me-3" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/icons/logo2.svg" style="width=160; height=40" alt="EuroCarsUSA" />
+                        <img src="~/icons/logo2.svg" style="width: 160; height: 40" alt="EuroCarsUSA" />
                     </a>
 
                     @{
-                        ViewData["Color"] = "secondary";
-                        ViewData["LeftIcon"] = true;
-                        ViewData["RightIcon"] = true;
+                        ViewData["Color"] = "primary";
                         ViewData["Text"] = "+48 53 00-00-000";
-                        ViewData["LeftIconSrc"] = Url.Content("~/icons/phone.svg");
-                        //ViewData["RightIconSrc"] = Url.Content("~/icons/car_year.svg");
+                        ViewData["LeftIcon"] = true;
+                        ViewData["LeftIconSrc"] = Url.Content("phone");
                     }
-                    @Html.Partial("_Button")
-                    
+                    <a asp-controller="Home" asp-action="Likes">
+                        @Html.Partial("_Button")
+                    </a>
                 </div>
-                
 
-                
+                @{
+                    ViewData["Color"] = "secondary";
+                    ViewData["IconSrc"] = Url.Content("phone");
+                }
+                @Html.Partial("_IconButton")
 
                 <div class="dropdown me-3">
                     <a href="#" class="btn btn-secondary btn-header rounded-pill dropdown-toggle" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -153,8 +155,8 @@
         </div>
         }
         <main role="main" class="main pb-3">
-            @RenderBody()
 
+            @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">
                 <div class="container-xl">
                     &copy; 2024 - EuroCarsUSA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
