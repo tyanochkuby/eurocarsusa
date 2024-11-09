@@ -26,9 +26,25 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary-100 border-bottom box-shadow fixed-top">
             <div class="container-fluid">
 
-                <a class="me-auto" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/icons/logo2.svg" style="width=160; height=40" alt="EuroCarsUSA" />
-                 </a>
+                <div class="me-auto d-flex">
+                    <a class= "d-flex me-3" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/icons/logo2.svg" style="width=160; height=40" alt="EuroCarsUSA" />
+                    </a>
+
+                    @{
+                        ViewData["Color"] = "secondary";
+                        ViewData["LeftIcon"] = true;
+                        ViewData["RightIcon"] = true;
+                        ViewData["Text"] = "+48 53 00-00-000";
+                        ViewData["LeftIconSrc"] = Url.Content("~/icons/phone.svg");
+                        //ViewData["RightIconSrc"] = Url.Content("~/icons/car_year.svg");
+                    }
+                    @Html.Partial("_Button")
+                    
+                </div>
+                
+
+                
 
                 <div class="dropdown me-3">
                     <a href="#" class="btn btn-secondary btn-header rounded-pill dropdown-toggle" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -65,8 +81,6 @@
         </nav>
     </header>
 
-    
-                {
     <div class="px-0">
         @if (User.IsInRole("Admin"))
         {
@@ -139,27 +153,6 @@
         </div>
         }
         <main role="main" class="main pb-3">
-            
-            @{
-                ViewData["Color"] = "secondary";
-                ViewData["LeftIcon"] = true;
-                ViewData["RightIcon"] = true;
-                ViewData["Text"] = "kghjhi";
-                ViewData["LeftIconSrc"] = Url.Content("~/icons/car_year.svg");
-                ViewData["RightIconSrc"] = Url.Content("~/icons/car_year.svg");
-            }
-
-            @Html.Partial("_Button")
-            @{
-                ViewData["Color"] = "secondary";
-                ViewData["LeftIcon"] = true;
-                ViewData["RightIcon"] = true;
-            }
-            @Html.Partial("_Icon");
-
-
-
-
             @RenderBody()
 
             <footer class="border-top footer text-muted" style="height: 130px;">
