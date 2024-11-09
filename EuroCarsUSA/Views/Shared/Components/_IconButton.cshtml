@@ -2,7 +2,7 @@
     string color = ViewData["Color"] as string ?? "primary";
     string iconSrc = ViewData["IconSrc"] as string;
 
-    string customIconColor = ViewData["IconColor"] as string;
+    string customIconColor = ViewData["IconColor"] as string ?? "primary";
 
     string backgroundColorValue = color == "primary" ? "bg-primary" : "bg-secondary";
 }
@@ -10,7 +10,7 @@
 <button class="icon-btn-custom p-0">
     <div class="rounded-pill overflow-hidden @backgroundColorValue">
         <div class="p-2 @backgroundColorValue">
-            @Html.Partial("_Icon", new { IconName = iconSrc, Color = color })
+            @Html.Partial("_Icon", new { IconName = iconSrc, Color = customIconColor })
         </div>
     </div>
 </button>
