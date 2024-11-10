@@ -1,0 +1,26 @@
+@model dynamic
+
+@{
+    string iconName = Model.IconName;
+    string color = Model.Color ?? "none";
+    var iconPath = $"wwwroot/icons/{iconName}.svg";
+
+    string colorClass = color switch
+    {
+        "black" => "text-black",
+        "white" => "text-white",
+        "primary" => "text-primary",
+        "secondary" => "text-secondary",
+        "neutral" => "text-neutral",
+        "neutral900" => "text-neutral-900",
+        "error" => "text-byzantine",
+        "primary900" => "text-primary-900",
+        _ => "opacity-0"
+    };
+}
+
+
+<div class="icon-container icon-size d-flex align-items-center justify-content-center @colorClass">
+    @Html.Raw(System.IO.File.ReadAllText(Context.Request.PathBase + iconPath))
+</div>
+
