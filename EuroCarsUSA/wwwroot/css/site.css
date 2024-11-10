@@ -134,6 +134,16 @@ img.rounded-xxl {
     border-radius: 4%;
 }
 
+
+.rounded-32 {
+    border-radius: 32px !important;
+}
+
+.rounded-16 {
+    border-radius: 16px !important;
+}
+
+
 .img-container {
     position: relative;
     
@@ -571,6 +581,140 @@ button#mobile-filter-select-save-button .carIcon {
 .topbar {
     height: 56px;
 }
+
+
+
+.text-display-lg {
+    font-size: 57px;
+    line-height: 64px;
+    letter-spacing: -0.25px;
+    font-family: Roboto;
+}
+
+.text-display-md {
+    font-size: 45px;
+    line-height: 52px;
+    font-family: Roboto;
+}
+
+.text-display-sm {
+    font-size: 36px;
+    line-height: 44px;
+    font-family: Roboto;
+}
+
+
+
+.text-headline-lg {
+    font-size: 32px;
+    line-height: 40px;
+    font-family: Roboto;
+}
+
+.text-headline-md {
+    font-size: 28px;
+    line-height: 36px;
+    font-family: Roboto;
+}
+
+.text-headline-sm {
+    font-size: 24px;
+    line-height: 32px;
+    font-family: Roboto;
+}
+
+
+
+
+.text-body-lg {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    font-family: Roboto;
+}
+
+.text-body-md {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    font-family: Roboto;
+}
+
+.text-body-sm {
+    font-size: 12px;
+    line-height: 16px;
+    font-family: Roboto;
+}
+
+
+
+
+
+.text-title-lg {
+    font-size: 22px;
+    line-height: 28px;
+    font-family: Roboto;
+}
+
+.text-title-md {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+.text-title-sm {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+
+
+
+.text-label-lg-pr {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-weight: 700;
+    font-family: Roboto;
+}
+
+.text-label-lg {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+.text-label-mg-pr {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    font-family: Roboto;
+}
+
+.text-label-mg {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+.text-label-sm {
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
 
 
 
