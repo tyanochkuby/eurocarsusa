@@ -1,0 +1,73 @@
+@using EuroCarsUSA.Data.Enum
+@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
+@using Microsoft.AspNetCore.Components
+@model dynamic
+
+@{
+    int i = Model.I;
+    var car = Model.Car;
+    var uniqueId = Model.UniqueId;
+}
+
+<div class="mb-4" id="car-row-@uniqueId">
+    <div class="row py-1 m-0 bg-white" onclick="toggleVisibility('@uniqueId')">
+        <div class="col">
+            <div class="row">
+                <div><component type="typeof(EditableField<Guid>)" render-mode="ServerPrerendered" param-Value="car.Id" param-Name="@($"[{i}].Id")" param-IsVisible="false" /></div>
+
+                <div class="col"><component type="typeof(EnumDropdown<CarMake>)" render-mode="ServerPrerendered" param-SelectedValue="car.Make" param-SelectedValueChanged="@EventCallback.Factory.Create<CarMake>(this, value => car.Make = value)" param-Name="@($"[{i}].Make")" /></div>
+
+                <div class="col"><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.Model" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.Model = value)" param-Name="@($"[{i}].Model")" /></div>
+
+                <div class="col"><component type="typeof(EnumDropdown<CarColor>)" render-mode="ServerPrerendered" param-SelectedValue="car.Color" param-SelectedValueChanged="@EventCallback.Factory.Create<CarColor>(this, value => car.Color = value)" param-Name="@($"[{i}].Color")" /></div>
+
+                <div class="col"><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.Price" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Price = value)" param-Name="@($"[{i}].Price")" /></div>
+
+            </div>
+        </div>
+        <div class="col-auto p-0 center-items" style="height:48px; width:48px">
+            <div class=" p-2">
+                @Html.Partial("_Icon", new { IconName = "keyboard_arrow_down", Color = "primary" })
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white my-3 overflow-hide overflow-scroll" id="popup-@uniqueId" style="display:none; height:320px;">
+        <div class="py-3 ps-3 pe-4">
+            <partial name="~/Views/Shared/Components/ImageEditor.cshtml" model="Tuple.Create(car.Images, uniqueId)" />
+            <input type="hidden" id="ImagesJson-@uniqueId" name="@($"[{i}].ImagesJson")" value="@car.ImagesJson" />
+        </div>
+        <div class="py-3 ps-3 pe-4"><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.Year" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Year = value)" param-Name="@($"[{i}].Year")" /></div>
+
+        <div class="py-3 ps-3 pe-4"><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.Mileage" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Mileage = value)" param-Name="@($"[{i}].Mileage")" /></div>
+
+        <div class="py-3 ps-3 pe-4"><component type="typeof(EnumDropdown<CarType>)" render-mode="ServerPrerendered" param-SelectedValue="car.Type" param-SelectedValueChanged="@EventCallback.Factory.Create<CarType>(this, value => car.Type = value)" param-Name="@($"[{i}].Type")" /></div>
+        
+        <div class="py-3 ps-3 pe-4"><component type="typeof(EditableField<int>)" render-mode="ServerPrerendered" param-Value="car.EngineVolume" param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.EngineVolume = value)" param-Name="@($"[{i}].EngineVolume")" /></div>
+
+        <div class="py-3 ps-3 pe-4"><component type="typeof(EnumDropdown<CarTransmission>)" render-mode="ServerPrerendered" param-SelectedValue="car.Transmission" param-SelectedValueChanged="@EventCallback.Factory.Create<CarTransmission>(this, value => car.Transmission = value)" param-Name="@($"[{i}].Transmission")" /></div>
+
+        <!-- Drive type??? -->
+
+        <div class="py-3 ps-3 pe-4"><component type="typeof(EnumDropdown<CarFuelType>)" render-mode="ServerPrerendered" param-SelectedValue="car.FuelType" param-SelectedValueChanged="@EventCallback.Factory.Create<CarFuelType>(this, value => car.FuelType = value)" param-Name="@($"[{i}].FuelType")" /></div>
+
+        <div class="py-3 ps-3 pe-4"><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.VIN" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.VIN = value)" param-Name="@($"[{i}].VIN")" /></div>
+
+
+        <div class="py-3 ps-3 pe-4">
+            <button type="button" class="btn btn-danger" onclick="deleteCar('@car.Id', '@uniqueId')">Delete</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleVisibility(uniqueId) {
+        var popupDiv = document.getElementById("popup-" + uniqueId);
+        if (popupDiv.style.display === "none") {
+            popupDiv.style.display = "block";f
+        } else {
+            popupDiv.style.display = "none";
+        }
+    }
+</script>
