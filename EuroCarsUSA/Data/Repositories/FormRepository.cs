@@ -54,7 +54,6 @@ namespace EuroCarsUSA.Data.Repositories
                 .Include(f => f.FormCarFuelTypes)
                 .Include(f => f.FormCarTransmissions)
                 .FirstOrDefaultAsync(c => c.Id == id);
-
         }
 
 

@@ -1,4 +1,5 @@
-﻿using EuroCarsUSA.Data.Interfaces;
+﻿using EuroCarsUSA.Data.Enums;
+using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models.Form;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
@@ -31,10 +32,39 @@ namespace EuroCarsUSA.Services
                 MaxMileage = form.MaxMileage,
                 MinYear = form.MinYear,
                 MaxYear = form.MaxYear,
-                Description = form.Description
+                Description = form.Description,
+                Status = form.Status
             }).ToList();
 
             return viewModels;
+        }
+
+        public async Task<FormViewModel> GetById(Guid id)
+        {
+            var form = await _formRepository.GetById(id);
+            if (form == null)
+            {
+                return null;
+            }
+
+            var viewModel = new FormViewModel
+            {
+                Id = form.Id,
+                CarMakes = form.FormCarMakes.Select(cm => cm.CarMake).ToList(),
+                CarColors = form.FormCarColors.Select(cc => cc.CarColor).ToList(),
+                CarTypes = form.FormCarTypes.Select(ct => ct.CarType).ToList(),
+                CarFuelTypes = form.FormCarFuelTypes.Select(cf => cf.CarFuelType).ToList(),
+                CarTransmissions = form.FormCarTransmissions.Select(ct => ct.CarTransmission).ToList(),
+                Model = form.Model,
+                MaxPrice = form.MaxPrice,
+                MaxMileage = form.MaxMileage,
+                MinYear = form.MinYear,
+                MaxYear = form.MaxYear,
+                Description = form.Description,
+                Status = form.Status
+            };
+
+            return viewModel;
         }
 
         public async Task<Guid?> SubmitFormAsync(FormViewModel formViewModel)
@@ -52,10 +82,10 @@ namespace EuroCarsUSA.Services
                 MaxMileage = formViewModel.MaxMileage,
                 MinYear = formViewModel.MinYear,
                 MaxYear = formViewModel.MaxYear,
-                Description = formViewModel.Description
+                Description = formViewModel.Description,
+                Status = Data.Enums.FormStatus.Sent
             };
 
-            // Set the FormId and Form properties for related entities
             foreach (var carMake in form.FormCarMakes)
             {
                 carMake.FormId = form.Id;
@@ -92,6 +122,16 @@ namespace EuroCarsUSA.Services
             }
 
             return null;
+        }
+        public async Task<bool> UpdateStatus(Guid id, FormStatus status)
+        {
+            var form = await _formRepository.GetById(id);
+            if (form == null)
+            {
+                return false;
+            }
+            form.Status = status;
+            return await _formRepository.Update(form);
         }
     }
 }
