@@ -20,5 +20,14 @@ namespace EuroCarsUSA.Models.Form
         public int? MaxYear { get; set; }
         public string? Description { get; set; }
         public FormStatus Status { get; set; }
+
+        [EmailAddress]
+        public string? Email { get; set; }
+
+        [Phone]
+        public string? PhoneNumber { get; set; }
+
+        [MaxLength(50)]
+        public string Name { get; set; }
     }
 }
