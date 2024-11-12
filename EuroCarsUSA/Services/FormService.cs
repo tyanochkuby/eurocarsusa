@@ -69,52 +69,27 @@ namespace EuroCarsUSA.Services
 
         public async Task<Guid?> SubmitFormAsync(FormViewModel formViewModel)
         {
+            var formId = formViewModel.Id == Guid.Empty ? Guid.NewGuid() : formViewModel.Id;
+
             var form = new Form
             {
-                Id = formViewModel.Id == Guid.Empty ? Guid.NewGuid() : formViewModel.Id,
-                FormCarMakes = formViewModel.CarMakes.Select(cm => new FormCarMake { CarMake = cm }).ToList(),
-                FormCarColors = formViewModel.CarColors.Select(cc => new FormCarColor { CarColor = cc }).ToList(),
-                FormCarTypes = formViewModel.CarTypes.Select(ct => new FormCarType { CarType = ct }).ToList(),
-                FormCarFuelTypes = formViewModel.CarFuelTypes.Select(cf => new FormCarFuelType { CarFuelType = cf }).ToList(),
-                FormCarTransmissions = formViewModel.CarTransmissions.Select(ct => new FormCarTransmission { CarTransmission = ct }).ToList(),
+                Id = formId,
+                FormCarMakes = formViewModel.CarMakes.Select(cm => new FormCarMake { CarMake = cm, FormId = formId }).ToList(),
+                FormCarColors = formViewModel.CarColors.Select(cc => new FormCarColor { CarColor = cc, FormId = formId }).ToList(),
+                FormCarTypes = formViewModel.CarTypes.Select(ct => new FormCarType { CarType = ct, FormId = formId }).ToList(),
+                FormCarFuelTypes = formViewModel.CarFuelTypes.Select(cf => new FormCarFuelType { CarFuelType = cf, FormId = formId }).ToList(),
+                FormCarTransmissions = formViewModel.CarTransmissions.Select(ct => new FormCarTransmission { CarTransmission = ct, FormId = formId }).ToList(),
                 Model = formViewModel.Model,
                 MaxPrice = formViewModel.MaxPrice,
                 MaxMileage = formViewModel.MaxMileage,
                 MinYear = formViewModel.MinYear,
                 MaxYear = formViewModel.MaxYear,
                 Description = formViewModel.Description,
-                Status = Data.Enums.FormStatus.Sent
+                Status = Data.Enums.FormStatus.Sent,
+                Email = formViewModel.Email,
+                PhoneNumber = formViewModel.PhoneNumber,
+                Name = formViewModel.Name
             };
-
-            foreach (var carMake in form.FormCarMakes)
-            {
-                carMake.FormId = form.Id;
-                carMake.Form = form;
-            }
-
-            foreach (var carColor in form.FormCarColors)
-            {
-                carColor.FormId = form.Id;
-                carColor.Form = form;
-            }
-
-            foreach (var carType in form.FormCarTypes)
-            {
-                carType.FormId = form.Id;
-                carType.Form = form;
-            }
-
-            foreach (var carFuelType in form.FormCarFuelTypes)
-            {
-                carFuelType.FormId = form.Id;
-                carFuelType.Form = form;
-            }
-
-            foreach (var carTransmission in form.FormCarTransmissions)
-            {
-                carTransmission.FormId = form.Id;
-                carTransmission.Form = form;
-            }
 
             if (await _formRepository.Add(form))
             {
@@ -123,6 +98,7 @@ namespace EuroCarsUSA.Services
 
             return null;
         }
+
         public async Task<bool> UpdateStatus(Guid id, FormStatus status)
         {
             var form = await _formRepository.GetById(id);
