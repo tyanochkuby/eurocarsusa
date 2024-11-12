@@ -90,7 +90,6 @@
 @section Scripts {
     <script>
         function updateStatus(formId, status) {
-            console.log("ent");
             $.ajax({
                 url: '/Admin/SetOrderStatus',
                 data: { id: formId, status: status},

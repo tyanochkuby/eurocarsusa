@@ -1,4 +1,5 @@
-﻿using EuroCarsUSA.Data.Enums;
+﻿using EuroCarsUSA.Data.Enum;
+using EuroCarsUSA.Data.Enums;
 using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using EuroCarsUSA.Services.Interfaces;
@@ -50,6 +51,13 @@ namespace EuroCarsUSA.Controllers
 
             }).ToList();
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> GetNewCatalogRow(int index) 
+        {
+            var car = new CatalogEditionViewModel();
+            ViewData["Index"] = index;
+            return PartialView("~/Views/Shared/Components/_CatalogRow.cshtml", car);
         }
 
         [HttpPost]
