@@ -1,0 +1,30 @@
+@{
+    string color = ViewData["Color"] as string ?? "primary";
+    bool hasLeftIcon = ViewData["LeftIcon"] as bool? ?? false;
+    bool hasRightIcon = ViewData["RightIcon"] as bool? ?? false;
+    string text = ViewData["Text"] as string ?? "Label";
+    string leftIconSrc = ViewData["LeftIconSrc"] as string;
+    string rightIconSrc = ViewData["RightIconSrc"] as string;
+
+    string customTextColor = ViewData["TextColor"] as string;
+    string customIconColor = ViewData["IconColor"] as string;
+
+    string backgroundColorValue = color == "primary" ? "bg-primary" : "bg-secondary";
+    string textColorValue = customTextColor ?? (color == "primary" ? "text-white" : "text-primary");
+    string iconColorValue = customIconColor ?? (color == "primary" ? "white" : "primary");
+}
+
+<button class="text-title-sm btn-custom @backgroundColorValue @textColorValue @(hasLeftIcon ? "ps-3" : "ps-4") @(hasRightIcon ? "ps-3" : "ps-4")">
+
+    @if (hasLeftIcon)
+    {
+        @Html.Partial("_Icon", new { IconName = leftIconSrc, Color = iconColorValue })
+    }
+
+    <span>@(text)</span>
+
+    @if (hasRightIcon)
+    {
+        @Html.Partial("_Icon", new { IconName = rightIconSrc, Color = iconColorValue })
+    }
+</button>

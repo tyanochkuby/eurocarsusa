@@ -134,6 +134,16 @@ img.rounded-xxl {
     border-radius: 4%;
 }
 
+
+.rounded-32 {
+    border-radius: 32px !important;
+}
+
+.rounded-16 {
+    border-radius: 16px !important;
+}
+
+
 .img-container {
     position: relative;
     
@@ -401,7 +411,7 @@ button#mobile-filter-select-save-button .carIcon {
 }
 
 .text-primary {
-    color: var(--bs-primary)
+    color: var(--bs-primary);
 }
 
 .text-secondary {
@@ -568,6 +578,144 @@ button#mobile-filter-select-save-button .carIcon {
     background-color: #646468
 }
 
+.topbar {
+    height: 56px;
+}
+
+
+
+.text-display-lg {
+    font-size: 57px;
+    line-height: 64px;
+    letter-spacing: -0.25px;
+    font-family: Roboto;
+}
+
+.text-display-md {
+    font-size: 45px;
+    line-height: 52px;
+    font-family: Roboto;
+}
+
+.text-display-sm {
+    font-size: 36px;
+    line-height: 44px;
+    font-family: Roboto;
+}
+
+
+
+.text-headline-lg {
+    font-size: 32px;
+    line-height: 40px;
+    font-family: Roboto;
+}
+
+.text-headline-md {
+    font-size: 28px;
+    line-height: 36px;
+    font-family: Roboto;
+}
+
+.text-headline-sm {
+    font-size: 24px;
+    line-height: 32px;
+    font-family: Roboto;
+}
+
+
+
+
+.text-body-lg {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    font-family: Roboto;
+}
+
+.text-body-md {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    font-family: Roboto;
+}
+
+.text-body-sm {
+    font-size: 12px;
+    line-height: 16px;
+    font-family: Roboto;
+}
+
+
+
+
+
+.text-title-lg {
+    font-size: 22px;
+    line-height: 28px;
+    font-family: Roboto;
+}
+
+.text-title-md {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+.text-title-sm {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+
+
+
+.text-label-lg-pr {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-weight: 700;
+    font-family: Roboto;
+}
+
+.text-label-lg {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+.text-label-mg-pr {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    font-family: Roboto;
+}
+
+.text-label-mg {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+.text-label-sm {
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    font-family: Roboto;
+}
+
+
 
 
 .sidebar {
@@ -578,4 +726,132 @@ button#mobile-filter-select-save-button .carIcon {
 .main {
     margin-top: 56px; /* height of header */
     margin-left: 80px; /* width of sidebar*/
+
+
+}
+
+
+.icon-size svg {
+    width: 24px;
+    height: 24px;
+}
+
+.icon-container svg path {
+    fill: currentColor;
+}
+
+
+/* Исходные стили для btn-custom */
+.btn-custom {
+    padding: 10px 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 100px;
+    border-width: 0px;
+    background-color: var(--bs-primary);
+    color: white;
+    transition: all 0.3s ease; 
+}
+
+    .btn-custom:hover {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-custom:active {
+        background-color: var(--bs-secondary) !important;
+        color: var(--bs-primary) !important;
+    }
+
+    .btn-custom.bg-secondary:active {
+        background-color: var(--bs-primary) !important;
+        color: white !important;
+    }
+
+    .btn-custom .icon-container svg path,
+    .btn-custom .icon-container svg path {
+        transition: fill 0.3s ease; 
+    }
+
+    .btn-custom:active .icon-container svg path {
+        fill: var(--bs-primary) !important;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    }
+
+    .btn-custom.bg-secondary:active .icon-container svg path {
+        fill: white !important;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    }
+
+    .btn-custom .icon-size svg {
+        width: 18px;
+        height: 18px;
+    }
+
+.icon-btn-custom {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0) !important;
+    border-width: 0px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+    .icon-btn-custom .icon-size svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .icon-btn-custom .rounded-pill.bg-primary {
+        background-color: rgba(0,0,0,0) !important;
+    }
+    .icon-btn-custom .rounded-pill.bg-secondary {
+        background-color: --bs-secondary-rgb !important;
+    }
+
+    .icon-btn-custom .p-2 {
+        transition: all 0.3s ease;
+    }
+
+    .icon-btn-custom .p-2.bg-primary {
+        background-color: rgba(0,0,0,0) !important;
+    }
+
+    .icon-btn-custom .p-2.bg-secondary {
+        background-color: rgba(0,0,0,0) !important;
+    }
+
+
+    .icon-btn-custom:hover .p-2{
+        background-color: rgba(var(--bs-primary-rgb), 0.08) !important;
+    }
+
+    .icon-btn-custom:active .p-2{
+        background-color: rgba(var(--bs-primary-rgb), 0.12) !important;
+    }
+
+
+
+
+
+
+
+.text-title-sm {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+}
+
+.text-primary-900 {
+    color: #354264;
+}
+.text-neutral-900 {
+    color: #646468;
+}
+.text-neutral {
+    color: #EDEFF8;
 }
