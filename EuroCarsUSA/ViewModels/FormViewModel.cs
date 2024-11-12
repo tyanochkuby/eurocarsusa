@@ -1,4 +1,5 @@
 ﻿using EuroCarsUSA.Data.Enum;
+using EuroCarsUSA.Data.Enums;
 using EuroCarsUSA.Models.Form;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,5 +19,6 @@ namespace EuroCarsUSA.ViewModels
         public int? MinYear { get; set; }
         public int? MaxYear { get; set; }
         public string? Description { get; set; }
+        public FormStatus Status { get; set; }
     }
 }

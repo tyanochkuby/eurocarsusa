@@ -94,9 +94,13 @@
                                 </select>
                             </div>
                             <div class="form-group col">
-                                <label asp-for="MaxMileage"></label>
-                                <input asp-for="MaxMileage" class="form-control" />
-                                <span asp-validation-for="MaxMileage" class="text-danger"></span>
+                                 <label>Car Transmission</label>
+                                 <select asp-for="CarTransmissions" class="form-control" multiple>
+                                     @foreach (var carTransmission in Enum.GetValues(typeof(EuroCarsUSA.Data.Enum.CarTransmission)))
+                                     {
+                                         <option value="@carTransmission">@carTransmission</option>
+                                     }
+                                 </select>
                             </div>
                             <div class="form-group col">
                                 <label asp-for="MaxMileage"></label>
