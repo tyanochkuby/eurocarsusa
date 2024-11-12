@@ -65,10 +65,43 @@
                     @foreach (var transmission in form.CarTransmissions)
                     {
                         <span>@transmission</span>
-                    })
+                    }
                 </td>
-                <td><component type="typeof(EnumDropdown<FormStatus>)" render-mode="Static" param-SelectedValue="form.Status" param-SelectedValueChanged="@EventCallback.Factory.Create<FormStatus>(this, value => {form.Status = value; formService.UpdateStatus(form.Id, value);})" param-Name="form.Id.ToString()" /></td>
+                <td>
+                    <select class="form-control" name="status-@form.Id" onchange="updateStatus('@form.Id', this.value)">
+                        @foreach (var status in Enum.GetValues(typeof(FormStatus)).Cast<FormStatus>())
+                        {
+                            if (status == form.Status)
+                            {
+                                <option value="@status" selected>@status</option>
+                            }
+                            else
+                            {
+                                <option value="@status">@status</option>
+                            }
+                        }
+                    </select>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        function updateStatus(formId, status) {
+            console.log("ent");
+            $.ajax({
+                url: '/Admin/SetOrderStatus',
+                data: { id: formId, status: status},
+                type: 'PUT',
+                success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    alert('An error occurred while updating form status.');
+                }
+            });
+        }
+    </script>
+}

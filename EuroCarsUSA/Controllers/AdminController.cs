@@ -1,4 +1,5 @@
-﻿using EuroCarsUSA.Data.Interfaces;
+﻿using EuroCarsUSA.Data.Enums;
+using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
@@ -99,6 +100,12 @@ namespace EuroCarsUSA.Controllers
             return View(recievedForms);
         }
 
-
+        [HttpPut]
+        public async Task<IActionResult> SetOrderStatus(Guid id, FormStatus status)
+        {
+            if (await _formService.UpdateStatus(id, status))
+                return Ok();
+            return BadRequest();
+        }
     }
 }
