@@ -1,67 +1,139 @@
 ﻿@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
+@using Microsoft.AspNetCore.Components
 @model IEnumerable<FormViewModel>
 
-<h1>Orders</h1>
+<div class="bg-neutral-200 w-100 h-100 py-4">
+    <div class="container p-5 pt-3 bg-white rounded-32 justify-content-center mb-2">
+        <div class="d-flex justify-content-center">
+            <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
+                Individual order
+            </div>
+        </div>
+        <div class="text-display-sm text-subhead">
+            This section dedicated to your personal requests. If cannot find your taste’s car you can apply you request to dealer via this section. Provide you personal preferences with the help of those filters. Provide you contact information so we can contact you back.
+        </div>
+    </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Model</th>
-            <th>Max Price</th>
-            <th>Max Mileage</th>
-            <th>Min Year</th>
-            <th>Max Year</th>
-            <th>Description</th>
-            <th>Makes</th>
-            <th>Colors</th>
-            <th>Car Types</th>
-            <th>Fuel Types</th>
-            <th>Transmission</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var form in Model)
-        {
-            <tr>
-                <td>@form.Id</td>
-                <td>@form.Model</td>
-                <td>@form.MaxPrice</td>
-                <td>@form.MaxMileage</td>
-                <td>@form.MinYear</td>
-                <td>@form.MaxYear</td>
-                <td>@form.Description</td>
-                <td>
-                    @foreach (var make in form.CarMakes)
-                    {
-                        <span>@make</span>
+    <div class="container mt-4 mb-2">
+        <div class="row px-5 ">
+            <div class="col px-0">
+                <div class="row mx-0">
+                    @{
+                        ViewData["Color"] = "primary";
+                        ViewData["Text"] = "Back";
+                        ViewData["LeftIcon"] = true;
+                        ViewData["LeftIconSrc"] = Url.Content("Arrow back");
                     }
-                </td>
-                <td>
-                    @foreach (var color in form.CarColors)
-                    {
-                        <span>@color</span>
+                    <a asp-controller="Admin" asp-action="BackToIndexWithFilters" class="col-auto ps-0 pe-3">
+                        @Html.Partial("_Button")
+                    </a>
+
+
+                    @{
+                        ViewData["Color"] = "secondary";
+                        ViewData["Text"] = "Individual order";
+                        ViewData["LeftIcon"] = false;
                     }
-                </td>
-                <td>
-                    @foreach (var carType in form.CarTypes)
+                    <a class="col-auto px-0">
+                        @Html.Partial("_Button")
+                    </a>
+                </div>           
+            </div>
+            <div class="col px-0">
+                <div class="row m-0 justify-content-end">
+                    <div class="col-auto px-0 me-3">
+                        <component type="typeof(EditableField<int>)"
+                                   render-mode="ServerPrerendered"
+                                   param-CssClass="@( "h-100" )" />
+                    </div>
+                    <div class="col-auto d-flex flex-column justify-content-end px-0">
+                        @{
+                            ViewData["Color"] = "primary";
+                            ViewData["Text"] = "Find";
+                            ViewData["LeftIcon"] = true;
+                            ViewData["LeftIconSrc"] = Url.Content("Search");
+                        }
+                        <a class="submit">
+                            @Html.Partial("_Button")
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container p-3 bg-white rounded-32">
+        <div class="px-2">
+            <div>
+                <span class="mb-3 text-headline-sm">Client orders</span>
+                <div class="p-3 bg-secondary rounded-16">                
+                    <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Model</th>
+                        <th>Max Price</th>
+                        <th>Max Mileage</th>
+                        <th>Min Year</th>
+                        <th>Max Year</th>
+                        <th>Description</th>
+                        <th>Makes</th>
+                        <th>Colors</th>
+                        <th>Car Types</th>
+                        <th>Fuel Types</th>
+                        <th>Transmission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var form in Model)
                     {
-                        <span>@carType</span>
+                        <tr>
+                            <td>@form.Id</td>
+                            <td>@form.Model</td>
+                            <td>@form.MaxPrice</td>
+                            <td>@form.MaxMileage</td>
+                            <td>@form.MinYear</td>
+                            <td>@form.MaxYear</td>
+                            <td>@form.Description</td>
+                            <td>
+                                @foreach (var make in form.CarMakes)
+                                {
+                                    <span>@make</span>
+                                }
+                            </td>
+                            <td>
+                                @foreach (var color in form.CarColors)
+                                {
+                                    <span>@color</span>
+                                }
+                            </td>
+                            <td>
+                                @foreach (var carType in form.CarTypes)
+                                {
+                                    <span>@carType</span>
+                                }
+                            </td>
+                            <td>
+                                @foreach (var fuelType in form.CarFuelTypes)
+                                {
+                                    <span>@fuelType</span>
+                                }
+                            </td>
+                            <td>
+                                @foreach (var transmission in form.CarTransmissions)
+                                {
+                                    <span>@transmission</span>
+                                })
+                            </td>
+                        </tr>
                     }
-                </td>
-                <td>
-                    @foreach (var fuelType in form.CarFuelTypes)
-                    {
-                        <span>@fuelType</span>
-                    }
-                </td>
-                <td>
-                    @foreach (var transmission in form.CarTransmissions)
-                    {
-                        <span>@transmission</span>
-                    })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
