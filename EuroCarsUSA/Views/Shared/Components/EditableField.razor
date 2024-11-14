@@ -17,7 +17,12 @@
         "Guid" => "text",
         _ => "text"
     };
-    <input @bind="Value" @bind:event="oninput" name="@Name" style="width:@Width;" type="@inputType" />
+    <input @bind="Value"
+           @bind:event="oninput"
+           name="@Name"
+           class="@CssClass"
+           style="@($"width:{Width}; {Style}")"
+           type="@inputType" />
 }
 else
 {
@@ -39,6 +44,12 @@ else
 
     [Parameter]
     public string Width { get; set; } = "100%"; // Default width
+
+    [Parameter]
+    public string CssClass { get; set; } = ""; // CSS class for styling
+
+    [Parameter]
+    public string Style { get; set; } = ""; // Inline styles for flexibility
 
     private async Task OnValueChanged(ChangeEventArgs e)
     {
