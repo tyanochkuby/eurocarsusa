@@ -38,7 +38,7 @@
                     <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.Model" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.Model = value)" param-Name="@($"[{i}].Model")" /></td>
                     <td><component type="typeof(EnumDropdown<CarColor>)" render-mode="ServerPrerendered" param-SelectedValue="car.Color" param-SelectedValueChanged="@EventCallback.Factory.Create<CarColor>(this, value => car.Color = value)" param-Name="@($"[{i}].Color")" /></td>
                     <td>
-                        <partial name="~/Views/Shared/Components/ImageEditor.cshtml" model="Tuple.Create(car.Images, uniqueId)" />
+                        <partial name="~/Views/Shared/Components/_ImageEditor.cshtml" model="Tuple.Create(car.Images, uniqueId)" />
                         <input type="hidden" id="ImagesJson-@uniqueId" name="@($"[{i}].ImagesJson")" value="@car.ImagesJson" />
                     </td>
                     <td><component type="typeof(EditableField<string>)" render-mode="ServerPrerendered" param-Value="car.VIN" param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.VIN = value)" param-Name="@($"[{i}].VIN")" /></td>
@@ -55,7 +55,8 @@
             }
         </tbody>
     </table>
-    <button type="submit">Save Changes</button>
+    <button type="button" class="btn btn-info" onclick="addNewRow()">Add</button>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>
 
 @section Scripts {
@@ -101,12 +102,31 @@
         function deleteCar(carId, uniqueId) {
             var deletedCarsIdsInput = document.getElementById('deletedCarsIds');
             var deletedCarsIds = deletedCarsIdsInput.value ? JSON.parse(deletedCarsIdsInput.value) : [];
-            deletedCarsIds.push(carId);
+            if(carId != '')
+            {
+                deletedCarsIds.push(carId);
+            }
 
             deletedCarsIdsInput.value = JSON.stringify(deletedCarsIds);
 
             var carRow = document.getElementById('car-row-' + uniqueId);
             carRow.parentElement.removeChild(carRow);
+        }
+        function addNewRow() {
+            var tableBody = document.querySelector('table tbody');
+            var index = tableBody.children.length;
+
+            $.ajax({
+                url: '/Admin/GetNewCatalogRow',
+                data: { index: index },
+                type: 'GET',
+                success: function (html) {
+                    tableBody.insertAdjacentHTML('beforeend', html);
+                },
+                error: function () {
+                    alert('An error occurred while adding a row');
+                }
+            });
         }
     </script>
 }
