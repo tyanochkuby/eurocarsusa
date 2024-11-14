@@ -8,27 +8,6 @@
 
 <form method="post" asp-action="SaveCatalogChanges">
     <input type="hidden" id="deletedCarsIds" name="deletedCarsIds" value="" />
-    <table>
-        <thead>
-            <tr>
-                <th>Make</th>
-                <th>Type</th>
-                <th>Model</th>
-                <th>Color</th>
-                <th>Images</th>
-                <th>VIN</th>
-                <th>Mileage</th>
-                <th>Year</th>
-                <th>Fuel Type</th>
-                <th>Engine Volume</th>
-                <th>Transmission</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
 
     <div class="bg-neutral-500 p-3">
         @for (int i = 0; i < Model.Count(); i++)
