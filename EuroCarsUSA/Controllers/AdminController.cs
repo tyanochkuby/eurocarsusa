@@ -56,8 +56,7 @@ namespace EuroCarsUSA.Controllers
         public async Task<IActionResult> GetNewCatalogRow(int index) 
         {
             var car = new CatalogEditionViewModel();
-            ViewData["Index"] = index;
-            return PartialView("~/Views/Shared/Components/_CatalogRow.cshtml", car);
+            return PartialView("~/Views/Shared/_EditCar.cshtml", new Tuple<CatalogEditionViewModel, int>(car, index));
         }
 
         [HttpPost]

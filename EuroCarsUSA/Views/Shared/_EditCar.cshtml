@@ -1,0 +1,207 @@
+@using EuroCarsUSA.Data.Enum
+@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
+@using Microsoft.AspNetCore.Components
+
+@model Tuple<CatalogEditionViewModel, int>
+@{
+    var i = Model.Item2 ;
+    var uniqueId = $"car-{i}";
+    var car = Model.Item1;
+}
+
+<div class="mb-4" id="car-row-@uniqueId">
+    <div class="" id="car-row-@uniqueId">
+        <div class="row py-1 m-0 bg-white" 
+             onmouseover="showBorder('@uniqueId')"
+             onmouseout="hideBorder('@uniqueId')">
+            <div class="col">
+                <div class="row h-100">
+                    <div class="d-none"><component type="typeof(EditableField<Guid>)" render-mode="ServerPrerendered" param-Value="car.Id" param-Name="@($"[{i}].Id")" param-IsVisible="false" /></div>
+
+                    <div class="col">
+                        <div class="h-100">
+                            <component type="typeof(EnumDropdown<CarMake>)"
+                                       render-mode="ServerPrerendered"
+                                       param-SelectedValue="car.Make"
+                                       param-SelectedValueChanged="@EventCallback.Factory.Create<CarMake>(this, value => car.Make = value)"
+                                       param-Name="@($"[{i}].Make")"
+                                       param-CssClass="@( "h-100" )" />
+                        </div>                       
+                    </div>
+
+                    <div class="col">
+                        <div class="h-100">
+                            <component type="typeof(EditableField<string>)"
+                                       render-mode="ServerPrerendered"
+                                       param-Value="car.Model"
+                                       param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.Model = value)"
+                                       param-Name="@($"[{i}].Model")"
+                                       param-CssClass="@( "h-100" )" />
+                        </div>
+                        
+                    </div>
+
+                    <div class="col">
+                        <div class="h-100">
+                            <component type="typeof(EnumDropdown<CarColor>)"
+                                       render-mode="ServerPrerendered"
+                                       param-SelectedValue="car.Color"
+                                       param-SelectedValueChanged="@EventCallback.Factory.Create<CarColor>(this, value => car.Color = value)"
+                                       param-Name="@($"[{i}].Color")"
+                                       param-CssClass="@( "h-100" )" />
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="h-100">
+                            <component type="typeof(EditableField<int>)"
+                                       render-mode="ServerPrerendered"
+                                       param-Value="car.Price"
+                                       param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Price = value)"
+                                       param-Name="@($"[{i}].Price")"
+                                       param-CssClass="@( "h-100" )" />
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto p-0 center-items" style="height:48px; width:48px" onclick="toggleVisibility('@uniqueId')">
+                <div class="col p-2" id="icon-@uniqueId">
+                    @Html.Partial("_Icon", new { IconName = "keyboard_arrow_down", Color = "primary" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="border-bottom border-3 border-primary" id="border-@uniqueId" style="opacity: 0; transition: opacity 0.3s;"></div>
+
+
+    <div class="bg-white overflow-hide overflow-scroll py-2" id="popup-@uniqueId" style="display:none; height:320px;">
+        <div class="py-2 ps-3 pe-4 forEditMode d-block" style="height:56px;">
+            <partial name="~/Views/Shared/Components/_ImageEditor.cshtml" model="Tuple.Create(car.Images, uniqueId)" />
+            <input type="hidden" id="ImagesJson-@uniqueId" name="@($"[{i}].ImagesJson")" value="@car.ImagesJson" />
+        </div>
+
+        <div class="py-2 ps-3 pe-4" style="height:56px;">
+            <div class="h-100">
+                    <component type="typeof(EditableField<int>)"
+                               render-mode="ServerPrerendered"
+                               param-Value="car.Year"
+                               param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Year = value)"
+                               param-Name="@($"[{i}].Year")"
+                               param-CssClass="@( "h-100" )" />
+            </div>
+            
+        </div>
+
+        <div class="py-2 ps-3 pe-4" style="height:56px;">
+            <div class="h-100">
+                    <component type="typeof(EditableField<int>)"
+                        render-mode="ServerPrerendered"
+                        param-Value="car.Mileage"
+                        param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.Mileage = value)"
+                        param-Name="@($"[{i}].Mileage")"
+                        param-CssClass="@( "h-100" )" />
+            </div>
+            
+        </div>
+
+        <div class="py-2 ps-3 pe-4" style="height:56px;">
+            <div class="h-100">
+                    <component type="typeof(EnumDropdown<CarType>)"
+                        render-mode="ServerPrerendered"
+                        param-SelectedValue="car.Type"
+                        param-SelectedValueChanged="@EventCallback.Factory.Create<CarType>(this, value => car.Type = value)"
+                        param-Name="@($"[{i}].Type")"
+                        param-CssClass="@( "h-100" )" />
+            </div>
+            
+        </div>
+        
+        <div class="py-2 ps-3 pe-4" style="height:56px;">
+            <div class="h-100">
+                <component type="typeof(EditableField<int>)" 
+                    render-mode="ServerPrerendered" 
+                    param-Value="car.EngineVolume" 
+                    param-ValueChanged="@EventCallback.Factory.Create<int>(this, value => car.EngineVolume = value)" 
+                    param-Name="@($"[{i}].EngineVolume")"
+                    param-CssClass="@( "h-100" )" />
+            </div>
+            
+        </div>
+
+        <div class="py-2 ps-3 pe-4" style="height:56px;">
+            <div class="h-100">
+                <component type="typeof(EnumDropdown<CarTransmission>)" 
+                    render-mode="ServerPrerendered" 
+                    param-SelectedValue="car.Transmission" 
+                    param-SelectedValueChanged="@EventCallback.Factory.Create<CarTransmission>(this, value => car.Transmission = value)" 
+                    param-Name="@($"[{i}].Transmission")"
+                    param-CssClass="@( "h-100" )" />
+            </div>
+            
+        </div>
+
+        <!-- Drive type??? -->
+
+        <div class="py-2 ps-3 pe-4" style="height:56px;">
+            <div class="h-100">
+            <component type="typeof(EnumDropdown<CarFuelType>)" 
+                render-mode="ServerPrerendered" 
+                param-SelectedValue="car.FuelType" 
+                param-SelectedValueChanged="@EventCallback.Factory.Create<CarFuelType>(this, value => car.FuelType = value)" 
+                param-Name="@($"[{i}].FuelType")" />
+            </div>
+        </div>
+
+        <div class="py-2 ps-3 pe-4" style="height:56px;">
+            <div class="h-100">
+            <component type="typeof(EditableField<string>)" 
+                render-mode="ServerPrerendered" 
+                param-Value="car.VIN" 
+                param-ValueChanged="@EventCallback.Factory.Create<string>(this, value => car.VIN = value)" 
+                param-Name="@($"[{i}].VIN")" />
+            </div>
+        </div>
+
+
+        <div class="py-2 ps-3 pe-4 forEditMode d-block" style="height:56px" >
+            <button type="button" class="btn btn-danger" onclick="deleteCar('@car.Id', '@uniqueId')">Delete</button>
+        </div>
+    </div>
+</div>
+
+<script>
+        function toggleVisibility(uniqueId) {
+            var popupDiv = document.getElementById("popup-" + uniqueId);
+            var borderDiv = document.getElementById("border-" + uniqueId);
+            var iconDiv = document.getElementById("icon-" + uniqueId);
+
+            if (popupDiv.style.display === "none") {
+                popupDiv.style.display = "block";
+                borderDiv.style.opacity = 1;
+                iconDiv.style.transform = "scaleY(-1)";
+            } else {
+                popupDiv.style.display = "none";
+                borderDiv.style.opacity = 0;
+                iconDiv.style.transform = "scaleY(1)";
+            }
+        }
+
+        function showBorder(uniqueId) {
+            var popupDiv = document.getElementById("popup-" + uniqueId);
+            var borderDiv = document.getElementById("border-" + uniqueId);
+            if (popupDiv.style.display === "none") {
+                borderDiv.style.opacity = 1;
+            }
+        }
+
+        function hideBorder(uniqueId) {
+            var popupDiv = document.getElementById("popup-" + uniqueId);
+            var borderDiv = document.getElementById("border-" + uniqueId);
+            if (popupDiv.style.display === "none") {
+                borderDiv.style.opacity = 0;
+            }
+        }
+
+</script>

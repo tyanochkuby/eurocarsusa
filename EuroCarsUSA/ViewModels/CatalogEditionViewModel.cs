@@ -5,7 +5,7 @@ namespace EuroCarsUSA.ViewModels
 {
     public class CatalogEditionViewModel
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = new Guid();
         public CarMake Make { get; set; }
         public CarType Type { get; set; }
 
@@ -13,8 +13,8 @@ namespace EuroCarsUSA.ViewModels
         public string Model { get; set; }
         public CarColor Color { get; set; }
         public string VIN { get; set; }
-        public List<string>? Images { get; set; }
-        public string ImagesJson { get; set; }
+        public List<string> Images { get; set; } = new List<string>();
+        public string ImagesJson { get; set; } = "[]";
 
         [Required]
         [Range(0, 1_000_000)]
