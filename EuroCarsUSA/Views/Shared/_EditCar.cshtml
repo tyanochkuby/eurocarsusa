@@ -77,7 +77,7 @@
 
 
     <div class="bg-white overflow-hide overflow-scroll py-2" id="popup-@uniqueId" style="display:none; height:320px;">
-        <div class="py-2 ps-3 pe-4 forEditMode d-none" style="height:56px;">
+        <div class="py-2 ps-3 pe-4 forEditMode d-block" style="height:56px;">
             <partial name="~/Views/Shared/Components/_ImageEditor.cshtml" model="Tuple.Create(car.Images, uniqueId)" />
             <input type="hidden" id="ImagesJson-@uniqueId" name="@($"[{i}].ImagesJson")" value="@car.ImagesJson" />
         </div>
@@ -165,7 +165,7 @@
         </div>
 
 
-        <div class="py-2 ps-3 pe-4 forEditMode d-none" style="height:56px" >
+        <div class="py-2 ps-3 pe-4 forEditMode d-block" style="height:56px" >
             <button type="button" class="btn btn-danger" onclick="deleteCar('@car.Id', '@uniqueId')">Delete</button>
         </div>
     </div>
