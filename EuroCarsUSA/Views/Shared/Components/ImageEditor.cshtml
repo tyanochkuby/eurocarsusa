@@ -1,18 +1,21 @@
-@model Tuple<List<string>, string>
+@using EuroCarsUSA.Controllers
+@using Microsoft.Extensions.Localization
+@model Tuple<List<string>, string, IStringLocalizer<AdminController>>
 
 @{
     var images = Model.Item1;
     var uniqueId = Model.Item2;
+    var localizer = Model.Item3;
 }
 
 <div>
-    <button type="button" class="btn btn-primary" onclick="showModal('@uniqueId')">Edit Images</button>
+    <button type="button" class="btn btn-primary" onclick="showModal('@uniqueId')">@(localizer["EditImages"])</button>
 
     <div id="imageEditorModal-@uniqueId" class="modal" tabindex="-1" style="display:none;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Images</h5>
+                    <h5 class="modal-title">@(localizer["EditImages"])</h5>
                     <button type="button" class="btn-close" onclick="hideModal('@uniqueId')"></button>
                 </div>
                 <div class="modal-body">
@@ -21,16 +24,16 @@
                         {
                             <li class="list-group-item">
                                 <img src="@images[i]" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px;" />
-                                <button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">Remove</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">@(localizer["Delete"])</button>
                             </li>
                         }
                     </ul>
                     <input type="text" id="newImageUrl-@uniqueId" placeholder="Enter image URL" class="form-control mt-2" />
-                    <button type="button" class="btn btn-success mt-2" onclick="addImage('@uniqueId')">Add Image</button>
+                    <button type="button" class="btn btn-success mt-2" onclick="addImage('@uniqueId')">@localizer["AddImage"]</button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="hideModal('@uniqueId')">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="saveChanges('@uniqueId')">Save changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="hideModal('@uniqueId')">@localizer["Close"]</button>
+                    <button type="button" class="btn btn-primary" onclick="saveChanges('@uniqueId')">@localizer["SaveChanges"]</button>
                 </div>
             </div>
         </div>

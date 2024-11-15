@@ -215,16 +215,17 @@ namespace EuroCarsUSA.Controllers
             var html = RenderPartialViewToString("~/Views/Home/Components/Buttons/LikeUnpressed.cshtml", carId);
             return Json(new { success = true, html });
         }
-        public IActionResult ChangeLanguage(string culture)
+
+        [HttpPost]
+        public IActionResult SetCulture(string culture, string uiCulture)
         {
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture, uiCulture)),
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
-            var returnUrl = Request.Headers["Referer"].ToString();
-            return LocalRedirect(returnUrl);
+            return Ok();
         }
 
         [HttpPost]

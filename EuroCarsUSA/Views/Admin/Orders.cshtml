@@ -1,29 +1,34 @@
-﻿@using EuroCarsUSA.Data.Enums
+﻿@using EuroCarsUSA.Controllers
+@using EuroCarsUSA.Data.Enums
+@using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Services.Interfaces
 @using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.AspNetCore.Components
+@using Microsoft.Extensions.Localization
+@using EuroCarsUSA.Extensions
 @model IEnumerable<FormViewModel>
 @inject IFormService formService
+@inject IStringLocalizer<AdminController> Translator
 
 <h1>Orders</h1>
 
 <table>
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Model</th>
-            <th>Max Price</th>
-            <th>Max Mileage</th>
-            <th>Min Year</th>
-            <th>Max Year</th>
-            <th>Description</th>
-            <th>Makes</th>
-            <th>Colors</th>
-            <th>Car Types</th>
-            <th>Fuel Types</th>
-            <th>Transmission</th>
-            <th>Status</th>
+            <th>@Translator["Id"]</th>
+            <th>@Translator["Model"]</th>
+            <th>@Translator["Max Price"]</th>
+            <th>@Translator["Max Mileage"]</th>
+            <th>@Translator["Min Year"]</th>
+            <th>@Translator["Max Year"]</th>
+            <th>@Translator["Description"]</th>
+            <th>@Translator["Makes"]</th>
+            <th>@Translator["Colors"]</th>
+            <th>@Translator["Car Types"]</th>
+            <th>@Translator["Fuel Types"]</th>
+            <th>@Translator["Transmission"]</th>
+            <th>@Translator["Status"]</th>
         </tr>
     </thead>
     <tbody>
@@ -46,7 +51,7 @@
                 <td>
                     @foreach (var color in form.CarColors)
                     {
-                        <span>@color</span>
+                        <span>@(color.ToLocalizedString(Translator))</span>
                     }
                 </td>
                 <td>
@@ -58,13 +63,13 @@
                 <td>
                     @foreach (var fuelType in form.CarFuelTypes)
                     {
-                        <span>@fuelType</span>
+                        <span>@(fuelType.ToLocalizedString(Translator))</span>
                     }
                 </td>
                 <td>
                     @foreach (var transmission in form.CarTransmissions)
                     {
-                        <span>@transmission</span>
+                        <span>@(transmission.ToLocalizedString(Translator))</span>
                     }
                 </td>
                 <td>
@@ -73,7 +78,7 @@
                         {
                             if (status == form.Status)
                             {
-                                <option value="@status" selected>@status</option>
+                                <option value="@status" selected>@(status.ToLocalizedString(Translator))</option>
                             }
                             else
                             {

@@ -5,6 +5,7 @@ using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Text.Json;
 
 namespace EuroCarsUSA.Controllers
@@ -15,12 +16,14 @@ namespace EuroCarsUSA.Controllers
         private readonly IStatisticsService _statisticsService;
         private readonly IFormService _formService;
         private readonly ICatalogEditingService _catalogEditingService;
+        private readonly IStringLocalizer<AdminController> _localizer;
 
-        public AdminController(IStatisticsService statisticsService, IFormService formService, ICatalogEditingService catalogEditingService)
+        public AdminController(IStatisticsService statisticsService, IFormService formService, ICatalogEditingService catalogEditingService, IStringLocalizer<AdminController> localizer)
         {
             _statisticsService = statisticsService;
             _formService = formService;
             _catalogEditingService = catalogEditingService;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> Statistics()

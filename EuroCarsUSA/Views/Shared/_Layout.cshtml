@@ -49,20 +49,31 @@
                 </div>
                 
                 <div class="dropdown">
-                    <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+                    <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         @{
-                            // wtf is                 role="button" data-bs-toggle="dropdown" aria-expanded="false" ????
                             ViewData["Color"] = "secondary";
                             ViewData["IconSrc"] = Url.Content("Language chinese dayi");
                         }
                         @Html.Partial("_IconButton")
-
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                        <li><a class="dropdown-item" href="?culture=en&ui-culture=en">English</a></li>
-                        <li><a class="dropdown-item" href="?culture=pl-PL&ui-culture=pl-PL">Polski</a></li>
+                        <li>
+                            <form method="post" asp-controller="Home" asp-action="SetCulture" data-culture-form>
+                                <input type="hidden" name="culture" value="en" />
+                                <input type="hidden" name="uiCulture" value="en" />
+                                <button type="submit" class="dropdown-item">English</button>
+                            </form>
+                        </li>
+                        <li>
+                            <form method="post" asp-controller="Home" asp-action="SetCulture" data-culture-form>
+                                <input type="hidden" name="culture" value="pl-PL" />
+                                <input type="hidden" name="uiCulture" value="pl-PL" />
+                                <button type="submit" class="dropdown-item">Polski</button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
+
             </div>
         </nav>
     </header>
@@ -123,6 +134,29 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/_framework/blazor.server.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("form[data-culture-form]").forEach(function (form) {
+                form.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    var formData = new FormData(form);
+                    fetch(form.action, {
+                        method: "POST",
+                        body: formData
+                    }).then(function (response) {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            console.error("Failed to set culture");
+                        }
+                    }).catch(function (error) {
+                        console.error("Error:", error);
+                    });
+                });
+            });
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

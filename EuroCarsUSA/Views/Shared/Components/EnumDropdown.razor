@@ -4,14 +4,23 @@
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
+@using Microsoft.Extensions.Localization
 @using Microsoft.JSInterop
+@using EuroCarsUSA.Extensions
 
-@typeparam TEnum
+@typeparam TEnum where TEnum : struct, Enum
 
 <select @bind="SelectedValue" @bind:event="onchange" class="form-control" name="@Name">
     @foreach (var option in Enum.GetValues(typeof(TEnum)).Cast<TEnum>())
     {
-        <option value="@option">@option.ToString()</option>
+        if(Translator is null)
+        {
+            <option value="@option">@option</option>
+        }
+        else
+        {
+            <option value="@option">@option.ToLocalizedString(Translator)</option>
+        }
     }
 </select>
 
@@ -24,6 +33,9 @@
 
     [Parameter]
     required public string Name { get; set; }
+
+    [Parameter]
+    public IStringLocalizer Translator { get; set;}
 
     private async Task OnSelectedValueChanged(ChangeEventArgs e)
     {
