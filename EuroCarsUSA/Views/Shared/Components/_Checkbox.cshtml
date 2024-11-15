@@ -1,17 +1,16 @@
+@model dynamic
+
 @{
-    string mainClasses = ViewData["MainClasses"] as string ?? "";
-    string mainAttributes = ViewData["MainAttributes"] as string ?? "";
+    string classes = Model.Classes ?? "";
+    string attributes = Model.Attributes ?? "";
 
-    string checkboxClasses = ViewData["CheckboxClasses"] as string ?? "";
-    string checkboxAttributes = ViewData["CheckboxAttributes"] as string ?? "";
-
-    string text = ViewData["Text"] as string ?? "";
+    string text = Model.Text ?? "";
 }
 
 
 
-<label class="checkbox-container">
-    <input type="checkbox" class="myCheckBox">
+<label class="@Html.Raw($"checkbox-container {classes}")">
+    <input type="checkbox" class="myCheckBox" @Html.Raw(attributes)>
     <div class="checkbox-wrapper">
         <span class="checkbox-custom">
             <svg class="checkbox-icon" width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -247,9 +247,11 @@
                                 @foreach (FilterOptionViewModel makeOption in ViewBag.AvailableFilters["make"])
                                 {
                                     <li>
-                                        <label class="dropdown-item">
-                                            <input type="checkbox" class="dropdownCheckbox" value="@makeOption.OriginalValue" @(selectedMakes.Contains(makeOption.OriginalValue) ? "checked" : "")> @makeOption.TranslatedValue
-                                        </label>
+                                        @Html.Partial("_Checkbox", new {
+                                            Text = makeOption.TranslatedValue,
+                                            Classes = "dropdown-item",
+                                            Attributes = $"value=\"{makeOption.OriginalValue}\" {(selectedMakes.Contains(makeOption.OriginalValue) ? "checked" : "")}"
+                                        })
                                     </li>
                                 }
                             </ul>
@@ -274,7 +276,7 @@
                                 {
                                     <li>
                                         <label class="dropdown-item">
-                                            <input type="checkbox" class="dropdownCheckbox" value="@option.OriginalValue" @(selectedCarTypes.Contains(option.OriginalValue) ? "checked" : "")> @option.TranslatedValue
+                                            <input type="checkbox"  value="@option.OriginalValue" @(selectedCarTypes.Contains(option.OriginalValue) ? "checked" : "")> @option.TranslatedValue
                                         </label>
                                     </li>
                                 }
@@ -292,7 +294,7 @@
                             <ul class="dropdown-menu w-100" name="fuelType" aria-labelledby="dropdownFuelTypeButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["fuelType"])
                                 {
-                                    <li><label class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option.OriginalValue" @(selectedFuelTypes.Contains(option.OriginalValue) ? "checked" : "")> @option.TranslatedValue</label></li>
+                                    <li><label class="dropdown-item"><input type="checkbox"  value="@option.OriginalValue" @(selectedFuelTypes.Contains(option.OriginalValue) ? "checked" : "")> @option.TranslatedValue</label></li>
                                 }
                             </ul>
 
@@ -308,7 +310,7 @@
                             <ul class="dropdown-menu w-100" name="transmission" aria-labelledby="dropdownTransmissionButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["transmission"])
                                 {
-                                    <li><label class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option.OriginalValue" @(selectedTransmissions.Contains(option.OriginalValue) ? "checked" : "")> @option.TranslatedValue </label></li>
+                                    <li><label class="dropdown-item"><input type="checkbox"  value="@option.OriginalValue" @(selectedTransmissions.Contains(option.OriginalValue) ? "checked" : "")> @option.TranslatedValue </label></li>
                                 }
                             </ul>
 
@@ -325,7 +327,7 @@
                             <ul class="dropdown-menu w-100" name="color" aria-labelledby="dropdownColorButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["color"])
                                 {
-                                    <li><label class="dropdown-item"><input type="checkbox" class="dropdownCheckbox" value="@option.OriginalValue " @(selectedColors.Contains(option.OriginalValue) ? "checked" : "")> @option.TranslatedValue</label></li>
+                                    <li><label class="dropdown-item"><input type="checkbox"  value="@option.OriginalValue " @(selectedColors.Contains(option.OriginalValue) ? "checked" : "")> @option.TranslatedValue</label></li>
                                 }
                             </ul>
 
@@ -563,17 +565,20 @@
                 dropdownOptions.style.display = dropdownOptions.style.display === "block" ? "none" : "block";
             });
 
-            $('.dropdownCheckbox').change(function () {
-                var dropdownOptions = $(this).parent().parent().parent();
+            $('.dropdown-item').change(function () {
+                var dropdownOptions = $(this).closest('.dropdown-menu');
                 var checkboxes = dropdownOptions.find("input[type='checkbox']");
                 var selectedOptions = [];
+
                 checkboxes.each(function () {
                     if ($(this).is(':checked')) {
                         selectedOptions.push($(this).val());
                     }
                 });
+
                 var dropdownName = dropdownOptions.attr('name');
                 $("#" + dropdownName + "Input").val(selectedOptions.join(','));
+
                 var span = dropdownOptions.prev().find('span');
                 span.text(selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Any');
             });
