@@ -10,7 +10,7 @@ pipeline {
         stage('Prepare for Deployment') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'network-share-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    withCredentials([usernamePassword(credentialsId: 'IIS-folder', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                         // Map network drive using the retrieved credentials
                         bat "NET USE Z: ${IIS_SHARE} /user:%USER% %PASS%"
                         

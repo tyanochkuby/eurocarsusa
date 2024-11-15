@@ -1,0 +1,29 @@
+﻿@model EuroCarsUSA.ViewModels.FormViewModel
+
+@{
+    ViewData["Title"] = "Track Order";
+}
+
+<h2>Track Your Order</h2>
+
+<form asp-action="TrackOrder" method="post">
+    <div class="form-group">
+        <label for="orderId">Order ID</label>
+        <input type="text" class="form-control" id="orderId" name="orderId" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+@if (Model != null)
+{
+    <h3>Order Details</h3>
+    <div>
+        <p><strong>Model:</strong> @Model.Model</p>
+        <p><strong>Max Price:</strong> @Model.MaxPrice</p>
+        <p><strong>Max Mileage:</strong> @Model.MaxMileage</p>
+        <p><strong>Min Year:</strong> @Model.MinYear</p>
+        <p><strong>Max Year:</strong> @Model.MaxYear</p>
+        <p><strong>Description:</strong> @Model.Description</p>
+        <!-- Add more fields as necessary -->
+    </div>
+}

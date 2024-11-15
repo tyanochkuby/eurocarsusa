@@ -1,4 +1,6 @@
-﻿using EuroCarsUSA.Data.Interfaces;
+﻿using EuroCarsUSA.Data.Enum;
+using EuroCarsUSA.Data.Enums;
+using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
@@ -51,6 +53,12 @@ namespace EuroCarsUSA.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> GetNewCatalogRow(int index) 
+        {
+            var car = new CatalogEditionViewModel();
+            return PartialView("~/Views/Shared/_EditCar.cshtml", new Tuple<CatalogEditionViewModel, int>(car, index));
+        }
+
         [HttpPost]
         public async Task<IActionResult> SaveCatalogChanges(List<CatalogEditionViewModel> updatedCarsVM, string deletedCarsIds)
         {
@@ -99,6 +107,12 @@ namespace EuroCarsUSA.Controllers
             return View(recievedForms);
         }
 
-
+        [HttpPut]
+        public async Task<IActionResult> SetOrderStatus(Guid id, FormStatus status)
+        {
+            if (await _formService.UpdateStatus(id, status))
+                return Ok();
+            return BadRequest();
+        }
     }
 }

@@ -1,7 +1,10 @@
-﻿@using EuroCarsUSA.ViewModels
+﻿@using EuroCarsUSA.Data.Enums
+@using EuroCarsUSA.Services.Interfaces
+@using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.AspNetCore.Components
 @model IEnumerable<FormViewModel>
+@inject IFormService formService
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
     <div class="container p-5 pt-3 bg-white rounded-32 justify-content-center mb-2">
@@ -83,6 +86,10 @@
                         <th>Car Types</th>
                         <th>Fuel Types</th>
                         <th>Transmission</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -124,7 +131,25 @@
                                 @foreach (var transmission in form.CarTransmissions)
                                 {
                                     <span>@transmission</span>
-                                })
+                                }
+                            </td>
+                            <td>@form.Name</td>
+                            <td>@form.Email</td>
+                            <td>@form.PhoneNumber</td>
+                            <td>
+                                <select class="form-control" name="status-@form.Id" onchange="updateStatus('@form.Id', this.value)">
+                                    @foreach (var status in Enum.GetValues(typeof(FormStatus)).Cast<FormStatus>())
+                                    {
+                                        if (status == form.Status)
+                                        {
+                                            <option value="@status" selected>@status</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@status">@status</option>
+                                        }
+                                    }
+                                </select>
                             </td>
                         </tr>
                     }
@@ -137,3 +162,20 @@
 </div>
 
 
+@section Scripts {
+    <script>
+        function updateStatus(formId, status) {
+            $.ajax({
+                url: '/Admin/SetOrderStatus',
+                data: { id: formId, status: status},
+                type: 'PUT',
+                success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    alert('An error occurred while updating form status.');
+                }
+            });
+        }
+    </script>
+}

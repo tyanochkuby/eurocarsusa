@@ -28,6 +28,27 @@ namespace EuroCarsUSA.Controllers
             return RedirectToAction("Thanks", new { id = formId });
         }
 
+        public IActionResult Track()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TrackOrder(string orderId)
+        {
+            if (Guid.TryParse(orderId, out Guid id))
+            {
+                var formViewModel = await _formService.GetById(id);
+                if (formViewModel != null)
+                {
+                    return View("Track", formViewModel);
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "Order not found.");
+            return View("Track");
+        }
+
         public IActionResult Thanks(Guid id)
         {
             ViewBag.FormId = id;

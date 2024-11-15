@@ -10,13 +10,15 @@
     <input type="hidden" id="deletedCarsIds" name="deletedCarsIds" value="" />
 
     <div class="bg-neutral-500 p-3">
-        @for (int i = 0; i < Model.Count(); i++)
-        {
-            var car = Model.ElementAt(i);
-            var uniqueId = $"car-{i}";
-            @Html.Partial("_EditCar", new { I = i, Car = car, UniqueId = uniqueId })
-        }
-        <button type="submit">Save Changes</button>
+        <div id="catalog">
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var car = Model.ElementAt(i);
+                @Html.Partial("_EditCar", new Tuple<CatalogEditionViewModel, int>(car, i) )
+            }
+        </div>
+        <button type="button" class="btn btn-info" onclick="addNewRow()">Add</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
     </div>
 
     
@@ -65,12 +67,31 @@
         function deleteCar(carId, uniqueId) {
             var deletedCarsIdsInput = document.getElementById('deletedCarsIds');
             var deletedCarsIds = deletedCarsIdsInput.value ? JSON.parse(deletedCarsIdsInput.value) : [];
-            deletedCarsIds.push(carId);
+            if(carId != '')
+            {
+                deletedCarsIds.push(carId);
+            }
 
             deletedCarsIdsInput.value = JSON.stringify(deletedCarsIds);
 
             var carRow = document.getElementById('car-row-' + uniqueId);
             carRow.parentElement.removeChild(carRow);
+        }
+        function addNewRow() {
+            var tableBody = document.getElementById('catalog');
+            var index = tableBody.children.length;
+
+            $.ajax({
+                url: '/Admin/GetNewCatalogRow',
+                data: { index: index },
+                type: 'GET',
+                success: function (html) {
+                    tableBody.insertAdjacentHTML('beforeend', html);
+                },
+                error: function () {
+                    alert('An error occurred while adding a row');
+                }
+            });
         }
     </script>
 }

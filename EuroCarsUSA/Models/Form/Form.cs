@@ -1,4 +1,5 @@
 ﻿using EuroCarsUSA.Data.Enum;
+using EuroCarsUSA.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace EuroCarsUSA.Models.Form
@@ -12,12 +13,21 @@ namespace EuroCarsUSA.Models.Form
         public ICollection<FormCarType>? FormCarTypes { get; set; } = new List<FormCarType>();
         public ICollection<FormCarFuelType>? FormCarFuelTypes { get; set; } = new List<FormCarFuelType>();
         public ICollection<FormCarTransmission>? FormCarTransmissions { get; set; } = new List<FormCarTransmission>();
-
         public string? Model { get; set; }
         public int? MaxPrice { get; set; }
         public int? MaxMileage { get; set; }
         public int? MinYear { get; set; }
         public int? MaxYear { get; set; }
         public string? Description { get; set; }
+        public FormStatus Status { get; set; }
+
+        [EmailAddress]
+        public string? Email { get; set; }
+
+        [Phone]
+        public string? PhoneNumber { get; set; }
+
+        [MaxLength(50)]
+        public string Name { get; set; }
     }
 }
