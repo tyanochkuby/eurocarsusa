@@ -6,11 +6,8 @@
     string text = Model.Text ?? "";
     bool isActive = Model.IsActive ?? false;
 
-    string activeName = "switch-icon-active";
-    string notActiveName = "switch-icon-not-active";
-
-    var activeIcon = @Html.Partial("_Icon", new { IconName = activeName, Color = "primary" });
-    var notActiveIcon = @Html.Partial("_Icon", new { IconName = notActiveName, Color = "secondary" });
+    var activeIcon = @Html.Partial("_Icon", new { IconName = "switch-icon-active", Color = "primary" });
+    var notActiveIcon = @Html.Partial("_Icon", new { IconName = "switch-icon-not-active", Color = "secondary" });
 
     string switchClasses = isActive ? "switch active" : "switch";
     string switchTargetClasses = isActive ? "switch-target active-position" : "switch-target ";
@@ -20,9 +17,9 @@
 
 
 
-<div class="@Html.Raw(switchClasses)">
+<div class="@Html.Raw($"checkbox-container {classes} {switchClasses}")">
     <label class="@Html.Raw(switchTargetClasses)">
-        <input type="checkbox" onchange="toggleSwitch(this)" @Html.Raw(isCheckboxChecked)>
+        <input type="checkbox" onchange="toggleSwitch(this)" @Html.Raw(attributes) @Html.Raw(isCheckboxChecked)>
         <div class="switch-state-layer">
             <div class="switch-handle-shape ">
                 <div class="d-block">

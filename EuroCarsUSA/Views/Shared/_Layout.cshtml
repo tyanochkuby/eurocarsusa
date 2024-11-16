@@ -35,6 +35,8 @@
                         @Html.Partial("_Button")
                     </a>
                 </div>
+                
+                @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = true })
 
                 <div class="me-3">
                     <a asp-controller="Home"
@@ -110,7 +112,6 @@
         <main role="main" class="main pb-3">
 
             @Html.Partial("_Checkbox", new { Text = "lalal", Classes="", Attributes = ""})
-            @Html.Partial("_Switch", new { Text = "lalal", Classes = "", Attributes = "", IsActive = false})
 
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">
