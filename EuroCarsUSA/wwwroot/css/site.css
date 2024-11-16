@@ -857,12 +857,12 @@ button#mobile-filter-select-save-button .carIcon {
 
 
 
-/* Скрываем стандартный чекбокс */
+
 .myCheckBox {
     display: none;
 }
 
-/* Контейнер для кастомного чекбокса */
+
 .checkbox-container {
     display: inline-flex;
     align-items: center;
@@ -871,13 +871,13 @@ button#mobile-filter-select-save-button .carIcon {
     position: relative;
 }
 
-/* Контейнер для самого чекбокса */
+
 .checkbox-wrapper {
     position: relative;
-    padding: 11px; /* Добавляем отступы вокруг чекбокса */
+    padding: 11px; 
 }
 
-/* Стили кастомного чекбокса */
+
 .checkbox-custom {
     width: 18px;
     height: 18px;
@@ -885,16 +885,16 @@ button#mobile-filter-select-save-button .carIcon {
     border-color: var(--bs-primary);
     border-radius: 4px;
     background-color: white;
-    display: flex; /* Flexbox для центрирования иконки */
+    display: flex; 
     justify-content: center;
     align-items: center;
     position: relative;
     transition: all 0.2s ease;
 }
 
-    /* Стили при наведении на сам чекбокс */
+    
 
-    /* Псевдоэлемент для фона вокруг чекбокса */
+    
     .checkbox-custom::before {
         content: "";
         position: absolute;
@@ -904,35 +904,34 @@ button#mobile-filter-select-save-button .carIcon {
         width: 40px;
         height: 40px;
         background-color: var(--bs-primary);
-        opacity: 0; /* Изначально невидим */
-        border-radius: 100%; /* Чтобы фон был с округлыми углами, как у чекбокса */
+        opacity: 0;
+        border-radius: 100%; 
         transition: opacity 0.2s ease;
     }
 
-    /* Показываем фон только при наведении на сам чекбокс */
+    
     .checkbox-custom:hover::before {
-        opacity: 0.08; /* Устанавливаем полупрозрачный фон */
+        opacity: 0.08; 
     }
 
-/* Стили для иконки */
+
 .checkbox-icon {
     width: 12px;
     height: 10px;
-    display: none; /* Скрыта до выбора */
+    display: none; 
 }
 
-/* Стили выбранного состояния */
+
 input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     background-color: var(--bs-primary);
     border-color: var(--bs-primary);
 }
 
-    /* Отображение галочки */
+    
     input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom .checkbox-icon {
-        display: block; /* Отображаем иконку при выборе */
+        display: block; 
     }
 
-/* Текст рядом с чекбоксом */
 .checkbox-label {
     margin-left: 8px;
     font-size: 16px;
