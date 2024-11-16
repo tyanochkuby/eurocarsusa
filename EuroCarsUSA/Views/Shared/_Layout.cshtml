@@ -109,6 +109,9 @@
         }
         <main role="main" class="main pb-3">
 
+            @Html.Partial("_Checkbox", new { Text = "lalal", Classes="", Attributes = ""})
+            @Html.Partial("_Switch", new { Text = "lalal", Classes = "", Attributes = "", IsActive = false})
+
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">
                 <div class="container-xl">

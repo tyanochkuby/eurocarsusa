@@ -942,4 +942,76 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
 
 
 
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 32px;
+    background-color: var(--bs-secondary);
+    border-radius: 100px;
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    box-shadow: inset 0 0 0 2px var(--bs-primary); /* Внутренний контур */
+}
 
+    .switch.active {
+        background-color: var(--bs-primary);
+    }
+        .switch.active .switch-handle-shape {
+            background-color: white; /* Цвет при активном (включенном) состоянии */
+        }
+
+        .switch.active:hover .switch-handle-shape {
+            background-color: #F3F9FE /* secondary-100 */
+        }
+
+.switch-target {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    top: -8px;
+    left: -8px;
+    padding: 4px;
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+    .switch-target.active-position {
+        left: 12px;
+    }
+
+    .switch-target:active .switch-state-layer {
+        padding: 6px;
+    }
+
+.switch-target input{
+    display:none;
+}
+
+.switch-state-layer {
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    padding: 8px;
+    background-color: rgba(var(--bs-primary-rgb), 0.00);
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.switch:hover .switch-state-layer {
+    background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+
+.switch-handle-shape {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background-color: rgba(var(--bs-primary-rgb), 1);
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+    .switch-handle-shape svg {
+        width: 16px;
+        height: 16px;
+    }
