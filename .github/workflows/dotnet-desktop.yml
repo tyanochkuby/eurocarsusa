@@ -56,7 +56,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Publish Application
-        run: sudo chmod -R 777 ./publish
+        run: sudo chmod -R 777 ./publish &&
              dotnet publish --configuration Release --output ./publish
 
       - name: Deploy to Network Share
