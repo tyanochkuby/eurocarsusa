@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IIS_SHARE: '\\\\iis-2019.wmi.amu.edu.pl\\s473603\\public_iis'
+      IIS_SHARE: '\\\\iis-201.wmi.amu.edu.pl\\s473603\\public_iis'
       OFFLINE_FILE: 'app_offline.htm'
 
     steps:
@@ -21,10 +21,8 @@ jobs:
         run: |
           echo "${{ secrets.OPEN_VPN_CONFIG }}" | base64 --decode > vpn-config.ovpn
 
-      - name: Install OpenVPN and smbclient
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openvpn smbclient
+      - name: Install OpenVPN
+        run: sudo apt-get install -y openvpn
 
       - name: Create temporary file for VPN credentials
         run: |
@@ -37,9 +35,13 @@ jobs:
       - name: Verify VPN Connection
         run: curl ifconfig.me
 
-      - name: Prepare Network Share
+      - name: Install SMB Client Utilities
+        run: sudo apt-get install -y cifs-utils
+
+      - name: Mount SMB Share
         run: |
-          smbclient //iis-2019.wmi.amu.edu.pl/s473603/public_iis -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "echo 'Application offline for maintenance' > ${{ env.OFFLINE_FILE }}"
+          sudo mount -t cifs //$IIS_SHARE /mnt/share -o username=${{ secrets.IIS_LOGIN }},password=${{ secrets.IIS_PASSWORD }}
+          echo 'Application offline for maintenance' > /mnt/share/$OFFLINE_FILE
 
       - name: Restore Dependencies
         run: dotnet restore
@@ -52,11 +54,14 @@ jobs:
 
       - name: Deploy to Network Share
         run: |
-          smbclient //iis-2019.wmi.amu.edu.pl/s473603/public_iis -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "prompt OFF; mput ./publish/*"
+          sudo cp -r ./publish/* /mnt/share/
+        
+      - name: Unmount SMB Share
+        run: sudo umount /mnt/share
 
       - name: Cleanup
         run: |
-          smbclient //iis-2019.wmi.amu.edu.pl/s473603/public_iis -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "del ${{ env.OFFLINE_FILE }}"
+          sudo rm /mnt/share/$OFFLINE_FILE
 
       - name: Clean Up VPN Config File
         run: rm -f vpn-config.ovpn
