@@ -28,9 +28,9 @@ jobs:
         run: |
           echo -e "${{ secrets.OPEN_VPN_LOGIN }}\n${{ secrets.OPEN_VPN_PASSWORD }}" > /tmp/vpn-credentials.txt
 
-      - name: Connect to VPN (Foreground)
+      - name: Connect to VPN
         run: |
-          sudo openvpn --config vpn-config.ovpn --auth-user-pass /tmp/vpn-credentials.txt
+          sudo openvpn --config vpn-config.ovpn --auth-user-pass /tmp/vpn-credentials.txt --daemon
 
 
       - name: Verify VPN Connection
