@@ -41,6 +41,9 @@ jobs:
       - name: Create Mount Directory
         run: sudo mkdir -p /mnt/share
 
+      - name: Check Network Connectivity
+        run: ping -c 4 10.70.0.74
+
       - name: Mount SMB Share
         run: |
           sudo mount -t cifs //10.70.0.74/s473603/public_iis /mnt/share -o username=${{ secrets.IIS_LOGIN }},password=${{ secrets.IIS_PASSWORD }},file_mode=0777,dir_mode=0777,vers=3.0
