@@ -1,0 +1,66 @@
+name: Deploy Application with VPN
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch trigger as needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use Windows runner if needed for specific Windows commands
+
+    env:
+      IIS_SHARE: '\\iis-2019.wmi.amu.edu.pl\s473603\public_iis'
+      OFFLINE_FILE: '${{ env.IIS_SHARE }}\\app_offline.htm'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Create OpenVPN Config File
+        run: |
+          echo "${{ secrets.OPEN_VPN_CONFIG }}" | base64 --decode > vpn-config.ovpn
+
+      - name: Install OpenVPN
+        run: sudo apt-get install -y openvpn
+
+      - name: Connect to VPN
+        run: |
+          sudo openvpn --config vpn-config.ovpn --daemon
+        env:
+          OPENVPN_USERNAME: ${{ secrets.IIS_LOGIN }}
+          OPENVPN_PASSWORD: ${{ secrets.IIS_PASSWORD }}
+
+      - name: Verify VPN Connection
+        run: curl ifconfig.me  # Optional: Check the public IP to ensure VPN is active
+
+      - name: Prepare Network Share (Windows Runner Example)
+        # This step is only valid for a Windows runner; for Linux, modify accordingly if using SMB/CIFS
+        run: |
+          NET USE Z: ${{ env.IIS_SHARE }} /user:${{ secrets.IIS_LOGIN }} ${{ secrets.IIS_PASSWORD }}
+          echo 'Application offline for maintenance' > Z:\app_offline.htm
+        shell: cmd
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build Application
+        run: dotnet build --configuration Release
+
+      - name: Publish Application
+        run: dotnet publish --configuration Release --output ./publish
+
+      - name: Deploy to Network Share
+        # Adjust command as needed for your specific requirements
+        run: |
+          xcopy /E /Y /I ./publish Z:\
+        shell: cmd
+
+      - name: Cleanup
+        run: |
+          del Z:\app_offline.htm
+          NET USE Z: /DELETE
+        shell: cmd
+
+      - name: Clean Up VPN Config File
+        run: rm -f vpn-config.ovpn
