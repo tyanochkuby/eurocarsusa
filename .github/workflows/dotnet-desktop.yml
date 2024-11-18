@@ -56,7 +56,8 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Publish Application
-        run: mkdir publish &&
+        run: pwd &&
+             mkdir publish &&
              sudo chmod -R 777 ./publish &&
              dotnet publish --configuration Release --output ./publish
 
