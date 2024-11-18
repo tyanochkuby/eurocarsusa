@@ -24,13 +24,14 @@ jobs:
       - name: Install OpenVPN
         run: sudo apt-get install -y openvpn
 
-      - name: Connect to VPN
+      - name: Create temporary file for VPN credentials
         run: |
-          sudo openvpn --config vpn-config.ovpn --auth-user-pass <(echo -e "${{ secrets.OPEN_VPN_LOGIN }}\n${{ secrets.OPEN_VPN_PASSWORD }}")
-        # Pass OpenVPN credentials from GitHub Secrets
-        env:
-          OPEN_VPN_LOGIN: ${{ secrets.OPEN_VPN_LOGIN }}
-          OPEN_VPN_PASSWORD: ${{ secrets.OPEN_VPN_PASSWORD }}
+          echo -e "${{ secrets.OPEN_VPN_LOGIN }}\n${{ secrets.OPEN_VPN_PASSWORD }}" > /tmp/vpn-credentials.txt
+
+      - name: Connect to VPN (Foreground)
+        run: |
+          sudo openvpn --config vpn-config.ovpn --auth-user-pass /tmp/vpn-credentials.txt
+
 
       - name: Verify VPN Connection
         run: curl ifconfig.me  # Optional: Check the public IP to ensure VPN is active
