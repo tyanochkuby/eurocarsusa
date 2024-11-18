@@ -3,15 +3,15 @@ name: Deploy Application with VPN
 on:
   push:
     branches:
-      - main  # Adjust the branch trigger as needed
+      - main 
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Use Windows runner if needed for specific Windows commands
+    runs-on: ubuntu-latest
 
-    env:
-      IIS_SHARE: '\\iis-2019.wmi.amu.edu.pl\s473603\public_iis'
-      OFFLINE_FILE: '${{ env.IIS_SHARE }}\\app_offline.htm'
+    env:  # Define environment variables here
+      IIS_SHARE: '\\\\iis-2019.wmi.amu.edu.pl\\s473603\\public_iis'
+      OFFLINE_FILE: '\\iis-2019.wmi.amu.edu.pl\\s473603\\public_iis\\app_offline.htm'
 
     steps:
       - name: Checkout Repository
