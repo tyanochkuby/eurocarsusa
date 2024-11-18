@@ -11,7 +11,7 @@ jobs:
 
     env:
       IIS_SHARE: '\\\\iis-2019.wmi.amu.edu.pl\\s473603\\public_iis'
-      OFFLINE_FILE: 'app_offline.htm'  # Adjusted for local file creation path
+      OFFLINE_FILE: 'app_offline.htm'
 
     steps:
       - name: Checkout Repository
@@ -35,11 +35,11 @@ jobs:
           sudo openvpn --config vpn-config.ovpn --auth-user-pass /tmp/vpn-credentials.txt --daemon
 
       - name: Verify VPN Connection
-        run: curl ifconfig.me  # Optional: Check the public IP to ensure VPN is active
+        run: curl ifconfig.me
 
       - name: Prepare Network Share
         run: |
-          smbclient ${{ env.IIS_SHARE }} -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "echo 'Application offline for maintenance' > ${{ env.OFFLINE_FILE }}"
+          smbclient //iis-2019.wmi.amu.edu.pl/s473603/public_iis -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "echo 'Application offline for maintenance' > ${{ env.OFFLINE_FILE }}"
 
       - name: Restore Dependencies
         run: dotnet restore
@@ -52,11 +52,11 @@ jobs:
 
       - name: Deploy to Network Share
         run: |
-          smbclient ${{ env.IIS_SHARE }} -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "prompt OFF; mput ./publish/*"
+          smbclient //iis-2019.wmi.amu.edu.pl/s473603/public_iis -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "prompt OFF; mput ./publish/*"
 
       - name: Cleanup
         run: |
-          smbclient ${{ env.IIS_SHARE }} -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "del ${{ env.OFFLINE_FILE }}"
+          smbclient //iis-2019.wmi.amu.edu.pl/s473603/public_iis -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "del ${{ env.OFFLINE_FILE }}"
 
       - name: Clean Up VPN Config File
         run: rm -f vpn-config.ovpn
