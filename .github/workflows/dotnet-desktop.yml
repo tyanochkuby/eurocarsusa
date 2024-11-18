@@ -26,7 +26,7 @@ jobs:
 
       - name: Connect to VPN
         run: |
-          sudo openvpn --config vpn-config.ovpn --auth-user-pass <(echo -e "${{ secrets.OPEN_VPN_LOGIN }}\n${{ secrets.OPEN_VPN_PASSWORD }}") --daemon
+          sudo openvpn --config vpn-config.ovpn --auth-user-pass <(echo -e "${{ secrets.OPEN_VPN_LOGIN }}\n${{ secrets.OPEN_VPN_PASSWORD }}")
         # Pass OpenVPN credentials from GitHub Secrets
         env:
           OPEN_VPN_LOGIN: ${{ secrets.OPEN_VPN_LOGIN }}
