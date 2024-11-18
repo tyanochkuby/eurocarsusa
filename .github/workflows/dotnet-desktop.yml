@@ -46,7 +46,7 @@ jobs:
 
       - name: Mount SMB Share
         run: |
-          sudo mount -t cifs //10.70.0.74/s473603/public_iis /mnt/share -o username=${{ secrets.IIS_LOGIN }},password=${{ secrets.IIS_PASSWORD }},vers=3.0
+          sudo mount -t cifs //10.70.0.74/s473603/public_iis /mnt/share -o username=${{ secrets.IIS_LOGIN }},password=${{ secrets.IIS_PASSWORD }},file_mode=0777,dir_mode=0777,vers=3.0
           echo 'Application offline for maintenance' > /mnt/share/$OFFLINE_FILE
 
       - name: Restore Dependencies
