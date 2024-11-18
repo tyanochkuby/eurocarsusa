@@ -65,12 +65,12 @@ jobs:
         run: |
           sudo cp -r ./publish/* /mnt/share/
         
-      - name: Unmount SMB Share
-        run: sudo umount /mnt/share
-
       - name: Cleanup
         run: |
           sudo rm /mnt/share/$OFFLINE_FILE
+          
+      - name: Unmount SMB Share
+        run: sudo umount /mnt/share
 
       - name: Clean Up VPN Config File
         run: rm -f vpn-config.ovpn
