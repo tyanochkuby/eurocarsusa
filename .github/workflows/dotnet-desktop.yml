@@ -38,6 +38,9 @@ jobs:
       - name: Install SMB Client Utilities
         run: sudo apt-get install -y cifs-utils
 
+      - name: Create Mount Directory
+        run: sudo mkdir -p /mnt/share
+
       - name: Mount SMB Share
         run: |
           sudo mount -t cifs //$IIS_SHARE /mnt/share -o username=${{ secrets.IIS_LOGIN }},password=${{ secrets.IIS_PASSWORD }}
