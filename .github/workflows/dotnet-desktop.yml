@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IIS_SHARE: '\\\\iis-201.wmi.amu.edu.pl\\s473603\\public_iis'
+      IIS_SHARE: 'iis-2019.wmi.amu.edu.pl/s473603/public_iis'
       OFFLINE_FILE: 'app_offline.htm'
 
     steps:
@@ -43,7 +43,7 @@ jobs:
 
       - name: Mount SMB Share
         run: |
-          sudo mount -t cifs //$IIS_SHARE /mnt/share -o username=${{ secrets.IIS_LOGIN }},password=${{ secrets.IIS_PASSWORD }}
+          sudo mount -t cifs //${{ env.IIS_SHARE }} /mnt/share -o username=${{ secrets.IIS_LOGIN }},password=${{ secrets.IIS_PASSWORD }}
           echo 'Application offline for maintenance' > /mnt/share/$OFFLINE_FILE
 
       - name: Restore Dependencies
