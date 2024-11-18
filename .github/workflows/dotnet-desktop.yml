@@ -11,7 +11,7 @@ jobs:
 
     env:
       IIS_SHARE: '\\\\iis-2019.wmi.amu.edu.pl\\s473603\\public_iis'
-      OFFLINE_FILE: '\\iis-2019.wmi.amu.edu.pl\\s473603\\public_iis\\app_offline.htm'
+      OFFLINE_FILE: 'app_offline.htm'  # Adjusted for local file creation path
 
     steps:
       - name: Checkout Repository
@@ -21,8 +21,10 @@ jobs:
         run: |
           echo "${{ secrets.OPEN_VPN_CONFIG }}" | base64 --decode > vpn-config.ovpn
 
-      - name: Install OpenVPN
-        run: sudo apt-get install -y openvpn
+      - name: Install OpenVPN and smbclient
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openvpn smbclient
 
       - name: Create temporary file for VPN credentials
         run: |
@@ -32,16 +34,12 @@ jobs:
         run: |
           sudo openvpn --config vpn-config.ovpn --auth-user-pass /tmp/vpn-credentials.txt --daemon
 
-
       - name: Verify VPN Connection
         run: curl ifconfig.me  # Optional: Check the public IP to ensure VPN is active
 
-      - name: Prepare Network Share (Windows Runner Example)
-        # This step is only valid for a Windows runner; for Linux, modify accordingly if using SMB/CIFS
+      - name: Prepare Network Share
         run: |
-          NET USE Z: ${{ env.IIS_SHARE }} /user:${{ secrets.IIS_LOGIN }} ${{ secrets.IIS_PASSWORD }}
-          echo 'Application offline for maintenance' > Z:\app_offline.htm
-        shell: cmd
+          smbclient ${{ env.IIS_SHARE }} -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "echo 'Application offline for maintenance' > ${{ env.OFFLINE_FILE }}"
 
       - name: Restore Dependencies
         run: dotnet restore
@@ -54,14 +52,11 @@ jobs:
 
       - name: Deploy to Network Share
         run: |
-          xcopy /E /Y /I ./publish Z:\
-        shell: cmd
+          smbclient ${{ env.IIS_SHARE }} -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "prompt OFF; mput ./publish/*"
 
       - name: Cleanup
         run: |
-          del Z:\app_offline.htm
-          NET USE Z: /DELETE
-        shell: cmd
+          smbclient ${{ env.IIS_SHARE }} -U ${{ secrets.IIS_LOGIN }}%${{ secrets.IIS_PASSWORD }} -c "del ${{ env.OFFLINE_FILE }}"
 
       - name: Clean Up VPN Config File
         run: rm -f vpn-config.ovpn
