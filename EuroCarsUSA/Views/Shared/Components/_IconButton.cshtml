@@ -1,8 +1,10 @@
-@{
-    string color = ViewData["Color"] as string ?? "primary";
-    string iconSrc = ViewData["IconSrc"] as string;
+@model dynamic
 
-    string customIconColor = ViewData["IconColor"] as string ?? "primary";
+@{
+    string color = Model.Color ?? "primary";
+    string iconSrc = Model.IconName;
+
+    string customIconColor = Model.IconColor ?? "primary";
 
     string backgroundColorValue = color == "primary" ? "bg-primary" : "bg-secondary";
 }
