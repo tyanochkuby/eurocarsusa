@@ -1,0 +1,122 @@
+@model dynamic
+
+@{
+    string classes = Model.Classes ?? "";
+    string attributes = Model.Attributes ?? "";
+
+    int width = Model.Width ?? 360;
+
+    string state = "enabled, hovered, disabled, pressed, dragged, error";
+
+    var leading = Model.Leading;
+    var trailing = Model.Trailing; 
+
+    string headline = Model.Headline;
+
+    bool showOverline = Model.ShowOverline;
+    bool showOverlineInside = Model.ShowOverlineInside;
+    bool hasOutsidOverlineSizeEffect = Model.HasOutsidOverlineSizeEffect;
+
+    string noOverlineSizeEffectClass = hasOutsidOverlineSizeEffect ? "" : "position-absolute";
+    string noOverlineSizeEffectStyle = hasOutsidOverlineSizeEffect ? "" : "transform: translateY(-16px);";
+    
+    string overline = Model.Overline;
+
+    bool showSupportive = Model.ShowSupportive;
+    bool showSupportiveInside = Model.ShowSupportiveInside;
+    bool hasOutsideSupportiveSizeEffect = Model.HasOutsideSupportiveSizeEffect;
+    string noSupportiveSizeEffectClass = hasOutsideSupportiveSizeEffect ? "" : "position-absolute";
+    string supportive = Model.Supportive;
+
+    string condition = Model.Condition ?? "1-line";             // "1-line" "2-line" "3-line"
+    string finalCondition = condition;
+
+    if (condition == "1-line")
+    {
+        showSupportive = false;
+    }
+    if (!showSupportive)
+    {
+        finalCondition = "1-line";
+    }
+    string twoLineClass = (finalCondition == "2-line") ? "two-line" : "";
+    string heightStyle = (finalCondition == "3-line" && showSupportiveInside) ? "68px;" : "";
+    string noThreeLineClass = (finalCondition == "3-line" && showSupportiveInside) ? "" : "center-items";
+
+    bool showAdditional = Model.ShowAdditional;
+    bool showAdditionalBackground = Model.ShowAdditionalBackgroud;
+    string additionalBackgroundClass = showAdditionalBackground ? "bg-secondary" : "";
+    string additional = Model.Additional;
+
+    bool showDivider = false;
+
+}
+
+<div class="list-item" style="width: @(width)px">
+    @if (showOverline && !showOverlineInside)
+    {
+        <div class="list-item-overline-text text-label-md text-neutral-900 px-1 @noOverlineSizeEffectClass" style="@noOverlineSizeEffectStyle">
+            @overline
+        </div>
+    }
+
+    <div class="list-item-state-layer py-2 ps-3 pe-4 row d-flex m-0 bg-white ">
+
+        @if (leading != null)
+        {
+            <div class="list-item-leading-element col-auto p-1 me-3 @noThreeLineClass">
+                @leading
+            </div>
+        }
+
+
+        <div class="list-item-content col p-0 d-block w-100 align-content-center">
+            @if ((showOverline == true) && (showOverlineInside == true))
+            {
+                <div class="list-item-overline-text text-label-md text-neutral-900 row m-0">
+                    @overline
+                </div>
+            }
+            <div class="text-body-lg text-neutral-900 row m-0">
+                @headline
+            </div>
+
+            @if ((showSupportive) && (showSupportiveInside))
+            {
+                <div class="list-item-supportive-text text-body-md text-neutral-900 row m-0 @twoLineClass">
+                    @supportive
+                </div>
+            }
+        </div>
+
+        @if ((trailing != null) || (showAdditional == true))
+        {
+            <div class="list-item-trailing-element col-auto p-0 ms-3 @noThreeLineClass">
+                <div class="row m-0 d-flex align-items-center" style="height: @heightStyle">
+                    @if (showAdditional)
+                    {
+                        <div class=" d-flex list-item-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-center align-items-center"
+                             style="width: 24px; height:24px; margin-inline-end: 10px">
+                            @additional
+                        </div>
+                    }
+
+                    @if (trailing != null)
+                    {
+                        <div class="col-auto p-0">
+                            @trailing
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (showSupportive && !showSupportiveInside)
+    {
+        <div class="list-item-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass" style="width: @(width)px">
+            @supportive
+        </div>
+    }
+</div>
+

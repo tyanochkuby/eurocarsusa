@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,29 +37,19 @@
                     </a>
                 </div>
                 
-                @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = true })
+                @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
 
                 <div class="me-3">
                     <a asp-controller="Home"
                        asp-action="Likes"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                        @{
-                            ViewData["Color"] = "secondary";
-                            ViewData["IconSrc"] = Url.Content("favorite");
-                        }
-                        @Html.Partial("_IconButton")
+                       @Html.Partial("_IconButton", new { IconName = "favorite", Color = "secondary", IconColor = "primary" })
                     </a>
                 </div>
                 
                 <div class="dropdown">
                     <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
-                        @{
-                            // wtf is                 role="button" data-bs-toggle="dropdown" aria-expanded="false" ????
-                            ViewData["Color"] = "secondary";
-                            ViewData["IconSrc"] = Url.Content("Language chinese dayi");
-                        }
-                        @Html.Partial("_IconButton")
-
+                        @Html.Partial("_IconButton", new { IconName = "Language chinese dayi", Color = "secondary", IconColor = "primary" })
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                         <li><a class="dropdown-item" href="?culture=en&ui-culture=en">English</a></li>
@@ -78,40 +69,52 @@
                     <a asp-controller="Admin"
                        asp-action="Statistics"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                        @{
-                            ViewData["Color"] = "secondary";
-                            ViewData["IconSrc"] = Url.Content("Home");
-                        }
-                        @Html.Partial("_IconButton")
+                       @Html.Partial("_IconButton", new { IconName = "Home", Color = "secondary", IconColor = "primary" })
                     </a>
                 </div>
             <div>
                 <a asp-controller="Admin"
                     asp-action="EditCatalog"
                     asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                    @{
-                        ViewData["Color"] = "secondary";
-                            ViewData["IconSrc"] = Url.Content("View carousel");
-                    }
-                    @Html.Partial("_IconButton")
+                    @Html.Partial("_IconButton", new { IconName = "View carousel", Color = "secondary", IconColor = "primary" })
                 </a>
             </div>
             <div>
                 <a asp-controller="Admin"
                     asp-action="Orders"
                     asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                    @{
-                        ViewData["Color"] = "secondary";
-                        ViewData["IconSrc"] = Url.Content("Search");
-                    }
-                    @Html.Partial("_IconButton")
-                </a>
+                    @Html.Partial("_IconButton", new { IconName = "Search", Color = "secondary", IconColor = "primary" })                </a>
             </div>
         </div>
         }
         <main role="main" class="main pb-3">
 
-            @Html.Partial("_Checkbox", new { Text = "lalal", Classes="", Attributes = ""})
+            <div class="bg-primary-200 p-5">
+                @Html.Partial("_ListItem", new
+                    {
+                        Classes = "",
+                        Attributes = "",
+                        Width = 360,
+                        Leading = Html.Partial("_Switch", new { Text = "lalal", Classes = "", Attributes = "", IsActive = false }),
+                        Trailing = @Html.Partial("_IconButton", new { IconName = Url.Content("Keyboard arrow right"), Color = "primary", IconColor = "neutral900" }),
+                        Condition = "2-line",
+                        Headline = "List Item",
+
+                        ShowOverline = true,
+                        ShowOverlineInside = true,
+                        HasOutsidOverlineSizeEffect = false,
+                        Overline = "Overline111",
+
+                        ShowSupportive = true,
+                        ShowSupportiveInside = false,
+                        HasOutsideSupportiveSizeEffect = false,
+                        Supportive = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+
+                        ShowAdditional = true,
+                        ShowAdditionalBackgroud = true,
+                        Additional = "100+"
+                    })
+            </div>
 
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">

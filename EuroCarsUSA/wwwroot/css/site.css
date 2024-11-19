@@ -699,7 +699,7 @@ button#mobile-filter-select-save-button .carIcon {
     font-family: Roboto;
 }
 
-.text-label-mg {
+.text-label-md {
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.5px;
@@ -1015,3 +1015,16 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
         width: 16px;
         height: 16px;
     }
+
+
+
+
+
+.list-item-supportive-text.two-line {
+    display: -webkit-box; /* Создаем многострочный контейнер */
+    -webkit-line-clamp: 1; /* Ограничиваем до 1 строк */
+    -webkit-box-orient: vertical; /* Ожидаем вертикальное направление */
+    overflow: hidden; /* Скрываем переполнение */
+    text-overflow: ellipsis; /* Добавляем троеточие в конце */
+    width: 100%; /* Делаем ширину 100%, чтобы она подстраивалась под родителя */
+}

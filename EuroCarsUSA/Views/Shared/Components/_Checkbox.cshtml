@@ -5,11 +5,16 @@
     string attributes = Model.Attributes ?? "";
 
     string text = Model.Text ?? "";
+    string ifNoTextClass = "";
+    if (text == "")
+    {
+        ifNoTextClass = "d-none";
+    }
 }
 
 
 
-<label class="@Html.Raw($"checkbox-container {classes}")">
+<label class="@Html.Raw($"checkbox-container d-flex {classes}")">
     <input type="checkbox" class="myCheckBox" @Html.Raw(attributes)>
     <div class="checkbox-wrapper">
         <span class="checkbox-custom">
@@ -18,5 +23,5 @@
             </svg>
         </span>
     </div>
-    <span class="checkbox-label">@text</span>
+    <span class="checkbox-label @Html.Raw(ifNoTextClass)">@text</span>
 </label>
