@@ -884,7 +884,6 @@ button#mobile-filter-select-save-button .carIcon {
     border: 2px solid;
     border-color: var(--bs-primary);
     border-radius: 4px;
-    background-color: white;
     display: flex; 
     justify-content: center;
     align-items: center;
@@ -950,7 +949,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     background-color: var(--bs-secondary);
     border-radius: 100px;
     transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-    box-shadow: inset 0 0 0 2px var(--bs-primary); /* Внутренний контур */
+    box-shadow: inset 0 0 0 2px var(--bs-primary);
 }
 
     .switch.active {
@@ -1027,4 +1026,23 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     overflow: hidden; /* Скрываем переполнение */
     text-overflow: ellipsis; /* Добавляем троеточие в конце */
     width: 100%; /* Делаем ширину 100%, чтобы она подстраивалась под родителя */
+}
+
+.divider-shadow-primary {
+    box-shadow: inset 0 -1px 0 rgba(var(--bs-primary-rgb), 1);
+}
+.divider-shadow-neutral600 {
+    box-shadow: inset 0 -1px 0 rgba(216, 217, 226, 1);
+}
+.divider-shadow-neutral900 {
+    box-shadow: inset 0 -1px 0 rgba(100, 100, 104, 1);
+}
+
+
+.list-item-state-layer {
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.list-item-state-building-block:hover .list-item-state-layer{
+    background-color: rgba(var(--bs-primary-rgb), 0.08);
 }

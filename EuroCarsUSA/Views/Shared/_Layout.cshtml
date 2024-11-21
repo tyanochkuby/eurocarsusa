@@ -83,38 +83,14 @@
                 <a asp-controller="Admin"
                     asp-action="Orders"
                     asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                    @Html.Partial("_IconButton", new { IconName = "Search", Color = "secondary", IconColor = "primary" })                </a>
+                    @Html.Partial("_IconButton", new { IconName = "Search", Color = "secondary", IconColor = "primary" })                
+                </a>
             </div>
         </div>
         }
         <main role="main" class="main pb-3">
 
-            <div class="bg-primary-200 p-5">
-                @Html.Partial("_ListItem", new
-                    {
-                        Classes = "",
-                        Attributes = "",
-                        Width = 360,
-                        Leading = Html.Partial("_Switch", new { Text = "lalal", Classes = "", Attributes = "", IsActive = false }),
-                        Trailing = @Html.Partial("_IconButton", new { IconName = Url.Content("Keyboard arrow right"), Color = "primary", IconColor = "neutral900" }),
-                        Condition = "2-line",
-                        Headline = "List Item",
-
-                        ShowOverline = true,
-                        ShowOverlineInside = true,
-                        HasOutsidOverlineSizeEffect = false,
-                        Overline = "Overline111",
-
-                        ShowSupportive = true,
-                        ShowSupportiveInside = false,
-                        HasOutsideSupportiveSizeEffect = false,
-                        Supportive = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
-
-                        ShowAdditional = true,
-                        ShowAdditionalBackgroud = true,
-                        Additional = "100+"
-                    })
-            </div>
+            
 
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">

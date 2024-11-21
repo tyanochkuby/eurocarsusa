@@ -247,11 +247,39 @@
                                 @foreach (FilterOptionViewModel makeOption in ViewBag.AvailableFilters["make"])
                                 {
                                     <li>
-                                        @Html.Partial("_Checkbox", new {
-                                            Text = makeOption.TranslatedValue,
-                                            Classes = "dropdown-item",
-                                            Attributes = $"value=\"{makeOption.OriginalValue}\" {(selectedMakes.Contains(makeOption.OriginalValue) ? "checked" : "")}"
-                                        })
+                                        @Html.Partial("_ListItem", new
+                                            {
+                                                Classes = "dropdown-item p-0",
+                                                Attributes = "",
+
+                                                Leading = Html.Partial("_Checkbox", new
+                                                {
+                                                    Text = "",
+                                                    Classes = "",
+                                                    Attributes = $"value=\"{makeOption.OriginalValue}\" {(selectedMakes.Contains(makeOption.OriginalValue) ? "checked" : "")}"
+                                                }),
+                                                Trailing = (object)null,
+                                                Clickable = true,
+
+                                                Condition = "1-line",
+                                                Headline = makeOption.TranslatedValue,
+
+                                                ShowOverline = false,
+                                                ShowOverlineInside = true,
+                                                HasOutsidOverlineSizeEffect = false,
+                                                Overline = "Overline111",
+
+                                                ShowSupportive = true,
+                                                ShowSupportiveInside = false,
+                                                HasOutsideSupportiveSizeEffect = false,
+                                                Supportive = "Supporting line",
+
+                                                ShowAdditional = false,
+                                                ShowAdditionalBackgroud = true,
+                                                Additional = "100+",
+
+                                                ShowDivider = true
+                                            })
                                     </li>
                                 }
                             </ul>
