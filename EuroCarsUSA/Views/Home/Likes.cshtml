@@ -35,39 +35,46 @@
             Additional = "100+"
         })
 
-    @Html.Partial("_ListItem", new
-        {
-            Classes = "",
-            Attributes = "",
+    
 
-            Leading = Html.Partial("_Icon", new { IconName = Url.Content("Search"), Color = "neutral900" }),
-            Trailing = Html.Partial("_Checkbox", new
-            {
-                Text = "",
-                Classes = "",
-                Attributes = ""
-            }),
-            Clickable = true,
+        <div class="row">
+            <div class="col">
+            @Html.Partial("_ListItem", new
+                {
+                    Classes = "",
+                    Attributes = "",
 
-            Condition = "2-line",
-            Headline = "List Item",
+                    Leading = Html.Partial("_Icon", new { IconName = Url.Content("Search"), Color = "neutral900" }),
+                    Trailing = Html.Partial("_Checkbox", new
+                    {
+                        Text = "",
+                        Classes = "",
+                        Attributes = ""
+                    }),
+                    Clickable = true,
 
-            ShowOverline = false,
-            ShowOverlineInside = true,
-            HasOutsidOverlineSizeEffect = false,
-            Overline = "Overline111",
+                    Condition = "2-line",
+                    Headline = "List Item",
 
-            ShowSupportive = true,
-            ShowSupportiveInside = false,
-            HasOutsideSupportiveSizeEffect = false,
-            Supportive = "Supporting line",
+                    ShowOverline = false,
+                    ShowOverlineInside = true,
+                    HasOutsidOverlineSizeEffect = false,
+                    Overline = "Overline111",
 
-            ShowAdditional = false,
-            ShowAdditionalBackgroud = true,
-            Additional = "100+",
+                    ShowSupportive = true,
+                    ShowSupportiveInside = false,
+                    HasOutsideSupportiveSizeEffect = false,
+                    Supportive = "Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line ",
 
-            ShowDivider = true
-        })
+                    ShowAdditional = false,
+                    ShowAdditionalBackgroud = true,
+                    Additional = "100+",
+
+                    ShowDivider = true
+                })
+            </div>
+            <div class="col"></div>
+        </div>
 </div>
 
 <div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">

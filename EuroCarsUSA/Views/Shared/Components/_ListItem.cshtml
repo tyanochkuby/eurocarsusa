@@ -53,7 +53,7 @@
     string dividerClass = showDivider ? "divider-shadow-neutral600" : "";
 }
 
-<div class="@Html.Raw($"list-item {classes}")">
+<div class="@Html.Raw($"list-item position-relative {classes}")">
     
 
 
@@ -64,7 +64,7 @@
         </div>
     }
 
-    <div class="list-item-state-building-block bg-white @Html.Raw(dividerClass)">
+    <div class="list-item-state-building-block bg-white">
         <@(Html.Raw(tag)) class="list-item-state-layer py-2 ps-3 pe-4 row d-flex m-0">
 
             @if (leading != null)
@@ -118,9 +118,14 @@
         </@(Html.Raw(tag))>
     </div>
 
+    @if (showDivider)
+    {
+        <div class="position-absolute border-2 border-bottom border-neutral600 w-100" style="right: 0; transform: translateY(-1.6px);"> </div>
+    }
+
     @if (showSupportive && !showSupportiveInside)
     {
-        <div class="list-item-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass">
+        <div class="list-item-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass" style="rigth: 0;">
             @supportive
         </div>
     }
