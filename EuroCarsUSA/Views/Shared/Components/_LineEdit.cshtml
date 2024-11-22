@@ -9,9 +9,6 @@
     var leading = Model.Leading;
     var trailing = Model.Trailing;
 
-    bool clickable = Model.Clickable;
-    string tag = clickable ? "label" : "div";
-
     string headline = Model.Headline;
 
     bool showOverline = Model.ShowOverline;
@@ -35,28 +32,28 @@
 
 }
 
-<div class="@Html.Raw($"list-item position-relative {classes}")">
+<div class="@Html.Raw($"line-edit position-relative {classes}")">
     @if (showOverline && !showOverlineInside)
     {
-        <div class="list-item-overline-text text-label-md text-neutral-900 px-1 @noOverlineSizeEffectClass" style="@noOverlineSizeEffectStyle">
+        <div class="line-edit-overline-text text-label-md text-neutral-900 px-1 @noOverlineSizeEffectClass" style="@noOverlineSizeEffectStyle">
             @overline
         </div>
     }
 
-    <@(Html.Raw(tag)) class="list-item-state-layer py-1 row d-flex m-0 bg-white">
+    <label class="line-edit-state-layer py-1 row d-flex m-0 bg-white">
 
         @if (leading != null)
         {
-            <div class="list-item-leading-element col-auto center-items">
+            <div class="line-edit-leading-element col-auto center-items">
                 @leading
             </div>
         }
 
 
-        <div class="list-item-content col p-0 d-block w-100 align-content-center">
+        <div class="line-edit-content col p-0 d-block w-100 align-content-center">
             @if ((showOverline == true) && (showOverlineInside == true))
             {
-                <div class="list-item-overline-text text-label-md text-neutral-900 row m-0">
+                <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
                     @overline
                 </div>
             }
@@ -68,11 +65,11 @@
 
         @if ((trailing != null) || (showAdditional == true))
         {
-            <div class="list-item-trailing-element col-auto p-0 ms-3 center-items">
+            <div class="line-edit-trailing-element col-auto p-0 ms-3 center-items">
                 <div class="row m-0 d-flex align-items-center">
                     @if (showAdditional)
                     {
-                        <div class=" d-flex list-item-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-center align-items-center"
+                        <div class=" d-flex line-edit-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-center align-items-center"
                              style="width: 24px; height:24px; margin-inline-end: 10px">
                             @additional
                         </div>
@@ -87,13 +84,13 @@
                 </div>
             </div>
         }
-    </@(Html.Raw(tag))>
+    </label>
 
     <div class="position-absolute border-2 border-bottom border-neutral900 w-100" style="right: 0; transform: translateY(-1.6px);"> </div>
 
     @if (showSupportive)
     {
-        <div class="list-item-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass">
+        <div class="line-edit-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass">
             @supportive
         </div>
     }
