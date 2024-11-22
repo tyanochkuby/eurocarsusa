@@ -37,7 +37,7 @@
                     Supportive = "Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line ",
 
                     ShowAdditional = false,
-                    ShowAdditionalBackgroud = true,
+                    ShowAdditionalBackground = true,
                     Additional = "100+",
 
                     ShowDivider = true
@@ -46,13 +46,13 @@
             <div class="col">
             @Html.Partial("_LineEdit", new
                 {
-                    Classes = "mb-3",
-                    Attributes = "",
+                    Classes = "",
+                    Attributes = $"title=\"Only numbers!\" pattern=\"\\d+\"",
 
-                    Leading = Html.Partial("_Icon", new { IconName = Url.Content("Search"), Color = "neutral900" }),
+                    Leading = (object)null,
                     Trailing = Html.Partial("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "neutral900" }),
 
-                    Headline = "Placeholder",
+                    Placeholder = "Placeholder",
 
                     ShowOverline = true,
                     ShowOverlineInside = true,
@@ -64,7 +64,7 @@
                     Supportive = "Supporting line",
 
                     ShowAdditional = true,
-                    ShowAdditionalBackgroud = true,
+                    ShowAdditionalBackground = true,
                     Additional = "100+"
                 })
             </div>

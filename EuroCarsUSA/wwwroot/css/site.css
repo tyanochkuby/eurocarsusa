@@ -884,16 +884,16 @@ button#mobile-filter-select-save-button .carIcon {
     border: 2px solid;
     border-color: var(--bs-primary);
     border-radius: 4px;
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
 
-    
 
-    
+
+
     .checkbox-custom::before {
         content: "";
         position: absolute;
@@ -904,8 +904,8 @@ button#mobile-filter-select-save-button .carIcon {
         height: 40px;
         background-color: var(--bs-primary);
         opacity: 0;
-        border-radius: 100%; 
-        transition: opacity 0.2s ease;
+        border-radius: 100%;
+        transition: opacity 0.3s cubic-bezier(0.3, 0, 0, 1);
     }
 
     
@@ -948,7 +948,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     height: 32px;
     background-color: var(--bs-secondary);
     border-radius: 100px;
-    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
     box-shadow: inset 0 0 0 2px var(--bs-primary);
 }
 
@@ -956,7 +956,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
         background-color: var(--bs-primary);
     }
         .switch.active .switch-handle-shape {
-            background-color: white; /* Цвет при активном (включенном) состоянии */
+            background-color: white;
         }
 
         .switch.active:hover .switch-handle-shape {
@@ -970,7 +970,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     top: -8px;
     left: -8px;
     padding: 4px;
-    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
 
     .switch-target.active-position {
@@ -991,7 +991,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     border-radius: 100px;
     padding: 8px;
     background-color: rgba(var(--bs-primary-rgb), 0.00);
-    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
 
 .switch:hover .switch-state-layer {
@@ -1007,7 +1007,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     align-items: center;
     border-radius: 100px;
     background-color: rgba(var(--bs-primary-rgb), 1);
-    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
 
     .switch-handle-shape svg {
@@ -1017,16 +1017,24 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
 
 
 
+.list-item-state-layer {
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
 
+.list-item-state-building-block:hover .list-item-state-layer {
+    background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
 
 .list-item-supportive-text.two-line {
     display: -webkit-box; /* Создаем многострочный контейнер */
     -webkit-line-clamp: 1; /* Ограничиваем до 1 строк */
     -webkit-box-orient: vertical; /* Ожидаем вертикальное направление */
-    overflow: hidden; /* Скрываем переполнение */
-    text-overflow: ellipsis; /* Добавляем троеточие в конце */
-    width: 100%; /* Делаем ширину 100%, чтобы она подстраивалась под родителя */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
+
+
 
 .divider-shadow-primary {
     box-shadow: inset 0 -1px 0 rgba(var(--bs-primary-rgb), 1);
@@ -1039,6 +1047,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
 }
 
 
+
 .border-neutral600 {
     border-color: rgba(216, 217, 226, 1) !important
 }
@@ -1048,10 +1057,96 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
 
 
 
-.list-item-state-layer {
+.line-edit-input {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    color: inherit;
+    font: inherit;
+    background-color: transparent;
+    caret-color: #646468;
+}
+
+    .line-edit-input:focus {
+        outline: none;
+    }
+
+.line-edit-state-layer {
     transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.list-item-state-building-block:hover .list-item-state-layer{
+.line-edit-text-field:hover .line-edit-state-layer {
     background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+.line-edit-overline-text {
+    color: #646468;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.line-edit-active-indicator {
+    border-bottom: solid;
+    border-color: rgba(100, 100, 104, 1);
+    border-width: 1px;
+    right: 0;
+    bottom: 0;
+    transition: border-color 0.3s cubic-bezier(0.3, 0, 0, 1),
+                border-width 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.line-edit:focus-within .line-edit-state-layer {
+    background-color: transparent;
+}
+.line-edit:focus-within .line-edit-input {
+    caret-color: var(--bs-primary);
+}
+.line-edit:focus-within .line-edit-overline-text {
+    color: var(--bs-primary);
+}
+
+.line-edit:focus-within .line-edit-active-indicator {
+    border-color: var(--bs-primary) !important;
+    border-width: 3px !important;
+}
+
+.line-edit:focus-within .line-edit-trailing-element .icon-container {
+    color: var(--bs-primary);
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+
+
+
+.line-edit.error .line-edit-state-layer {
+    background-color: transparent;
+}
+
+.line-edit.error .line-edit-input {
+    caret-color: #bd33a4;
+}
+
+.line-edit.error .line-edit-overline-text {
+    color: #bd33a4;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.line-edit.error .line-edit-active-indicator {
+    border-color: #bd33a4 !important;
+    border-width: 3px !important;
+}
+
+.line-edit.error .line-edit-trailng-supportive-text {
+    color: #bd33a4 !important;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.line-edit.error .line-edit-supportive-text {
+    color: #bd33a4 !important;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+
+.line-edit.error .line-edit-trailing-element .icon-container {
+    color: #bd33a4 !important;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
 }

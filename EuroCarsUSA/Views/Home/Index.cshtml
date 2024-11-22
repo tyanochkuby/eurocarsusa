@@ -233,7 +233,29 @@
                             <input type="number" id="minPrice" name="minPrice" placeholder="@Translator["From"]" class="form-control" value="@Context.Request.Query["minPrice"]" />
                         </div>
                         <div class="col-6 ps-1 pe-0">
-                            <input type="number" id="maxPrice" name="maxPrice" placeholder="@Translator["To"]" class="form-control" value="@Context.Request.Query["maxPrice"]" />
+                            @Html.Partial("_LineEdit", new
+                                {
+                                    Classes = "",
+                                    Attributes = $"type=\"number\" id=\"maxPrice\" name=\"maxPrice\" value=\"{Context.Request.Query["maxPrice"]}\"",
+
+                                    Leading = (object)null,
+                                    Trailing = (object)null,
+
+                                    Placeholder = Translator["To"],
+
+                                    ShowOverline = true,
+                                    ShowOverlineInside = true,
+                                    HasOutsidOverlineSizeEffect = false,
+                                    Overline = "Label",
+
+                                    ShowSupportive = false,
+                                    HasOutsideSupportiveSizeEffect = false,
+                                    Supportive = "Supporting line",
+
+                                    ShowAdditional = false,
+                                    ShowAdditionalBackground = true,
+                                    Additional = "100+"
+                                })
                         </div>
                     </div>
                 
@@ -275,7 +297,7 @@
                                                 Supportive = "Supporting line",
 
                                                 ShowAdditional = false,
-                                                ShowAdditionalBackgroud = true,
+                                                ShowAdditionalBackground = true,
                                                 Additional = "100+",
 
                                                 ShowDivider = true

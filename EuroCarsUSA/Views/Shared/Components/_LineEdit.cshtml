@@ -9,7 +9,7 @@
     var leading = Model.Leading;
     var trailing = Model.Trailing;
 
-    string headline = Model.Headline;
+    string headline = Model.Placeholder;
 
     bool showOverline = Model.ShowOverline;
     bool showOverlineInside = Model.ShowOverlineInside;
@@ -17,7 +17,7 @@
 
     string noOverlineSizeEffectClass = hasOutsidOverlineSizeEffect ? "" : "position-absolute";
     string noOverlineSizeEffectStyle = hasOutsidOverlineSizeEffect ? "" : "transform: translateY(-16px);";
-    
+
     string overline = Model.Overline;
 
     bool showSupportive = Model.ShowSupportive;
@@ -26,67 +26,69 @@
     string supportive = Model.Supportive;
 
     bool showAdditional = Model.ShowAdditional;
-    bool showAdditionalBackground = Model.ShowAdditionalBackgroud;
+    bool showAdditionalBackground = Model.ShowAdditionalBackground;
     string additionalBackgroundClass = showAdditionalBackground ? "bg-secondary" : "";
     string additional = Model.Additional;
 
+    string noLeadingClass = "";
+    if (leading == null)
+    {
+        noLeadingClass = "ps-3";
+    }
 }
 
-<div class="@Html.Raw($"line-edit position-relative {classes}")">
+<div class="@Html.Raw($"line-edit  position-relative {classes}")">
     @if (showOverline && !showOverlineInside)
     {
-        <div class="line-edit-overline-text text-label-md text-neutral-900 px-1 @noOverlineSizeEffectClass" style="@noOverlineSizeEffectStyle">
+        <div class="line-edit-overline-text text-label-md px-1 @noOverlineSizeEffectClass" style="@noOverlineSizeEffectStyle">
             @overline
         </div>
     }
 
-    <label class="line-edit-state-layer py-1 row d-flex m-0 bg-white">
-
-        @if (leading != null)
-        {
-            <div class="line-edit-leading-element col-auto center-items">
-                @leading
-            </div>
-        }
-
-
-        <div class="line-edit-content col p-0 d-block w-100 align-content-center">
-            @if ((showOverline == true) && (showOverlineInside == true))
+    <label class="line-edit-text-field d-flex row m-0 bg-white">
+        <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex @noLeadingClass">
+            @if (leading != null)
             {
-                <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
-                    @overline
+                <div class="line-edit-leading-element col-auto center-items">
+                    @leading
                 </div>
             }
-            <div class="text-body-lg text-neutral-900 row m-0">
-                <input class="p-0 border-0 text-neutral-900" type="text" placeholder="@(headline)" value="" pattern="\d+" title="only numbers">
-            </div>
-            
-        </div>
 
-        @if ((trailing != null) || (showAdditional == true))
-        {
-            <div class="line-edit-trailing-element col-auto p-0 ms-3 center-items">
-                <div class="row m-0 d-flex align-items-center">
+
+            <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                <div class="row m-0 ">
+                    <div class="line-edit-label-text col p-0 py-1">
+                        @if ((showOverline == true) && (showOverlineInside == true))
+                        {
+                            <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                @overline
+                            </div>
+                        }
+                        <div class="text-body-lg text-neutral-900 row m-0">
+                            <input class="p-0 text-neutral-900 line-edit-input" @Html.Raw(attributes) placeholder="@(headline)" oninput="validateInput(this)">
+                        </div>
+                    </div>
                     @if (showAdditional)
                     {
-                        <div class=" d-flex line-edit-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-center align-items-center"
-                             style="width: 24px; height:24px; margin-inline-end: 10px">
-                            @additional
-                        </div>
-                    }
-
-                    @if (trailing != null)
-                    {
-                        <div class="col-auto p-0 d-flex">
-                            @trailing
+                        <div class=" col-auto line-edit-trailng-supportive-text text-label-sm text-primary-900 p-0 align-content-center">
+                            <div class="d-flex  @additionalBackgroundClass rounded-16 align-items-center justify-content-center "
+                                 style="width: 24px; height:24px;">
+                                @additional
+                            </div>
                         </div>
                     }
                 </div>
             </div>
-        }
+            @if ((trailing != null))
+            {
+                <div class="col-auto p-0 d-flex line-edit-trailing-element">
+                    @trailing
+                </div>
+            }
+        </div>
     </label>
 
-    <div class="position-absolute border-2 border-bottom border-neutral900 w-100" style="right: 0; transform: translateY(-1.6px);"> </div>
+    <div class="line-edit-active-indicator position-absolute w-100"> </div>
 
     @if (showSupportive)
     {
@@ -96,3 +98,33 @@
     }
 </div>
 
+<script>
+    function validateInput(input) {
+        const lineEdit = input.closest('.line-edit');
+
+        const supportiveText = lineEdit.querySelector('.line-edit-supportive-text');
+
+        if (!supportiveText) {
+            console.warn("No suppotive text in lineinput");
+            return;
+        }
+
+        const errorMessage = (input.title || "Invalid input!") + "\n";
+
+        const currentText = supportiveText.textContent;
+
+        if (input.checkValidity()) {
+            if (currentText.startsWith(errorMessage)) {
+                supportiveText.textContent = currentText.replace(errorMessage, "").trim();
+            }
+            lineEdit.classList.remove('error');
+        } else {
+            if (!currentText.startsWith(errorMessage)) {
+                supportiveText.textContent = `${errorMessage}${currentText}`.trim();
+            }
+            lineEdit.classList.add('error');
+        }
+    }
+
+
+</script>
