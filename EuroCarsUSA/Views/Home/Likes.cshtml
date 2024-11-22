@@ -7,36 +7,6 @@
 <h1 class="fh-header text-center mb-3">@Translator["LikesHeader"]</h1>
 
 <div class="bg-primary-200 p-5">
-
-    @Html.Partial("_LineEdit", new
-        {
-            Classes = "mb-3",
-            Attributes = "",
-
-            Leading = Html.Partial("_Icon", new { IconName = Url.Content("Search"), Color = "neutral900" }),
-            Trailing = Html.Partial("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "neutral900" }),
-            Clickable = true,
-
-            Condition = "1-line",
-            Headline = "Placeholder",
-
-            ShowOverline = true,
-            ShowOverlineInside = true,
-            HasOutsidOverlineSizeEffect = false,
-            Overline = "Label",
-
-            ShowSupportive = true,
-            ShowSupportiveInside = false,
-            HasOutsideSupportiveSizeEffect = false,
-            Supportive = "Supporting line",
-
-            ShowAdditional = true,
-            ShowAdditionalBackgroud = false,
-            Additional = "100+"
-        })
-
-    
-
         <div class="row">
             <div class="col">
             @Html.Partial("_ListItem", new
@@ -73,7 +43,32 @@
                     ShowDivider = true
                 })
             </div>
-            <div class="col"></div>
+            <div class="col">
+            @Html.Partial("_LineEdit", new
+                {
+                    Classes = "mb-3",
+                    Attributes = "",
+
+                    Leading = Html.Partial("_Icon", new { IconName = Url.Content("Search"), Color = "neutral900" }),
+                    Trailing = Html.Partial("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "neutral900" }),
+                    Clickable = true,
+
+                    Headline = "Placeholder",
+
+                    ShowOverline = true,
+                    ShowOverlineInside = true,
+                    HasOutsidOverlineSizeEffect = false,
+                    Overline = "Label",
+
+                    ShowSupportive = true,
+                    HasOutsideSupportiveSizeEffect = false,
+                    Supportive = "Supporting line",
+
+                    ShowAdditional = true,
+                    ShowAdditionalBackgroud = false,
+                    Additional = "100+"
+                })
+            </div>
         </div>
 </div>
 

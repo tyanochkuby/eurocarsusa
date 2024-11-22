@@ -24,25 +24,9 @@
     string overline = Model.Overline;
 
     bool showSupportive = Model.ShowSupportive;
-    bool showSupportiveInside = Model.ShowSupportiveInside;
     bool hasOutsideSupportiveSizeEffect = Model.HasOutsideSupportiveSizeEffect;
     string noSupportiveSizeEffectClass = hasOutsideSupportiveSizeEffect ? "" : "position-absolute";
     string supportive = Model.Supportive;
-
-    string condition = Model.Condition ?? "1-line";             // "1-line" "2-line" "3-line"
-    string finalCondition = condition;
-
-    if (condition == "1-line")
-    {
-        showSupportive = false;
-    }
-    if (!showSupportive)
-    {
-        finalCondition = "1-line";
-    }
-    string twoLineClass = (finalCondition == "2-line") ? "two-line" : "";
-    string heightStyle = (finalCondition == "3-line" && showSupportiveInside) ? "68px;" : "";
-    string noThreeLineClass = (finalCondition == "3-line" && showSupportiveInside) ? "" : "center-items";
 
     bool showAdditional = Model.ShowAdditional;
     bool showAdditionalBackground = Model.ShowAdditionalBackgroud;
@@ -63,7 +47,7 @@
 
         @if (leading != null)
         {
-            <div class="list-item-leading-element col-auto @noThreeLineClass">
+            <div class="list-item-leading-element col-auto center-items">
                 @leading
             </div>
         }
@@ -80,18 +64,12 @@
                 <input class="p-0 border-0 text-neutral-900" type="text" placeholder="@(headline)" value="" pattern="\d+" title="only numbers">
             </div>
             
-            @if ((showSupportive) && (showSupportiveInside))
-            {
-                <div class="list-item-supportive-text text-body-md text-neutral-900 row m-0 @twoLineClass">
-                    @supportive
-                </div>
-            }
         </div>
 
         @if ((trailing != null) || (showAdditional == true))
         {
-            <div class="list-item-trailing-element col-auto p-0 ms-3 @noThreeLineClass">
-                <div class="row m-0 d-flex align-items-center" style="height: @heightStyle">
+            <div class="list-item-trailing-element col-auto p-0 ms-3 center-items">
+                <div class="row m-0 d-flex align-items-center">
                     @if (showAdditional)
                     {
                         <div class=" d-flex list-item-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-center align-items-center"
@@ -113,7 +91,7 @@
 
     <div class="position-absolute border-2 border-bottom border-neutral900 w-100" style="right: 0; transform: translateY(-1.6px);"> </div>
 
-    @if (showSupportive && !showSupportiveInside)
+    @if (showSupportive)
     {
         <div class="list-item-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass">
             @supportive
