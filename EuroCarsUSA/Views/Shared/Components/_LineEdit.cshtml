@@ -21,8 +21,11 @@
     string overline = Model.Overline;
 
     bool showSupportive = Model.ShowSupportive;
+    string noSupportiveClass = showSupportive ? "d-block" : "d-none";
+
     bool hasOutsideSupportiveSizeEffect = Model.HasOutsideSupportiveSizeEffect;
     string noSupportiveSizeEffectClass = hasOutsideSupportiveSizeEffect ? "" : "position-absolute";
+    
     string supportive = Model.Supportive;
 
     bool showAdditional = Model.ShowAdditional;
@@ -90,12 +93,11 @@
 
     <div class="line-edit-active-indicator position-absolute w-100"> </div>
 
-    @if (showSupportive)
-    {
-        <div class="line-edit-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass">
-            @supportive
-        </div>
-    }
+    <div class="line-edit-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass @noSupportiveClass">
+        @if (showSupportive) {
+            @supportive;
+        }
+    </div>
 </div>
 
 <script>
@@ -104,23 +106,23 @@
 
         const supportiveText = lineEdit.querySelector('.line-edit-supportive-text');
 
-        if (!supportiveText) {
-            console.warn("No suppotive text in lineinput");
-            return;
-        }
-
-        const errorMessage = (input.title || "Invalid input!") + "\n";
+        const errorMessage = (input.title || "Invalid input!");
 
         const currentText = supportiveText.textContent;
 
         if (input.checkValidity()) {
             if (currentText.startsWith(errorMessage)) {
-                supportiveText.textContent = currentText.replace(errorMessage, "").trim();
+                supportiveText.innerHTML = currentText.replace(errorMessage, "").trim();
+                supportiveText.innerHTML = supportiveText.innerHTML.replace("<br>", "").trim();
+
             }
             lineEdit.classList.remove('error');
         } else {
+            if (supportiveText.classList.contains('d-none')) {
+                supportiveText.classList.replace('d-none', 'd-block');
+            }
             if (!currentText.startsWith(errorMessage)) {
-                supportiveText.textContent = `${errorMessage}${currentText}`.trim();
+                supportiveText.innerHTML = `${errorMessage}<br>${currentText}`.trim();
             }
             lineEdit.classList.add('error');
         }
