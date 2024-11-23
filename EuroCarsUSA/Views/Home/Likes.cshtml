@@ -47,7 +47,7 @@
             @Html.Partial("_LineEdit", new
                 {
                     Classes = "",
-                    Attributes = $"title=\"Only numbers!\" pattern=\"\\d+\"",
+                    Attributes = $"title=\"Only numbers!\" pattern=\"\\d+\" type=\"text\"",
 
                     Leading = (object)null,
                     Trailing = Html.Partial("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "neutral900" }),
@@ -59,7 +59,7 @@
                     HasOutsidOverlineSizeEffect = false,
                     Overline = "Label",
 
-                    ShowSupportive = false,
+                    ShowSupportive = true,
                     HasOutsideSupportiveSizeEffect = false,
                     Supportive = "Supporting line",
 

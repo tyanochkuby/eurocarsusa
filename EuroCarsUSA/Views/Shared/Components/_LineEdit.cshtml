@@ -9,6 +9,18 @@
     var leading = Model.Leading;
     var trailing = Model.Trailing;
 
+    string noLeadingClass = "";
+    if (leading == null)
+    {
+        noLeadingClass = "ps-3";
+    }
+
+    string noTrailingClass = "";
+    if (trailing == null)
+    {
+        noTrailingClass = "pe-3";
+    }
+
     string headline = Model.Placeholder;
 
     bool showOverline = Model.ShowOverline;
@@ -32,12 +44,6 @@
     bool showAdditionalBackground = Model.ShowAdditionalBackground;
     string additionalBackgroundClass = showAdditionalBackground ? "bg-secondary" : "";
     string additional = Model.Additional;
-
-    string noLeadingClass = "";
-    if (leading == null)
-    {
-        noLeadingClass = "ps-3";
-    }
 }
 
 <div class="@Html.Raw($"line-edit  position-relative {classes}")">
@@ -49,7 +55,7 @@
     }
 
     <label class="line-edit-text-field d-flex row m-0 bg-white">
-        <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex @noLeadingClass">
+        <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex @noLeadingClass @noTrailingClass">
             @if (leading != null)
             {
                 <div class="line-edit-leading-element col-auto center-items">
