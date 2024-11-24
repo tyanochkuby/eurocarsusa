@@ -2,7 +2,7 @@
     string iconSrc = ViewData["IconSrc"] as string;
 }
 
-<button class="fab bg-primary rounded-16 shadow ripple-effect-secondary">
+<button class="fab bg-primary rounded-16 my-shadow-3 ripple-effect-secondary">
     <div class="p-3">
         @Html.Partial("_Icon", new { IconName = iconSrc, Color = "white" })
     </div>
