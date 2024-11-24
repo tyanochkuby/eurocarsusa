@@ -7,7 +7,7 @@
 <h1 class="fh-header text-center mb-3">@Translator["LikesHeader"]</h1>
 
 <div class="bg-primary-200 p-5">
-        <div class="row">
+    <div class="row">
             <div class="col">
             @Html.Partial("_ListItem", new
                 {
@@ -67,6 +67,25 @@
                     ShowAdditionalBackground = true,
                     Additional = "100+"
                 })
+            </div>
+            <div class="col">
+                @Html.Partial("_ExpandButton", new
+                    {
+                        Classes = "",
+                        Attributes = $"",
+
+                        Leading = (object)null,
+                        Placeholder = "Placeholder",
+
+                        ShowOverline = true,
+                        ShowOverlineInside = false,
+                        HasOutsidOverlineSizeEffect = false,
+                        Overline = "Label",
+
+                        ShowAdditional = true,
+                        ShowAdditionalBackground = true,
+                        Additional = "100+"
+                    })
             </div>
         </div>
 </div>

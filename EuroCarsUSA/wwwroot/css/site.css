@@ -1110,7 +1110,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
 
-.line-edit-active-indicator {
+.active-indicator {
     border-bottom: solid;
     border-color: rgba(100, 100, 104, 1);
     border-width: 1px;
@@ -1130,7 +1130,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     color: var(--bs-primary);
 }
 
-.line-edit:focus-within .line-edit-active-indicator {
+.line-edit:focus-within .active-indicator {
     border-color: var(--bs-primary) !important;
     border-width: 3px !important;
 }
@@ -1156,7 +1156,7 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
 
-.line-edit.error .line-edit-active-indicator {
+.line-edit.error .active-indicator {
     border-color: #bd33a4 !important;
     border-width: 3px !important;
 }

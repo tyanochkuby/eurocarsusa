@@ -209,7 +209,7 @@
             <div class="pb-2 pt-0">
                 <div class="fh-title-subhead">@Translator["SortBy"] :</div>
                 
-                <select id="sortOrder" name="sortOrder" class="form-control w-100">
+                <select id="sortOrder" name="sortOrder" class="w-100">
                     @foreach (SortOrder sortOrder in Enum.GetValues(typeof(SortOrder)))
                     {
                         if (Context.Request.Query["sortOrder"] == sortOrder.ToString())
@@ -228,12 +228,25 @@
             <div class="row">
                 <div class="col-12 p-3 bg-neutral-100 rounded-16">
                 
-                    <div class="pb-2 pt-0">
-                        <div class="fh-regular">@Translator["Make"]</div>
+                    <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownMenuButton" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span>@(selectedMakes.Any() ? string.Join(", ", selectedMakes) : Translator["Choose"])</span>
-                            </button>
+                            @Html.Partial("_ExpandButton", new
+                                {
+                                    Classes = "",
+                                    Attributes = $"type=\"button\" id=\"dropdownMenuButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+
+                                    Leading = (object)null,
+                                    Placeholder = (selectedMakes.Any() ? string.Join(", ", selectedMakes) : Translator["Choose"]),
+
+                                    ShowOverline = true,
+                                    ShowOverlineInside = true,
+                                    HasOutsidOverlineSizeEffect = false,
+                                    Overline = Translator["Make"],
+
+                                    ShowAdditional = false,
+                                    ShowAdditionalBackground = true,
+                                    Additional = "100+"
+                                })
                             <ul class="dropdown-menu w-100" name="make" aria-labelledby="dropdownMenuButton">
                                 @foreach (FilterOptionViewModel makeOption in ViewBag.AvailableFilters["make"])
                                 {
@@ -274,22 +287,55 @@
                                     </li>
                                 }
                             </ul>
-
                         </div>
                         <input value="@Context.Request.Query["make"]" type="hidden" id="makeInput" name="make">
                     </div>
 
-                    <div class="py-2">
-                        <div fh-regular>@Translator["Model"]</div>
-                        <input type="text" id="model" name="model" class="form-control" placeholder="@Translator["Type"]" value="@Context.Request.Query["model"]" />
+                    <div class="mb-3">
+                            @Html.Partial("_LineEdit", new
+                            {
+                                Classes = "",
+                                Attributes = $"type=\"text\" id=\"model\" name=\"model\" value=\"{Context.Request.Query["model"]}\"",
+
+                                Leading = (object)null,
+                                Trailing = (object)null,
+
+                                Placeholder = Translator["Type"],
+
+                                ShowOverline = true,
+                                ShowOverlineInside = true,
+                                HasOutsidOverlineSizeEffect = false,
+                                Overline = @Translator["Model"],
+
+                                ShowSupportive = false,
+                                HasOutsideSupportiveSizeEffect = false,
+                                Supportive = "Supporting line",
+
+                                ShowAdditional = false,
+                                ShowAdditionalBackground = true,
+                                Additional = "100+"
+                            })
                     </div>
                 
-                    <div class="pb-2 pt-0">
-                        <div class="fh-regular">@Translator["CarType"]</div>
+                    <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownCarTypeButton"  data-bs-toggle="dropdown" aria-expanded="false">
-                                <span>@(selectedCarTypes.Any() ? string.Join(", ", selectedCarTypes) : Translator["Choose"])</span>
-                            </button>
+                            @Html.Partial("_ExpandButton", new
+                                {
+                                    Classes = "",
+                                    Attributes = $"type=\"button\" id=\"dropdownCarTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+
+                                    Leading = (object)null,
+                                    Placeholder = (selectedCarTypes.Any() ? string.Join(", ", selectedCarTypes) : Translator["Choose"]),
+
+                                    ShowOverline = true,
+                                    ShowOverlineInside = true,
+                                    HasOutsidOverlineSizeEffect = false,
+                                    Overline = Translator["CarType"],
+
+                                    ShowAdditional = false,
+                                    ShowAdditionalBackground = true,
+                                    Additional = "100+"
+                                })
                             <ul class="dropdown-menu w-100" name="carType" aria-labelledby="dropdownCarTypeButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["carType"])
                                 {
@@ -335,12 +381,25 @@
                         <input value="@Context.Request.Query["carType"]" type="hidden" id="carTypeInput" name="carType">
                     </div>
 
-                    <div class="pb-2 pt-0">
-                        <div class="fh-regular">@Translator["FuelType"]</div>
+                    <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownFuelTypeButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span>@(selectedFuelTypes.Any() ? string.Join(", ", selectedFuelTypes) : Translator["Choose"])</span>
-                            </button>
+                            @Html.Partial("_ExpandButton", new
+                                {
+                                    Classes = "",
+                                    Attributes = $"type=\"button\" id=\"dropdownFuelTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+
+                                    Leading = (object)null,
+                                    Placeholder = (selectedFuelTypes.Any() ? string.Join(", ", selectedFuelTypes) : Translator["Choose"]),
+
+                                    ShowOverline = true,
+                                    ShowOverlineInside = true,
+                                    HasOutsidOverlineSizeEffect = false,
+                                    Overline = Translator["FuelType"],
+
+                                    ShowAdditional = false,
+                                    ShowAdditionalBackground = true,
+                                    Additional = "100+"
+                                })
                             <ul class="dropdown-menu w-100" name="fuelType" aria-labelledby="dropdownFuelTypeButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["fuelType"])
                                 {
@@ -386,12 +445,25 @@
                         <input value="@Context.Request.Query["fuelType"]" type="hidden" id="fuelTypeInput" name="fuelType">
                     </div>
 
-                    <div class="pb-2 pt-0">
-                        <div class="fh-regular">@Translator["Transmission"]</div>
+                    <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownTransmissionButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span>@(selectedTransmissions.Any() ? string.Join(", ", selectedTransmissions) : Translator["Choose"])</span>
-                            </button>
+                            @Html.Partial("_ExpandButton", new
+                                {
+                                    Classes = "",
+                                    Attributes = $"type=\"button\" id=\"dropdownTransmissionButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+
+                                    Leading = (object)null,
+                                    Placeholder = (selectedTransmissions.Any() ? string.Join(", ", selectedTransmissions) : Translator["Choose"]),
+
+                                    ShowOverline = true,
+                                    ShowOverlineInside = true,
+                                    HasOutsidOverlineSizeEffect = false,
+                                    Overline = Translator["Transmission"],
+
+                                    ShowAdditional = false,
+                                    ShowAdditionalBackground = true,
+                                    Additional = "100+"
+                                })
                             <ul class="dropdown-menu w-100" name="transmission" aria-labelledby="dropdownTransmissionButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["transmission"])
                                 {
@@ -432,17 +504,29 @@
                                     </li>
                                 }
                             </ul>
-
                         </div>
                         <input value="@Context.Request.Query["transmission"]" type="hidden" id="transmissionInput" name="transmission">
                     </div>
 
-                    <div class="pb-2 pt-0">
-                        <div class="fh-regular">@Translator["Color"]</div>
+                    <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            <button class="btn dropdown-toggle text-start w-100" type="button" id="dropdownColorButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span>@(selectedColors.Any() ? string.Join(", ", selectedColors) : Translator["Choose"])</span>
-                            </button>
+                            @Html.Partial("_ExpandButton", new
+                                {
+                                    Classes = "",
+                                    Attributes = $"type=\"button\" id=\"dropdownColorButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+
+                                    Leading = (object)null,
+                                    Placeholder = (selectedColors.Any() ? string.Join(", ", selectedColors) : Translator["Choose"]),
+
+                                    ShowOverline = true,
+                                    ShowOverlineInside = true,
+                                    HasOutsidOverlineSizeEffect = false,
+                                    Overline = Translator["Color"],
+
+                                    ShowAdditional = false,
+                                    ShowAdditionalBackground = true,
+                                    Additional = "100+"
+                                })
                             <ul class="dropdown-menu w-100" name="color" aria-labelledby="dropdownColorButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["color"])
                                 {
