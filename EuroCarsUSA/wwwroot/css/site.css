@@ -874,7 +874,8 @@ button#mobile-filter-select-save-button .carIcon {
 
 .checkbox-wrapper {
     position: relative;
-    padding: 11px; 
+    padding: 11px;
+    border-radius: 100%;
 }
 
 
