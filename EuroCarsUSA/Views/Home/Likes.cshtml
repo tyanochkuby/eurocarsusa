@@ -6,6 +6,90 @@
 
 <h1 class="fh-header text-center mb-3">@Translator["LikesHeader"]</h1>
 
+<div class="bg-primary-200 p-5">
+    <div class="row">
+            <div class="col">
+            @Html.Partial("_ListItem", new
+                {
+                    Classes = "",
+                    Attributes = "",
+
+                    Leading = Html.Partial("_Icon", new { IconName = Url.Content("Search"), Color = "neutral900" }),
+                    Trailing = Html.Partial("_Checkbox", new
+                    {
+                        Text = "",
+                        Classes = "",
+                        Attributes = ""
+                    }),
+                    Clickable = true,
+
+                    Condition = "2-line",
+                    Headline = "List Item",
+
+                    ShowOverline = false,
+                    ShowOverlineInside = true,
+                    HasOutsidOverlineSizeEffect = false,
+                    Overline = "Overline111",
+
+                    ShowSupportive = true,
+                    ShowSupportiveInside = false,
+                    HasOutsideSupportiveSizeEffect = false,
+                    Supportive = "Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line ",
+
+                    ShowAdditional = false,
+                    ShowAdditionalBackground = true,
+                    Additional = "100+",
+
+                    ShowDivider = true
+                })
+            </div>
+            <div class="col">
+            @Html.Partial("_LineEdit", new
+                {
+                    Classes = "",
+                    Attributes = $"title=\"Only numbers!\" pattern=\"\\d+\" type=\"text\"",
+
+                    Leading = (object)null,
+                    Trailing = Html.Partial("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "neutral900" }),
+
+                    Placeholder = "Placeholder",
+
+                    ShowOverline = true,
+                    ShowOverlineInside = true,
+                    HasOutsidOverlineSizeEffect = false,
+                    Overline = "Label",
+
+                    ShowSupportive = true,
+                    HasOutsideSupportiveSizeEffect = false,
+                    Supportive = "Supporting line",
+
+                    ShowAdditional = true,
+                    ShowAdditionalBackground = true,
+                    Additional = "100+"
+                })
+            </div>
+            <div class="col">
+                @Html.Partial("_ExpandButton", new
+                    {
+                        Classes = "",
+                        Attributes = $"",
+
+                        Leading = (object)null,
+                        Placeholder = "Placeholder",
+
+                        ShowOverline = true,
+                        ShowOverlineInside = false,
+                        HasOutsidOverlineSizeEffect = false,
+                        Overline = "Label",
+
+                        ShowAdditional = true,
+                        ShowAdditionalBackground = true,
+                        Additional = "100+"
+                    })
+            </div>
+        </div>
+</div>
+
 <div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">
     <div class="row mx-0">
         @foreach (Car car in Model)
