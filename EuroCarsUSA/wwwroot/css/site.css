@@ -1150,3 +1150,73 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     color: #bd33a4 !important;
     transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
+
+.fab {
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+}
+
+.ripple-effect-secondary {
+    position: relative;
+    overflow: hidden; /* Эффект остаётся внутри элемента */
+    outline: none;
+}
+
+    .ripple-effect-secondary::after {
+        content: "";
+        position: absolute;
+        top: var(--ripple-y, 50%);
+        left: var(--ripple-x, 50%);
+        width: 0;
+        height: 0;
+        background-color: rgba(var(--bs-secondary-rgb), 0.12);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none; /* Чтобы эффект не мешал кликам */
+        transition: width 0.3s cubic-bezier(0.3, 0, 0, 1), height 0.3s cubic-bezier(0.3, 0, 0, 1), opacity 0.3s ease-in-out;
+    }
+
+    .ripple-effect-secondary.active::after {
+        opacity: 1; /* Делаем эффект видимым */
+        width: 125%; /* Достаточно, чтобы покрыть всю кнопку */
+        height: 125%;
+    }
+
+    .ripple-effect-secondary.fade-out::after {
+        opacity: 0; /* Исчезновение эффекта */
+        transition: opacity 0.3s ease-in-out; /* Плавное исчезновение */
+    }
+
+.ripple-effect-primary {
+    position: relative;
+    overflow: hidden; /* Эффект остаётся внутри элемента */
+    outline: none;
+}
+
+    .ripple-effect-primary::after {
+        content: "";
+        position: absolute;
+        top: var(--ripple-y, 50%);
+        left: var(--ripple-x, 50%);
+        width: 0;
+        height: 0;
+        background-color: rgba(var(--bs-primary-rgb), 0.12);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none; /* Чтобы эффект не мешал кликам */
+        transition: width 0.3s cubic-bezier(0.3, 0, 0, 1), height 0.3s cubic-bezier(0.3, 0, 0, 1), opacity 0.3s ease-in-out;
+    }
+
+    .ripple-effect-primary.active::after {
+        opacity: 1; /* Делаем эффект видимым */
+        width: 125%; /* Достаточно, чтобы покрыть всю кнопку */
+        height: 125%;
+    }
+
+    .ripple-effect-primary.fade-out::after {
+        opacity: 0; /* Исчезновение эффекта */
+        transition: opacity 0.3s ease-in-out; /* Плавное исчезновение */
+    }

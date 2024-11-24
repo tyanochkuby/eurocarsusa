@@ -90,7 +90,10 @@
         }
         <main role="main" class="main pb-3">
 
-            
+            @{
+                ViewData["IconSrc"] = Url.Content("Mode");
+            }
+            @Html.Partial("_FAB")
 
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">
