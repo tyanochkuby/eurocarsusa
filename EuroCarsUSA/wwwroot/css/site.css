@@ -718,16 +718,17 @@ button#mobile-filter-select-save-button .carIcon {
 
 
 
-.sidebar {
-    width: 80px;
-    height: 100vh;
-    position: fixed;
-}
-.main {
-    margin-top: 56px; /* height of header */
-    margin-left: 80px; /* width of sidebar*/
 
-
+@media (min-width:768px) {
+    .main {
+        margin-top: 56px; /* height of header */
+        margin-left: 80px; /* width of sidebar*/
+    }
+    .sidebar {
+        width: 80px;
+        height: 100vh;
+        position: fixed;
+    }
 }
 
 

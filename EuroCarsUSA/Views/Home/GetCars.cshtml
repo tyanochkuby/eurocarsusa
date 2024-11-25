@@ -12,9 +12,9 @@
     <div class="row mx-0">
         @foreach (Car car in Model.Cars)
         {
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 px-1 px-sm-2">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 px-0">
                 <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none">
-                    <div class="card mb-4 pt-2 box-shadow rounded-xxl">
+                    <div class="card pt-2 box-shadow rounded-xxl">
                         <div class="img-container overflow-hidden mx-2 mt-1">
                             <img class="card-img float-left rounded-xxl" src=@car.Images[0] alt=@(car.Color.ToString() + car.Make.ToString() + car.Model)>
                         </div>

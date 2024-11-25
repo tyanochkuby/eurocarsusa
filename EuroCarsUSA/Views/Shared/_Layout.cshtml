@@ -36,8 +36,10 @@
                         @Html.Partial("_Button")
                     </a>
                 </div>
-                
-                @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
+                }
 
                 <div class="me-3">
                     <a asp-controller="Home"
@@ -62,9 +64,9 @@
 
 
     <div class="px-0">
-        @if (User.IsInRole("Admin"))
-        {
-            <div class="sidebar bg-primary-50 shadow py-2 d-flex flex-column align-items-center gap-3">
+        <div class="sidebar bg-primary-50 shadow py-2 d-flex flex-column align-items-center gap-3">
+            @if (User.IsInRole("Admin"))
+            {
                 <div>
                     <a asp-controller="Home"
                        asp-action="Index"
@@ -107,18 +109,17 @@
                 </div>
                 <div>
                     <a asp-controller="Admin"
-                        asp-action="Statistics"
-                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                       asp-action="Statistics"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
                         @{
                             ViewData["IconSrc"] = Url.Content("Data thresholding");
                         }
                         @Html.Partial("_FAB")
                     </a>
-                </div> 
-            </div>
-        }
-        else{
-            <div class="sidebar bg-primary-50 shadow py-2 d-flex flex-column align-items-center gap-3">
+                </div>
+            }
+            else
+            {
                 <div>
                     <a asp-controller="Home"
                        asp-action="Index"
@@ -150,8 +151,9 @@
                         @Html.Partial("_FAB")
                     </a>
                 </div>
-            </div>
-        }
+            }
+        </div>
+        
         <main role="main" class="main pb-3">
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">
