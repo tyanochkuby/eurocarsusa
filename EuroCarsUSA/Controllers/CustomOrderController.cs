@@ -6,21 +6,21 @@ namespace EuroCarsUSA.Controllers
 {
     public class CustomOrderController : Controller
     {
-        private readonly IFormService _formService;
-        public CustomOrderController(IFormService formService)
+        private readonly ICustomOrderService _customOrderService;
+        public CustomOrderController(ICustomOrderService customOrderService)
         {
-            _formService = formService;
+            _customOrderService = customOrderService;
         }
         [HttpPost]
-        public async Task<IActionResult> SubmitForm(FormViewModel formViewModel)
+        public async Task<IActionResult> SubmitForm(CustomOrderViewModel customOrderViewModel)
         {
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
-                return View("Index", formViewModel);
+                return View("Index", customOrderViewModel);
             }
 
-            var formId = await _formService.SubmitFormAsync(formViewModel);
+            var formId = await _customOrderService.SubmitFormAsync(customOrderViewModel);
             if (formId == null)
             {
                 return BadRequest();
@@ -38,7 +38,7 @@ namespace EuroCarsUSA.Controllers
         {
             if (Guid.TryParse(orderId, out Guid id))
             {
-                var formViewModel = await _formService.GetById(id);
+                var formViewModel = await _customOrderService.GetById(id);
                 if (formViewModel != null)
                 {
                     return View("Track", formViewModel);

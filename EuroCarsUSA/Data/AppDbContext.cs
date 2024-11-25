@@ -9,7 +9,7 @@ namespace EuroCarsUSA.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<Car> Cars { get; set; }
-        public DbSet<Form> Forms { get; set; }
+        public DbSet<CustomOrder> CustomOrders { get; set; }
         public DbSet<FormCarMake> FormCarMakes { get; set; }
 
         public DbSet<DetailPageForm> DetailPageForms { get; set; }
@@ -24,6 +24,11 @@ namespace EuroCarsUSA.Data
                 .HasOne(cs => cs.Car)
                 .WithMany()
                 .HasForeignKey(cs => cs.CarId);
+
+            modelBuilder.Entity<Form>()
+                .HasOne(f => f.CustomOrder)
+                .WithMany(co => co.Forms)
+                .HasForeignKey(f => f.CustomOrderId);
 
             modelBuilder.Entity<FormCarMake>()
                 .HasOne(fcm => fcm.Form)

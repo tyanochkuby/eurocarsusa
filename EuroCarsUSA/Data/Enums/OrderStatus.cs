@@ -1,6 +1,6 @@
 ﻿namespace EuroCarsUSA.Data.Enums
 {
-    public enum FormStatus
+    public enum OrderStatus
     {
         Sent = 0,
         Opened = 1,

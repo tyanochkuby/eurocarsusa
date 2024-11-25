@@ -6,11 +6,11 @@ using EuroCarsUSA.ViewModels;
 
 namespace EuroCarsUSA.Services
 {
-    public class FormService : IFormService
+    public class FormService : ICustomOrderService
     {
-        private readonly IFormRepository _formRepository;
+        private readonly ICustomOrderRepository _formRepository;
 
-        public FormService(IFormRepository formRepository)
+        public FormService(ICustomOrderRepository formRepository)
         {
             _formRepository = formRepository;
         }
@@ -85,7 +85,7 @@ namespace EuroCarsUSA.Services
                 MinYear = formViewModel.MinYear,
                 MaxYear = formViewModel.MaxYear,
                 Description = formViewModel.Description,
-                Status = Data.Enums.FormStatus.Sent,
+                Status = Data.Enums.OrderStatus.Sent,
                 Email = formViewModel.Email,
                 PhoneNumber = formViewModel.PhoneNumber,
                 Name = formViewModel.Name
@@ -99,7 +99,7 @@ namespace EuroCarsUSA.Services
             return null;
         }
 
-        public async Task<bool> UpdateStatus(Guid id, FormStatus status)
+        public async Task<bool> UpdateStatus(Guid id, OrderStatus status)
         {
             var form = await _formRepository.GetById(id);
             if (form == null)

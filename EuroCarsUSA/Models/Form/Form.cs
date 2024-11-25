@@ -1,6 +1,4 @@
-﻿using EuroCarsUSA.Data.Enum;
-using EuroCarsUSA.Data.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EuroCarsUSA.Models.Form
 {
@@ -8,6 +6,8 @@ namespace EuroCarsUSA.Models.Form
     {
         [Key]
         public Guid Id { get; set; }
+        public Guid CustomOrderId { get; set; }
+        public CustomOrder CustomOrder { get; set; }
         public ICollection<FormCarMake>? FormCarMakes { get; set; } = new List<FormCarMake>();
         public ICollection<FormCarColor>? FormCarColors { get; set; } = new List<FormCarColor>();
         public ICollection<FormCarType>? FormCarTypes { get; set; } = new List<FormCarType>();
@@ -19,15 +19,5 @@ namespace EuroCarsUSA.Models.Form
         public int? MinYear { get; set; }
         public int? MaxYear { get; set; }
         public string? Description { get; set; }
-        public FormStatus Status { get; set; }
-
-        [EmailAddress]
-        public string? Email { get; set; }
-
-        [Phone]
-        public string? PhoneNumber { get; set; }
-
-        [MaxLength(50)]
-        public string Name { get; set; }
     }
 }

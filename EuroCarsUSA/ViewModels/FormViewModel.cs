@@ -19,15 +19,5 @@ namespace EuroCarsUSA.ViewModels
         public int? MinYear { get; set; }
         public int? MaxYear { get; set; }
         public string? Description { get; set; }
-        public FormStatus Status { get; set; }
-
-        [MaxLength(50)]
-        public string Name { get; set; }
-
-        [EmailAddress]
-        public string? Email { get; set; }
-
-        [Phone]
-        public string? PhoneNumber { get; set; }
     }
 }

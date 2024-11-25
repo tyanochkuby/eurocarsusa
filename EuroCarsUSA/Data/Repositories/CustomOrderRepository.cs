@@ -5,10 +5,10 @@ using EuroCarsUSA.Models.Form;
 
 namespace EuroCarsUSA.Data.Repositories
 {
-    public class FormRepository : IFormRepository
+    public class CustomOrderRepository : ICustomOrderRepository
     {
         private readonly AppDbContext _context;
-        public FormRepository(AppDbContext context)
+        public CustomOrderRepository(AppDbContext context)
         {
             _context = context;
         }
@@ -17,24 +17,24 @@ namespace EuroCarsUSA.Data.Repositories
             var saved = await _context.SaveChangesAsync();
             return saved > 0 ? true : false;
         }
-        async Task<bool> IFormRepository.Add(Form form)
+        async Task<bool> ICustomOrderRepository.Add(Form form)
         {
             _context.Add(form);
             return await Save();
         }
 
-        async Task<bool> IFormRepository.Delete(Form form)
+        async Task<bool> ICustomOrderRepository.Delete(Form form)
         {
             _context.Remove(form);
             return await Save();
         }
-        async Task<bool> IFormRepository.Update(Form form)
+        async Task<bool> ICustomOrderRepository.Update(Form form)
         {
             _context.Update(form);
             return await Save();
         }
 
-        async Task<IEnumerable<Form>> IFormRepository.GetAll()
+        async Task<IEnumerable<Form>> ICustomOrderRepository.GetAll()
         {
             return await _context.Forms
                 .Include(f => f.FormCarMakes)
@@ -45,7 +45,7 @@ namespace EuroCarsUSA.Data.Repositories
                 .ToListAsync();
         }
 
-        async Task<Form> IFormRepository.GetById(Guid id)
+        async Task<Form> ICustomOrderRepository.GetById(Guid id)
         {
             return await _context.Forms
                 .Include(f => f.FormCarMakes)

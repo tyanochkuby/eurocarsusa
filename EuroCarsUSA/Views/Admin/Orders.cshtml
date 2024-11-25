@@ -4,7 +4,7 @@
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.AspNetCore.Components
 @model IEnumerable<FormViewModel>
-@inject IFormService formService
+@inject ICustomOrderService formService
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
     <div class="container p-5 pt-3 bg-white rounded-32 justify-content-center mb-2">
@@ -138,7 +138,7 @@
                             <td>@form.PhoneNumber</td>
                             <td>
                                 <select class="form-control" name="status-@form.Id" onchange="updateStatus('@form.Id', this.value)">
-                                    @foreach (var status in Enum.GetValues(typeof(FormStatus)).Cast<FormStatus>())
+                                    @foreach (var status in Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>())
                                     {
                                         if (status == form.Status)
                                         {

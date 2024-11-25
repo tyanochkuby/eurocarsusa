@@ -23,8 +23,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
-builder.Services.AddScoped<IFormRepository, FormRepository>();
-builder.Services.AddScoped<IFormService, FormService>();
+builder.Services.AddScoped<ICustomOrderRepository, CustomOrderRepository>();
+builder.Services.AddScoped<ICustomOrderService, CustomOrderService>();
 builder.Services.AddScoped<IDetailPageFormRepository, DetailPageFormRepository>();
 builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();
