@@ -8,7 +8,7 @@ namespace EuroCarsUSA.ViewModels
     public class CustomOrderViewModel
     {
         public Guid Id { get; set; }
-        public IEnumerable<Form> Forms { get; set; } = new List<Form>();
+        public IEnumerable<FormViewModel> Forms { get; set; } = new List<FormViewModel>();
         public OrderStatus Status { get; set; }
 
         [MaxLength(50)]

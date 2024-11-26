@@ -17,47 +17,55 @@ namespace EuroCarsUSA.Data.Repositories
             var saved = await _context.SaveChangesAsync();
             return saved > 0 ? true : false;
         }
-        async Task<bool> ICustomOrderRepository.Add(Form form)
+        async Task<bool> ICustomOrderRepository.Add(CustomOrder customorder)
         {
-            _context.Add(form);
+            _context.Add(customorder);
             return await Save();
         }
 
-        async Task<bool> ICustomOrderRepository.Delete(Form form)
+        async Task<bool> ICustomOrderRepository.Delete(CustomOrder customorder)
         {
-            _context.Remove(form);
+            _context.Remove(customorder);
             return await Save();
         }
-        async Task<bool> ICustomOrderRepository.Update(Form form)
+        async Task<bool> ICustomOrderRepository.Update(CustomOrder customorder)
         {
-            _context.Update(form);
+            _context.Update(customorder);
             return await Save();
         }
 
-        async Task<IEnumerable<Form>> ICustomOrderRepository.GetAll()
+        async Task<IEnumerable<CustomOrder>> ICustomOrderRepository.GetAll()
         {
-            return await _context.Forms
-                .Include(f => f.FormCarMakes)
-                .Include(f => f.FormCarColors)
-                .Include(f => f.FormCarTypes)
-                .Include(f => f.FormCarFuelTypes)
-                .Include(f => f.FormCarTransmissions)
-                .ToListAsync();
+            return await _context.CustomOrders
+            .Include(co => co.Forms)
+                .ThenInclude(f => f.FormCarMakes)
+            .Include(co => co.Forms)
+                .ThenInclude(f => f.FormCarColors)
+            .Include(co => co.Forms)
+                .ThenInclude(f => f.FormCarTypes)
+            .Include(co => co.Forms)
+                .ThenInclude(f => f.FormCarFuelTypes)
+            .Include(co => co.Forms)
+                .ThenInclude(f => f.FormCarTransmissions)
+            .AsSplitQuery()
+            .ToListAsync();
         }
 
-        async Task<Form> ICustomOrderRepository.GetById(Guid id)
+        async Task<CustomOrder?> ICustomOrderRepository.GetById(Guid id)
         {
-            return await _context.Forms
-                .Include(f => f.FormCarMakes)
-                .Include(f => f.FormCarColors)
-                .Include(f => f.FormCarTypes)
-                .Include(f => f.FormCarFuelTypes)
-                .Include(f => f.FormCarTransmissions)
-                .FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.CustomOrders
+                .Include(co => co.Forms)
+                    .ThenInclude(f => f.FormCarMakes)
+                .Include(co => co.Forms)
+                    .ThenInclude(f => f.FormCarColors)
+                .Include(co => co.Forms)
+                    .ThenInclude(f => f.FormCarTypes)
+                .Include(co => co.Forms)
+                    .ThenInclude(f => f.FormCarFuelTypes)
+                .Include(co => co.Forms)
+                    .ThenInclude(f => f.FormCarTransmissions)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(co => co.Id == id);
         }
-
-
-
-
     }
 }

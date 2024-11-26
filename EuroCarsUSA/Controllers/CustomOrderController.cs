@@ -20,7 +20,7 @@ namespace EuroCarsUSA.Controllers
                 return View("Index", customOrderViewModel);
             }
 
-            var formId = await _customOrderService.SubmitFormAsync(customOrderViewModel);
+            var formId = await _customOrderService.SubmitOrderAsync(customOrderViewModel);
             if (formId == null)
             {
                 return BadRequest();

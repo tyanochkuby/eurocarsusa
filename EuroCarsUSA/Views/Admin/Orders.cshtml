@@ -3,7 +3,7 @@
 @using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.AspNetCore.Components
-@model IEnumerable<FormViewModel>
+@model IEnumerable<CustomOrderViewModel>
 @inject ICustomOrderService formService
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
@@ -47,8 +47,8 @@
                 <div class="row m-0 justify-content-end">
                     <div class="col-auto px-0 me-3">
                         <component type="typeof(EditableField<int>)"
-                                   render-mode="ServerPrerendered"
-                                   param-CssClass="@( "h-100" )" />
+                        render-mode="ServerPrerendered"
+                        param-CssClass="@( "h-100" )" />
                     </div>
                     <div class="col-auto d-flex flex-column justify-content-end px-0">
                         @{
@@ -72,30 +72,33 @@
                 <span class="mb-3 text-headline-sm">Client orders</span>
                 <div class="p-3 bg-secondary rounded-16">                
                     <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Model</th>
-                        <th>Max Price</th>
-                        <th>Max Mileage</th>
-                        <th>Min Year</th>
-                        <th>Max Year</th>
-                        <th>Description</th>
-                        <th>Makes</th>
-                        <th>Colors</th>
-                        <th>Car Types</th>
-                        <th>Fuel Types</th>
-                        <th>Transmission</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var form in Model)
-                    {
-                        <tr>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Model</th>
+                                <th>Max Price</th>
+                                <th>Max Mileage</th>
+                                <th>Min Year</th>
+                                <th>Max Year</th>
+                                <th>Description</th>
+                                <th>Makes</th>
+                                <th>Colors</th>
+                                <th>Car Types</th>
+                                <th>Fuel Types</th>
+                                <th>Transmission</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+                            @foreach(var form in order.Forms)
+                            {
+                            
                             <td>@form.Id</td>
                             <td>@form.Model</td>
                             <td>@form.MaxPrice</td>
@@ -133,14 +136,15 @@
                                     <span>@transmission</span>
                                 }
                             </td>
-                            <td>@form.Name</td>
-                            <td>@form.Email</td>
-                            <td>@form.PhoneNumber</td>
+                            }
+                            <td>@order.Name</td>
+                            <td>@order.Email</td>
+                            <td>@order.PhoneNumber</td>
                             <td>
-                                <select class="form-control" name="status-@form.Id" onchange="updateStatus('@form.Id', this.value)">
+                                <select class="form-control" name="status-@order.Id" onchange="updateStatus('@order.Id', this.value)">
                                     @foreach (var status in Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>())
                                     {
-                                        if (status == form.Status)
+                                        if (status == order.Status)
                                         {
                                             <option value="@status" selected>@status</option>
                                         }

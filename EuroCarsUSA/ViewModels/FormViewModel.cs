@@ -19,5 +19,27 @@ namespace EuroCarsUSA.ViewModels
         public int? MinYear { get; set; }
         public int? MaxYear { get; set; }
         public string? Description { get; set; }
+
+        public Form ToForm()
+        {
+            var formId = Id == Guid.Empty ? Guid.NewGuid() : Id;
+
+            var form = new Form()
+            {
+                Id = formId,
+                FormCarMakes = CarMakes.Select(cm => new FormCarMake { CarMake = cm, FormId = formId }).ToList(),
+                FormCarColors = CarColors.Select(cc => new FormCarColor { CarColor = cc, FormId = formId }).ToList(),
+                FormCarTypes = CarTypes.Select(ct => new FormCarType { CarType = ct, FormId = formId }).ToList(),
+                FormCarFuelTypes = CarFuelTypes.Select(cf => new FormCarFuelType { CarFuelType = cf, FormId = formId }).ToList(),
+                FormCarTransmissions = CarTransmissions.Select(ct => new FormCarTransmission { CarTransmission = ct, FormId = formId }).ToList(),
+                Model = Model,
+                MaxPrice = MaxPrice,
+                MaxMileage = MaxMileage,
+                MinYear = MinYear,
+                MaxYear = MaxYear,
+                Description = Description
+            };
+            return form;
+        }
     }
 }

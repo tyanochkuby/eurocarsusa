@@ -1,5 +1,5 @@
 ﻿@using EuroCarsUSA.ViewModels
-@model FormViewModel
+@model CustomOrderViewModel
 
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
@@ -17,10 +17,10 @@
             </div>
         </div>
 
-        <div class="container p-3 bg-white rounded-32 mb-3">
+        @* <div class="container p-3 bg-white rounded-32 mb-3">
             <div class="px-2 row m-0">
                 <div class="text-headline-sm mt-0">
-                    Create individual order
+                    Create custom order
                 </div>
                 <div class="row">
                     <div class="bg-secondary-100 p-3 rounded-16 row mx-0">
@@ -141,7 +141,7 @@
                 
                 
             </div>
-        </div>
+        </div> *@
     </form>
 
     <div class="container p-4 pt-3 bg-white rounded-32">
@@ -150,7 +150,7 @@
                     Search your order
                 </div>
             </div>
-            <div class="p-3 row m-0 bg-secondary-100 rounded-16">
+            @* <div class="p-3 row m-0 bg-secondary-100 rounded-16">
                 <div class="form-group col-auto px-0 me-3">
                     <label asp-for="Model"></label>
                     <input asp-for="Model" class="form-control" />
@@ -159,7 +159,7 @@
                 <div class="col-auto d-flex flex-column justify-content-end px-0">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-            </div>
+            </div> *@
         </div>
     
 </div>

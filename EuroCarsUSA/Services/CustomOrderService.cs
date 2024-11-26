@@ -6,94 +6,72 @@ using EuroCarsUSA.ViewModels;
 
 namespace EuroCarsUSA.Services
 {
-    public class FormService : ICustomOrderService
+    public class CustomOrderService : ICustomOrderService
     {
-        private readonly ICustomOrderRepository _formRepository;
+        private readonly ICustomOrderRepository _customOrderRepository;
 
-        public FormService(ICustomOrderRepository formRepository)
+        public CustomOrderService(ICustomOrderRepository customorderRepository)
         {
-            _formRepository = formRepository;
+            _customOrderRepository = customorderRepository;
         }
 
-        public async Task<List<FormViewModel>> GetAll()
+        public async Task<List<CustomOrderViewModel>> GetAll()
         {
-            var forms = await _formRepository.GetAll();
+            var customOrders = await _customOrderRepository.GetAll();
             
-            var viewModels = forms.Select(form => new FormViewModel()
+            var viewModels = customOrders.Select(co => new CustomOrderViewModel()
             {
-                Id = form.Id,
-                CarMakes = form.FormCarMakes.Select(cm => cm.CarMake).ToList(),
-                CarColors = form.FormCarColors.Select(cc => cc.CarColor).ToList(),
-                CarTypes = form.FormCarTypes.Select(ct => ct.CarType).ToList(),
-                CarFuelTypes = form.FormCarFuelTypes.Select(cf => cf.CarFuelType).ToList(),
-                CarTransmissions = form.FormCarTransmissions.Select(ct => ct.CarTransmission).ToList(),
-                Model = form.Model,
-                MaxPrice = form.MaxPrice,
-                MaxMileage = form.MaxMileage,
-                MinYear = form.MinYear,
-                MaxYear = form.MaxYear,
-                Description = form.Description,
-                Status = form.Status
+                Id = co.Id,
+                Forms = co.Forms.Select(f => f.ToViewModel()),
+                Email = co.Email,
+                Name = co.Name,
+                PhoneNumber = co.PhoneNumber,
+                Status = co.Status
             }).ToList();
 
             return viewModels;
         }
 
-        public async Task<FormViewModel> GetById(Guid id)
+        public async Task<CustomOrderViewModel> GetById(Guid id)
         {
-            var form = await _formRepository.GetById(id);
-            if (form == null)
+            var customOrder = await _customOrderRepository.GetById(id);
+            if (customOrder == null)
             {
                 return null;
             }
 
-            var viewModel = new FormViewModel
+            var viewModel = new CustomOrderViewModel
             {
-                Id = form.Id,
-                CarMakes = form.FormCarMakes.Select(cm => cm.CarMake).ToList(),
-                CarColors = form.FormCarColors.Select(cc => cc.CarColor).ToList(),
-                CarTypes = form.FormCarTypes.Select(ct => ct.CarType).ToList(),
-                CarFuelTypes = form.FormCarFuelTypes.Select(cf => cf.CarFuelType).ToList(),
-                CarTransmissions = form.FormCarTransmissions.Select(ct => ct.CarTransmission).ToList(),
-                Model = form.Model,
-                MaxPrice = form.MaxPrice,
-                MaxMileage = form.MaxMileage,
-                MinYear = form.MinYear,
-                MaxYear = form.MaxYear,
-                Description = form.Description,
-                Status = form.Status
+                Id = customOrder.Id,
+                Forms = customOrder.Forms.Select(f => f.ToViewModel()),
+                Email = customOrder.Email,
+                Name = customOrder.Name,
+                PhoneNumber = customOrder.PhoneNumber,
+                Status = customOrder.Status
             };
 
             return viewModel;
         }
 
-        public async Task<Guid?> SubmitFormAsync(FormViewModel formViewModel)
+        public async Task<Guid?> SubmitOrderAsync(CustomOrderViewModel customOrderViewModel)
         {
-            var formId = formViewModel.Id == Guid.Empty ? Guid.NewGuid() : formViewModel.Id;
+            var orderId = customOrderViewModel.Id == Guid.Empty ? Guid.NewGuid() : customOrderViewModel.Id;
 
-            var form = new Form
+            var forms = customOrderViewModel.Forms.Select(form => form.ToForm()).ToList();
+
+            var customOrder = new CustomOrder
             {
-                Id = formId,
-                FormCarMakes = formViewModel.CarMakes.Select(cm => new FormCarMake { CarMake = cm, FormId = formId }).ToList(),
-                FormCarColors = formViewModel.CarColors.Select(cc => new FormCarColor { CarColor = cc, FormId = formId }).ToList(),
-                FormCarTypes = formViewModel.CarTypes.Select(ct => new FormCarType { CarType = ct, FormId = formId }).ToList(),
-                FormCarFuelTypes = formViewModel.CarFuelTypes.Select(cf => new FormCarFuelType { CarFuelType = cf, FormId = formId }).ToList(),
-                FormCarTransmissions = formViewModel.CarTransmissions.Select(ct => new FormCarTransmission { CarTransmission = ct, FormId = formId }).ToList(),
-                Model = formViewModel.Model,
-                MaxPrice = formViewModel.MaxPrice,
-                MaxMileage = formViewModel.MaxMileage,
-                MinYear = formViewModel.MinYear,
-                MaxYear = formViewModel.MaxYear,
-                Description = formViewModel.Description,
-                Status = Data.Enums.OrderStatus.Sent,
-                Email = formViewModel.Email,
-                PhoneNumber = formViewModel.PhoneNumber,
-                Name = formViewModel.Name
+                Id = orderId,
+                Forms = forms,
+                Status = OrderStatus.Sent,
+                Email = customOrderViewModel.Email,
+                PhoneNumber = customOrderViewModel.PhoneNumber,
+                Name = customOrderViewModel.Name
             };
 
-            if (await _formRepository.Add(form))
+            if (await _customOrderRepository.Add(customOrder))
             {
-                return form.Id;
+                return customOrder.Id;
             }
 
             return null;
@@ -101,13 +79,13 @@ namespace EuroCarsUSA.Services
 
         public async Task<bool> UpdateStatus(Guid id, OrderStatus status)
         {
-            var form = await _formRepository.GetById(id);
-            if (form == null)
+            var customOrder = await _customOrderRepository.GetById(id);
+            if (customOrder == null)
             {
                 return false;
             }
-            form.Status = status;
-            return await _formRepository.Update(form);
+            customOrder.Status = status;
+            return await _customOrderRepository.Update(customOrder);
         }
     }
 }
