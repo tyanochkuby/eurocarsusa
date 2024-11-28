@@ -1,30 +1,45 @@
-@{
-    string color = ViewData["Color"] as string ?? "primary";
-    bool hasLeftIcon = ViewData["LeftIcon"] as bool? ?? false;
-    bool hasRightIcon = ViewData["RightIcon"] as bool? ?? false;
-    string text = ViewData["Text"] as string ?? "Label";
-    string leftIconSrc = ViewData["LeftIconSrc"] as string;
-    string rightIconSrc = ViewData["RightIconSrc"] as string;
+@model dynamic
 
-    string customTextColor = ViewData["TextColor"] as string;
-    string customIconColor = ViewData["IconColor"] as string;
+@{
+    string attributes = Model.Attributes;
+    string classes = Model.Classes;
+
+    string color = Model.Color ?? "";
+    string text = Model.Text ?? false;
+
+    var leftIcon = Model.LeftIcon;
+    var rightIcon = Model.RightIcon;
+
+    string customTextColor = Model.TextColor ?? "";
+
+
+    bool hasLeftIcon = false;
+    bool hasRightIcon = false;
+    @if (leftIcon != null)
+    {
+        hasLeftIcon = true;
+    }
+    @if (rightIcon != null)
+    {
+        hasRightIcon = true;
+    }
 
     string backgroundColorValue = color == "primary" ? "bg-primary" : "bg-secondary";
     string textColorValue = customTextColor ?? (color == "primary" ? "text-white" : "text-primary");
-    string iconColorValue = customIconColor ?? (color == "primary" ? "white" : "primary");
+    //string iconColorValue = customIconColor ?? (color == "primary" ? "white" : "primary");
 }
 
-<button class="text-title-sm btn-custom @backgroundColorValue @textColorValue @(hasLeftIcon ? "ps-3" : "ps-4") @(hasRightIcon ? "ps-3" : "ps-4")">
+<button class="@Html.Raw($"text-title-sm  btn-custom {classes} {backgroundColorValue} {textColorValue} {(hasLeftIcon ? "ps-3" : "ps-4")} {(hasRightIcon ? "ps-3" : "ps-4")}")" @Html.Raw(attributes)>
 
     @if (hasLeftIcon)
     {
-        @Html.Partial("_Icon", new { IconName = leftIconSrc, Color = iconColorValue })
+        @leftIcon
     }
 
     <span>@(text)</span>
 
     @if (hasRightIcon)
     {
-        @Html.Partial("_Icon", new { IconName = rightIconSrc, Color = iconColorValue })
+        @rightIcon
     }
 </button>
