@@ -1,5 +1,5 @@
 ﻿@using EuroCarsUSA.Controllers
-@using EuroCarsUSA.Data.Enum
+@using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Models
 @using EuroCarsUSA.Views.Home.Components.ViewModels
@@ -48,7 +48,7 @@
                                     <div class="row">
                                         <div class="d-flex align-items-center justify-content-start">
                                             <img class="carIcon" src="/icons/car_engine.svg">
-                                            <div class="ms-2 text-subhead">@(car.FuelType == EuroCarsUSA.Data.Enum.CarFuelType.Electric ? Translator["Electric"] : car.EngineVolume.ToString() + " cm3")</div>
+                                            <div class="ms-2 text-subhead">@(car.FuelType == EuroCarsUSA.Data.Enums.CarFuelType.Electric ? Translator["Electric"] : car.EngineVolume.ToString() + " cm3")</div>
                                         </div>
                                     </div>
                                 </div>

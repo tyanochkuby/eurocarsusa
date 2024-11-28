@@ -22,7 +22,7 @@ namespace EuroCarsUSA.Services
             var viewModels = customOrders.Select(co => new CustomOrderViewModel()
             {
                 Id = co.Id,
-                Forms = co.Forms.Select(f => f.ToViewModel()),
+                Forms = co.Forms.Select(f => f.ToViewModel()).ToList(),
                 Email = co.Email,
                 Name = co.Name,
                 PhoneNumber = co.PhoneNumber,
@@ -43,7 +43,7 @@ namespace EuroCarsUSA.Services
             var viewModel = new CustomOrderViewModel
             {
                 Id = customOrder.Id,
-                Forms = customOrder.Forms.Select(f => f.ToViewModel()),
+                Forms = customOrder.Forms.Select(f => f.ToViewModel()).ToList(),
                 Email = customOrder.Email,
                 Name = customOrder.Name,
                 PhoneNumber = customOrder.PhoneNumber,

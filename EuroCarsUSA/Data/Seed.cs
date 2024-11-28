@@ -1,4 +1,4 @@
-﻿using EuroCarsUSA.Data.Enum;
+﻿using EuroCarsUSA.Data.Enums;
 using EuroCarsUSA.Models;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.WebRequestMethods;
@@ -33,7 +33,7 @@ namespace EuroCarsUSA.Data
                                 "https://ireland.apollo.olxcdn.com/v1/files/e0gvt3e84zp53-PL/image;s=1000x700",
                                 "https://ireland.apollo.olxcdn.com/v1/files/7nbsrjhbrs1u1-PL/image;s=1000x700",
                             },
-                            FuelType = Enum.CarFuelType.Electric,
+                            FuelType = CarFuelType.Electric,
                             Year = 2018,
                             Mileage = 67890,
                             Price = 350_000,
@@ -53,7 +53,7 @@ namespace EuroCarsUSA.Data
                                 "https://ireland.apollo.olxcdn.com/v1/files/4lkywrz7kpx53-PL/image;s=1000x700"
 
                             },
-                            FuelType = Enum.CarFuelType.Benzine,
+                            FuelType = CarFuelType.Benzine,
                             Year = 2020,
                             Mileage = 16734,
                             EngineVolume = 2800,

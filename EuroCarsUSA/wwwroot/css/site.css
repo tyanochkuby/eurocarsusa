@@ -699,7 +699,7 @@ button#mobile-filter-select-save-button .carIcon {
     font-family: Roboto;
 }
 
-.text-label-mg {
+.text-label-md {
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 0.5px;
@@ -838,8 +838,6 @@ button#mobile-filter-select-save-button .carIcon {
 
 
 
-
-
 .text-title-sm {
     font-size: 14px;
     line-height: 20px;
@@ -855,3 +853,396 @@ button#mobile-filter-select-save-button .carIcon {
 .text-neutral {
     color: #EDEFF8;
 }
+
+
+.divider-shadow-primary {
+    box-shadow: inset 0 -1px 0 rgba(var(--bs-primary-rgb), 1);
+}
+
+.divider-shadow-neutral600 {
+    box-shadow: inset 0 -1px 0 rgba(216, 217, 226, 1);
+}
+
+.divider-shadow-neutral900 {
+    box-shadow: inset 0 -1px 0 rgba(100, 100, 104, 1);
+}
+
+
+
+.border-neutral600 {
+    border-color: rgba(216, 217, 226, 1) !important
+}
+
+.border-neutral900 {
+    border-color: rgba(100, 100, 104, 1) !important
+}
+
+.my-shadow-1 {
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3),
+                0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.my-shadow-2 {
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3),
+                1px 2px 6px 2px rgba(0, 0, 0, 0.15);
+}
+
+.my-shadow-3 {
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3),
+                0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+
+.my-shadow-4 {
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3),
+                0px 6px 15px 4px rgba(0, 0, 0, 0.15);
+}
+
+.my-shadow-5 {
+    box-shadow: 1px 4px 4px 0px rgba(0, 0, 0, 0.3),
+                0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+}
+
+
+
+.myCheckBox {
+    display: none;
+}
+
+
+.checkbox-container {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+
+.checkbox-wrapper {
+    position: relative;
+    padding: 11px;
+    border-radius: 100%;
+}
+
+
+.checkbox-custom {
+    width: 18px;
+    height: 18px;
+    border: 2px solid;
+    border-color: var(--bs-primary);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+
+
+
+    .checkbox-custom::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        background-color: var(--bs-primary);
+        opacity: 0;
+        border-radius: 100%;
+        transition: opacity 0.3s cubic-bezier(0.3, 0, 0, 1);
+    }
+
+    
+    .checkbox-custom:hover::before {
+        opacity: 0.08; 
+    }
+
+
+.checkbox-icon {
+    width: 12px;
+    height: 10px;
+    display: none; 
+}
+
+
+input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+    
+    input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom .checkbox-icon {
+        display: block; 
+    }
+
+.checkbox-label {
+    margin-left: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+
+
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 32px;
+    background-color: var(--bs-secondary);
+    border-radius: 100px;
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
+    box-shadow: inset 0 0 0 2px var(--bs-primary);
+}
+
+    .switch.active {
+        background-color: var(--bs-primary);
+    }
+        .switch.active .switch-handle-shape {
+            background-color: white;
+        }
+
+        .switch.active:hover .switch-handle-shape {
+            background-color: #F3F9FE /* secondary-100 */
+        }
+
+.switch-target {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    top: -8px;
+    left: -8px;
+    padding: 4px;
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+    .switch-target.active-position {
+        left: 12px;
+    }
+
+    .switch-target:active .switch-state-layer {
+        padding: 6px;
+    }
+
+.switch-target input{
+    display:none;
+}
+
+.switch-state-layer {
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    padding: 8px;
+    background-color: rgba(var(--bs-primary-rgb), 0.00);
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.switch:hover .switch-state-layer {
+    background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+
+.switch-handle-shape {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background-color: rgba(var(--bs-primary-rgb), 1);
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+    .switch-handle-shape svg {
+        width: 16px;
+        height: 16px;
+    }
+
+
+
+.list-item-state-layer {
+    transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.list-item-state-building-block:hover .list-item-state-layer {
+    background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+.list-item-supportive-text.two-line {
+    display: -webkit-box; /* Создаем многострочный контейнер */
+    -webkit-line-clamp: 1; /* Ограничиваем до 1 строк */
+    -webkit-box-orient: vertical; /* Ожидаем вертикальное направление */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+
+
+.line-edit-input {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    color: inherit;
+    font: inherit;
+    background-color: transparent;
+    caret-color: #646468;
+}
+
+    .line-edit-input:focus {
+        outline: none;
+    }
+
+.line-edit-state-layer {
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.line-edit-text-field:hover .line-edit-state-layer {
+    background-color: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+.line-edit-overline-text {
+    color: #646468;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.active-indicator {
+    border-bottom: solid;
+    border-color: rgba(100, 100, 104, 1);
+    border-width: 1px;
+    right: 0;
+    bottom: 0;
+    transition: border-color 0.3s cubic-bezier(0.3, 0, 0, 1),
+                border-width 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.line-edit:focus-within .line-edit-state-layer {
+    background-color: transparent;
+}
+.line-edit:focus-within .line-edit-input {
+    caret-color: var(--bs-primary);
+}
+.line-edit:focus-within .line-edit-overline-text {
+    color: var(--bs-primary);
+}
+
+.line-edit:focus-within .active-indicator {
+    border-color: var(--bs-primary) !important;
+    border-width: 3px !important;
+}
+
+.line-edit:focus-within .line-edit-trailing-element .icon-container {
+    color: var(--bs-primary);
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+
+
+
+.line-edit.error .line-edit-state-layer {
+    background-color: transparent;
+}
+
+.line-edit.error .line-edit-input {
+    caret-color: #bd33a4;
+}
+
+.line-edit.error .line-edit-overline-text {
+    color: #bd33a4;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.line-edit.error .active-indicator {
+    border-color: #bd33a4 !important;
+    border-width: 3px !important;
+}
+
+.line-edit.error .line-edit-trailng-supportive-text {
+    color: #bd33a4 !important;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.line-edit.error .line-edit-supportive-text {
+    color: #bd33a4 !important;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+
+.line-edit.error .line-edit-trailing-element .icon-container {
+    color: #bd33a4 !important;
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.fab {
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+}
+
+.ripple-effect-secondary {
+    position: relative;
+    overflow: hidden; /* Эффект остаётся внутри элемента */
+    outline: none;
+}
+
+    .ripple-effect-secondary::after {
+        content: "";
+        position: absolute;
+        top: var(--ripple-y, 50%);
+        left: var(--ripple-x, 50%);
+        width: 0;
+        height: 0;
+        background-color: rgba(var(--bs-secondary-rgb), 0.12);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none; /* Чтобы эффект не мешал кликам */
+        transition: width 0.3s cubic-bezier(0.3, 0, 0, 1), height 0.3s cubic-bezier(0.3, 0, 0, 1), opacity 0.3s ease-in-out;
+    }
+
+    .ripple-effect-secondary.active::after {
+        opacity: 1; /* Делаем эффект видимым */
+        width: 125%; /* Достаточно, чтобы покрыть всю кнопку */
+        height: 125%;
+    }
+
+    .ripple-effect-secondary.fade-out::after {
+        opacity: 0; /* Исчезновение эффекта */
+        transition: opacity 0.3s ease-in-out; /* Плавное исчезновение */
+    }
+
+.ripple-effect-primary {
+    position: relative;
+    overflow: hidden; /* Эффект остаётся внутри элемента */
+    outline: none;
+}
+
+    .ripple-effect-primary::after {
+        content: "";
+        position: absolute;
+        top: var(--ripple-y, 50%);
+        left: var(--ripple-x, 50%);
+        width: 0;
+        height: 0;
+        background-color: rgba(var(--bs-primary-rgb), 0.12);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none; /* Чтобы эффект не мешал кликам */
+        transition: width 0.3s cubic-bezier(0.3, 0, 0, 1), height 0.3s cubic-bezier(0.3, 0, 0, 1), opacity 0.3s ease-in-out;
+    }
+
+    .ripple-effect-primary.active::after {
+        opacity: 1; /* Делаем эффект видимым */
+        width: 125%; /* Достаточно, чтобы покрыть всю кнопку */
+        height: 125%;
+    }
+
+    .ripple-effect-primary.fade-out::after {
+        opacity: 0; /* Исчезновение эффекта */
+        transition: opacity 0.3s ease-in-out; /* Плавное исчезновение */
+    }

@@ -1,5 +1,4 @@
-﻿using EuroCarsUSA.Data.Enum;
-using EuroCarsUSA.Data.Enums;
+﻿using EuroCarsUSA.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace EuroCarsUSA.Models.Form

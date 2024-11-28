@@ -1,5 +1,7 @@
-﻿using EuroCarsUSA.Services.Interfaces;
+﻿using EuroCarsUSA.Data.Enums;
+using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
+using EuroCarsUSA.Views.Home.Components.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EuroCarsUSA.Controllers
@@ -57,7 +59,31 @@ namespace EuroCarsUSA.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new CustomOrderViewModel();
+            ViewBag.AvailableFilters = new Dictionary<string, IEnumerable<FilterOptionViewModel>>
+            {
+                { "make", Enum.GetValues(typeof(CarMake)).Cast<CarMake>().Select(m => new FilterOptionViewModel { OriginalValue = m.ToString(), TranslatedValue = m.ToString() }) },
+                { "color", Enum.GetValues(typeof(CarColor)).Cast<CarColor>().Select(c => new FilterOptionViewModel { OriginalValue = c.ToString(), TranslatedValue = c.ToString() }) },
+                { "carType", Enum.GetValues(typeof(CarType)).Cast<CarType>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = t.ToString() }) },
+                { "fuelType", Enum.GetValues(typeof(CarFuelType)).Cast<CarFuelType>().Select(f => new FilterOptionViewModel { OriginalValue = f.ToString(), TranslatedValue = f.ToString() }) },
+                { "transmission", Enum.GetValues(typeof(CarTransmission)).Cast<CarTransmission>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = t.ToString() }) }
+            };
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult GetFormComponent(int index)
+        {
+            var formViewModel = new FormViewModel { Index = index };
+            ViewBag.AvailableFilters = new Dictionary<string, IEnumerable<FilterOptionViewModel>>
+            {
+                { "make", Enum.GetValues(typeof(CarMake)).Cast<CarMake>().Select(m => new FilterOptionViewModel { OriginalValue = m.ToString(), TranslatedValue = m.ToString() }) },
+                { "color", Enum.GetValues(typeof(CarColor)).Cast<CarColor>().Select(c => new FilterOptionViewModel { OriginalValue = c.ToString(), TranslatedValue = c.ToString() }) },
+                { "carType", Enum.GetValues(typeof(CarType)).Cast<CarType>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = t.ToString() }) },
+                { "fuelType", Enum.GetValues(typeof(CarFuelType)).Cast<CarFuelType>().Select(f => new FilterOptionViewModel { OriginalValue = f.ToString(), TranslatedValue = f.ToString() }) },
+                { "transmission", Enum.GetValues(typeof(CarTransmission)).Cast<CarTransmission>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = t.ToString() }) }
+            };
+            return PartialView("_CustomOrderForm", formViewModel);
         }
     }
 }

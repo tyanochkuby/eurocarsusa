@@ -1,4 +1,4 @@
-﻿namespace EuroCarsUSA.Data.Enum
+﻿namespace EuroCarsUSA.Data.Enums
 {
     public enum CarFuelType
     {

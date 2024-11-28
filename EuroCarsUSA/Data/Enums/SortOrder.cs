@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Localization;
 
-namespace EuroCarsUSA.Data.Enum
+namespace EuroCarsUSA.Data.Enums
 {
     public enum SortOrder
     {

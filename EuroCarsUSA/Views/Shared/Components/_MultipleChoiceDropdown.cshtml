@@ -1,0 +1,71 @@
+﻿@using EuroCarsUSA.ViewModels
+@model MultipleChoiceDropdownViewModel
+
+@{
+    string dropdownId = Model.DropdownId;
+    string placeholder = Model.Placeholder;
+    string overline = Model.Overline;
+    var selectedValues = Model.SelectedValues;
+    var options = Model.Options;
+    var translator = Model.Translator;
+    var name = Model.Name;
+}
+
+<div class="pt-0 mb-3" name="@name">
+    <div class="dropdown w-100">
+        @Html.Partial("_ExpandButton", new
+            {
+                Classes = "",
+                Attributes = $"type=\"button\" id=\"{dropdownId}\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+                Leading = (object)null,
+                Placeholder = (selectedValues.Any() ? string.Join(", ", selectedValues) : placeholder),
+                ShowOverline = true,
+                ShowOverlineInside = true,
+                HasOutsidOverlineSizeEffect = false,
+                Overline = overline,
+                ShowAdditional = false,
+                ShowAdditionalBackground = true,
+                Additional = "100+"
+            })
+        <ul class="dropdown-menu w-100" name="@Model.Name" aria-labelledby="@dropdownId">
+            @foreach (var option in options)
+            {
+                <li>
+                    @Html.Partial("_ListItem", new
+                        {
+                            Classes = "dropdown-item p-0",
+                            Attributes = "",
+                            Leading = Html.Partial("_Checkbox", new
+                            {
+                                Text = "",
+                                Classes = "",
+                                Attributes = $"value=\"{option.OriginalValue}\" {(selectedValues.Contains(option.OriginalValue) ? "checked" : "")}"
+                            }),
+                            Trailing = (object)null,
+                            Clickable = true,
+                            Condition = "1-line",
+                            Headline = option.TranslatedValue,
+                            ShowOverline = false,
+                            ShowOverlineInside = true,
+                            HasOutsidOverlineSizeEffect = false,
+                            Overline = "Overline111",
+                            ShowSupportive = true,
+                            ShowSupportiveInside = false,
+                            HasOutsideSupportiveSizeEffect = false,
+                            Supportive = "Supporting line",
+                            ShowAdditional = false,
+                            ShowAdditionalBackground = true,
+                            Additional = "100+",
+                            ShowDivider = true
+                        })
+                </li>
+            }
+        </ul>
+    </div>
+    <select multiple hidden id="@Model.InputId" name="@Model.Name">
+        @foreach (var value in selectedValues)
+        {
+            <option selected>@value</option>
+        }
+    </select>
+</div>
