@@ -26,15 +26,16 @@
                         <img src="~/icons/logo2.svg" style="width: 160; height: 40" alt="EuroCarsUSA" />
                     </a>
 
-                    @{
-                        ViewData["Color"] = "primary";
-                        ViewData["Text"] = "+48 53 00-00-000";
-                        ViewData["LeftIcon"] = true;
-                        ViewData["LeftIconSrc"] = Url.Content("phone");
-                    }
                     <a asp-controller="Home" asp-action="Likes">
-                        @Html.Partial("_Button")
+                    @Html.Partial("_Button", new { Text = "+48 53 00-00-000", Color = "primary",
+                            Classes = "",
+                            Attributes = "asp-controller=\"Home\" asp-action=\"Likes\"",
+                            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("phone"), Color = "white" }),
+                            RightIcon = (object)null,
+                            TextColor = "",
+                        })
                     </a>
+
                 </div>
                 @if (User.IsInRole("Admin"))
                 {

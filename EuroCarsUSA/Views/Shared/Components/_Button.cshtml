@@ -29,7 +29,7 @@
     //string iconColorValue = customIconColor ?? (color == "primary" ? "white" : "primary");
 }
 
-<button class="@Html.Raw($"text-title-sm  btn-custom {classes} {backgroundColorValue} {textColorValue} {(hasLeftIcon ? "ps-3" : "ps-4")} {(hasRightIcon ? "ps-3" : "ps-4")}")" @Html.Raw(attributes)>
+<button @Html.Raw(attributes) class="@Html.Raw($"text-title-sm  btn-custom {classes} {backgroundColorValue} {textColorValue} {(hasLeftIcon ? "ps-3" : "ps-4")} {(hasRightIcon ? "ps-3" : "ps-4")}")">
 
     @if (hasLeftIcon)
     {

@@ -14,30 +14,36 @@
                     </div>
                 </div>
                 <div class="col p-0 px-4 py-3 bg-white rounded-16">
-                    <div class="row mx-0 text-headline-sm mb-3">
-                        <div class="col px-0">We recommend</div>
-                        @{
-                            ViewData["Color"] = "primary";
-                            ViewData["Text"] = "See all";
-                            ViewData["RightIcon"] = true;
-                            ViewData["LeftIcon"] = false;
-                            ViewData["RightIconSrc"] = Url.Content("Keyboard arrow right");
-                        }
-                        <a asp-controller="Home" asp-action="Index" class="col-auto px-0">
-                            @Html.Partial("_Button")
-                        </a>
+                    <div class="row mx-0 mb-3 d-flex align-items-stretch">
+                        <div class="col px-0 text-headline-sm">We recommend</div>
+                        <div class="col px-0 flex-grow-1 justify-content-end d-flex">
+                            @Html.Partial("_Button", new
+                                {
+                                    Text = "See all",
+                                    Color = "primary",
+                                    Classes = "py-0 h-100 bg-white",
+                                    Attributes = "",
+                                    LeftIcon = (object)null,
+                                    RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "neutral900" }),
+                                    TextColor = "text-neutral-900",
+                                })
 
-                        @if (User.IsInRole("Admin"))
-                        {
-                            ViewData["Color"] = "primary";
-                            ViewData["Text"] = "Edit";
-                            ViewData["LeftIcon"] = true;
-                            ViewData["LeftIconSrc"] = Url.Content("Mode");
-                            ViewData["RightIcon"] = false;
-                            <a asp-controller="Home" asp-action="Index" class="col-auto pe-0 ps-2">
-                                @Html.Partial("_Button")
-                            </a>
-                        }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @Html.Partial("_Button", new
+                                    {
+                                        Text = "Edit",
+                                        Color = "primary",
+                                        Classes = "py-0 h-100 ms-2",
+                                        Attributes = "",
+                                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
+                                        RightIcon = (object)null,
+                                        TextColor = "",
+                                    })
+                            }
+                        </div>
+                    
+                        
                     </div>
                     <div class="recomendations"></div>
                 </div>
@@ -64,14 +70,16 @@
                             </div>
                             <div class="d-flex justify-content-center">
                                 <a>
-                                    @{
-                                        ViewData["Color"] = "primary";
-                                        ViewData["Text"] = "+48 53-44-22-089";
-                                        ViewData["LeftIcon"] = true;
-                                        ViewData["RightIcon"] = false;
-                                        ViewData["LeftIconSrc"] = Url.Content("Phone");
-                                    }
-                                    @Html.Partial("_Button")
+                                    @Html.Partial("_Button", new
+                                        {
+                                            Text = "+48 53-44-22-089",
+                                            Color = "primary",
+                                            Classes = "",
+                                            Attributes = "",
+                                            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
+                                            RightIcon = (object)null,
+                                            TextColor = "",
+                                        })
                                 </a>
                             </div>
                         </div>
@@ -83,14 +91,16 @@
 
                             <div class="d-flex justify-content-center">
                                 <a>
-                                    @{
-                                        ViewData["Color"] = "primary";
-                                        ViewData["Text"] = "Start making form";
-                                        ViewData["LeftIcon"] = false;
-                                        ViewData["RightIcon"] = true;
-                                        ViewData["RightIconSrc"] = Url.Content("Arrow forward");
-                                    }
-                                    @Html.Partial("_Button")
+                                    @Html.Partial("_Button", new
+                                        {
+                                            Text = "Start making form",
+                                            Color = "primary",
+                                            Classes = "",
+                                            Attributes = "",
+                                            LeftIcon = (object)null,
+                                            RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
+                                            TextColor = "",
+                                        })
                                 </a>
                             </div>
                         </div>
@@ -104,16 +114,17 @@
                 <div class="row p-0 mx-0 text-headline-sm mb-3">Individual order</div>
                 <div class="p-0 d-flex justify-content-between">
                     <div class="text-body-md">If there is no car you looking you can order car by dealer directly with you price</div>
-                    <a asp-controller="CustomOrder"
-                       asp-action="Index">
-                        @{
-                            ViewData["Color"] = "primary";
-                            ViewData["Text"] = "Start ordering";
-                            ViewData["LeftIcon"] = false;
-                            ViewData["RightIcon"] = true;
-                            ViewData["RightIconSrc"] = Url.Content("Arrow forward");
-                        }
-                        @Html.Partial("_Button")
+                    <a asp-controller="CustomOrder" asp-action="Index">
+                        @Html.Partial("_Button", new
+                            {
+                                Text = "Start ordering",
+                                Color = "primary",
+                                Classes = "",
+                                Attributes = "",
+                                LeftIcon = (object)null,
+                                RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
+                                TextColor = "",
+                            })
                     </a>
                 </div>
             </div>
