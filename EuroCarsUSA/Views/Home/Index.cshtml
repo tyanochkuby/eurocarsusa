@@ -18,7 +18,7 @@
     var selectedColors = Context.Request.Query["color"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
 }
 
-<div class="row justify-content-around mx-0 mb-3">
+<div class="row justify-content-around mx-0 mb-3 d-md-none d-block">
     <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="sort-mobile-button">
         @Translator["SortBy"]
     </button>
@@ -204,7 +204,7 @@
 
 <div class="row mx-0">
 
-    <div class="col-md-4 d-none d-md-block">
+    <div class="col-md-4 d-none d-md-block ps-3 pe-4">
         <form method="get" id="filtersForm">
             <div class="pb-2 pt-0">
                 <div class="fh-title-subhead">@Translator["SortBy"] :</div>
@@ -218,14 +218,16 @@
                         }
                         else
                         {
-                            <option value="@sortOrder">@sortOrder.ToLocalizedString(Translator)</option>
+                            <option value="@sortOrder">
+                                @sortOrder.ToLocalizedString(Translator)
+                            </option>
                         }
                     }
                 </select>
             </div>
             <div class="fh-header mt-2 mb-1">@Translator["Filters"]:</div>
             <hr style="border-top: 1px solid #000;" class="my-0">
-            <div class="row">
+            <div class="row mx-0">
                 <div class="col-12 p-3 bg-neutral-100 rounded-16">
                 
                     <div class="pt-0 mb-3">
@@ -810,17 +812,19 @@
     </div>
     
 
-    <div class="album py-5 px-0 px-sm-3 col-md-8 col-12">
-        <div id="carsListing">
+    <div class="album p-0 col-md-8 col-12">
+        <div id="carsListing" class="p-3 rounded-16 bg-neutral-100">
             @*All cars go here*@
+        </div>
+
+        <div class="w-100 text-center mt-3">
+            <button class="btn btn-primary rounded-pill" id="showMoreButton">@Translator["ShowMore"]</button>
         </div>
     </div>
 </div>
 
 
-<div class="w-100 text-center mt-3">
-    <button class="btn btn-primary rounded-pill" id="showMoreButton">@Translator["ShowMore"]</button>
-</div>
+
 
 
 
@@ -994,7 +998,7 @@
                         selectedOptions.push($(this).val());
                     }
                 });
-                console.log(selectedOptions);
+
                 var dropdownName = dropdownOptions.attr('name');
                 $("#" + dropdownName + "Input").val(selectedOptions.join(','));
 

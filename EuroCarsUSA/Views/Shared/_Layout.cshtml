@@ -36,8 +36,10 @@
                         @Html.Partial("_Button")
                     </a>
                 </div>
-                
-                @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
+                }
 
                 <div class="me-3">
                     <a asp-controller="Home"
@@ -62,39 +64,97 @@
 
 
     <div class="px-0">
-        @if (User.IsInRole("Admin"))
-        {
-            <div class="sidebar bg-primary-50 shadow py-2 d-flex flex-column align-items-center gap-3">
+        <div class="sidebar bg-primary-50 shadow py-2 d-flex flex-column align-items-center gap-3">
+            @if (User.IsInRole("Admin"))
+            {
                 <div>
                     <a asp-controller="Home"
                        asp-action="Index"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                       @Html.Partial("_IconButton", new { IconName = "Home", Color = "secondary", IconColor = "primary" })
+                        @{
+                            ViewData["IconSrc"] = Url.Content("Home");
+                        }
+                        @Html.Partial("_FAB")
                     </a>
                 </div>
-            <div>
-                <a asp-controller="Admin"
-                    asp-action="EditCatalog"
-                    asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                    @Html.Partial("_IconButton", new { IconName = "View carousel", Color = "secondary", IconColor = "primary" })
-                </a>
-            </div>
-            <div>
-                <a asp-controller="Admin"
-                    asp-action="Orders"
-                    asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                    @Html.Partial("_IconButton", new { IconName = "Search", Color = "secondary", IconColor = "primary" })                
-                </a>
-            </div>
-        </div>
-        }
-        <main role="main" class="main pb-3">
-
-            @{
-                ViewData["IconSrc"] = Url.Content("Mode");
+                <div>
+                    <a asp-controller="Home"
+                       asp-action="Index"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        @{
+                            ViewData["IconSrc"] = Url.Content("View carousel");
+                        }
+                        @Html.Partial("_FAB")
+                    </a>
+                </div>
+                <div>
+                    <a asp-controller="Admin"
+                       asp-action="Orders"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        @{
+                            ViewData["IconSrc"] = Url.Content("Search");
+                        }
+                        @Html.Partial("_FAB")
+                    </a>
+                </div>
+                <div>
+                    <a asp-controller="Admin"
+                       asp-action="EditCatalog"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        @{
+                            ViewData["IconSrc"] = Url.Content("Edit note");
+                        }
+                        @Html.Partial("_FAB")
+                    </a>
+                </div>
+                <div>
+                    <a asp-controller="Admin"
+                       asp-action="Statistics"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        @{
+                            ViewData["IconSrc"] = Url.Content("Data thresholding");
+                        }
+                        @Html.Partial("_FAB")
+                    </a>
+                </div>
             }
-            @Html.Partial("_FAB")
+            else
+            {
+                <div>
+                    <a asp-controller="Home"
+                       asp-action="Index"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        @{
+                            ViewData["IconSrc"] = Url.Content("Home");
+                        }
+                        @Html.Partial("_FAB")
+                    </a>
+                </div>
+                <div>
+                    <a asp-controller="Home"
+                       asp-action="Index"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        @{
+                            ViewData["IconSrc"] = Url.Content("View carousel");
+                        }
+                        @Html.Partial("_FAB")
 
+                    </a>
+                </div>
+                <div>
+                    <a asp-controller="CustomOrder"
+                       asp-action="Index"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        @{
+                            ViewData["IconSrc"] = Url.Content("Search");
+                        }
+                        @Html.Partial("_FAB")
+                    </a>
+                </div>
+            }
+        </div>
+        
+        <main role="main" class="main pb-3">
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">
                 <div class="container-xl">
