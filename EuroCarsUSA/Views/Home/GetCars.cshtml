@@ -1,16 +1,16 @@
-﻿@using EuroCarsUSA.Controllers
+﻿@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Controllers
 @using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Models
-@using EuroCarsUSA.Views.Home.Components.ViewModels
 @using Microsoft.Extensions.Localization
-@model GetCarsViewModel
+@model List<CarViewModel>
 @inject IStringLocalizer<HomeController> Translator
 
     
-<div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Cars.Count()">
+<div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">
     <div class="row mx-0">
-        @foreach (Car car in Model.Cars)
+        @foreach (CarViewModel car in Model)
         {
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 px-0">
                 <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none">
@@ -21,7 +21,7 @@
 
                         <div class="card-body">
                             <div class="row justify-content-between fh-regular">
-                                <!-- Car nam -->
+                                <!-- Car name -->
                                 <div class="col-sm-7 col-12 px-1 px-sm-2 fh-card-header">
                                     <b>@(car.Make + " " + car.Model)</b>
                                 </div>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="row d-flex justify-content-end">
                             <div class="col-xl-4 col-md-6 col-sm-6 col-6 mb-3 pe-4 ps-1">
-                                @if(Model.LikedCars.Contains(car.Id))
+                                @if(car.IsLiked)
                                 {
                                     @await Html.PartialAsync("Components/Buttons/LikePressed", car.Id)
                                 }

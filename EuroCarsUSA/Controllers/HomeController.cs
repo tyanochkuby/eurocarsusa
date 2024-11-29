@@ -153,11 +153,8 @@ namespace EuroCarsUSA.Controllers
             var showMoreButton = carsCount > carsDisplayed + carsPerLoad;
             ViewBag.ShowMoreButton = showMoreButton;
 
-            var model = new GetCarsViewModel
-            {
-                Cars = nextCars,
-                LikedCars = _cookieService.GetUserLikedCars()
-            };
+            var likedCars = _cookieService.GetUserLikedCars();
+            var model = nextCars.Select(c => CarViewModel.FromCar(c, likedCars)).ToList();
 
             var partialView = PartialView(model);
             return partialView;
