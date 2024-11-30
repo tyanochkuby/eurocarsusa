@@ -26,7 +26,7 @@
                         <img src="~/icons/logo2.svg" style="width: 160; height: 40" alt="EuroCarsUSA" />
                     </a>
 
-                    <a asp-controller="Home" asp-action="Likes">
+                    <a asp-controller="Home" asp-action="Likes" class="d-none d-md-flex">
                     @Html.Partial("_Button", new { Text = "+48 53 00-00-000", Color = "primary",
                             Classes = "",
                             Attributes = "asp-controller=\"Home\" asp-action=\"Likes\"",
@@ -39,19 +39,19 @@
                 </div>
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
+                    @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3 d-none d-md-flex", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
                 }
 
                 <div class="me-3">
                     <a asp-controller="Home"
                        asp-action="Likes"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name" class="d-none d-md-flex">
                         @Html.Partial("_IconButton", new { IconName = "favorite", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                 </div>
                 
                 <div class="dropdown">
-                    <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+                    <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="d-none d-md-flex">
                         @Html.Partial("_IconButton", new { IconName = "Language chinese dayi", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="languageDropdown">
@@ -65,7 +65,7 @@
 
 
     <div class="px-0">
-        <div class="sidebar bg-primary-50 shadow py-2 d-flex flex-column align-items-center gap-3">
+        <div class="sidebar bg-primary-50 shadow py-2 d-none d-md-flex flex-column align-items-center gap-3">
             @if (User.IsInRole("Admin"))
             {
                 <div>

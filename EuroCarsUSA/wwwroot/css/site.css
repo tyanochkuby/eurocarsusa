@@ -715,16 +715,13 @@ button#mobile-filter-select-save-button .carIcon {
     font-family: Roboto;
 }
 
-
-
-
-
 @media (min-width:768px) {
     .main {
         margin-top: 56px; /* height of header */
         margin-left: 80px; /* width of sidebar*/
     }
     .sidebar {
+        display: block;
         width: 80px;
         height: 100vh;
         position: fixed;
