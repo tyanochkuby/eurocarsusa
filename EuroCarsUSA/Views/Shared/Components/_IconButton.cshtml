@@ -1,6 +1,8 @@
 @model dynamic
 
 @{
+    string attributes = Model.Attributes;
+
     string color = Model.Color ?? "primary";
     string iconSrc = Model.IconName;
 
@@ -9,7 +11,7 @@
     string backgroundColorValue = color == "primary" ? "bg-primary" : "bg-secondary";
 }
 
-<button class="icon-btn-custom p-0">
+<button @Html.Raw(attributes) class="icon-btn-custom p-0">
     <div class="rounded-pill ripple-effect-primary overflow-hidden @backgroundColorValue">
         <div class="p-2 @backgroundColorValue">
             @Html.Partial("_Icon", new { IconName = iconSrc, Color = customIconColor })

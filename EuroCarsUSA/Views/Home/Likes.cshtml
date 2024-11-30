@@ -50,7 +50,7 @@
                     Attributes = $"title=\"Only numbers!\" pattern=\"\\d+\" type=\"text\"",
 
                     Leading = (object)null,
-                    Trailing = Html.Partial("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "neutral900" }),
+                    Trailing = Html.Partial("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "neutral900", Attributes = "" }),
 
                     Placeholder = "Placeholder",
 
@@ -189,7 +189,7 @@
             var newFillColor = $(buttonElement).hasClass('btn-secondary') ? '#7e9ded' : 'white';
             $(buttonElement).find('svg path').attr('fill', newFillColor);
             var likes = getCookie("likes");
-            var likesArray = likes ? JSON.parse(likes) : [];
+            var likesArray = likes ? JSON.parse(decodeURIComponent(likes)) : [];
             if (!likesArray.includes(carId)) {
                 likesArray.push(carId);
             } else {
