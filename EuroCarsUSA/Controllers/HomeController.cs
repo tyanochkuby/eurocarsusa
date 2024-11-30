@@ -13,8 +13,10 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Globalization;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace EuroCarsUSA.Controllers
 {
@@ -178,7 +180,8 @@ namespace EuroCarsUSA.Controllers
                     likedCars.Add(car);
                 }
             }
-            return View(likedCars);
+            var model = likedCars.Select(c => CarViewModel.FromCar(c, likes)).ToList();
+            return View(model);
         }
 
         public async Task<IActionResult> GetFilterOptions(string filterType, string culture)
