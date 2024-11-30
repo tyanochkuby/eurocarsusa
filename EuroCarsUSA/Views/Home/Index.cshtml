@@ -885,14 +885,20 @@
 
 
         function likeCar(carId, event, buttonElement) {
+            
+            console.log("carId = ", carId);
+
             event.preventDefault();
             event.stopPropagation();
             $(buttonElement).blur();
 
-            var isPressed = $(buttonElement).hasClass('bg-secondary');
+            var likes = getCookie("likes");
+            var likesArray = likes ? JSON.parse(decodeURIComponent(likes)) : [];
 
-            var partialViewUrl = isPressed ? '@Url.Action("PressedLikeButton", "Home")' : '@Url.Action("UnpressedLikeButton", "Home")';
-            var actionUrl = isPressed ? '@Url.Action("LikeCar", "Home")' : '@Url.Action("UnlikeCar", "Home")'
+            var isLiked = likesArray.includes(carId);
+
+            var partialViewUrl = isLiked ? '@Url.Action("UnpressedLikeButton", "Home")' : '@Url.Action("PressedLikeButton", "Home")';
+            var actionUrl = isLiked ? '@Url.Action("UnlikeCar", "Home")' : '@Url.Action("LikeCar", "Home")'
 
             $.ajax({
                 url: partialViewUrl,
@@ -913,6 +919,7 @@
                 success: function (response) {
                     if (response.success) {
                         console.log('Car liked/unliked successfully');
+                        console.log('');
                     }
                 },
                 error: function () {

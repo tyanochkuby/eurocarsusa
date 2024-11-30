@@ -1,12 +1,9 @@
 ﻿@using EuroCarsUSA.Models
 @model Guid
-@Html.Partial("_Button", new
+@Html.Partial("_IconButton", new
     {
-        Text = "Like!",
+        IconName = "Favorite",
         Color = "secondary",
-        Classes = "",
-        Attributes = $"type=\"button\" onclick=\"likeCar('{@Model}', event, this)\" ",
-        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Favorite"), Color = "primary" }),
-        RightIcon = (object)null,
-        TextColor = "text-primary",
+        IconColor = "white",
+        Attributes = $"type=\"button\" onclick=\"likeCar('{@Model}', event, this)\""
     })

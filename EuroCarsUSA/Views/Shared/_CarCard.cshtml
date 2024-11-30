@@ -13,6 +13,18 @@
         <div class="card pt-2 box-shadow rounded-xxl">
             <div class="img-container overflow-hidden mx-2 mt-1">
                 <img class="card-img float-left rounded-xxl" src=@Model.Images[0] alt=@(Model.Color.ToString() + Model.Make.ToString() + Model.Model)>
+                <div class="row position-absolute end-0 mx-0">
+                    <div class="justify-content-end p-0">
+                        @if (Model.IsLiked)
+                        {
+                            @await Html.PartialAsync("Components/Buttons/LikePressed", Model.Id)
+                        }
+                        else
+                        {
+                            @await Html.PartialAsync("Components/Buttons/LikeUnpressed", Model.Id)
+                        }
+                    </div>
+                </div>
             </div>
 
             <div class="card-body">
@@ -66,18 +78,7 @@
                 </div>
 
             </div>
-            <div class="row ">
-                <div class="d-flex justify-content-end mb-3 pe-4 ps-1">
-                    @if (Model.IsLiked)
-                    {
-                        @await Html.PartialAsync("Components/Buttons/LikePressed", Model.Id)
-                    }
-                    else
-                    {
-                        @await Html.PartialAsync("Components/Buttons/LikeUnpressed", Model.Id)
-                    }
-                </div>
-            </div>
+            
         </div>
     </a>
 </div>
