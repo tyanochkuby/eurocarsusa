@@ -146,10 +146,12 @@ img.rounded-xxl {
 
 .img-container {
     position: relative;
-    
-    padding-bottom: 75%; /* 9 / 16 * 100 = 56.25% */
+    padding-bottom: 75%; /* 3 / 4 * 100 = 75.00% */
     overflow: hidden;
 }
+    .img-container.smallCont {
+        padding-bottom: 56.25%; /* 9 / 16 * 100 = 56.25% */
+    }
 
     .img-container img {
         position: absolute;
@@ -1198,24 +1200,24 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
         border-radius: 50%;
         transform: translate(-50%, -50%);
         opacity: 0;
-        pointer-events: none; /* Чтобы эффект не мешал кликам */
+        pointer-events: none;
         transition: width 0.3s cubic-bezier(0.3, 0, 0, 1), height 0.3s cubic-bezier(0.3, 0, 0, 1), opacity 0.3s ease-in-out;
     }
 
     .ripple-effect-secondary.active::after {
-        opacity: 1; /* Делаем эффект видимым */
-        width: 125%; /* Достаточно, чтобы покрыть всю кнопку */
+        opacity: 1; 
+        width: 125%;
         height: 125%;
     }
 
     .ripple-effect-secondary.fade-out::after {
-        opacity: 0; /* Исчезновение эффекта */
-        transition: opacity 0.3s ease-in-out; /* Плавное исчезновение */
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
     }
 
 .ripple-effect-primary {
     position: relative;
-    overflow: hidden; /* Эффект остаётся внутри элемента */
+    overflow: hidden;
     outline: none;
 }
 
@@ -1230,17 +1232,25 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
         border-radius: 50%;
         transform: translate(-50%, -50%);
         opacity: 0;
-        pointer-events: none; /* Чтобы эффект не мешал кликам */
+        pointer-events: none;
         transition: width 0.3s cubic-bezier(0.3, 0, 0, 1), height 0.3s cubic-bezier(0.3, 0, 0, 1), opacity 0.3s ease-in-out;
     }
 
     .ripple-effect-primary.active::after {
-        opacity: 1; /* Делаем эффект видимым */
-        width: 125%; /* Достаточно, чтобы покрыть всю кнопку */
+        opacity: 1;
+        width: 125%;
         height: 125%;
     }
 
     .ripple-effect-primary.fade-out::after {
-        opacity: 0; /* Исчезновение эффекта */
-        transition: opacity 0.3s ease-in-out; /* Плавное исчезновение */
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
     }
+
+.cardDetails {
+    transition: max-height 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.edit-car-details {
+    transition: max-height 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
