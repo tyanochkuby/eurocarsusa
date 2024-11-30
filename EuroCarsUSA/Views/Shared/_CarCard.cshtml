@@ -6,13 +6,13 @@
 @using Microsoft.Extensions.Localization
 @model CarViewModel
 @inject IStringLocalizer<HomeController> Translator
-
     
-<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 px-0">
+
+<div class="@Html.Raw(Model.Classes)">
     <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@Model.Id class="text-black text-decoration-none">
-        <div class="card pt-2 box-shadow rounded-xxl">
-            <div class="img-container overflow-hidden mx-2 mt-1">
-                <img class="card-img float-left rounded-xxl" src=@Model.Images[0] alt=@(Model.Color.ToString() + Model.Make.ToString() + Model.Model)>
+        <div class="card p-3 box-shadow rounded-16">
+            <div class="img-container overflow-hidden">
+                <img class="card-img float-left" src=@Model.Images[0] alt=@(Model.Color.ToString() + Model.Make.ToString() + Model.Model)>
                 <div class="row position-absolute end-0 mx-0">
                     <div class="justify-content-end p-0">
                         @if (Model.IsLiked)
@@ -27,56 +27,91 @@
                 </div>
             </div>
 
-            <div class="card-body">
-                <div class="row justify-content-between fh-regular">
-                    <!-- Car name -->
-                    <div class="col-sm-7 col-12 px-1 px-sm-2 fh-card-header">
+            <div class="row mx-0 pt-3">
+                <div class="justify-content-between row px-0 mx-0">
+                    <div class="col px-0 text-title-md">
                         <b>@(Model.Make + " " + Model.Model)</b>
+                        <div class="col-12 px-0 text-title-sm text-primary-900">
+                            <div class="mb-0">@string.Format(new System.Globalization.CultureInfo("pl-PL"), "{0:N0}", Model.Price) PLN</div>
+                        </div>
                     </div>
-                    <!-- Price -->
-                    <div class="col-sm-5 col-12 px-1 px-sm-2 text-sm-end fh-card-title">
-                        <div class="mb-0">@string.Format(new System.Globalization.CultureInfo("pl-PL"), "{0:N0}", Model.Price) PLN</div>
+                    <div class="col-auto px-0 text-title-md align-items-center d-flex" style="height:44px">
+                        @Html.Partial("_IconButton", new { IconName = "Keyboard arrow down", Color = "primary", IconColor = "primary", Attributes = "" })
                     </div>
                 </div>
 
                 <!-- divider -->
-                <hr style="border-top: 1px solid #000;" class="mb-2 mt-1">
+                
+            </div>
 
+            <hr style="border-top: 1px solid #000;" class="mt-0 mb-2">
 
-                <div class="row justify-content-between fh-regular">
-                    <div class="col-12 col-sm-6">
-                        <div class="row">
-                            <div class="d-flex align-items-center justify-content-start">
-                                <img class="carIcon" src="/icons/car_millage.svg">
-                                <div class="ms-2 text-subhead">@Model.Mileage</div>
-                                <div class="ms-2 text-subhead">km</div>
-                            </div>
+            <div class="row mx-0 fh-regular gap-2 d-none">
+                <div class="row mx-0 px-0">
+                    <div class="col px-0">
+                        <div class="d-flex align-items-center justify-content-start">
+                            <img class="carIcon" src="/icons/car_millage.svg">
+                            <div class="ms-2 text-body-lg">Mileage</div>
                         </div>
-
-                        <div class="row">
-                            <div class="d-flex align-items-center justify-content-start">
-                                <img class="carIcon" src="/icons/car_engine.svg">
-                                <div class="ms-2 text-subhead">@(Model.FuelType == EuroCarsUSA.Data.Enums.CarFuelType.Electric ? Translator["Electric"] : Model.EngineVolume.ToString() + " cm3")</div>
-                            </div>
+                        <div class="d-flex align-items-center justify-content-start">
+                            <div class="text-body-md text-neutral-900">@Model.Mileage</div>
+                            <div class="ms-2 text-body-md text-neutral-900">km</div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-6 text-sm-end">
-                        <div class="row">
-                            <div class="d-flex align-items-center justify-content-start justify-content-sm-end">
-                                <img class="carIcon" src="/icons/car_gearbox.svg">
-                                <div class="ms-2 text-subhead">@(((CarTransmission)Model.Transmission).ToLocalizedString(Translator))</div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="d-flex align-items-center justify-content-start justify-content-sm-end">
-                                <img class="carIcon" src="/icons/car_year.svg">
-                                <div class="ms-2 text-subhead">@Model.Year</div>
-                            </div>
+                    <div class="col px-0">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <img class="carIcon" src="/icons/car_year.svg">
+                            <div class="ms-2 text-body-lg">Year</div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <div class="text-body-md text-neutral-900">@Model.Year</div>
                         </div>
                     </div>
                 </div>
+                <div class="row mx-0 px-0">
+                    <div class="col px-0">
+                        <div class="d-flex align-items-center justify-content-start">
+                            <img class="carIcon" src="/icons/car_year.svg">
+                            <div class="ms-2 text-body-lg">Fuel type</div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-start">
+                            <div class="text-body-md text-neutral-900">@Model.FuelType</div>
+                        </div>
+                    </div>
+                    <div class="col px-0">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <img class="carIcon" src="/icons/car_gearbox.svg">
+                            <div class="ms-2 text-body-lg">Gearbox</div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <div class="text-body-md text-neutral-900">@(((CarTransmission)Model.Transmission).ToLocalizedString(Translator))</div>
+                        </div>
+                    </div>
 
+
+                </div>
+                <div class="row mx-0 px-0">
+                    <div class="col px-0 text-nowrap">
+                        <div class="d-flex align-items-center justify-content-start">
+                            <img class="carIcon" src="/icons/car_engine.svg">
+                            <div class="ms-2 text-body-lg">Engine volume</div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-start">
+                            <div class="text-body-md text-neutral-900">@(Model.FuelType == EuroCarsUSA.Data.Enums.CarFuelType.Electric ? Translator["Electric"] : Model.EngineVolume.ToString() + " cm3")</div>
+                        </div>
+                    </div>
+
+                    <div class="col px-0">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <img class="carIcon" src="/icons/car_gearbox.svg">
+                            <div class="ms-2 text-body-lg">Type</div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <div class="text-body-md text-neutral-900">@Model.Type</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
         </div>

@@ -147,7 +147,7 @@ img.rounded-xxl {
 .img-container {
     position: relative;
     
-    padding-bottom: 56.25%; /* 9 / 16 * 100 = 56.25% */
+    padding-bottom: 75%; /* 9 / 16 * 100 = 56.25% */
     overflow: hidden;
 }
 

@@ -12,6 +12,7 @@
     <div class="row mx-0">
         @foreach (CarViewModel car in Model)
         {
+            car.Classes = "col-lg-4 col-12 col-lg-6 p-2";
             @await Html.PartialAsync("_CarCard", car)
         }
     </div>

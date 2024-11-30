@@ -40,5 +40,8 @@ namespace EuroCarsUSA.ViewModels
         public int Price { get; set; }
         public bool IsLiked { get; set; }
 
+        public string Classes { get; set; }
+
+        public bool IsFullSize { get; set; }
     }
 }
