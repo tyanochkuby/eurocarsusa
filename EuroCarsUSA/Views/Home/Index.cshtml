@@ -889,8 +889,8 @@
             event.stopPropagation();
             $(buttonElement).blur();
 
-            var isPressed = $(buttonElement).hasClass('btn-secondary');
-            console.log(isPressed);
+            var isPressed = $(buttonElement).hasClass('bg-secondary');
+
             var partialViewUrl = isPressed ? '@Url.Action("PressedLikeButton", "Home")' : '@Url.Action("UnpressedLikeButton", "Home")';
             var actionUrl = isPressed ? '@Url.Action("LikeCar", "Home")' : '@Url.Action("UnlikeCar", "Home")'
 

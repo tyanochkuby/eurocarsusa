@@ -22,24 +22,29 @@
         <div class="row px-5 ">
             <div class="col px-0">
                 <div class="row mx-0">
-                    @{
-                        ViewData["Color"] = "primary";
-                        ViewData["Text"] = "Back";
-                        ViewData["LeftIcon"] = true;
-                        ViewData["LeftIconSrc"] = Url.Content("Arrow back");
-                    }
                     <a asp-controller="Admin" asp-action="BackToIndexWithFilters" class="col-auto ps-0 pe-3">
-                        @Html.Partial("_Button")
+                        @Html.Partial("_Button", new
+                            {
+                                Text = "Back",
+                                Color = "primary",
+                                Classes = "",
+                                Attributes = "",
+                                LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                                RightIcon = (object)null,
+                                TextColor = "",
+                            })
                     </a>
-
-
-                    @{
-                        ViewData["Color"] = "secondary";
-                        ViewData["Text"] = "Individual order";
-                        ViewData["LeftIcon"] = false;
-                    }
                     <a class="col-auto px-0">
-                        @Html.Partial("_Button")
+                        @Html.Partial("_Button", new
+                            {
+                                Text = "Individual order",
+                                Color = "secondary",
+                                Classes = "",
+                                Attributes = "",
+                                LeftIcon = (object)null,
+                                RightIcon = (object)null,
+                                TextColor = "",
+                            })
                     </a>
                 </div>           
             </div>
@@ -51,14 +56,17 @@
                         param-CssClass="@( "h-100" )" />
                     </div>
                     <div class="col-auto d-flex flex-column justify-content-end px-0">
-                        @{
-                            ViewData["Color"] = "primary";
-                            ViewData["Text"] = "Find";
-                            ViewData["LeftIcon"] = true;
-                            ViewData["LeftIconSrc"] = Url.Content("Search");
-                        }
                         <a class="submit">
-                            @Html.Partial("_Button")
+                            @Html.Partial("_Button", new
+                                {
+                                    Text = "Find",
+                                    Color = "primary",
+                                    Classes = "",
+                                    Attributes = "",
+                                    LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                                    RightIcon = (object)null,
+                                    TextColor = "",
+                                })
                         </a>
                     </div>
                 </div>
