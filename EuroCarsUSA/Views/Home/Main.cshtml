@@ -1,4 +1,9 @@
 ﻿@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Data.Enums
+@using EuroCarsUSA.Extensions
+@using EuroCarsUSA.Models
+@using Microsoft.Extensions.Localization
+@model MainlViewModel
 
 <div>
     <img class="w-100" style="height: 340px;"></img>
@@ -10,7 +15,12 @@
                         Last added auto
                     </div>
                     <div class="auto-card">
-                        auto-card
+                        @{
+                            CarCardViewModel lastCar = Model.LastAddedCar;
+                            lastCar.Classes = "col-12";
+                            lastCar.IsFullSize = true;
+                            @await Html.PartialAsync("_CarCard", lastCar)
+                        }                           
                     </div>
                 </div>
                 <div class="col p-0 px-4 py-3 bg-white rounded-16">
@@ -45,7 +55,14 @@
                     
                         
                     </div>
-                    <div class="recomendations"></div>
+                    <div class="row mx-0">
+                        @foreach (CarCardViewModel car in Model.RecomendedCar)
+                        {
+                            car.Classes = "col-4 p-2";
+                            car.IsFullSize = false;
+                            @await Html.PartialAsync("_CarCard", car)
+                        }
+                    </div>
                 </div>
             </div>
         </div>
@@ -132,7 +149,14 @@
         <div class="col-12 px-0">
             <div class="row bg-white mx-0 px-4 py-3 rounded-16">
                 <div class="row p-0 mx-0 text-headline-sm mb-3">Samochody w drodze</div>
-                <div></div>
+                <div class="row p-0 mx-0">
+                    @foreach (CarCardViewModel car in Model.CarWDrodze)
+                    {
+                        car.Classes = "col-3";
+                        car.IsFullSize = false;
+                        @await Html.PartialAsync("_CarCard", car)
+                    }
+                </div>
             </div>
         </div>
     </div>

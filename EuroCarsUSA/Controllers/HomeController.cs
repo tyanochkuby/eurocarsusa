@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.ConstrainedExecution;
 using static NuGet.Packaging.PackagingConstants;
 
 namespace EuroCarsUSA.Controllers
@@ -156,7 +157,7 @@ namespace EuroCarsUSA.Controllers
             ViewBag.ShowMoreButton = showMoreButton;
 
             var likedCars = _cookieService.GetUserLikedCars();
-            var model = nextCars.Select(c => CarViewModel.FromCar(c, likedCars)).ToList();
+            var model = nextCars.Select(c => CarCardViewModel.FromCar(c, likedCars)).ToList();
 
             var partialView = PartialView(model);
             return partialView;
@@ -180,8 +181,24 @@ namespace EuroCarsUSA.Controllers
                     likedCars.Add(car);
                 }
             }
-            var model = likedCars.Select(c => CarViewModel.FromCar(c, likes)).ToList();
+            var model = likedCars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
             return View(model);
+        }
+
+        public async Task<IActionResult> Main()
+        {
+            var likes = _cookieService.GetUserLikedCars();
+            var cars = await _carRepository.GetAll();
+            var cardsViewModel = cars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+
+            MainlViewModel viewModel = new()
+            {
+                CarWDrodze = cardsViewModel.Take(4).ToList(),
+                RecomendedCar = cardsViewModel.Take(6).ToList(),
+                LastAddedCar = cardsViewModel[0]
+            };
+
+            return View(viewModel);
         }
 
         public async Task<IActionResult> GetFilterOptions(string filterType, string culture)
@@ -284,11 +301,6 @@ namespace EuroCarsUSA.Controllers
 
 
         public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public ActionResult Main()
         {
             return View();
         }

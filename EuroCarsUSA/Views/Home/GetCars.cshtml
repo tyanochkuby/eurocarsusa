@@ -4,13 +4,13 @@
 @using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Models
 @using Microsoft.Extensions.Localization
-@model List<CarViewModel>
+@model List<CarCardViewModel>
 @inject IStringLocalizer<HomeController> Translator
 
     
 <div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">
     <div class="row mx-0">
-        @foreach (CarViewModel car in Model)
+        @foreach (CarCardViewModel car in Model)
         {
             car.Classes = "col-xl-4 col-lg-6 col-md-12 col-6 p-2";
             car.IsFullSize = true;

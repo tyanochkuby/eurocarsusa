@@ -4,7 +4,7 @@
 @using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Models
 @using Microsoft.Extensions.Localization
-@model CarViewModel
+@model CarCardViewModel
 @inject IStringLocalizer<HomeController> Translator
     
 @{
@@ -58,7 +58,7 @@
                 <hr style="border-top: 1px solid #000;" class="mt-0 mb-2">
                 
 
-                <div class="row mx-0 fh-regular gap-2 overflow-hidden cardDetails" id="details-@(Model.Id)" style="max-height: 0px;">
+                <div class="row mx-0 fh-regular gap-2 overflow-hidden cardDetails" id="details-@(Model.Id)" style="max-height: 500px;">
                     <div class="row mx-0 px-0">
                         <div class="col px-0">
                             <div class="d-flex align-items-center justify-content-start">

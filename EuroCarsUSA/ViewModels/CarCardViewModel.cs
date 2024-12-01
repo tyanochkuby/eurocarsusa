@@ -3,11 +3,11 @@ using EuroCarsUSA.Models;
 
 namespace EuroCarsUSA.ViewModels
 {
-    public class CarViewModel
+    public class CarCardViewModel
     {
-        static public CarViewModel FromCar(Car car, List<Guid> likedCars)
+        static public CarCardViewModel FromCar(Car car, List<Guid> likedCars)
         {
-            return new CarViewModel
+            return new CarCardViewModel
             {
                 Id = car.Id,
                 Make = car.Make,
