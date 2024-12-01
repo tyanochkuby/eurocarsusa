@@ -293,6 +293,38 @@
             </div>
 
         </div>
+
+        @*Details*@
+        <div class="col p-0">
+            
+            <div class="row mx-0 mb-3 d-flex align-items-stretch">
+                <div class="col px-0 text-headline-sm">We recommend</div>
+                <div class="col px-0 flex-grow-1 justify-content-end d-flex">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.Partial("_Button", new
+                            {
+                                Text = "Edit",
+                                Color = "primary",
+                                Classes = "py-0 h-100 ms-2",
+                                Attributes = "",
+                                LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
+                                RightIcon = (object)null,
+                                TextColor = "",
+                            })
+                    }
+                </div>
+            </div>
+
+            <div class="row gx-2">
+                @foreach (CarCardViewModel car in Model.RecomendedCar)
+                {
+                    car.Classes = "col-3";
+                    car.IsFullSize = false;
+                    @await Html.PartialAsync("_CarCard", car)
+                }
+            </div>
+        </div>
     </div>
 
 

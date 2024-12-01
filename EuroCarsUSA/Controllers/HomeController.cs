@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Net.WebSockets;
 using System.Runtime.ConstrainedExecution;
 using static NuGet.Packaging.PackagingConstants;
 
@@ -88,10 +89,15 @@ namespace EuroCarsUSA.Controllers
             await _statisticsService.ViewCar(id);
             Car car = await _carRepository.GetById(id);
 
+            var likes = _cookieService.GetUserLikedCars();
+            var recomendedCars = await _carRepository.GetRange(0, 4, null, null);
+            var recomendedCardsViewModel = recomendedCars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+
             DetailViewModel viewModel = new()
             {
                 Car = car,
-                DetailPageForm = new DetailPageForm { CarId = car.Id }
+                DetailPageForm = new DetailPageForm { CarId = car.Id },
+                RecomendedCar = recomendedCardsViewModel,
             };
 
             return View(viewModel);
@@ -188,14 +194,18 @@ namespace EuroCarsUSA.Controllers
         public async Task<IActionResult> Main()
         {
             var likes = _cookieService.GetUserLikedCars();
-            var cars = await _carRepository.GetAll();
-            var cardsViewModel = cars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+
+            var carsWDrodze = await _carRepository.GetRange(0, 4, null, null);
+            var recomendedCars = await _carRepository.GetRange(0, 6, null, null);
+            
+            var cardsWDrodzeViewModel = carsWDrodze.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+            var recomendedCadrsViewModel = recomendedCars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
 
             MainlViewModel viewModel = new()
             {
-                CarWDrodze = cardsViewModel.Take(4).ToList(),
-                RecomendedCar = cardsViewModel.Take(6).ToList(),
-                LastAddedCar = cardsViewModel[0]
+                CarWDrodze = cardsWDrodzeViewModel.ToList(),
+                RecomendedCar = recomendedCadrsViewModel.ToList(),
+                LastAddedCar = cardsWDrodzeViewModel[0]
             };
 
             return View(viewModel);
