@@ -10,7 +10,7 @@
     <div class="bg-neutral-200 row mx-0 gap-4" style="padding: 32px;">
         <div class="col-12 px-0">
             <div class="row mx-0">
-                <div class="col-4 p-0 px-4 py-3 bg-white rounded-16 me-4">
+                <div class="col-4 p-0 p-3 bg-white rounded-16 me-4">
                     <div class="row mx-0 text-headline-sm mb-3">
                         Last added auto
                     </div>
@@ -23,7 +23,7 @@
                         }                           
                     </div>
                 </div>
-                <div class="col p-0 px-4 py-3 bg-white rounded-16">
+                <div class="col p-0 p-3 bg-white rounded-16">
                     <div class="row mx-0 mb-3 d-flex align-items-stretch">
                         <div class="col px-0 text-headline-sm">We recommend</div>
                         <div class="col px-0 flex-grow-1 justify-content-end d-flex">
@@ -55,10 +55,10 @@
                     
                         
                     </div>
-                    <div class="row mx-0">
+                    <div class="row gx-2">
                         @foreach (CarCardViewModel car in Model.RecomendedCar)
                         {
-                            car.Classes = "col-4 p-2";
+                            car.Classes = "col-4";
                             car.IsFullSize = false;
                             @await Html.PartialAsync("_CarCard", car)
                         }
@@ -68,10 +68,10 @@
         </div>
 
         <div class="col-12 px-0">
-            <div class="row bg-white mx-0 px-4 py-3 rounded-16">
+            <div class="row bg-white mx-0 p-3 rounded-16">
                 <div class="col px-0">
                     <div class="row mx-0 text-headline-sm mb-3">About us & contact</div>
-                    <div class="px-2 py-3 row mx-0 gap-5">
+                    <div class="row mx-0 gap-5">
                         <div class="col bg-neutral-100 rounded-16 p-3">
                             <div class="pb-3 text-headline-sm text-center">About us</div>
                             <div class="text-body-md">
@@ -127,7 +127,7 @@
         </div>
 
         <div class="col-12 px-0">
-            <div class="row bg-white mx-0 px-4 py-3 rounded-16">
+            <div class="row bg-white mx-0 p-3 rounded-16">
                 <div class="row p-0 mx-0 text-headline-sm mb-3">Individual order</div>
                 <div class="p-0 d-flex justify-content-between">
                     <div class="text-body-md">If there is no car you looking you can order car by dealer directly with you price</div>
@@ -147,9 +147,9 @@
             </div>
         </div>
         <div class="col-12 px-0">
-            <div class="row bg-white mx-0 px-4 py-3 rounded-16">
+            <div class="row bg-white mx-0 p-3 rounded-16">
                 <div class="row p-0 mx-0 text-headline-sm mb-3">Samochody w drodze</div>
-                <div class="row p-0 mx-0">
+                <div class="row p-0 gx-3">
                     @foreach (CarCardViewModel car in Model.CarWDrodze)
                     {
                         car.Classes = "col-3";
@@ -166,7 +166,68 @@
 
 
 @section Scripts {
-    <script>
 
+    <script>
+        function likeCar(carId, event, buttonElement) {
+
+            event.preventDefault();
+            event.stopPropagation();
+            $(buttonElement).blur();
+
+            var likes = getCookie("likes");
+            var likesArray = likes ? JSON.parse(decodeURIComponent(likes)) : [];
+
+            var isLiked = likesArray.includes(carId);
+
+            var partialViewUrl = isLiked ? '@Url.Action("UnpressedLikeButton", "Home")' : '@Url.Action("PressedLikeButton", "Home")';
+            var actionUrl = isLiked ? '@Url.Action("UnlikeCar", "Home")' : '@Url.Action("LikeCar", "Home")'
+
+            $.ajax({
+                url: partialViewUrl,
+                type: 'GET',
+                data: { carId: carId },
+                success: function (response) {
+                    $(buttonElement).replaceWith(response.html);
+                },
+                error: function () {
+                    console.error('Error loading button state');
+                }
+            });
+
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: { carId: carId },
+                success: function (response) {
+                    if (response.success) {
+                        console.log('Car liked/unliked successfully');
+                    }
+                },
+                error: function () {
+                    console.error('Error liking/unliking car');
+                }
+            });
+        }
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/; Secure; SameSite=Lax";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
     </script>
 }
