@@ -1,4 +1,6 @@
 ﻿using EuroCarsUSA.Data.Enums;
+using EuroCarsUSA.Models;
+using EuroCarsUSA.Services;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
 using EuroCarsUSA.Views.Home.Components.ViewModels;
@@ -29,6 +31,14 @@ namespace EuroCarsUSA.Controllers
             }
             return RedirectToAction("Thanks", new { id = formId });
         }
+
+        public async Task<IActionResult> Order(Guid id)
+        {
+            CustomOrderViewModel viewModel = await _customOrderService.GetById(id);
+
+            return View(viewModel);
+        }
+
 
         public IActionResult Track()
         {

@@ -78,95 +78,95 @@
         <div class="px-2">
             <div>
                 <span class="mb-3 text-headline-sm">Client orders</span>
-                <div class="p-3 bg-secondary rounded-16">                
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Model</th>
-                                <th>Max Price</th>
-                                <th>Max Mileage</th>
-                                <th>Min Year</th>
-                                <th>Max Year</th>
-                                <th>Description</th>
-                                <th>Makes</th>
-                                <th>Colors</th>
-                                <th>Car Types</th>
-                                <th>Fuel Types</th>
-                                <th>Transmission</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (var order in Model)
-                        {
-                            <tr>
-                            @foreach(var form in order.Forms)
-                            {
-                            
-                            <td>@form.Id</td>
-                            <td>@form.Model</td>
-                            <td>@form.MaxPrice</td>
-                            <td>@form.MaxMileage</td>
-                            <td>@form.MinYear</td>
-                            <td>@form.MaxYear</td>
-                            <td>@form.Description</td>
-                            <td>
-                                @foreach (var make in form.CarMakes)
-                                {
-                                    <span>@make</span>
-                                }
-                            </td>
-                            <td>
-                                @foreach (var color in form.CarColors)
-                                {
-                                    <span>@color</span>
-                                }
-                            </td>
-                            <td>
-                                @foreach (var carType in form.CarTypes)
-                                {
-                                    <span>@carType</span>
-                                }
-                            </td>
-                            <td>
-                                @foreach (var fuelType in form.CarFuelTypes)
-                                {
-                                    <span>@fuelType</span>
-                                }
-                            </td>
-                            <td>
-                                @foreach (var transmission in form.CarTransmissions)
-                                {
-                                    <span>@transmission</span>
-                                }
-                            </td>
-                            }
-                            <td>@order.Name</td>
-                            <td>@order.Email</td>
-                            <td>@order.PhoneNumber</td>
-                            <td>
-                                <select class="form-control" name="status-@order.Id" onchange="updateStatus('@order.Id', this.value)">
-                                    @foreach (var status in Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>())
-                                    {
-                                        if (status == order.Status)
-                                        {
-                                            <option value="@status" selected>@status</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@status">@status</option>
-                                        }
-                                    }
-                                </select>
-                            </td>
-                        </tr>
+                <div class="p-3 bg-secondary rounded-16 row m-0 gx-3 gy-3">
+                    @foreach (var order in Model)
+                    {
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <a asp-controller="CustomOrder" , asp-action="Order" , asp-route-id=@order.Id class="text-black text-decoration-none">
+                                <div class="card box-shadow rounded-16 p-3">
+                                    <div class="">
+                                        <div class="row mx-0">
+                                            <div class="justify-content-between row px-0 mx-0">
+                                                <div class="col px-0 text-title-md">
+                                                    <div>@order.Id</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr style="border-top: 1px solid #000;" class="mt-0 mb-2">
+
+
+                                        <div class="row mx-0 fh-regular gap-2 overflow-hidden cardDetails" style="max-height: 500px;">
+                                            <div class="row mx-0 px-0">
+                                                <div class="col-6 px-0">
+                                                    <div class="d-flex align-items-center justify-content-start">
+                                                        <div class="text-body-lg">Date added</div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-start">
+                                                        <div class="text-body-md text-neutral-900 w-100">@order.Name</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-6 px-0">
+                                                    <div class="d-flex align-items-center justify-content-end">
+                                                        <div class="text-body-lg">Name</div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end">
+                                                        <div class="text-body-md text-neutral-900">@order.Name</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mx-0 px-0">
+                                                <div class="col-6 px-0">
+                                                    <div class="d-flex align-items-center justify-content-start">
+                                                        <div class="text-body-lg">Email</div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-start">
+                                                        <div class="text-body-md text-neutral-900 w-100">@order.Email</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 px-0">
+                                                    <div class="d-flex align-items-center justify-content-end">
+                                                        <div class="text-body-lg text-end">Phone number</div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end ">
+                                                        <div class="text-body-md text-neutral-900">@(order.PhoneNumber != null ? order.PhoneNumber : "Not provided")</div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <hr style="border-top: 1px solid #000;" class="mt-0 mt-2 mb-1">
+
+                                        <div class="row mx-0">
+                                            <div class="justify-content-between row px-0 mx-0">
+                                                <div class="col px-0 text-label-lg">
+                                                    <div>Status</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 px-0 text-title-md text-primary-900 d-flex justify-content-end">
+                                            <select class="form-control" name="status-@order.Id" onchange="updateStatus('@order.Id', this.value)">
+                                                @foreach (var status in Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>())
+                                                {
+                                                    if (status == order.Status)
+                                                    {
+                                                        <option value="@status" selected>@status</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@status">@status</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </div>
                     }
-                </tbody>
-                    </table>
                 </div>
             </div>
         </div>

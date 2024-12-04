@@ -19,6 +19,7 @@ namespace EuroCarsUSA.Data.Repositories
         }
         async Task<bool> ICustomOrderRepository.Add(CustomOrder customorder)
         {
+            customorder.TimeStamp = DateTime.Now;
             _context.Add(customorder);
             return await Save();
         }

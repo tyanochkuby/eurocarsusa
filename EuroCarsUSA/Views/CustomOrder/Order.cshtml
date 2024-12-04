@@ -1,0 +1,152 @@
+﻿@using EuroCarsUSA.Data.Enums
+@using EuroCarsUSA.Services.Interfaces
+@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
+@using Microsoft.AspNetCore.Components
+@model CustomOrderViewModel
+@inject ICustomOrderService formService
+
+<div class="bg-neutral-200 w-100 h-100 py-4">
+    <div class="container p-5 pt-3 bg-white rounded-32 justify-content-center mb-2">
+        <div class="d-flex justify-content-center">
+            <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
+                Individual order
+            </div>
+        </div>
+        <div class="text-display-sm text-subhead">
+            This section dedicated to your personal requests. If cannot find your taste’s car you can apply you request to dealer via this section. Provide you personal preferences with the help of those filters. Provide you contact information so we can contact you back.
+        </div>
+    </div>
+
+    <div class="container mt-4 mb-2">
+        <div class="row px-5 ">
+            <div class="col px-0">
+                <div class="row mx-0">
+                    <a asp-controller="Admin" asp-action="BackToIndexWithFilters" class="col-auto ps-0 pe-3">
+                        @Html.Partial("_Button", new
+                            {
+                                Text = "Back",
+                                Color = "primary",
+                                Classes = "",
+                                Attributes = "",
+                                LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                                RightIcon = (object)null,
+                                TextColor = "",
+                            })
+                    </a>
+                    <a class="col-auto px-0">
+                        @Html.Partial("_Button", new
+                            {
+                                Text = "Individual order",
+                                Color = "secondary",
+                                Classes = "",
+                                Attributes = "",
+                                LeftIcon = (object)null,
+                                RightIcon = (object)null,
+                                TextColor = "",
+                            })
+                    </a>
+                </div>           
+            </div>
+            <div class="col px-0">
+                <div class="row m-0 justify-content-end">
+                    <div class="col-auto px-0 me-3">
+                        <component type="typeof(EditableField<int>)"
+                        render-mode="ServerPrerendered"
+                        param-CssClass="@( "h-100" )" />
+                    </div>
+                    <div class="col-auto d-flex flex-column justify-content-end px-0">
+                        <a class="submit">
+                            @Html.Partial("_Button", new
+                                {
+                                    Text = "Find",
+                                    Color = "primary",
+                                    Classes = "",
+                                    Attributes = "",
+                                    LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                                    RightIcon = (object)null,
+                                    TextColor = "",
+                                })
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container p-3 bg-white rounded-32">
+        <div class="px-2">
+            <div>
+                <span class="mb-3 text-headline-sm">Client orders</span>
+                <div class="p-3 bg-secondary rounded-16">                
+                    <div>@Model.Id</div>
+                    <div>@Model.Name</div>
+                    <div>@Model.Email</div>
+                    <div>@Model.PhoneNumber</div>
+                    <div>@Model.Status</div>
+                    <div>@Model.Forms.Count()</div>
+                    @foreach (var form in Model.Forms)
+                    {
+                        <div>@form.Id</div>
+                        <div>@form.Model</div>
+                        <div>@form.MaxPrice</div>
+                        <div>@form.MaxMileage</div>
+                        <div>@form.MinYear</div>
+                        <div>@form.MaxYear</div>
+                        <div>@form.Description</div>
+                        <div>
+                            @foreach (var make in form.CarMakes)
+                            {
+                                <span>@make</span>
+                            }
+                        </div>
+                        <div>
+                            @foreach (var color in form.CarColors)
+                            {
+                                <span>@color</span>
+                            }
+                        </div>
+                        <div>
+                            @foreach (var carType in form.CarTypes)
+                            {
+                                <span>@carType</span>
+                            }
+                        </div>
+                        <div>
+                            @foreach (var fuelType in form.CarFuelTypes)
+                            {
+                                <span>@fuelType</span>
+                            }
+                        </div>
+                        <div>
+                            @foreach (var transmission in form.CarTransmissions)
+                            {
+                                <span>@transmission</span>
+                            }
+                        </div>
+                        <div>end div</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        function updateStatus(formId, status) {
+            $.ajax({
+                url: '/Admin/SetOrderStatus',
+                data: { id: formId, status: status},
+                type: 'PUT',
+                success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    alert('An error occurred while updating form status.');
+                }
+            });
+        }
+    </script>
+}

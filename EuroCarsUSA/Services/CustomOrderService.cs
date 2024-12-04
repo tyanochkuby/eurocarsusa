@@ -19,7 +19,7 @@ namespace EuroCarsUSA.Services
         {
             var customOrders = await _customOrderRepository.GetAll();
             
-            var viewModels = customOrders.Select(co => new CustomOrderViewModel()
+            var viewModels = customOrders.OrderByDescending(c => c.TimeStamp).Select(co => new CustomOrderViewModel()
             {
                 Id = co.Id,
                 Forms = co.Forms.Select(f => f.ToViewModel()).ToList(),
