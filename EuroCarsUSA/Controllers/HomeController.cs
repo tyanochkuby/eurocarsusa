@@ -48,7 +48,7 @@ namespace EuroCarsUSA.Controllers
             _viewEngine = viewEngine;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
+        public async Task<IActionResult> Catalog(string sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
         {
             ViewData["SortBy"] = _localizer["SortBy"];
             var filters = new CarFilter()
@@ -191,7 +191,7 @@ namespace EuroCarsUSA.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Main()
+        public async Task<IActionResult> Index()
         {
             var likes = _cookieService.GetUserLikedCars();
 
@@ -268,15 +268,15 @@ namespace EuroCarsUSA.Controllers
             return Json(new { success = true });
         }
 
-        public IActionResult BackToIndexWithFilters()
+        public IActionResult BackToCatalogWithFilters()
         {
             var sessionData = HttpContext.Session.GetString("CurrentFilters");
             if (!string.IsNullOrEmpty(sessionData))
             {
                 var filters = JsonConvert.DeserializeObject<CarFilter>(sessionData);
-                return RedirectToAction("Index", filters);
+                return RedirectToAction("Catalog", filters);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Catalog");
         }
         private string RenderPartialViewToString(string viewName, object model)
         {

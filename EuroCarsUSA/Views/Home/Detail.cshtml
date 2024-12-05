@@ -65,7 +65,7 @@
         <div class="col-md-7 col-lg-8 px-3">
             @*path*@
             <div class="ms-xl-0 ms-2 mb-3 d-flex">
-                <a asp-controller="Home" asp-action="BackToIndexWithFilters">
+                <a asp-controller="Home" asp-action="BackToCatalogWithFilters">
                     @Html.Partial("_Button", new
                         {
                             Text = @Translator["Back"],
@@ -78,7 +78,7 @@
                         })
                 </a>
 
-                <a asp-controller="Home" asp-action="Index" asp-route-make="@Model.Car.Make">
+                <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make">
                     @Html.Partial("_Button", new
                         {
                             Text = $"{@Model.Car.Make}",
@@ -90,7 +90,7 @@
                             TextColor = "",
                         })
                 </a>
-                <a asp-controller="Home" asp-action="Index" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model">
+                <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model">
                     @Html.Partial("_Button", new
                         {
                             Text = $"{@Model.Car.Model}",

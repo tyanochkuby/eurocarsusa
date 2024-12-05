@@ -1,1012 +1,165 @@
-﻿@using EuroCarsUSA.Controllers
+﻿@using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
-@using EuroCarsUSA.Views.Home.Components.ViewModels
+@using EuroCarsUSA.Models
 @using Microsoft.Extensions.Localization
-@using System.Globalization
+@model MainlViewModel
 
-@inject IStringLocalizer<HomeController> Translator
-
-@model IEnumerable<Car>
-
-@{
-    ViewData["Title"] = "EuroCarsUSA";
-    var selectedMakes = Context.Request.Query["make"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
-    var selectedCarTypes = Context.Request.Query["carType"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
-    var selectedFuelTypes = Context.Request.Query["fuelType"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
-    var selectedTransmissions = Context.Request.Query["transmission"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
-    var selectedColors = Context.Request.Query["color"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
-}
-
-<div class="row justify-content-around mx-0 mb-3 d-md-none d-block">
-    <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="sort-mobile-button">
-        @Translator["SortBy"]
-    </button>
-    
-    <button class="btn btn-secondary rounded-3 filters-mobile col-lg-4 col-md-5 col-sm-5 col-5" id="filters-mobile-button">
-        @Translator["Filters"]
-    </button>
-</div>
-
-<div class="filters-mobile" id="filters-mobile-list">
-    <div class="row mt-4 justify-content-between w-100">
-            <div class="col-5 "></div>
-            <div class="col-6 "><p class="fs-5">Filters</p></div>
-        <div class="col-1 "><img class="filterIcon filter-mobile-close-button" src="~/icons/clear.svg" /></div>
-    </div>
-    <form method="get" id="mobileFiltersForm">
-        <input hidden id="mobileSortOrder" name="sortOrder" value=""></input>
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="make">
-            <div class="col-3">
-                <label class="ps-1" for="make">@Translator["Make"]</label>
-            </div>
-            <div class="col-8 text-end">
-                <p name="make" class="text-ellipsis"> @Context.Request.Query["make"].ToString() </p>
-            </div>
-            <div class="col-1 ps-0">
-                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-            </div>
-        </div>
-
-
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="carType">
-            <div class="col-4">
-                <label class="ps-1" for="make">@Translator["CarType"]</label>
-            </div>
-            <div class="col-7 text-end">
-                <p name="carType" class="text-ellipsis"> @Context.Request.Query["carType"].ToString() </p>
-            </div>
-            <div class="col-1 ps-0">
-                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-            </div>
-        </div>
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="fuelType">
-            <div class="col-4">
-                <label class="ps-1" for="fuelType">@Translator["FuelType"]</label>
-            </div>
-            <div class="col-7 text-end">
-                <p name="fuelType" class="text-ellipsis"> @Context.Request.Query["fuelType"].ToString() </p>
-            </div>
-            <div class="col-1 ps-0">
-                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-            </div>
-        </div>
-
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="transmission">
-            <div class="col-3">
-                <label class="ps-1" for="transmission">@Translator["Transmission"]</label>
-            </div>
-            <div class="col-8 text-end">
-                <p name="transmission" class="text-ellipsis"> @Context.Request.Query["transmission"].ToString() </p>
-            </div>
-            <div class="col-1 ps-0">
-                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-            </div>
-        </div>
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="color">
-            <div class="col-3">
-                <label class="ps-1" for="color">@Translator["Color"]</label>
-            </div>
-            <div class="col-8 text-end">
-                <p name="color" class="text-ellipsis"> @Context.Request.Query["color"].ToString() </p>
-            </div>
-            <div class="col-1 ps-0">
-                <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-            </div>
-        </div>
-
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
-            <label class="ps-3" for="model">@Translator["Model"]</label>
-            <div class="col-12">
-                <input type="text" id="model" name="model" class="form-control" value="@Context.Request.Query["model"]" />
-            </div>
-        </div>
-
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
-            <label class="ps-3" for="minPrice">@Translator["Price"]</label>
-            <div class="col-6 pe-1">
-                <input type="number" id="minPrice" name="minPrice" placeholder="Min" class="form-control" value="@Context.Request.Query["minPrice"]" />
-            </div>
-        
-            <div class="col-6 ps-1">
-                <input type="number" id="maxPrice" name="maxPrice" placeholder="Max" class="form-control" value="@Context.Request.Query["maxPrice"]" />
-            </div>
-
-        </div>
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
-            <label class="ps-3" for="minYear">@Translator["Year"]</label>
-            <div class="col-6 pe-1">
-                <input type="number" id="minYear" name="minYear" placeholder="Min" class="form-control" value="@Context.Request.Query["minYear"]" />
-            </div>
-            <div class="col-6 ps-1">
-                <input type="number" id="maxYear" name="maxYear" placeholder="Max" class="form-control" value="@Context.Request.Query["maxYear"]" />
-            </div>
-        </div>
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
-            <label class="ps-3" for="minMileage">@Translator["Mileage"]</label>
-            <div class="col-6 pe-1">
-                <input type="number" id="minMileage" name="minMileage" placeholder="Min" class="form-control" value="@Context.Request.Query["minMileage"]" />
-            </div>
-            <div class="col-6 ps-1">
-                <input type="number" id="maxMileage" name="maxMileage" placeholder="Max" class="form-control" value="@Context.Request.Query["maxMileage"]" />
-            </div>
-        </div>
-
-
-       
-        <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
-            <label class="ps-3" for="minEngineVolume">@Translator["EngineVolume"]</label>
-            <div class="col-6 pe-1">
-                <input type="number" id="minEngineVolume" name="minEngineVolume" placeholder="Min" class="form-control" value="@Context.Request.Query["minEngineVolume"]" />
-            </div>
-            <div class="col-6 ps-1">
-                <input type="number" id="maxEngineVolume" name="maxEngineVolume" placeholder="Max" class="form-control" value="@Context.Request.Query["maxEngineVolume"]" />
-            </div>
-        </div>
-
-   
-
-        <input type="hidden" id="makeMobileInput" name="make" value="@Context.Request.Query["make"].ToString()" />
-        <input type="hidden" id="colorMobileInput" name="color" value="@Context.Request.Query["color"].ToString()" />
-        <input type="hidden" id="transmissionMobileInput" name="transmission" value="@Context.Request.Query["transmission"].ToString()" />
-        <input type="hidden" id="fuelTypeMobileInput" name="fuelType" value="@Context.Request.Query["fuelType"].ToString()" />
-        <input type="hidden" id="carTypeMobileInput" name="carType" value="@Context.Request.Query["carType"].ToString()" />
-        <div class="row row-mobile-filter mx-0 justify-content-between">
-            <div class="col-6">
-                <button class="btn btn-secondary rounded-pill me-4 w-100 d-flex align-items-center justify-content-center filter-mobile-close-button">
-                    <img class="carIcon me-2" src="~/icons/clear.svg" /> @Translator["Close"]
-                </button>
-            </div>
-            <div class="col-6">
-                <button type="submit" class="btn btn-primary rounded-pill w-100" id="mobileFilterSubmitButton">
-                    <img class="carIcon" src="~/icons/search.svg" /> @Translator["Find"]
-                </button>
-            </div>
-        </div>
-        
-    </form>
-    
-</div>
-
-
-<div class="filters-mobile" id="sort-mobile-list">
-    <div class="row mt-4 justify-content-between w-100">
-        <div class="col-5 "></div>
-        <div class="col-6 "><p class="fs-5">@Translator["SortBy"]</p></div>
-        <div class="col-1 "><img class="filterIcon sort-mobile-close-button" src="~/icons/clear.svg" /></div>
-    </div>
-    @foreach (SortOrder sortOrder in Enum.GetValues(typeof(SortOrder)))
-    {
-        <div class="row w-100 justify-content-between mb-2 mx-0 mobile-sort-option row-mobile-filter d-inline-flex align-items-center">
-            <div class="col-10 d-flex align-items-center">
-                <label class="ps-3 fh-filter-text" value="@sortOrder">@sortOrder.ToLocalizedString(Translator)</label>
-            </div>
-            @if (Context.Request.Query["sortOrder"] == sortOrder.ToString() || (Context.Request.Query["sortOrder"] == String.Empty && sortOrder == SortOrder.NewFirst))
-            {
-                <div class="col-2 d-flex align-items-center">
-                    <svg width="96" height="96" viewBox="0 0 96 96" class="carIcon" fill="#7E9DED" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_449_5772)">
-                            <path d="M36.0001 64.8L19.2001 48L13.6001 53.6L36.0001 76L84.0001 28L78.4001 22.4L36.0001 64.8Z" fill="#7E9DED" />
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_449_5772">
-                                <rect width="96" height="96" fill="#7E9DED" />
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </div>
-            }
-        </div>
-        <hr style="border-top: 1px solid #000;" class="my-0">
-
-    }
-</div>
-
-<div class="row mx-0">
-
-    <div class="col-md-6 col-lg-5 col-xl-4 col-xxl-3 d-none d-md-block ps-3 pe-4">
-        <form method="get" id="filtersForm">
-            <div class="pb-2 pt-0">
-                <div class="fh-title-subhead">@Translator["SortBy"] :</div>
-                
-                <select id="sortOrder" name="sortOrder" class="w-100">
-                    @foreach (SortOrder sortOrder in Enum.GetValues(typeof(SortOrder)))
-                    {
-                        if (Context.Request.Query["sortOrder"] == sortOrder.ToString())
-                        {
-                            <option value="@sortOrder" selected>@sortOrder.ToLocalizedString(Translator)</option>
-                        }
-                        else
-                        {
-                            <option value="@sortOrder">
-                                @sortOrder.ToLocalizedString(Translator)
-                            </option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="fh-header mt-2 mb-1">@Translator["Filters"]:</div>
-            <hr style="border-top: 1px solid #000;" class="my-0">
+<div>
+    <img class="w-100" style="height: 340px;"></img>
+    <div class="bg-neutral-200 row mx-0 gap-4" style="padding: 32px;">
+        <div class="col-12 px-0">
             <div class="row mx-0">
-                <div class="col-12 p-3 bg-neutral-100 rounded-16">
-                
-                    <div class="pt-0 mb-3">
-                        <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"button\" id=\"dropdownMenuButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
-                                    Placeholder = (selectedMakes.Any() ? string.Join(", ", selectedMakes) : Translator["Choose"]),
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["Make"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                            <ul class="dropdown-menu w-100" name="make" aria-labelledby="dropdownMenuButton">
-                                @foreach (FilterOptionViewModel makeOption in ViewBag.AvailableFilters["make"])
-                                {
-                                    <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{makeOption.OriginalValue}\" {(selectedMakes.Contains(makeOption.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = makeOption.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                        <input value="@Context.Request.Query["make"]" type="hidden" id="makeInput" name="make">
+                <div class="col-4 p-0 p-3 bg-white rounded-16 me-4">
+                    <div class="row mx-0 text-headline-sm mb-3">
+                        Last added auto
                     </div>
+                    <div class="auto-card">
+                        @{
+                            CarCardViewModel lastCar = Model.LastAddedCar;
+                            lastCar.Classes = "col-12";
+                            lastCar.IsFullSize = true;
+                            @await Html.PartialAsync("_CarCard", lastCar)
+                        }                           
+                    </div>
+                </div>
+                <div class="col p-0 p-3 bg-white rounded-16">
+                    <div class="row mx-0 mb-3 d-flex align-items-stretch">
+                        <div class="col px-0 text-headline-sm">We recommend</div>
+                        <div class="col px-0 flex-grow-1 justify-content-end d-flex">
+                            @Html.Partial("_Button", new
+                                {
+                                    Text = "See all",
+                                    Color = "primary",
+                                    Classes = "py-0 h-100 bg-white",
+                                    Attributes = "",
+                                    LeftIcon = (object)null,
+                                    RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "neutral900" }),
+                                    TextColor = "text-neutral-900",
+                                })
 
-                    <div class="mb-3">
-                            @Html.Partial("_LineEdit", new
+                            @if (User.IsInRole("Admin"))
                             {
-                                Classes = "",
-                                Attributes = $"type=\"text\" id=\"model\" name=\"model\" value=\"{Context.Request.Query["model"]}\"",
-
-                                Leading = (object)null,
-                                Trailing = (object)null,
-
-                                Placeholder = Translator["Type"],
-
-                                ShowOverline = true,
-                                ShowOverlineInside = true,
-                                HasOutsidOverlineSizeEffect = false,
-                                Overline = @Translator["Model"],
-
-                                ShowSupportive = false,
-                                HasOutsideSupportiveSizeEffect = false,
-                                Supportive = "Supporting line",
-
-                                ShowAdditional = false,
-                                ShowAdditionalBackground = true,
-                                Additional = "100+"
-                            })
+                                @Html.Partial("_Button", new
+                                    {
+                                        Text = "Edit",
+                                        Color = "primary",
+                                        Classes = "py-0 h-100 ms-2",
+                                        Attributes = "",
+                                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
+                                        RightIcon = (object)null,
+                                        TextColor = "",
+                                    })
+                            }
+                        </div>
+                    
+                        
                     </div>
-                
-                    <div class="pt-0 mb-3">
-                        <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"button\" id=\"dropdownCarTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
-                                    Placeholder = (selectedCarTypes.Any() ? string.Join(", ", selectedCarTypes) : Translator["Choose"]),
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["CarType"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                            <ul class="dropdown-menu w-100" name="carType" aria-labelledby="dropdownCarTypeButton">
-                                @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["carType"])
-                                {
-                                    <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedCarTypes.Contains(option.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = option.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
-                                    </li>
-                                }
-                            </ul>
-
-                        </div>
-                        <input value="@Context.Request.Query["carType"]" type="hidden" id="carTypeInput" name="carType">
-                    </div>
-
-                    <div class="pt-0 mb-3">
-                        <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"button\" id=\"dropdownFuelTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
-                                    Placeholder = (selectedFuelTypes.Any() ? string.Join(", ", selectedFuelTypes) : Translator["Choose"]),
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["FuelType"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                            <ul class="dropdown-menu w-100" name="fuelType" aria-labelledby="dropdownFuelTypeButton">
-                                @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["fuelType"])
-                                {
-                                    <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedFuelTypes.Contains(option.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = option.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
-                                    </li>
-                                }
-                            </ul>
-
-                        </div>
-                        <input value="@Context.Request.Query["fuelType"]" type="hidden" id="fuelTypeInput" name="fuelType">
-                    </div>
-
-                    <div class="pt-0 mb-3">
-                        <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"button\" id=\"dropdownTransmissionButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
-                                    Placeholder = (selectedTransmissions.Any() ? string.Join(", ", selectedTransmissions) : Translator["Choose"]),
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["Transmission"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                            <ul class="dropdown-menu w-100" name="transmission" aria-labelledby="dropdownTransmissionButton">
-                                @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["transmission"])
-                                {
-                                    <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedTransmissions.Contains(option.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = option.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                        <input value="@Context.Request.Query["transmission"]" type="hidden" id="transmissionInput" name="transmission">
-                    </div>
-
-                    <div class="pt-0 mb-3">
-                        <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"button\" id=\"dropdownColorButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
-                                    Placeholder = (selectedColors.Any() ? string.Join(", ", selectedColors) : Translator["Choose"]),
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["Color"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                            <ul class="dropdown-menu w-100" name="color" aria-labelledby="dropdownColorButton">
-                                @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["color"])
-                                {
-                                    <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedColors.Contains(option.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = option.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
-                                    </li>
-                                }
-                            </ul>
-
-                        </div>
-                        <input value="@Context.Request.Query["color"]" type="hidden" id="colorInput" name="color">
-                    </div>
-
-                    @* <div class="py-2">
-                    <div fh-regular>Min year:</div>
-                    <input type="number" id="minYear" name="minYear" placeholder="@Translator["From"]" class="form-control" value="@Context.Request.Query["minYear"]" />
-                    </div>
-                    <div class="py-2">
-                    <div fh-regular>Max year:</div>
-                    <input type="number" id="maxYear" name="maxYear" placeholder="@Translator["To"]" class="form-control" value="@Context.Request.Query["maxYear"]" />
-                    </div> *@
-
-                    <div class="row d-flex mx-0 mb-3">
-                        <div class="col-6 ps-0 pe-1">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"minPrice\" name=\"minPrice\" value=\"{Context.Request.Query["minPrice"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["From"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Price"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = true,
-                                    ShowAdditionalBackground = false,
-                                    Additional = "zł"
-                                })
-                        </div>
-                        <div class="col-6 ps-1 pe-0">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"maxPrice\" name=\"maxPrice\" value=\"{Context.Request.Query["maxPrice"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["To"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Price"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = true,
-                                    ShowAdditionalBackground = false,
-                                    Additional = "zł"
-                                })
-                        </div>
-                    </div>
-
-                    <div class="row mb-3 mx-0">
-                        <div class="col-6 ps-0 pe-1">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"minYear\" name=\"minYear\" value=\"{Context.Request.Query["minYear"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["From"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Year"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                        </div>
-                        <div class="col-6 ps-1 pe-0">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"maxYear\" name=\"maxYear\" value=\"{Context.Request.Query["maxYear"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["To"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Year"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                        </div>
-                    </div>
-
-                    <div class="row mb-3 mx-0">
-                        <div class="col-6 ps-0 pe-1">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"minMileage\" name=\"minMileage\" value=\"{Context.Request.Query["minMileage"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["From"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Mileage"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                        </div>
-                        <div class="col-6 ps-1 pe-0">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"maxMileage\" name=\"maxMileage\" value=\"{Context.Request.Query["maxMileage"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["To"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Mileage"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                        </div>
-                    </div>
-
-                    <div class="row mx-0">
-                        <div class="col-6 ps-0 pe-1">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"minEngineVolume\" name=\"minEngineVolume\" value=\"{Context.Request.Query["minEngineVolume"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["From"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["EngineVolume"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                        </div>
-                        <div class="col-6 ps-1 pe-0">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"maxEngineVolume\" name=\"maxEngineVolume\" value=\"{Context.Request.Query["maxEngineVolume"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["To"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["EngineVolume"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
-                        </div>
+                    <div class="row g-3 p-2 pt-0">
+                        @foreach (CarCardViewModel car in Model.RecomendedCar)
+                        {
+                            car.Classes = "col-4";
+                            car.IsFullSize = false;
+                            @await Html.PartialAsync("_CarCard", car)
+                        }
                     </div>
                 </div>
             </div>
-            <div class="row row-mobile-filter mx-0 justify-content-between">
-                <div class="col-6">
-                    <button class="btn btn-secondary rounded-pill me-4 w-100 d-flex align-items-center justify-content-center" id="filter-clear-button">
-                        <img class="carIcon me-2" src="~/icons/clear.svg" /> @Translator["Clear"]
-                    </button>
-                </div>
-                <div class="col-6">
-                    <button type="submit" class="btn btn-primary rounded-pill w-100" id="filter-submit-button">
-                        <img class="carIcon" src="~/icons/search.svg" /> @Translator["Find"]
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-    
-
-    <div class="album p-0 col-md-6 col-lg-7 col-xl-8 col-xxl-9 col-12">
-        <div id="carsListing" class="p-3 rounded-16 bg-neutral-100">
-            @*All cars go here*@
         </div>
 
-        <div class="w-100 text-center mt-3">
-            <button class="btn btn-primary rounded-pill" id="showMoreButton">@Translator["ShowMore"]</button>
+        <div class="col-12 px-0">
+            <div class="row bg-white mx-0 p-3 rounded-16">
+                <div class="col px-0">
+                    <div class="row mx-0 text-headline-sm mb-3">About us & contact</div>
+                    <div class="row mx-0 gap-5">
+                        <div class="col bg-neutral-100 rounded-16 p-3">
+                            <div class="pb-3 text-headline-sm text-center">About us</div>
+                            <div class="text-body-md">
+                                We are Belarus-based company thats provides a wide spector of cars with low-cost prices.
+                                We bought cars if US, which provides a reason of such cheap costs.
+                                We want to sell cars all across the EU, but now we are currecntly focused on Poland.
+                            </div>
+                        </div>
+                        <div class="col bg-neutral-100 rounded-16 p-3">
+                            <div class="pb-3 text-headline-sm text-center">Contact through phone</div>
+                            <div class="text-body-md pb-2">
+                                If you want to contact us you can just call us using this number
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <a>
+                                    @Html.Partial("_Button", new
+                                        {
+                                            Text = "+48 53-44-22-089",
+                                            Color = "primary",
+                                            Classes = "",
+                                            Attributes = "",
+                                            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
+                                            RightIcon = (object)null,
+                                            TextColor = "",
+                                        })
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col bg-neutral-100 rounded-16 p-3">
+                            <div class="pb-3 text-headline-sm text-center">Contact through form</div>
+                            <div class="text-body-md pb-2">
+                                Another way to contact us is using simple form. Just click on button below. After clicking a tiny window with form will pop-up.
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <a>
+                                    @Html.Partial("_Button", new
+                                        {
+                                            Text = "Start making form",
+                                            Color = "primary",
+                                            Classes = "",
+                                            Attributes = "",
+                                            LeftIcon = (object)null,
+                                            RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
+                                            TextColor = "",
+                                        })
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 px-0">
+            <div class="row bg-white mx-0 p-3 rounded-16">
+                <div class="row p-0 mx-0 text-headline-sm mb-3">Individual order</div>
+                <div class="p-0 d-flex justify-content-between">
+                    <div class="text-body-md">If there is no car you looking you can order car by dealer directly with you price</div>
+                    <a asp-controller="CustomOrder" asp-action="Index">
+                        @Html.Partial("_Button", new
+                            {
+                                Text = "Start ordering",
+                                Color = "primary",
+                                Classes = "",
+                                Attributes = "",
+                                LeftIcon = (object)null,
+                                RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
+                                TextColor = "",
+                            })
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 px-0">
+            <div class="row bg-white mx-0 p-3 rounded-16">
+                <div class="row p-0 mx-0 text-headline-sm mb-3">Samochody w drodze</div>
+                <div class="row p-0 gx-3">
+                    @foreach (CarCardViewModel car in Model.CarWDrodze)
+                    {
+                        car.Classes = "col-3";
+                        car.IsFullSize = false;
+                        @await Html.PartialAsync("_CarCard", car)
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 
-
-
-
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            var carsDisplayed = 0;
-
-            function getCars() {
-                var culture = '@CultureInfo.CurrentUICulture.Name';
-                $.ajax({
-                    url: '/Home/GetCars',
-                    data: { carsDisplayed: carsDisplayed, culture: culture },
-                    type: 'GET',
-                    success: function (data) {
-                        var html = $(data);
-
-                        $('#carsListing').append(html);
-                        carsDisplayed += html.data('cars-in-view');
-                        if (html.data('show-more-button') == "False") {
-                            console.log('hiding');
-                            $('#showMoreButton').hide();
-                        }
-                    },
-                    error: function () {
-                        alert('An error occurred while loading more cars.');
-                    }
-                });
-            }
-
-            function updateLikeButtons() {
-                var likedCars = getCookie('likes'); 
-                if (likedCars) {
-                    likedCars = JSON.parse(likedCars);
-                    likedCars.forEach(function (carId) {
-                        var likeButton = $('.like-button[data-car-id="' + carId + '"]');
-                        likeButton.addClass('btn-primary').removeClass('btn-secondary');
-                        likeButton.find('svg path').attr('fill', 'white');
-                    });
-                }
-               
-            }
-
-            getCars();
-
-            $('#showMoreButton').click(function () {
-                getCars();
-            });
-        });
-    </script>
-    <script>
-        $('.btn').click(function () {
-            $(this).blur();
-        });
-    </script>
-
-
-    <script>
-        $(document).ready(function () {
-            $('#filter-submit-button').click(function () {
-                $(this).blur();
-            });
-
-            $('#filters-mobile-button').click(function () {
-                $('#filters-mobile-list').toggleClass('open');
-            });
-
-            $('#sort-mobile-button').click(function () {
-                $('#sort-mobile-list').toggleClass('open');
-            });
-
-            $('.filter-mobile-close-button').click(function () {
-                $('#filters-mobile-list').removeClass('open');
-            });
-
-            $('.sort-mobile-close-button').click(function () {
-                console.log('closing')
-                $('#sort-mobile-list').removeClass('open');
-            });
-
-            $('#filter-clear-button').click(function (event) {
-                event.preventDefault();
-                console.log('clearing');
-                $('#filtersForm input[type="text"], #filtersForm input[type="number"]').val('');
-                $('#filtersForm select').prop('selectedIndex', 0);
-                $('#filtersForm input[type="checkbox"]').prop('checked', false);
-                $('#filtersForm input[type="hidden"]').val('');
-                $('#filtersForm span').text('Any');
-            });
-
-            $('.mobile-sort-option').click(function () {
-                var sortOrder = $(this).find("label").first().attr('value');
-                $('#mobileSortOrder').val(sortOrder);
-                $('#mobileFiltersForm').submit();
-            });
-
-            $('.showDropdownOptionsButton').click(function () {
-                var dropdownOptions = $(this).next('.dropdownOptions');
-                dropdownOptions.style.display = dropdownOptions.style.display === "block" ? "none" : "block";
-            });
-
-            $('.dropdown-item').change(function () {
-                var dropdownOptions = $(this).closest('.dropdown-menu');
-                var checkboxes = dropdownOptions.find("input[type='checkbox']");
-                var selectedOptions = [];
-
-                checkboxes.each(function () {
-                    if ($(this).is(':checked')) {
-                        selectedOptions.push($(this).val());
-                    }
-                });
-
-                var dropdownName = dropdownOptions.attr('name');
-                $("#" + dropdownName + "Input").val(selectedOptions.join(','));
-
-                var span = dropdownOptions.prev().find('span');
-                span.text(selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Any');
-            });
-
-            $('.dropdown-item').click(function (e) {
-                e.stopPropagation();
-            });
-
-            $('.mobile-filter-select').click(function () {
-                var filterType = $(this).attr('filterType');
-                var culture = '@CultureInfo.CurrentUICulture.Name';
-                $.ajax({
-                    url: '/Home/GetFilterOptions',
-                    data: { filterType: filterType, culture: culture },
-                    type: 'GET',
-                    success: function (data) {
-
-                        $('body').append(data); 
-                        $('.mobile-filter-select-screen').addClass('open');
-
-                        setupFilterScreenEventHandlers(filterType);
-                    },
-                    error: function () {
-                        console.error('Failed to load filter options.');
-                    }
-                });
-            });
-
-            function setupFilterScreenEventHandlers(filterType) {
-                $('#mobile-filter-select-save-button').click(function () {
-                    var values = [];
-                    $('.mobile-list-items input[type="checkbox"]:checked').each(function () {
-                        values.push($(this).val());
-                    });
-                    $('input[name="' + filterType + '"]').val(values.join(', '));
-                    $('p[name="' + filterType + '"]').text(values.join(', '));
-                    $('.mobile-filter-select-screen').remove();
-                });
-
-                $('#filter-mobile-select-clear-button').click(function () {
-                    $('.mobile-list-items input[type="checkbox"]').prop('checked', false);
-                });
-
-                $('#filter-mobile-select-close-button').click(function () {
-                    $('.mobile-filter-select-screen').remove();
-                });
-
-                $('.mobile-list-item').click(function () {
-                    var checkbox = $(this).find('input[type="checkbox"]');
-                    checkbox.prop('checked', !checkbox.prop('checked')); 
-                });
-            }
-        });
-
-        function getActualDimensions(selector) {
-            var previousCss = $(selector).attr("style");
-
-            var dimensions = {
-                height: $(selector).outerHeight(true),
-                width: $(selector).outerWidth(true)
-            };
-
-            $(selector).attr("style", previousCss ? previousCss : "");
-
-            return dimensions;
-        }
-       
-
-    </script>
-}
