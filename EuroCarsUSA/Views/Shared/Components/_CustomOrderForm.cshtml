@@ -77,37 +77,43 @@
            Translator = Translator
        })
         </div>
-    </div>
-    <div class="row">
         <div class="form-group col">
             <label asp-for="Model"></label>
             <input asp-for="Model" class="form-control" />
             <span asp-validation-for="Model" class="text-danger"></span>
         </div>
-        <div class="form-group col">
-            <label asp-for="MaxPrice"></label>
-            <input asp-for="MaxPrice" class="form-control" />
-            <span asp-validation-for="MaxPrice" class="text-danger"></span>
-        </div>
-        <div class="form-group col">
-            <label asp-for="MaxMileage"></label>
-            <input asp-for="MaxMileage" class="form-control" />
-            <span asp-validation-for="MaxMileage" class="text-danger"></span>
-        </div>
-        <div class="form-group col">
-            <label asp-for="MinYear"></label>
-            <input asp-for="MinYear" class="form-control" />
-            <span asp-validation-for="MinYear" class="text-danger"></span>
-        </div>
-        <div class="form-group col">
-            <label asp-for="MaxYear"></label>
-            <input asp-for="MaxYear" class="form-control" />
-            <span asp-validation-for="MaxYear" class="text-danger"></span>
-        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <div class="form-group col">
+                    <label asp-for="MaxPrice"></label>
+                    <input asp-for="MaxPrice" class="form-control" />
+                    <span asp-validation-for="MaxPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <label asp-for="MaxMileage"></label>
+                    <input asp-for="MaxMileage" class="form-control" />
+                    <span asp-validation-for="MaxMileage" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label asp-for="MinYear"></label>
+                    <input asp-for="MinYear" class="form-control" />
+                    <span asp-validation-for="MinYear" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <label asp-for="MaxYear"></label>
+                    <input asp-for="MaxYear" class="form-control" />
+                    <span asp-validation-for="MaxYear" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-4">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
     </div>
 </div>

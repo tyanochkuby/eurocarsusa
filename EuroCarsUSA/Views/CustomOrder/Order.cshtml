@@ -43,7 +43,7 @@
                                 Attributes = "",
                                 LeftIcon = (object)null,
                                 RightIcon = (object)null,
-                                TextColor = "",
+                                TextColor = "text-primary",
                             })
                     </a>
                 </div>           
@@ -74,61 +74,400 @@
         </div>
     </div>
 
-    <div class="container p-3 bg-white rounded-32">
-        <div class="px-2">
-            <div>
-                <span class="mb-3 text-headline-sm">Client orders</span>
-                <div class="p-3 bg-secondary rounded-16">                
-                    <div>@Model.Id</div>
-                    <div>@Model.Name</div>
-                    <div>@Model.Email</div>
-                    <div>@Model.PhoneNumber</div>
-                    <div>@Model.Status</div>
-                    <div>@Model.Forms.Count()</div>
-                    @foreach (var form in Model.Forms)
+    <div class="container p-4 bg-white rounded-32">
+        <div class="row mb-3">
+            <div class="text-headline-sm">Order - @Model.Id</div>
+            <div class="text-body-lg text-neutral-900">Status - @Model.Status</div>
+        </div>
+        <div class="bg-secondary-100 py-3 px-2 rounded-16 row gx-3 mx-0">
+            <div class="text-title-lg mb-2 text-neutral-900">Your contact date</div>
+            <div class="col">
+                @Html.Partial("_ListItem", new
                     {
-                        <div>@form.Id</div>
-                        <div>@form.Model</div>
-                        <div>@form.MaxPrice</div>
-                        <div>@form.MaxMileage</div>
-                        <div>@form.MinYear</div>
-                        <div>@form.MaxYear</div>
-                        <div>@form.Description</div>
-                        <div>
-                            @foreach (var make in form.CarMakes)
-                            {
-                                <span>@make</span>
-                            }
-                        </div>
-                        <div>
-                            @foreach (var color in form.CarColors)
-                            {
-                                <span>@color</span>
-                            }
-                        </div>
-                        <div>
-                            @foreach (var carType in form.CarTypes)
-                            {
-                                <span>@carType</span>
-                            }
-                        </div>
-                        <div>
-                            @foreach (var fuelType in form.CarFuelTypes)
-                            {
-                                <span>@fuelType</span>
-                            }
-                        </div>
-                        <div>
-                            @foreach (var transmission in form.CarTransmissions)
-                            {
-                                <span>@transmission</span>
-                            }
-                        </div>
-                        <div>end div</div>
-                    }
-                </div>
+                        Classes = "",
+                        Attributes = "",
+
+                        Leading = (object)null,
+                        Trailing = (object)null,
+                        Clickable = false,
+
+                        Condition = "1-line",
+                        Headline = @Model.Email != null ? Model.Email : "Not Provided",
+
+                        ShowOverline = true,
+                        ShowOverlineInside = true,
+                        HasOutsidOverlineSizeEffect = false,
+                        Overline = "Email",
+
+                        ShowSupportive = false,
+                        ShowSupportiveInside = false,
+                        HasOutsideSupportiveSizeEffect = false,
+                        Supportive = "Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line ",
+
+                        ShowAdditional = false,
+                        ShowAdditionalBackground = true,
+                        Additional = "100+",
+
+                        ShowDivider = true
+                    })
+
+            </div>
+            <div class="col">
+                @Html.Partial("_ListItem", new
+                    {
+                        Classes = "",
+                        Attributes = "",
+
+                        Leading = (object)null,
+                        Trailing = (object)null,
+                        Clickable = false,
+
+                        Condition = "1-line",
+                        Headline = @Model.PhoneNumber != null ? Model.PhoneNumber : "Not Provided",
+
+                        ShowOverline = true,
+                        ShowOverlineInside = true,
+                        HasOutsidOverlineSizeEffect = false,
+                        Overline = "Phone number",
+
+                        ShowSupportive = false,
+                        ShowSupportiveInside = false,
+                        HasOutsideSupportiveSizeEffect = false,
+                        Supportive = "Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line ",
+
+                        ShowAdditional = false,
+                        ShowAdditionalBackground = true,
+                        Additional = "100+",
+
+                        ShowDivider = true
+                    })
+
+            </div>
+            <div class="col">
+                @Html.Partial("_ListItem", new
+                    {
+                        Classes = "",
+                        Attributes = "",
+
+                        Leading = (object)null,
+                        Trailing = (object)null,
+                        Clickable = false,
+
+                        Condition = "1-line",
+                        Headline = @Model.Name != null ? Model.Name : "Not Provided",
+
+                        ShowOverline = true,
+                        ShowOverlineInside = true,
+                        HasOutsidOverlineSizeEffect = false,
+                        Overline = "Name",
+
+                        ShowSupportive = false,
+                        ShowSupportiveInside = false,
+                        HasOutsideSupportiveSizeEffect = false,
+                        Supportive = "Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line Supporting line ",
+
+                        ShowAdditional = false,
+                        ShowAdditionalBackground = true,
+                        Additional = "100+",
+
+                        ShowDivider = true
+                    })
+
             </div>
         </div>
+        @foreach (var form in Model.Forms)
+        {
+            <div class="bg-secondary-100 p-3 rounded-16 mx-0 mt-3">
+                <div class="text-title-lg mb-2 text-neutral-900">Form</div>
+                <div class="row gx-3 mb-3">
+                    <div class="col">
+                        @Html.Partial("_ExpandButton", new
+                            {
+                                Classes = "",
+                                Attributes = $"",
+
+                                Leading = (object)null,
+                                Placeholder = (form.CarMakes.Any() ? string.Join(", ", form.CarMakes) : "Not provided"),
+
+                                ShowOverline = true,
+                                ShowOverlineInside = true,
+                                HasOutsidOverlineSizeEffect = false,
+                                Overline = "Make",
+
+                                ShowAdditional = false,
+                                ShowAdditionalBackground = true,
+                                Additional = "100+"
+                            })
+                    </div>
+                    <div class="col">
+                        @Html.Partial("_ExpandButton", new
+                            {
+                                Classes = "",
+                                Attributes = $"",
+
+                                Leading = (object)null,
+                                Placeholder = (form.CarColors.Any() ? string.Join(", ", form.CarColors) : "Not provided"),
+
+                                ShowOverline = true,
+                                ShowOverlineInside = true,
+                                HasOutsidOverlineSizeEffect = false,
+                                Overline = "Color",
+
+                                ShowAdditional = false,
+                                ShowAdditionalBackground = true,
+                                Additional = "100+"
+                            })
+                    </div>
+                    <div class="col">
+                        @Html.Partial("_ExpandButton", new
+                            {
+                                Classes = "",
+                                Attributes = $"",
+
+                                Leading = (object)null,
+                                Placeholder = (form.CarTypes.Any() ? string.Join(", ", form.CarTypes) : "Not provided"),
+
+                                ShowOverline = true,
+                                ShowOverlineInside = true,
+                                HasOutsidOverlineSizeEffect = false,
+                                Overline = "Color",
+
+                                ShowAdditional = false,
+                                ShowAdditionalBackground = true,
+                                Additional = "100+"
+                            })
+                    </div>
+                </div>
+                <div class="row gx-3 gy-3 mb-3">
+                    <div class="col">
+                        @Html.Partial("_ExpandButton", new
+                            {
+                                Classes = "",
+                                Attributes = $"",
+
+                                Leading = (object)null,
+                                Placeholder = (form.CarFuelTypes.Any() ? string.Join(", ", form.CarFuelTypes) : "Not provided"),
+
+                                ShowOverline = true,
+                                ShowOverlineInside = true,
+                                HasOutsidOverlineSizeEffect = false,
+                                Overline = "Color",
+
+                                ShowAdditional = false,
+                                ShowAdditionalBackground = true,
+                                Additional = "100+"
+                            })
+                    </div>
+                    <div class="col">
+                        @Html.Partial("_ExpandButton", new
+                            {
+                                Classes = "",
+                                Attributes = $"",
+
+                                Leading = (object)null,
+                                Placeholder = (form.CarTransmissions.Any() ? string.Join(", ", form.CarTransmissions) : "Not provided"),
+
+                                ShowOverline = true,
+                                ShowOverlineInside = true,
+                                HasOutsidOverlineSizeEffect = false,
+                                Overline = "Color",
+
+                                ShowAdditional = false,
+                                ShowAdditionalBackground = true,
+                                Additional = "100+"
+                            })
+                    </div>
+                    <div class="col">
+                        @Html.Partial("_ListItem", new
+                            {
+                                Classes = "",
+                                Attributes = "",
+
+                                Leading = (object)null,
+                                Trailing = (object)null,
+                                Clickable = false,
+
+                                Condition = "3-line",
+                                Headline = @form.Model != null ? "@form.Model" : "Not Provided",
+
+                                ShowOverline = true,
+                                ShowOverlineInside = true,
+                                HasOutsidOverlineSizeEffect = false,
+                                Overline = "Model",
+
+                                ShowSupportive = true,
+                                ShowSupportiveInside = true,
+                                HasOutsideSupportiveSizeEffect = false,
+                                Supportive = "",
+
+                                ShowAdditional = false,
+                                ShowAdditionalBackground = true,
+                                Additional = "100+",
+
+                                ShowDivider = true
+                            })
+                    </div>
+                </div>
+                <div class="row gx-3">
+                    <div class="col-8">
+                        <div class="row gx-3 mb-3">
+                            <div class="col">
+                                @Html.Partial("_ListItem", new
+                                    {
+                                        Classes = "",
+                                        Attributes = "",
+
+                                        Leading = (object)null,
+                                        Trailing = (object)null,
+                                        Clickable = false,
+
+                                        Condition = "1-line",
+                                        Headline = @form.MaxPrice != null ? "@form.MaxPrice" : "Not Provided",
+
+                                        ShowOverline = true,
+                                        ShowOverlineInside = true,
+                                        HasOutsidOverlineSizeEffect = false,
+                                        Overline = "Max price",
+
+                                        ShowSupportive = false,
+                                        ShowSupportiveInside = false,
+                                        HasOutsideSupportiveSizeEffect = false,
+                                        Supportive = "",
+
+                                        ShowAdditional = false,
+                                        ShowAdditionalBackground = true,
+                                        Additional = "100+",
+
+                                        ShowDivider = true
+                                    })
+                            </div>
+                            <div class="col">
+                                @Html.Partial("_ListItem", new
+                                    {
+                                        Classes = "",
+                                        Attributes = "",
+
+                                        Leading = (object)null,
+                                        Trailing = (object)null,
+                                        Clickable = false,
+
+                                        Condition = "1-line",
+                                        Headline = @form.MaxMileage != null ? "@form.MaxMileage" : "Not Provided",
+
+                                        ShowOverline = true,
+                                        ShowOverlineInside = true,
+                                        HasOutsidOverlineSizeEffect = false,
+                                        Overline = "Max mileage",
+
+                                        ShowSupportive = false,
+                                        ShowSupportiveInside = false,
+                                        HasOutsideSupportiveSizeEffect = false,
+                                        Supportive = "",
+
+                                        ShowAdditional = false,
+                                        ShowAdditionalBackground = true,
+                                        Additional = "100+",
+
+                                        ShowDivider = true
+                                    })
+                            </div>
+                        </div>
+                        <div class="row gx-3">
+                            <div class="col">
+                                @Html.Partial("_ListItem", new
+                                    {
+                                        Classes = "",
+                                        Attributes = "",
+
+                                        Leading = (object)null,
+                                        Trailing = (object)null,
+                                        Clickable = false,
+
+                                        Condition = "1-line",
+                                        Headline = @form.MinYear != null ? "@form.MinYear" : "Not Provided",
+
+                                        ShowOverline = true,
+                                        ShowOverlineInside = true,
+                                        HasOutsidOverlineSizeEffect = false,
+                                        Overline = "Min year",
+
+                                        ShowSupportive = false,
+                                        ShowSupportiveInside = false,
+                                        HasOutsideSupportiveSizeEffect = false,
+                                        Supportive = "",
+
+                                        ShowAdditional = false,
+                                        ShowAdditionalBackground = true,
+                                        Additional = "100+",
+
+                                        ShowDivider = true
+                                    })
+                            </div>
+                            <div class="col">
+                                @Html.Partial("_ListItem", new
+                                    {
+                                        Classes = "",
+                                        Attributes = "",
+
+                                        Leading = (object)null,
+                                        Trailing = (object)null,
+                                        Clickable = false,
+
+                                        Condition = "1-line",
+                                        Headline = @form.MaxYear != null ? "@form.MaxYear" : "Not Provided",
+
+                                        ShowOverline = true,
+                                        ShowOverlineInside = true,
+                                        HasOutsidOverlineSizeEffect = false,
+                                        Overline = "Maz year",
+
+                                        ShowSupportive = false,
+                                        ShowSupportiveInside = false,
+                                        HasOutsideSupportiveSizeEffect = false,
+                                        Supportive = "",
+
+                                        ShowAdditional = false,
+                                        ShowAdditionalBackground = true,
+                                        Additional = "100+",
+
+                                        ShowDivider = true
+                                    })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        @Html.Partial("_ListItem", new
+                            {
+                                Classes = "h-100",
+                                Attributes = "",
+
+                                Leading = (object)null,
+                                Trailing = (object)null,
+                                Clickable = false,
+
+                                Condition = "3-line",
+                                Headline = @form.Description != null ? "@form.Description" : "Not Provided",
+
+                                ShowOverline = true,
+                                ShowOverlineInside = true,
+                                HasOutsidOverlineSizeEffect = false,
+                                Overline = "Description",
+
+                                ShowSupportive = true,
+                                ShowSupportiveInside = true,
+                                HasOutsideSupportiveSizeEffect = false,
+                                Supportive = "",
+
+                                ShowAdditional = false,
+                                ShowAdditionalBackground = true,
+                                Additional = "100+",
+
+                                ShowDivider = true
+                            })
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
 

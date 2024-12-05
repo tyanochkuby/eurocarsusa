@@ -18,54 +18,74 @@
                 This section is dedicated to your personal requests. If you cannot find your desired car, you can apply your request to the dealer via this section. Provide your personal preferences with the help of these filters. Provide your contact information so we can contact you back.
             </div>
         </div>
-        <div id="forms-container">
-            @for (int i = 0; i < Model.Forms.Count(); i++)
-            {
-                @Html.Partial("_CustomOrderForm", new FormViewModel
-       {
-           Index = i,
-           CarMakes = Model.Forms[i].CarMakes,
-           CarColors = Model.Forms[i].CarColors,
-           CarTypes = Model.Forms[i].CarTypes,
-           CarFuelTypes = Model.Forms[i].CarFuelTypes,
-           CarTransmissions = Model.Forms[i].CarTransmissions,
-           Model = Model.Forms[i].Model,
-           MaxPrice = Model.Forms[i].MaxPrice,
-           MaxMileage = Model.Forms[i].MaxMileage,
-           MinYear = Model.Forms[i].MinYear,
-           MaxYear = Model.Forms[i].MaxYear,
-           Description = Model.Forms[i].Description
-       })
-            }
-        </div>
+        <div class="container p-4 bg-white rounded-32">        
+            <div id="forms-container">
+                @for (int i = 0; i < Model.Forms.Count(); i++)
+                {
+                    @Html.Partial("_CustomOrderForm", new FormViewModel
+           {
+               Index = i,
+               CarMakes = Model.Forms[i].CarMakes,
+               CarColors = Model.Forms[i].CarColors,
+               CarTypes = Model.Forms[i].CarTypes,
+               CarFuelTypes = Model.Forms[i].CarFuelTypes,
+               CarTransmissions = Model.Forms[i].CarTransmissions,
+               Model = Model.Forms[i].Model,
+               MaxPrice = Model.Forms[i].MaxPrice,
+               MaxMileage = Model.Forms[i].MaxMileage,
+               MinYear = Model.Forms[i].MinYear,
+               MaxYear = Model.Forms[i].MaxYear,
+               Description = Model.Forms[i].Description
+           })
+                }
+            </div>
 
-        <div class="d-flex justify-content-end mb-3">
-            <button type="button" class="btn btn-secondary" onclick="addForm()">Add Form</button>
-        </div>
+            <div class="d-flex justify-content-center mb-3">
+                @Html.Partial("_Button", new
+                    {
+                        Text = "Add Form",
+                        Color = "primary",
+                        Classes = "",
+                        Attributes = "type=\"button\" onclick=\"addForm()\"",
+                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Add"), Color = "white" }),
+                        RightIcon = (object)null,
+                        TextColor = "",
+                    })
+            </div>
 
-        <div class="bg-secondary-100 p-3 rounded-16 row mx-0 mt-3">
-            <div class="col">
-                <div class="form-group col">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group col">
-                    <label asp-for="PhoneNumber"></label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                </div>
-                <div class="form-group col">
-                    <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="bg-secondary-100 p-3 rounded-16 row mx-0 mt-3">
+                <div class="col">
+                    <div class="form-group col">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row mx-0 mt-3">
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="row mx-0 mt-3">
+                <div class="d-flex justify-content-end">
+                    @Html.Partial("_Button", new
+                        {
+                            Text = "Submit and send form",
+                            Color = "primary",
+                            Classes = "",
+                            Attributes = "type=\"submit\" ",
+                            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Done"), Color = "white" }),
+                            RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
+                            TextColor = "",
+                        })
+                </div>
             </div>
         </div>
     </form>
