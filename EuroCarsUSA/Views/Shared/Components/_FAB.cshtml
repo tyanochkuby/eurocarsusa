@@ -1,0 +1,97 @@
+@{
+    string iconSrc = ViewData["IconSrc"] as string;
+}
+
+<button class="fab bg-primary rounded-16 my-shadow-3 ripple-effect-secondary">
+    <div class="p-3">
+        @Html.Partial("_Icon", new { IconName = iconSrc, Color = "white" })
+    </div>
+</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const rippleElements = document.querySelectorAll('.ripple-effect-secondary');
+
+        rippleElements.forEach(element => {
+            let isMouseDown = false;
+
+            element.addEventListener('mousedown', (e) => {
+                isMouseDown = true;
+
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                element.style.setProperty('--ripple-x', `${x}px`);
+                element.style.setProperty('--ripple-y', `${y}px`);
+
+                element.classList.remove('active', 'fade-out');
+                void element.offsetWidth;
+                element.classList.add('active');
+            });
+
+            element.addEventListener('mouseup', () => {
+                if (isMouseDown) {
+                    isMouseDown = false;
+                    setTimeout(() => {
+                        element.classList.remove('active');
+                        element.classList.add('fade-out');
+                    }, 500);
+                }
+            });
+
+            element.addEventListener('mouseleave', () => {
+                if (isMouseDown) {
+                    isMouseDown = false;
+                    setTimeout(() => {
+                        element.classList.remove('active');
+                        element.classList.add('fade-out');
+                    }, 500);
+                }
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const rippleElements = document.querySelectorAll('.ripple-effect-primary');
+
+        rippleElements.forEach(element => {
+            let isMouseDown = false;
+
+            element.addEventListener('mousedown', (e) => {
+                isMouseDown = true;
+
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                element.style.setProperty('--ripple-x', `${x}px`);
+                element.style.setProperty('--ripple-y', `${y}px`);
+
+                element.classList.remove('active', 'fade-out');
+                void element.offsetWidth;
+                element.classList.add('active');
+            });
+
+            element.addEventListener('mouseup', () => {
+                if (isMouseDown) {
+                    isMouseDown = false;
+                    setTimeout(() => {
+                        element.classList.remove('active');
+                        element.classList.add('fade-out');
+                    }, 500);
+                }
+            });
+
+            element.addEventListener('mouseleave', () => {
+                if (isMouseDown) {
+                    isMouseDown = false;
+                    setTimeout(() => {
+                        element.classList.remove('active');
+                        element.classList.add('fade-out');
+                    }, 500);
+                }
+            });
+        });
+    });
+</script>

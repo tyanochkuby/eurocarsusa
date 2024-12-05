@@ -125,16 +125,41 @@ namespace EuroCarsUSA.Migrations
                     b.ToTable("DetailPageForms");
                 });
 
+            modelBuilder.Entity("EuroCarsUSA.Models.Form.CustomOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomOrders");
+                });
+
             modelBuilder.Entity("EuroCarsUSA.Models.Form.Form", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CustomOrderId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MaxMileage")
@@ -152,20 +177,11 @@ namespace EuroCarsUSA.Migrations
                     b.Property<string>("Model")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Forms");
+                    b.HasIndex("CustomOrderId");
+
+                    b.ToTable("Forms", (string)null);
                 });
 
             modelBuilder.Entity("EuroCarsUSA.Models.Form.FormCarColor", b =>
@@ -222,7 +238,7 @@ namespace EuroCarsUSA.Migrations
 
                     b.HasIndex("FormId");
 
-                    b.ToTable("FormCarMakes");
+                    b.ToTable("FormCarMake");
                 });
 
             modelBuilder.Entity("EuroCarsUSA.Models.Form.FormCarTransmission", b =>
@@ -483,6 +499,17 @@ namespace EuroCarsUSA.Migrations
                     b.Navigation("Car");
                 });
 
+            modelBuilder.Entity("EuroCarsUSA.Models.Form.Form", b =>
+                {
+                    b.HasOne("EuroCarsUSA.Models.Form.CustomOrder", "CustomOrder")
+                        .WithMany("Forms")
+                        .HasForeignKey("CustomOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomOrder");
+                });
+
             modelBuilder.Entity("EuroCarsUSA.Models.Form.FormCarColor", b =>
                 {
                     b.HasOne("EuroCarsUSA.Models.Form.Form", "Form")
@@ -587,6 +614,11 @@ namespace EuroCarsUSA.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EuroCarsUSA.Models.Form.CustomOrder", b =>
+                {
+                    b.Navigation("Forms");
                 });
 
             modelBuilder.Entity("EuroCarsUSA.Models.Form.Form", b =>

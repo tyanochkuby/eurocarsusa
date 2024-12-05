@@ -1,5 +1,4 @@
-﻿using EuroCarsUSA.Data.Enum;
-using EuroCarsUSA.Data.Enums;
+﻿using EuroCarsUSA.Data.Enums;
 using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using EuroCarsUSA.Services.Interfaces;
@@ -14,13 +13,13 @@ namespace EuroCarsUSA.Controllers
     public class AdminController : Controller
     {
         private readonly IStatisticsService _statisticsService;
-        private readonly IFormService _formService;
+        private readonly ICustomOrderService customOrderService;
         private readonly ICatalogEditingService _catalogEditingService;
 
-        public AdminController(IStatisticsService statisticsService, IFormService formService, ICatalogEditingService catalogEditingService)
+        public AdminController(IStatisticsService statisticsService, ICustomOrderService customOrderService, ICatalogEditingService catalogEditingService)
         {
             _statisticsService = statisticsService;
-            _formService = formService;
+            this.customOrderService = customOrderService;
             _catalogEditingService = catalogEditingService;
         }
 
@@ -103,14 +102,14 @@ namespace EuroCarsUSA.Controllers
         }
         public async Task<IActionResult> Orders()
         {
-            var recievedForms = await _formService.GetAll();
+            var recievedForms = await customOrderService.GetAll();
             return View(recievedForms);
         }
 
         [HttpPut]
-        public async Task<IActionResult> SetOrderStatus(Guid id, FormStatus status)
+        public async Task<IActionResult> SetOrderStatus(Guid id, OrderStatus status)
         {
-            if (await _formService.UpdateStatus(id, status))
+            if (await customOrderService.UpdateStatus(id, status))
                 return Ok();
             return BadRequest();
         }

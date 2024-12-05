@@ -1,0 +1,119 @@
+﻿@model FormViewModel
+@using EuroCarsUSA.Controllers
+@using EuroCarsUSA.ViewModels
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<CustomOrderController> Translator
+
+<div class="form-viewmodel-container mb-3 p-3 bg-secondary-100 rounded-16" data-index="@Model.Index">
+    <div class="d-flex justify-content-between">
+        <h5>Form @(Model.Index + 1)</h5>
+        <button type="button" class="btn btn-danger btn-sm" onclick="removeForm(this)">Delete</button>
+    </div>
+    <div class="row">
+        <div class="form-group col">
+            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+       {
+           DropdownId = $"dropdownMenuButton{Model.Index}",
+           Placeholder = Translator["Choose"],
+           Overline = Translator["Make"],
+           Name = $"Forms[{Model.Index}].CarMakes",
+           InputId = $"carmakesInput{Model.Index}",
+           SelectedValues = Model.CarMakes.Select(m => m.ToString()),
+           Options = ViewBag.AvailableFilters["make"],
+           Translator = Translator
+       })
+        </div>
+        <div class="form-group col">
+            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+       {
+           DropdownId = $"dropdownMenuButtonColors{Model.Index}",
+           Placeholder = Translator["Choose"],
+           Overline = Translator["Color"],
+           Name = $"Forms[{Model.Index}].CarColors",
+           InputId = $"carcolorsInput{Model.Index}",
+           SelectedValues = Model.CarColors.Select(c => c.ToString()),
+           Options = ViewBag.AvailableFilters["color"],
+           Translator = Translator
+       })
+        </div>
+        <div class="form-group col">
+            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+       {
+           DropdownId = $"dropdownMenuButtonTypes{Model.Index}",
+           Placeholder = Translator["Choose"],
+           Overline = Translator["Type"],
+           Name = $"Forms[{Model.Index}].CarTypes",
+           InputId = $"cartypesInput{Model.Index}",
+           SelectedValues = Model.CarTypes.Select(t => t.ToString()),
+           Options = ViewBag.AvailableFilters["carType"],
+           Translator = Translator
+       })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col">
+            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+       {
+           DropdownId = $"dropdownMenuButtonFuelTypes{Model.Index}",
+           Placeholder = Translator["Choose"],
+           Overline = Translator["Fuel Type"],
+           Name = $"Forms[{Model.Index}].CarFuelTypes",
+           InputId = $"carfueltypesInput{Model.Index}",
+           SelectedValues = Model.CarFuelTypes.Select(f => f.ToString()),
+           Options = ViewBag.AvailableFilters["fuelType"],
+           Translator = Translator
+       })
+        </div>
+        <div class="form-group col">
+            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+       {
+           DropdownId = $"dropdownMenuButtonTransmissions{Model.Index}",
+           Placeholder = Translator["Choose"],
+           Overline = Translator["Transmission"],
+           Name = $"Forms[{Model.Index}].CarTransmissions",
+           InputId = $"cartransmissionsInput{Model.Index}",
+           SelectedValues = Model.CarTransmissions.Select(t => t.ToString()),
+           Options = ViewBag.AvailableFilters["transmission"],
+           Translator = Translator
+       })
+        </div>
+        <div class="form-group col">
+            <label asp-for="Model"></label>
+            <input asp-for="Model" class="form-control" />
+            <span asp-validation-for="Model" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <div class="form-group col">
+                    <label asp-for="MaxPrice"></label>
+                    <input asp-for="MaxPrice" class="form-control" />
+                    <span asp-validation-for="MaxPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <label asp-for="MaxMileage"></label>
+                    <input asp-for="MaxMileage" class="form-control" />
+                    <span asp-validation-for="MaxMileage" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label asp-for="MinYear"></label>
+                    <input asp-for="MinYear" class="form-control" />
+                    <span asp-validation-for="MinYear" class="text-danger"></span>
+                </div>
+                <div class="form-group col">
+                    <label asp-for="MaxYear"></label>
+                    <input asp-for="MaxYear" class="form-control" />
+                    <span asp-validation-for="MaxYear" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-4">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+</div>

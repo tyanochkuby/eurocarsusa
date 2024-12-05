@@ -1,4 +1,4 @@
-﻿using EuroCarsUSA.Data.Enum;
+﻿using EuroCarsUSA.Data.Enums;
 
 namespace EuroCarsUSA.ViewModels
 {

@@ -4,28 +4,26 @@ namespace EuroCarsUSA.Data.Attributes
 {
     public class AtLeastOnePropertyAttribute : ValidationAttribute
     {
-        private string[] PropertyList { get; set; }
+        public readonly string[] _propertyNames;
 
-        public AtLeastOnePropertyAttribute(params string[] propertyList)
+        public AtLeastOnePropertyAttribute(params string[] propertyNames)
         {
-            this.PropertyList = propertyList;
+            _propertyNames = propertyNames;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            foreach (var propertyName in PropertyList)
-            {
-                var property = validationContext.ObjectType.GetProperty(propertyName);
-                if (property == null)
-                    return new ValidationResult(string.Format("Unknown property: {0}.", propertyName));
+            var properties = validationContext.ObjectType.GetProperties()
+                .Where(p => _propertyNames.Contains(p.Name))
+                .Select(p => p.GetValue(validationContext.ObjectInstance, null))
+                .ToList();
 
-                var propertyValue = property.GetValue(validationContext.ObjectInstance, null);
-                if (propertyValue != null && !string.IsNullOrEmpty(propertyValue.ToString()))
-                    return ValidationResult.Success;
+            if (properties.Any(p => p != null && !string.IsNullOrEmpty(p.ToString())))
+            {
+                return ValidationResult.Success;
             }
 
             return new ValidationResult(ErrorMessage);
         }
     }
-
 }

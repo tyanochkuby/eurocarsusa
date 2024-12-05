@@ -1,90 +1,20 @@
-﻿@using EuroCarsUSA.Controllers
-@using EuroCarsUSA.Data.Enum
+﻿@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Controllers
+@using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Models
-@using EuroCarsUSA.Views.Home.Components.ViewModels
 @using Microsoft.Extensions.Localization
-@model GetCarsViewModel
+@model List<CarCardViewModel>
 @inject IStringLocalizer<HomeController> Translator
 
     
-<div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Cars.Count()">
+<div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">
     <div class="row mx-0">
-        @foreach (Car car in Model.Cars)
+        @foreach (CarCardViewModel car in Model)
         {
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 px-1 px-sm-2">
-                <a asp-controller="Home" , asp-action="Detail" , asp-route-id=@car.Id class="text-black text-decoration-none">
-                    <div class="card mb-4 pt-2 box-shadow rounded-xxl">
-                        <div class="img-container overflow-hidden mx-2 mt-1">
-                            <img class="card-img float-left rounded-xxl" src=@car.Images[0] alt=@(car.Color.ToString() + car.Make.ToString() + car.Model)>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="row justify-content-between fh-regular">
-                                <!-- Car nam -->
-                                <div class="col-sm-7 col-12 px-1 px-sm-2 fh-card-header">
-                                    <b>@(car.Make + " " + car.Model)</b>
-                                </div>
-                                <!-- Price -->
-                                <div class="col-sm-5 col-12 px-1 px-sm-2 text-sm-end fh-card-title">
-                                    <div class="mb-0">@string.Format(new System.Globalization.CultureInfo("pl-PL"), "{0:N0}", car.Price) PLN</div>
-                                </div>
-                            </div>
-
-                            <!-- divider -->
-                            <hr style="border-top: 1px solid #000;" class="mb-2 mt-1">
-
-
-                            <div class="row justify-content-between fh-regular">
-                                <div class="col-12 col-sm-6">
-                                    <div class="row">
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <img class="carIcon" src="/icons/car_millage.svg">
-                                            <div class="ms-2 text-subhead">@car.Mileage</div>
-                                            <div class="ms-2 text-subhead">km</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <img class="carIcon" src="/icons/car_engine.svg">
-                                            <div class="ms-2 text-subhead">@(car.FuelType == EuroCarsUSA.Data.Enum.CarFuelType.Electric ? Translator["Electric"] : car.EngineVolume.ToString() + " cm3")</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6 text-sm-end">
-                                    <div class="row">
-                                        <div class="d-flex align-items-center justify-content-start justify-content-sm-end">
-                                            <img class="carIcon" src="/icons/car_gearbox.svg">
-                                            <div class="ms-2 text-subhead">@(((CarTransmission) car.Transmission).ToLocalizedString(Translator))</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="d-flex align-items-center justify-content-start justify-content-sm-end">
-                                            <img class="carIcon" src="/icons/car_year.svg">
-                                            <div class="ms-2 text-subhead">@car.Year</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row d-flex justify-content-end">
-                            <div class="col-xl-4 col-md-6 col-sm-6 col-6 mb-3 pe-4 ps-1">
-                                @if(Model.LikedCars.Contains(car.Id))
-                                {
-                                    @await Html.PartialAsync("Components/Buttons/LikePressed", car.Id)
-                                }
-                                else
-                                {
-                                    @await Html.PartialAsync("Components/Buttons/LikeUnpressed", car.Id)
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            car.Classes = "col-xl-4 col-lg-6 col-md-12 col-6 p-2";
+            car.IsFullSize = true;
+            @await Html.PartialAsync("_CarCard", car)
         }
     </div>
 </div>

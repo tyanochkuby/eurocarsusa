@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css" integrity="sha512-yxWNfGm+7EK+hqP2CMJ13hsUNCQfHmOuCuLmOq2+uv/AVQtFAjlAJO8bHzpYGQnBghULqnPuY8NEr7f5exR3Qw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css" integrity="sha512-Rck8F2HFBjAQpszOB9Qy+NVLeIy4vUOMB7xrp46edxB3KXs2RxXRguHfrJqNK+vJ+CkfvcGqAKMJTyWYBiBsGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
+<body class="">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary-100 border-bottom box-shadow fixed-top px-3 py-0">
             <div class="container-fluid align-items-center d-flex topbar py-2">
@@ -25,38 +26,33 @@
                         <img src="~/icons/logo2.svg" style="width: 160; height: 40" alt="EuroCarsUSA" />
                     </a>
 
-                    @{
-                        ViewData["Color"] = "primary";
-                        ViewData["Text"] = "+48 53 00-00-000";
-                        ViewData["LeftIcon"] = true;
-                        ViewData["LeftIconSrc"] = Url.Content("phone");
-                    }
-                    <a asp-controller="Home" asp-action="Likes">
-                        @Html.Partial("_Button")
+                    <a href="tel:+48534422089" class="d-none d-md-block">
+                    @Html.Partial("_Button", new { Text = "+48 53 00-00-000", Color = "primary",
+                            Classes = "",
+                            Attributes = "asp-controller=\"Home\" asp-action=\"Likes\"",
+                            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("phone"), Color = "white" }),
+                            RightIcon = (object)null,
+                            TextColor = "",
+                        })
                     </a>
+
                 </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3 d-none d-md-flex", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
+                }
 
                 <div class="me-3">
                     <a asp-controller="Home"
                        asp-action="Likes"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
-                        @{
-                            ViewData["Color"] = "secondary";
-                            ViewData["IconSrc"] = Url.Content("favorite");
-                        }
-                        @Html.Partial("_IconButton")
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name" class="d-none d-md-flex">
+                        @Html.Partial("_IconButton", new { IconName = "favorite", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                 </div>
                 
                 <div class="dropdown">
-                    <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
-                        @{
-                            // wtf is                 role="button" data-bs-toggle="dropdown" aria-expanded="false" ????
-                            ViewData["Color"] = "secondary";
-                            ViewData["IconSrc"] = Url.Content("Language chinese dayi");
-                        }
-                        @Html.Partial("_IconButton")
-
+                    <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="d-none d-md-flex">
+                        @Html.Partial("_IconButton", new { IconName = "Language chinese dayi", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                         <li><a class="dropdown-item" href="?culture=en&ui-culture=en">English</a></li>
@@ -69,29 +65,27 @@
 
 
     <div class="px-0">
-        @if (User.IsInRole("Admin"))
-        {
-            <div class="sidebar bg-primary-50 shadow py-2 d-flex flex-column align-items-center gap-3">
+        <div class="sidebar bg-primary-50 shadow py-2 d-none d-md-flex flex-column align-items-center gap-3">
+            @if (User.IsInRole("Admin"))
+            {
                 <div>
                     <a asp-controller="Home"
                        asp-action="Index"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
                         @{
-                            ViewData["Color"] = "secondary";
                             ViewData["IconSrc"] = Url.Content("Home");
                         }
-                        @Html.Partial("_IconButton")
+                        @Html.Partial("_FAB")
                     </a>
                 </div>
                 <div>
                     <a asp-controller="Home"
-                       asp-action="Index"
+                       asp-action="Catalog"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
                         @{
-                            ViewData["Color"] = "secondary";
                             ViewData["IconSrc"] = Url.Content("View carousel");
                         }
-                        @Html.Partial("_IconButton")
+                        @Html.Partial("_FAB")
                     </a>
                 </div>
                 <div>
@@ -99,10 +93,9 @@
                        asp-action="Orders"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
                         @{
-                            ViewData["Color"] = "secondary";
                             ViewData["IconSrc"] = Url.Content("Search");
                         }
-                        @Html.Partial("_IconButton")
+                        @Html.Partial("_FAB")
                     </a>
                 </div>
                 <div>
@@ -110,47 +103,43 @@
                        asp-action="EditCatalog"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
                         @{
-                            ViewData["Color"] = "secondary";
                             ViewData["IconSrc"] = Url.Content("Edit note");
                         }
-                        @Html.Partial("_IconButton")
+                        @Html.Partial("_FAB")
                     </a>
                 </div>
                 <div>
                     <a asp-controller="Admin"
-                        asp-action="Statistics"
-                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                       asp-action="Statistics"
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
                         @{
-                            ViewData["Color"] = "secondary";
                             ViewData["IconSrc"] = Url.Content("Data thresholding");
                         }
-                        @Html.Partial("_IconButton")
+                        @Html.Partial("_FAB")
                     </a>
-                </div> 
-            </div>
-        }
-        else{
-            <div class="sidebar bg-primary-50 shadow py-2 d-flex flex-column align-items-center gap-3">
+                </div>
+            }
+            else
+            {
                 <div>
                     <a asp-controller="Home"
                        asp-action="Index"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
                         @{
-                            ViewData["Color"] = "secondary";
                             ViewData["IconSrc"] = Url.Content("Home");
                         }
-                        @Html.Partial("_IconButton")
+                        @Html.Partial("_FAB")
                     </a>
                 </div>
                 <div>
                     <a asp-controller="Home"
-                       asp-action="Index"
+                       asp-action="Catalog"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
                         @{
-                            ViewData["Color"] = "secondary";
                             ViewData["IconSrc"] = Url.Content("View carousel");
                         }
-                        @Html.Partial("_IconButton")
+                        @Html.Partial("_FAB")
+
                     </a>
                 </div>
                 <div>
@@ -158,16 +147,15 @@
                        asp-action="Index"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name">
                         @{
-                            ViewData["Color"] = "secondary";
                             ViewData["IconSrc"] = Url.Content("Search");
                         }
-                        @Html.Partial("_IconButton")
+                        @Html.Partial("_FAB")
                     </a>
                 </div>
-            </div>
-        }
+            }
+        </div>
+        
         <main role="main" class="main pb-3">
-
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">
                 <div class="container-xl">
@@ -182,6 +170,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/_framework/blazor.server.js"></script>
+    <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

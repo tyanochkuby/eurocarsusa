@@ -6,5 +6,6 @@ namespace EuroCarsUSA.ViewModels
     {
         public Car Car { get; set; }
         public DetailPageForm DetailPageForm { get; set; }
+        public List<CarCardViewModel> RecomendedCar { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using EuroCarsUSA.Data.Enum;
+﻿using EuroCarsUSA.Data.Enums;
 using EuroCarsUSA.Models;
 using EuroCarsUSA.Views.Home.Components.ViewModels;
 using Microsoft.Extensions.Localization;

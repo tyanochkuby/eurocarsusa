@@ -1,5 +1,4 @@
-﻿using EuroCarsUSA.Data.Enum;
-using EuroCarsUSA.Data.Enums;
+﻿using EuroCarsUSA.ViewModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace EuroCarsUSA.Models.Form
@@ -8,6 +7,8 @@ namespace EuroCarsUSA.Models.Form
     {
         [Key]
         public Guid Id { get; set; }
+        public Guid CustomOrderId { get; set; }
+        public CustomOrder CustomOrder { get; set; }
         public ICollection<FormCarMake>? FormCarMakes { get; set; } = new List<FormCarMake>();
         public ICollection<FormCarColor>? FormCarColors { get; set; } = new List<FormCarColor>();
         public ICollection<FormCarType>? FormCarTypes { get; set; } = new List<FormCarType>();
@@ -19,15 +20,26 @@ namespace EuroCarsUSA.Models.Form
         public int? MinYear { get; set; }
         public int? MaxYear { get; set; }
         public string? Description { get; set; }
-        public FormStatus Status { get; set; }
 
-        [EmailAddress]
-        public string? Email { get; set; }
+        public FormViewModel ToViewModel()
+        {
+            return new FormViewModel
+            {
+                Id = Id,
 
-        [Phone]
-        public string? PhoneNumber { get; set; }
+                CarMakes = FormCarMakes.Select(x => x.CarMake).ToList(),
+                CarColors = FormCarColors.Select(x => x.CarColor).ToList(),
+                CarTypes = FormCarTypes.Select(x => x.CarType).ToList(),
+                CarFuelTypes = FormCarFuelTypes.Select(x => x.CarFuelType).ToList(),
+                CarTransmissions = FormCarTransmissions.Select(x => x.CarTransmission).ToList(),
 
-        [MaxLength(50)]
-        public string Name { get; set; }
+                Model = Model,
+                MaxPrice = MaxPrice,
+                MaxMileage = MaxMileage,
+                MinYear = MinYear,
+                MaxYear = MaxYear,
+                Description = Description
+            };
+        }
     }
 }

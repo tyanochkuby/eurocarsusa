@@ -1,11 +1,13 @@
-﻿@using EuroCarsUSA.ViewModels
-@model FormViewModel
+﻿@using EuroCarsUSA.Controllers
+@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Data.Enums
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<CustomOrderController> Translator
 
+@model CustomOrderViewModel
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
-
     <form asp-action="SubmitForm" method="post">
-
         <div class="container p-5 pt-3 bg-white rounded-32 mb-3 justify-content-center">
             <div class="d-flex justify-content-center">
                 <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
@@ -13,158 +15,163 @@
                 </div>
             </div>
             <div class="text-display-sm text-subhead">
-                This section dedicated to your personal requests. If cannot find your taste’s car you can apply you request to dealer via this section. Provide you personal preferences with the help of those filters. Provide you contact information so we can contact you back.
+                This section is dedicated to your personal requests. If you cannot find your desired car, you can apply your request to the dealer via this section. Provide your personal preferences with the help of these filters. Provide your contact information so we can contact you back.
             </div>
         </div>
+        <div class="container p-4 bg-white rounded-32">        
+            <div id="forms-container">
+                @for (int i = 0; i < Model.Forms.Count(); i++)
+                {
+                    @Html.Partial("_CustomOrderForm", new FormViewModel
+           {
+               Index = i,
+               CarMakes = Model.Forms[i].CarMakes,
+               CarColors = Model.Forms[i].CarColors,
+               CarTypes = Model.Forms[i].CarTypes,
+               CarFuelTypes = Model.Forms[i].CarFuelTypes,
+               CarTransmissions = Model.Forms[i].CarTransmissions,
+               Model = Model.Forms[i].Model,
+               MaxPrice = Model.Forms[i].MaxPrice,
+               MaxMileage = Model.Forms[i].MaxMileage,
+               MinYear = Model.Forms[i].MinYear,
+               MaxYear = Model.Forms[i].MaxYear,
+               Description = Model.Forms[i].Description
+           })
+                }
+            </div>
 
-        <div class="container p-3 bg-white rounded-32 mb-3">
-            <div class="px-2 row m-0">
-                <div class="text-headline-sm mt-0">
-                    Create individual order
-                </div>
-                <div class="row">
-                    <div class="bg-secondary-100 p-3 rounded-16 row mx-0">
-                        <div class="row">
-                            <div class="form-group col">
-                                <label>Car Makes</label>
-                                <select asp-for="CarMakes" class="form-control" multiple>
-                                    @foreach (var carMake in Enum.GetValues(typeof(EuroCarsUSA.Data.Enum.CarMake)))
-                                    {
-                                        <option value="@carMake">@carMake</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label asp-for="Model"></label>
-                                <input asp-for="Model" class="form-control" />
-                                <span asp-validation-for="Model" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col">
-                                <label asp-for="MaxPrice"></label>
-                                <input asp-for="MaxPrice" class="form-control" />
-                                <span asp-validation-for="MaxPrice" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col">
-                                <label>Car Types</label>
-                                <select asp-for="CarTypes" class="form-control" multiple>
-                                    @foreach (var carType in Enum.GetValues(typeof(EuroCarsUSA.Data.Enum.CarType)))
-                                    {
-                                        <option value="@carType">@carType</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col">
-                                <label asp-for="MinYear"></label>
-                                <input asp-for="MinYear" class="form-control" />
-                                <span asp-validation-for="MinYear" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col">
-                                <label asp-for="MaxYear"></label>
-                                <input asp-for="MaxYear" class="form-control" />
-                                <span asp-validation-for="MaxYear" class="text-danger"></span>
-                            </div>
-                            
-                            <div class="form-group col">
-                                <label>Car FuelTypes</label>
-                                <select asp-for="CarFuelTypes" class="form-control" multiple>
-                                    @foreach (var carFuelType in Enum.GetValues(typeof(EuroCarsUSA.Data.Enum.CarFuelType)))
-                                    {
-                                        <option value="@carFuelType">@carFuelType</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label asp-for="MaxMileage"></label>
-                                <input asp-for="MaxMileage" class="form-control" />
-                                <span asp-validation-for="MaxMileage" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group col">
-                                    <label>Car Colors</label>
-                                    <select asp-for="CarColors" class="form-control" multiple>
-                                        @foreach (var carColor in Enum.GetValues(typeof(EuroCarsUSA.Data.Enum.CarColor)))
-                                        {
-                                            <option value="@carColor">@carColor</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                             <div class="form-group col">
-                                  <label>Car Transmission</label>
-                                  <select asp-for="CarTransmissions" class="form-control" multiple>
-                                      @foreach (var carTransmission in Enum.GetValues(typeof(EuroCarsUSA.Data.Enum.CarTransmission)))
-                                      {
-                                          <option value="@carTransmission">@carTransmission</option>
-                                      }
-                                  </select>
-                             </div>
-                        </div>
-                        <div class="row">
-                        </div>
+            <div class="d-flex justify-content-center mb-3">
+                @Html.Partial("_Button", new
+                    {
+                        Text = "Add Form",
+                        Color = "primary",
+                        Classes = "",
+                        Attributes = "type=\"button\" onclick=\"addForm()\"",
+                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Add"), Color = "white" }),
+                        RightIcon = (object)null,
+                        TextColor = "",
+                    })
+            </div>
+
+            <div class="bg-secondary-100 p-3 rounded-16 row mx-0 mt-3">
+                <div class="col">
+                    <div class="form-group col">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
-                    <div class="bg-secondary-100 p-3 rounded-16 row mx-0 mt-3">
-                        <div class="col">
-                            <div class="form-group col">
-                                <label asp-for="Email"></label>
-                                <input asp-for="Email" class="form-control" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col">
-                                <label asp-for="PhoneNumber"></label>
-                                <input asp-for="PhoneNumber" class="form-control" />
-                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col">
-                                <label asp-for="Name"></label>
-                                <input asp-for="Name" class="form-control" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Description"></label>
-                                <textarea asp-for="Description" class="form-control"></textarea>
-                                <span asp-validation-for="Description" class="text-danger"></span>
-                            </div>
-                        </div>
+                    <div class="form-group col">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
-                    <div class="row mx-0 mt-3">
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                    <div class="form-group col">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                 </div>
-                
-                
+            </div>
+
+            <div class="row mx-0 mt-3">
+                <div class="d-flex justify-content-end">
+                    @Html.Partial("_Button", new
+                        {
+                            Text = "Submit and send form",
+                            Color = "primary",
+                            Classes = "",
+                            Attributes = "type=\"submit\" ",
+                            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Done"), Color = "white" }),
+                            RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
+                            TextColor = "",
+                        })
+                </div>
             </div>
         </div>
     </form>
-
-    <div class="container p-4 pt-3 bg-white rounded-32">
-            <div class="px-2 row m-0">
-                <div class="text-headline-sm mt-0">
-                    Search your order
-                </div>
-            </div>
-            <div class="p-3 row m-0 bg-secondary-100 rounded-16">
-                <div class="form-group col-auto px-0 me-3">
-                    <label asp-for="Model"></label>
-                    <input asp-for="Model" class="form-control" />
-                    <span asp-validation-for="Model" class="text-danger"></span>
-                </div>
-                <div class="col-auto d-flex flex-column justify-content-end px-0">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </div>
-    
 </div>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function addForm() {
+            var formsContainer = document.getElementById('forms-container');
+            var formIndex = formsContainer.children.length;
+            $.ajax({
+                url: '@Url.Action("GetFormComponent", "CustomOrder")',
+                data: { index: formIndex },
+                type: 'GET',
+                success: function (data) {
+                    formsContainer.insertAdjacentHTML('beforeend', data);
+                    setupDropdownEventHandlers(formIndex);
+                },
+                error: function () {
+                    console.error('Failed to load form component.');
+                }
+            });
+        }
+
+        function removeForm(button) {
+            var formContainer = button.closest('.form-viewmodel-container');
+            formContainer.remove();
+        }
+
+        function setupDropdownEventHandlers(index) {
+            $(`ul[name='Forms[${index}].CarMakes'] input[type='checkbox']`).change(function () {
+                updateHiddenSelect(index, 'CarMakes', this);
+            });
+            $(`ul[name='Forms[${index}].CarColors'] input[type='checkbox']`).change(function () {
+                updateHiddenSelect(index, 'CarColors', this);
+            });
+            $(`ul[name='Forms[${index}].CarTypes'] input[type='checkbox']`).change(function () {
+                updateHiddenSelect(index, 'CarTypes', this);
+            });
+            $(`ul[name='Forms[${index}].CarFuelTypes'] input[type='checkbox']`).change(function () {
+                updateHiddenSelect(index, 'CarFuelTypes', this);
+            });
+            $(`ul[name='Forms[${index}].CarTransmissions'] input[type='checkbox']`).change(function () {
+                updateHiddenSelect(index, 'CarTransmissions', this);
+            });
+        }
+
+        function updateHiddenSelect(index, propertyName, dropdownItem) {
+            var dropdownOptions = $(dropdownItem).closest('.dropdown-menu');
+            var checkboxes = dropdownOptions.find("input[type='checkbox']");
+            var selectedValues = [];
+
+            checkboxes.each(function () {
+                if ($(this).is(':checked')) {
+                    selectedValues.push($(this).val());
+                }
+            });
+
+            var selectElement = $(`#${propertyName.toLowerCase()}Input${index}`);
+            selectElement.empty();
+            selectedValues.forEach(function (value) {
+                selectElement.append(new Option(value, value, true, true));
+            });
+        }
+
+        $('.dropdown-item').click(function (e) {
+            e.stopPropagation();
+        });
+        $(document).ready(function () {
+            for (var i = 0; i < @Model.Forms.Count; i++) {
+                setupDropdownEventHandlers(i);
+            }
+        });
+
+         $.validator.addMethod("atleastoneproperty", function (value, element, params) {
+            var properties = params.split(',');
+            var isValid = properties.some(function (property) {
+                return $(`[name='${property}']`).val().trim() !== '';
+            });
+            return isValid;
+        });
+
+        $.validator.unobtrusive.adapters.add("atleastoneproperty", ["properties"], function (options) {
+            options.rules["atleastoneproperty"] = options.params.properties;
+            options.messages["atleastoneproperty"] = options.message;
+        });
+    </script>
 }

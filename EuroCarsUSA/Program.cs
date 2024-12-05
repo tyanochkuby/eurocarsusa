@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using EuroCarsUSA.Data.Attributes;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,9 +24,11 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddSingleton<IValidationAttributeAdapterProvider, AtLeastOnePropertyValidationAttributeAdapterProvider>();
+
 builder.Services.AddScoped<ICarRepository, CarRepository>();
-builder.Services.AddScoped<IFormRepository, FormRepository>();
-builder.Services.AddScoped<IFormService, FormService>();
+builder.Services.AddScoped<ICustomOrderRepository, CustomOrderRepository>();
+builder.Services.AddScoped<ICustomOrderService, CustomOrderService>();
 builder.Services.AddScoped<IDetailPageFormRepository, DetailPageFormRepository>();
 builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();

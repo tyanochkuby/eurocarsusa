@@ -1,4 +1,4 @@
-using EuroCarsUSA.Data.Enum;
+using EuroCarsUSA.Data.Enums;
 using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Extensions;
 using EuroCarsUSA.Models;
@@ -13,8 +13,12 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Net.WebSockets;
+using System.Runtime.ConstrainedExecution;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace EuroCarsUSA.Controllers
 {
@@ -44,7 +48,7 @@ namespace EuroCarsUSA.Controllers
             _viewEngine = viewEngine;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
+        public async Task<IActionResult> Catalog(string sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
         {
             ViewData["SortBy"] = _localizer["SortBy"];
             var filters = new CarFilter()
@@ -85,10 +89,15 @@ namespace EuroCarsUSA.Controllers
             await _statisticsService.ViewCar(id);
             Car car = await _carRepository.GetById(id);
 
+            var likes = _cookieService.GetUserLikedCars();
+            var recomendedCars = await _carRepository.GetRange(0, 4, null, null);
+            var recomendedCardsViewModel = recomendedCars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+
             DetailViewModel viewModel = new()
             {
                 Car = car,
-                DetailPageForm = new DetailPageForm { CarId = car.Id }
+                DetailPageForm = new DetailPageForm { CarId = car.Id },
+                RecomendedCar = recomendedCardsViewModel,
             };
 
             return View(viewModel);
@@ -153,11 +162,8 @@ namespace EuroCarsUSA.Controllers
             var showMoreButton = carsCount > carsDisplayed + carsPerLoad;
             ViewBag.ShowMoreButton = showMoreButton;
 
-            var model = new GetCarsViewModel
-            {
-                Cars = nextCars,
-                LikedCars = _cookieService.GetUserLikedCars()
-            };
+            var likedCars = _cookieService.GetUserLikedCars();
+            var model = nextCars.Select(c => CarCardViewModel.FromCar(c, likedCars)).ToList();
 
             var partialView = PartialView(model);
             return partialView;
@@ -181,7 +187,28 @@ namespace EuroCarsUSA.Controllers
                     likedCars.Add(car);
                 }
             }
-            return View(likedCars);
+            var model = likedCars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+            return View(model);
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var likes = _cookieService.GetUserLikedCars();
+
+            var carsWDrodze = await _carRepository.GetRange(0, 4, null, null);
+            var recomendedCars = await _carRepository.GetRange(0, 6, null, null);
+            
+            var cardsWDrodzeViewModel = carsWDrodze.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+            var recomendedCadrsViewModel = recomendedCars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+
+            MainlViewModel viewModel = new()
+            {
+                CarWDrodze = cardsWDrodzeViewModel.ToList(),
+                RecomendedCar = recomendedCadrsViewModel.ToList(),
+                LastAddedCar = cardsWDrodzeViewModel[0]
+            };
+
+            return View(viewModel);
         }
 
         public async Task<IActionResult> GetFilterOptions(string filterType, string culture)
@@ -241,15 +268,15 @@ namespace EuroCarsUSA.Controllers
             return Json(new { success = true });
         }
 
-        public IActionResult BackToIndexWithFilters()
+        public IActionResult BackToCatalogWithFilters()
         {
             var sessionData = HttpContext.Session.GetString("CurrentFilters");
             if (!string.IsNullOrEmpty(sessionData))
             {
                 var filters = JsonConvert.DeserializeObject<CarFilter>(sessionData);
-                return RedirectToAction("Index", filters);
+                return RedirectToAction("Catalog", filters);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Catalog");
         }
         private string RenderPartialViewToString(string viewName, object model)
         {
@@ -287,6 +314,7 @@ namespace EuroCarsUSA.Controllers
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

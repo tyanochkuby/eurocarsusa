@@ -1,0 +1,83 @@
+@model dynamic
+
+@{
+    string classes = Model.Classes ?? "";
+    string attributes = Model.Attributes ?? "";
+
+    var leading = Model.Leading;
+
+
+    string noLeadingClass = "";
+    if (leading == null)
+    {
+        noLeadingClass = "ps-3";
+    }
+
+    string headline = Model.Placeholder;
+
+    bool showOverline = Model.ShowOverline;
+    bool showOverlineInside = Model.ShowOverlineInside;
+    bool hasOutsidOverlineSizeEffect = Model.HasOutsidOverlineSizeEffect;
+
+    string noOverlineSizeEffectClass = hasOutsidOverlineSizeEffect ? "" : "position-absolute";
+    string noOverlineSizeEffectStyle = hasOutsidOverlineSizeEffect ? "" : "transform: translateY(-16px);";
+
+    string overline = Model.Overline;
+
+    bool showAdditional = Model.ShowAdditional;
+    bool showAdditionalBackground = Model.ShowAdditionalBackground;
+    string additionalBackgroundClass = showAdditionalBackground ? "bg-secondary" : "";
+    string additional = Model.Additional;
+}
+
+<div class="@Html.Raw($"expand-button  position-relative {classes}")" @Html.Raw(attributes)>
+    @if (showOverline && !showOverlineInside)
+    {
+        <div class="expand-button-overline-text text-neutral-900 text-label-md px-1 @noOverlineSizeEffectClass" style="@noOverlineSizeEffectStyle">
+            @overline
+        </div>
+    }
+
+    <div class="@Html.Raw($"expand-button-text-field d-flex row m-0 bg-white")">
+        <div class="expand-button-state-layer row m-0 py-1 px-0 d-flex @noLeadingClass">
+            @if (leading != null)
+            {
+                <div class="expand-button-leading-element col-auto center-items">
+                    @leading
+                </div>
+            }
+
+            <div class="expand-button-content col p-0 d-block w-100 align-content-center">
+                <div class="row m-0 ">
+                    <div class="expand-button-label-text col p-0 py-1">
+                        @if ((showOverline == true) && (showOverlineInside == true))
+                        {
+                            <div class="expand-button-overline-text text-label-md text-neutral-900 row m-0">
+                                @overline
+                            </div>
+                        }
+                        <div class="text-body-lg text-neutral-900 row m-0">
+                            <span class="p-0 text-neutral-900 expand-button-input">
+                                @headline
+                            </span>
+                        </div>
+                    </div>
+                    @if (showAdditional)
+                    {
+                        <div class=" col-auto expand-button-trailng-supportive-text text-label-sm text-primary-900 p-0 align-content-center">
+                            <div class="d-flex  @additionalBackgroundClass rounded-16 align-items-center justify-content-center "
+                                 style="width: 24px; height:24px;">
+                                @additional
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-auto p-0 d-flex expand-button-trailing-element">
+                @Html.Partial("_IconButton", new { IconName = "Keyboard arrow down", Color = "primary", IconColor = "neutral900", Attributes = "" })
+            </div>
+        </div>
+    </div>
+
+    <div class="active-indicator position-absolute w-100"> </div>
+</div>
