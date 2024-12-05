@@ -59,287 +59,142 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row justify-content-md-center gy-5">
 
-<div class="row justify-content-md-center">
-    
-    <div class="col-md-8 px-3">
-        @*path*@
-        <div class="ms-xl-0 ms-2 mb-3">
-            <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1 d-inline-flex align-items-center">
-                <img class="carIcon" src="~/icons/arrow_left_alt.svg" /> <span>@Translator["Back"]</span>
-            </a>
+        <div class="col-md-7 col-lg-8 px-3">
+            @*path*@
+            <div class="ms-xl-0 ms-2 mb-3">
+                <a asp-controller="Home" asp-action="BackToIndexWithFilters" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1 d-inline-flex align-items-center">
+                    <img class="carIcon" src="~/icons/arrow_left_alt.svg" /> <span>@Translator["Back"]</span>
+                </a>
 
-            <a asp-controller="Home" asp-action="Index" asp-route-make="@Model.Car.Make" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
-                @Model.Car.Make
-            </a>
-            <a asp-controller="Home" asp-action="Index" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model" class="btn fh-button-text  px-3 py-2 btn-secondary border-0 rounded-pill">
-                @Model.Car.Model
-            </a>
-        </div>
-
-        @*Images*@
-        <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
-            <div class="position-relative" id="mainPictureContainer">
-                <div class="arrow-container">
-                    <img id="leftArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_left.svg" />
-                    <img id="rightArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_right.svg" />
-                </div>
-
-                <figure class="position-relative mb-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                    <a href=@Model.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0>
-
-                        <img src=@Model.Car.Images[0] style="object-fit: cover; width: 100%" itemprop="thumbnail">
-                    </a>
-                </figure>
-
+                <a asp-controller="Home" asp-action="Index" asp-route-make="@Model.Car.Make" class="btn fh-button-text px-3 py-2 btn-secondary border-0 rounded-pill me-1">
+                    @Model.Car.Make
+                </a>
+                <a asp-controller="Home" asp-action="Index" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model" class="btn fh-button-text  px-3 py-2 btn-secondary border-0 rounded-pill">
+                    @Model.Car.Model
+                </a>
             </div>
 
+            @*Images*@
+            <div class="gallery" id="gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                <div class="position-relative" id="mainPictureContainer">
+                    <div class="arrow-container">
+                        <img id="leftArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_left.svg" />
+                        <img id="rightArrowButton" class="galleryIcon" src="~/icons/keyboard_arrow_right.svg" />
+                    </div>
 
-            <div class="d-none d-sm-block slider variable-width slick-initialized slick-slider slick-dotted" id="carsSlider" role="toolbar" bis_skin_checked="1">
-                <div aria-live="polite" class="slick-list draggable" bis_skin_checked="1">
+                    <figure class="position-relative mb-2" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                        <a href=@Model.Car.Images[0] data-width="1200" data-height="900" itemprop="contentUrl" id="imageMain" data-index=0>
 
-                    <div class="slick-track slider-container" style="opacity: 1;" role="listbox" bis_skin_checked="1">
-                        @for (int i = 0; i < Model.Car.Images.Count; i++)
-                        {
-                            <div class="slick-slide" data-slick-index="@i" aria-hidden="true">
-                                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" bis_skin_checked="1">
+                            <img src=@Model.Car.Images[0] style="object-fit: cover; width: 100%" itemprop="thumbnail">
+                        </a>
+                    </figure>
 
-                                    <a href=@Model.Car.Images[i] class="carPhotoThumbnail" id=@("car-figure-" + i) data-width="1200" data-height="900" itemprop="contentUrl" data-index=@i>
-                                        <div class="me-2">
-                                            <img src=@Model.Car.Images[i] style="object-fit: cover;" itemprop="thumbnail">
-                                        </div>
-                                    </a>
-                                </figure>
-                            </div>
-                        }
+                </div>
+
+
+                <div class="d-none d-sm-block slider variable-width slick-initialized slick-slider slick-dotted" id="carsSlider" role="toolbar" bis_skin_checked="1">
+                    <div aria-live="polite" class="slick-list draggable" bis_skin_checked="1">
+
+                        <div class="slick-track slider-container" style="opacity: 1;" role="listbox" bis_skin_checked="1">
+                            @for (int i = 0; i < Model.Car.Images.Count; i++)
+                            {
+                                <div class="slick-slide" data-slick-index="@i" aria-hidden="true">
+                                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" bis_skin_checked="1">
+
+                                        <a href=@Model.Car.Images[i] class="carPhotoThumbnail" id=@("car-figure-" + i) data-width="1200" data-height="900" itemprop="contentUrl" data-index=@i>
+                                            <div class="me-2">
+                                                <img src=@Model.Car.Images[i] style="object-fit: cover;" itemprop="thumbnail">
+                                            </div>
+                                        </a>
+                                    </figure>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-            @*
-            <div class="row justify-content-center">
-            <div class="d-flex flex-row align-items-center">
-            @for (int i = 0; i < Model.Car.Images.Count; i++)
-            {
-            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-            <a href=@Model.Car.Images[i] class="carPhotoThumbnail" data-width="1200" data-height="900" itemprop="contentUrl" index=@i>
-            <img src=@Model.Car.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
-            </a>
-            </figure>
-            }
-            </div>
-            </div> *@
-
-
-        </div>
-
-
-        @*Swipe gallery scructure*@
-        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-            <!-- Background of PhotoSwipe.
-                 It's a separate element as animating opacity is faster than rgba(). -->
-            <div class="pswp__bg"></div>
-            <!-- Slides wrapper with overflow:hidden. -->
-            <div class="pswp__scroll-wrap">
-                <!-- Container that holds slides.
-                    PhotoSwipe keeps only 3 of them in the DOM to save memory.
-                    Don't modify these 3 pswp__item elements, data is added later on. -->
-                <div class="pswp__container">
-                    <div class="pswp__item"></div>
-                    <div class="pswp__item"></div>
-                    <div class="pswp__item"></div>
-                    <div class="pswp__item"></div>
-
+                @*
+                <div class="row justify-content-center">
+                <div class="d-flex flex-row align-items-center">
+                @for (int i = 0; i < Model.Car.Images.Count; i++)
+                {
+                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                <a href=@Model.Car.Images[i] class="carPhotoThumbnail" data-width="1200" data-height="900" itemprop="contentUrl" index=@i>
+                <img src=@Model.Car.Images[i] style="height: 200px; object-fit: cover; margin-right: 10px;" itemprop="thumbnail">
+                </a>
+                </figure>
+                }
                 </div>
-                <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-                <div class="pswp__ui pswp__ui--hidden">
-                    <div class="pswp__top-bar">
-                        <!--  Controls are self-explanatory. Order can be changed. -->
-                        <div class="pswp__counter"></div>
-                        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                        <button class="pswp__button pswp__button--share" title="Share"></button>
-                        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-                        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                        <!-- element will get class pswp__preloader--active when preloader is running -->
-                        <div class="pswp__preloader">
-                            <div class="pswp__preloader__icn">
-                                <div class="pswp__preloader__cut">
-                                    <div class="pswp__preloader__donut"></div>
+                </div> *@
+
+
+            </div>
+
+
+            @*Swipe gallery scructure*@
+            <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+                <!-- Background of PhotoSwipe.
+                     It's a separate element as animating opacity is faster than rgba(). -->
+                <div class="pswp__bg"></div>
+                <!-- Slides wrapper with overflow:hidden. -->
+                <div class="pswp__scroll-wrap">
+                    <!-- Container that holds slides.
+                        PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                        Don't modify these 3 pswp__item elements, data is added later on. -->
+                    <div class="pswp__container">
+                        <div class="pswp__item"></div>
+                        <div class="pswp__item"></div>
+                        <div class="pswp__item"></div>
+                        <div class="pswp__item"></div>
+
+                    </div>
+                    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                    <div class="pswp__ui pswp__ui--hidden">
+                        <div class="pswp__top-bar">
+                            <!--  Controls are self-explanatory. Order can be changed. -->
+                            <div class="pswp__counter"></div>
+                            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                            <button class="pswp__button pswp__button--share" title="Share"></button>
+                            <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                            <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                            <!-- element will get class pswp__preloader--active when preloader is running -->
+                            <div class="pswp__preloader">
+                                <div class="pswp__preloader__icn">
+                                    <div class="pswp__preloader__cut">
+                                        <div class="pswp__preloader__donut"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                        <div class="pswp__share-tooltip"></div>
-                    </div>
-                    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-                    </button>
-                    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-                    </button>
-                    <div class="pswp__caption">
-                        <div class="pswp__caption__center"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @*Price*@
-        <div class="d-md-none px-2">
-            <div class="pb-2">
-                <div class="fh-header-bold">@(Model.Car.Make + " " + Model.Car.Model)</div>
-                <div class="fh-regular row mx-0">
-                    <div class="col-auto ps-0 pe-2">@Model.Car.Year</div>
-                    <div class="col-auto ps-0 pe-2">@($"{Model.Car.Mileage} km")</div>
-                    <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
-                    <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? ((CarFuelType) Model.Car.FuelType).ToLocalizedString(Translator) : "")</div>
-                </div>
-            </div>
-
-
-            <div class="center-items bg-primary br-2">
-                <div class="row mx-0 py-1 text-antique">
-                    <div class="col-auto ps-0 pe-2 fh-header-bold">@Model.Car.Price.ToString()</div>
-                    <div class="col-auto px-0 fh-header">PLN</div>
-                </div>
-            </div>
-        </div>
-
-        @*Details*@
-        <div class="ms-xl-0 ms-2 mb-5 mb-sm-3">
-            <hr style="border-top: 1px solid #000;"> @*divider*@
-
-            <div class="row"> <h2 class="fh-header">@Translator["Details"]</h2></div>
-
-            <div class="fh-regular">
-                <div class="row mb-md-3">
-                    <div class="col-md-6">
-                        <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@Translator["Year"]</div>
-                            <div class="col-6">@Model.Car.Year</div>
+                        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                            <div class="pswp__share-tooltip"></div>
                         </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@Translator["Make"]</div>
-                            <div class="col-6">@Model.Car.Make</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-md-3">
-                    <div class="col-md-6">
-                        <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@Translator["Mileage"]</div>
-                            <div class="col-6">@($"{Model.Car.Mileage} km")</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 my-md-0 my-1">
-                        <div class="row">
-                            <div class="col-6 text-subhead">@Translator["Model"]</div>
-                            <div class="col-6">@Model.Car.Model</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-md-3">
-                    <div class="col-md-6">
-                        <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@Translator["Color"]</div>
-                            <div class="col-6">@Model.Car.Color</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">VIN</div>
-                            <div class="col-6">@Model.Car.VIN</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-md-3">
-                    <div class="col-md-6">
-                        <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@Translator["CarType"]</div>
-                            <div class="col-6">@Model.Car.Type</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@Translator["FuelType"]</div>
-                            <div class="col-6">@Model.Car.FuelType</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-md-3">
-                    <div class="col-md-6">
-                        <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@Translator["Transmission"]</div>
-                            <div class="col-6">@Model.Car.Transmission</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="row my-md-0 my-1">
-                            <div class="col-6 text-subhead">@(Model.Car.EngineVolume != null ? Translator["EngineVolume"] : "")</div>
-                            <div class="col-6">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
+                        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                        </button>
+                        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                        </button>
+                        <div class="pswp__caption">
+                            <div class="pswp__caption__center"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-        </div>
-
-        @*Details*@
-        <div class="col p-0">
-            
-            <div class="row mx-0 mb-3 d-flex align-items-stretch">
-                <div class="col px-0 text-headline-sm">We recommend</div>
-                <div class="col px-0 flex-grow-1 justify-content-end d-flex">
-                    @if (User.IsInRole("Admin"))
-                    {
-                        @Html.Partial("_Button", new
-                            {
-                                Text = "Edit",
-                                Color = "primary",
-                                Classes = "py-0 h-100 ms-2",
-                                Attributes = "",
-                                LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
-                                RightIcon = (object)null,
-                                TextColor = "",
-                            })
-                    }
-                </div>
-            </div>
-
-            <div class="row gx-2">
-                @foreach (CarCardViewModel car in Model.RecomendedCar)
-                {
-                    car.Classes = "col-3";
-                    car.IsFullSize = false;
-                    @await Html.PartialAsync("_CarCard", car)
-                }
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-4 ps-3">
-        <div class="d-none d-md-block sticky-top pt-2">
-            <div class="border px-3 py-3">
+            @*Price*@
+            <div class="d-md-none px-2">
                 <div class="pb-2">
                     <div class="fh-header-bold">@(Model.Car.Make + " " + Model.Car.Model)</div>
                     <div class="fh-regular row mx-0">
                         <div class="col-auto ps-0 pe-2">@Model.Car.Year</div>
                         <div class="col-auto ps-0 pe-2">@($"{Model.Car.Mileage} km")</div>
                         <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
-                        <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? ((CarFuelType) Model.Car.FuelType).ToLocalizedString(Translator) : "")</div>
+                        <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? ((CarFuelType)Model.Car.FuelType).ToLocalizedString(Translator) : "")</div>
                     </div>
                 </div>
+
 
                 <div class="center-items bg-primary br-2">
                     <div class="row mx-0 py-1 text-antique">
@@ -347,72 +202,219 @@
                         <div class="col-auto px-0 fh-header">PLN</div>
                     </div>
                 </div>
+            </div>
 
-                <div class="py-3"></div>
+            @*Details*@
+            <div class="ms-xl-0 ms-2 mb-5 mb-sm-4">
+                <hr style="border-top: 1px solid #000;"> @*divider*@
 
-                <div class="bg-light align-items-center flex-column d-flex">
-                    <p class="fs-4 fw-light mb-0 mt-2 border-bottom border-primary">@Translator["ContactSeller"]</p>
-                    <a href="tel:+48534422089" class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2 d-inline-flex align-items-center">
-                        <img class="carIcon" src="~/icons/phone.svg" /> <span class="ms-1">+48 534 422 089</span>
-                    </a>
+                <div class="row"> <h2 class="fh-header">@Translator["Details"]</h2></div>
 
-                    <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
-                        <input type="hidden" asp-for="DetailPageForm.CarId" value="@Model.Car.Id" />
-                        <div class="form-group px-2 py-1">
-                            <input class="form-control border-bottom-only text-primary w-100" asp-for="DetailPageForm.Name" placeholder="@Translator["Name"]" />
+                <div class="fh-regular">
+                    <div class="row mb-md-3">
+                        <div class="col-md-6">
+                            <div class="row my-md-0 my-1">
+                                <div class="col-6 text-subhead">@Translator["Year"]</div>
+                                <div class="col-6">@Model.Car.Year</div>
+                            </div>
                         </div>
 
-                        <div class="form-group px-2 py-1">
-                            <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Email" placeholder="@Translator["Email"]" />
-                            <span asp-validation-for="DetailPageForm.Email" class="text-danger"></span>
+                        <div class="col-md-6">
+                            <div class="row my-md-0 my-1">
+                                <div class="col-6 text-subhead">@Translator["Make"]</div>
+                                <div class="col-6">@Model.Car.Make</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-md-3">
+                        <div class="col-md-6">
+                            <div class="row my-md-0 my-1">
+                                <div class="col-6 text-subhead">@Translator["Mileage"]</div>
+                                <div class="col-6">@($"{Model.Car.Mileage} km")</div>
+                            </div>
                         </div>
 
-                        <div class="form-group px-2 py-1">
-                            <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
-                            <span asp-validation-for="DetailPageForm.PhoneNumber" class="text-danger"></span>
+                        <div class="col-md-6 my-md-0 my-1">
+                            <div class="row">
+                                <div class="col-6 text-subhead">@Translator["Model"]</div>
+                                <div class="col-6">@Model.Car.Model</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-md-3">
+                        <div class="col-md-6">
+                            <div class="row my-md-0 my-1">
+                                <div class="col-6 text-subhead">@Translator["Color"]</div>
+                                <div class="col-6">@Model.Car.Color</div>
+                            </div>
                         </div>
 
-                        <div class="form-group px-2 pt-1 pb-3">
-                            <textarea class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Message" placeholder="@Translator["Message"]" rows="5"></textarea>
+                        <div class="col-md-6">
+                            <div class="row my-md-0 my-1">
+                                <div class="col-6 text-subhead">VIN</div>
+                                <div class="col-6">@Model.Car.VIN</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-md-3">
+                        <div class="col-md-6">
+                            <div class="row my-md-0 my-1">
+                                <div class="col-6 text-subhead">@Translator["CarType"]</div>
+                                <div class="col-6">@Model.Car.Type</div>
+                            </div>
                         </div>
 
-                        <div class="align-items-center flex-column d-flex pb-3">
-                            <button type="submit" class="btn btn-primary rounded-pill py-2 px-4">
-                                <svg class="carIcon me-1" width="96" height="96" viewBox="0 0 96 96" fill="white" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_292_959)">
-                                        <path d="M80 16H16C11.6 16 8.04 19.6 8.04 24L8 72C8 76.4 11.6 80 16 80H80C84.4 80 88 76.4 88 72V24C88 19.6 84.4 16 80 16ZM80 32L48 52L16 32V24L48 44L80 24V32Z" fill="#ffffff" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_292_959">
-                                            <rect width="96" height="96" fill="white" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
+                        <div class="col-md-6">
+                            <div class="row my-md-0 my-1">
+                                <div class="col-6 text-subhead">@Translator["FuelType"]</div>
+                                <div class="col-6">@Model.Car.FuelType</div>
+                            </div>
+                        </div>
+                    </div>
 
-                                <span>@Translator["SendMessage"]</span>
-                            </button>
+                    <div class="row mb-md-3">
+                        <div class="col-md-6">
+                            <div class="row my-md-0 my-1">
+                                <div class="col-6 text-subhead">@Translator["Transmission"]</div>
+                                <div class="col-6">@Model.Car.Transmission</div>
+                            </div>
                         </div>
 
-                    </form>
+                        <div class="col-md-6">
+                            <div class="row my-md-0 my-1">
+                                <div class="col-6 text-subhead">@(Model.Car.EngineVolume != null ? Translator["EngineVolume"] : "")</div>
+                                <div class="col-6">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            @*Recomendations*@
+            <div class="col p-0">
+                <hr style="border-top: 1px solid #000;"> @*divider*@
+                <div class="row mx-0 mb-3 d-flex align-items-stretch">
+                    <div class="col px-0 text-headline-sm">We recommend</div>
+                    <div class="col px-0 flex-grow-1 justify-content-end d-flex">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.Partial("_Button", new
+                                {
+                                    Text = "Edit",
+                                    Color = "primary",
+                                    Classes = "py-0 h-100 ms-2",
+                                    Attributes = "",
+                                    LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
+                                    RightIcon = (object)null,
+                                    TextColor = "",
+                                })
+                        }
+                    </div>
+                </div>
+
+                <div class="row gx-2">
+                    @foreach (CarCardViewModel car in Model.RecomendedCar)
+                    {
+                        car.Classes = "col-3";
+                        car.IsFullSize = false;
+                        @await Html.PartialAsync("_CarCard", car)
+                    }
                 </div>
             </div>
-            
         </div>
 
-        <div class="row fixed-bottom d-md-none w-100">
-            <div class="col-6 px-0">
-                <div class="align-items-center h-100">
-                    <a href="tel:+48534422089" class="btn btn-secondary w-100 h-100 py-3"><i class="fas fa-phone fa-rotate-90 px-1"></i>@Translator["Call"]</a>
+
+        <div class="col-md-5 col-lg-4 ps-3">
+            <div class="d-none d-md-block sticky-top pt-2">
+                <div class="border px-3 py-3">
+                    <div class="pb-2">
+                        <div class="fh-header-bold">@(Model.Car.Make + " " + Model.Car.Model)</div>
+                        <div class="fh-regular row mx-0">
+                            <div class="col-auto ps-0 pe-2">@Model.Car.Year</div>
+                            <div class="col-auto ps-0 pe-2">@($"{Model.Car.Mileage} km")</div>
+                            <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
+                            <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? ((CarFuelType)Model.Car.FuelType).ToLocalizedString(Translator) : "")</div>
+                        </div>
+                    </div>
+
+                    <div class="center-items bg-primary br-2">
+                        <div class="row mx-0 py-1 text-antique">
+                            <div class="col-auto ps-0 pe-2 fh-header-bold">@Model.Car.Price.ToString()</div>
+                            <div class="col-auto px-0 fh-header">PLN</div>
+                        </div>
+                    </div>
+
+                    <div class="py-3"></div>
+
+                    <div class="bg-light align-items-center flex-column d-flex">
+                        <p class="fs-4 fw-light mb-0 mt-2 border-bottom border-primary">@Translator["ContactSeller"]</p>
+                        <a href="tel:+48534422089" class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2 d-inline-flex align-items-center">
+                            <img class="carIcon" src="~/icons/phone.svg" /> <span class="ms-1">+48 534 422 089</span>
+                        </a>
+
+                        <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
+                            <input type="hidden" asp-for="DetailPageForm.CarId" value="@Model.Car.Id" />
+                            <div class="form-group px-2 py-1">
+                                <input class="form-control border-bottom-only text-primary w-100" asp-for="DetailPageForm.Name" placeholder="@Translator["Name"]" />
+                            </div>
+
+                            <div class="form-group px-2 py-1">
+                                <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Email" placeholder="@Translator["Email"]" />
+                                <span asp-validation-for="DetailPageForm.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group px-2 py-1">
+                                <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
+                                <span asp-validation-for="DetailPageForm.PhoneNumber" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group px-2 pt-1 pb-3">
+                                <textarea class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Message" placeholder="@Translator["Message"]" rows="5"></textarea>
+                            </div>
+
+                            <div class="align-items-center flex-column d-flex pb-3">
+                                <button type="submit" class="btn btn-primary rounded-pill py-2 px-4">
+                                    <svg class="carIcon me-1" width="96" height="96" viewBox="0 0 96 96" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_292_959)">
+                                            <path d="M80 16H16C11.6 16 8.04 19.6 8.04 24L8 72C8 76.4 11.6 80 16 80H80C84.4 80 88 76.4 88 72V24C88 19.6 84.4 16 80 16ZM80 32L48 52L16 32V24L48 44L80 24V32Z" fill="#ffffff" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_292_959">
+                                                <rect width="96" height="96" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+
+                                    <span>@Translator["SendMessage"]</span>
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
+
             </div>
-            <div id="to_rename_parent" class="col-6 px-0">
-                <div class="align-items-center h-100">
-                    <button id="showPopupButton" type="to_rename" class="btn btn-secondary w-100 h-100"><i class="fas fa-envelope px-1"></i>  @Translator["SendMessage"]</button>
+
+            <div class="row fixed-bottom d-md-none w-100">
+                <div class="col-6 px-0">
+                    <div class="align-items-center h-100">
+                        <a href="tel:+48534422089" class="btn btn-secondary w-100 h-100 py-3"><i class="fas fa-phone fa-rotate-90 px-1"></i>@Translator["Call"]</a>
+                    </div>
+                </div>
+                <div id="to_rename_parent" class="col-6 px-0">
+                    <div class="align-items-center h-100">
+                        <button id="showPopupButton" type="to_rename" class="btn btn-secondary w-100 h-100"><i class="fas fa-envelope px-1"></i>  @Translator["SendMessage"]</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 

@@ -80,7 +80,7 @@
             <div class="text-body-lg text-neutral-900">Status - @Model.Status</div>
         </div>
         <div class="bg-secondary-100 py-3 px-2 rounded-16 row gx-3 mx-0">
-            <div class="text-title-lg mb-2 text-neutral-900">Your contact date</div>
+            <div class="text-title-lg mb-2 text-neutral-900">Your contact data</div>
             <div class="col">
                 @Html.Partial("_ListItem", new
                     {
@@ -178,7 +178,7 @@
         @foreach (var form in Model.Forms)
         {
             <div class="bg-secondary-100 p-3 rounded-16 mx-0 mt-3">
-                <div class="text-title-lg mb-2 text-neutral-900">Form</div>
+                <div class="text-title-lg mb-2 text-neutral-900">Form @(Model.Forms.IndexOf(form)+1)</div>
                 <div class="row gx-3 mb-3">
                     <div class="col">
                         @Html.Partial("_ExpandButton", new
