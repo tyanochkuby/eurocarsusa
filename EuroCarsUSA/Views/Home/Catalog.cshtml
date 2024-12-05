@@ -2,6 +2,7 @@
 @using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Views.Home.Components.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.Extensions.Localization
 @using System.Globalization
 
@@ -232,60 +233,27 @@
                 
                     <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"button\" id=\"dropdownMenuButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
-                                    Placeholder = (selectedMakes.Any() ? string.Join(", ", selectedMakes) : Translator["Choose"]),
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["Make"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_ExpandButton", new _ExpandButton
+                       {
+                           Attributes = $"type=\"button\" id=\"dropdownMenuButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+                           Placeholder = (selectedMakes.Any() ? string.Join(", ", selectedMakes) : Translator["Choose"]),
+                           ShowOverline = true,
+                           Overline = Translator["Make"]
+                       })
                             <ul class="dropdown-menu w-100" name="make" aria-labelledby="dropdownMenuButton">
                                 @foreach (FilterOptionViewModel makeOption in ViewBag.AvailableFilters["make"])
                                 {
                                     <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{makeOption.OriginalValue}\" {(selectedMakes.Contains(makeOption.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = makeOption.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
+                                        @await Html.PartialAsync("_ListItem", new _ListItem
+                               {
+                                   Classes = "dropdown-item p-0",
+                                   Leading = await Html.PartialAsync("_Checkbox", new _Checkbox
+                                   {
+                                       Attributes = $"value=\"{makeOption.OriginalValue}\" {(selectedMakes.Contains(makeOption.OriginalValue) ? "checked" : "")}"
+                                   }),
+                                   Headline = makeOption.TranslatedValue,
+                                   ShowDivider = true
+                               })
                                     </li>
                                 }
                             </ul>
@@ -293,216 +261,100 @@
                         <input value="@Context.Request.Query["make"]" type="hidden" id="makeInput" name="make">
                     </div>
 
+
                     <div class="mb-3">
-                            @Html.Partial("_LineEdit", new
-                            {
-                                Classes = "",
-                                Attributes = $"type=\"text\" id=\"model\" name=\"model\" value=\"{Context.Request.Query["model"]}\"",
-
-                                Leading = (object)null,
-                                Trailing = (object)null,
-
-                                Placeholder = Translator["Type"],
-
-                                ShowOverline = true,
-                                ShowOverlineInside = true,
-                                HasOutsidOverlineSizeEffect = false,
-                                Overline = @Translator["Model"],
-
-                                ShowSupportive = false,
-                                HasOutsideSupportiveSizeEffect = false,
-                                Supportive = "Supporting line",
-
-                                ShowAdditional = false,
-                                ShowAdditionalBackground = true,
-                                Additional = "100+"
-                            })
+                    @await Html.PartialAsync("_LineEdit", new _LineEdit
+                       {
+                           Attributes = $"type=\"text\" id=\"model\" name=\"model\" value=\"{Context.Request.Query["model"]}\"",
+                           Placeholder = Translator["Type"],
+                           ShowOverline = true,
+                           Overline = Translator["Model"]
+                       })
                     </div>
                 
                     <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"button\" id=\"dropdownCarTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
-                                    Placeholder = (selectedCarTypes.Any() ? string.Join(", ", selectedCarTypes) : Translator["Choose"]),
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["CarType"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_ExpandButton", new _ExpandButton
+                               {
+                                   Attributes = $"type=\"button\" id=\"dropdownCarTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+                                   Placeholder = (selectedCarTypes.Any() ? string.Join(", ", selectedCarTypes) : Translator["Choose"]),
+                                   ShowOverline = true,
+                                   Overline = Translator["CarType"]
+                               })
                             <ul class="dropdown-menu w-100" name="carType" aria-labelledby="dropdownCarTypeButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["carType"])
                                 {
                                     <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedCarTypes.Contains(option.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = option.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
+                                        @await Html.PartialAsync("_ListItem", new _ListItem
+                                           {
+                                               Classes = "dropdown-item p-0",
+                                               Leading = await Html.PartialAsync("_Checkbox", new _Checkbox
+                                               {
+                                                   Attributes = $"value=\"{option.OriginalValue}\" {(selectedCarTypes.Contains(option.OriginalValue) ? "checked" : "")}"
+                                               }),
+                                               Headline = option.TranslatedValue,
+                                               ShowDivider = true
+                                           })
                                     </li>
                                 }
                             </ul>
-
                         </div>
                         <input value="@Context.Request.Query["carType"]" type="hidden" id="carTypeInput" name="carType">
                     </div>
 
                     <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"button\" id=\"dropdownFuelTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
-                                    Placeholder = (selectedFuelTypes.Any() ? string.Join(", ", selectedFuelTypes) : Translator["Choose"]),
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["FuelType"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_ExpandButton", new _ExpandButton
+                                   {
+                                       Attributes = $"type=\"button\" id=\"dropdownFuelTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+                                       Placeholder = (selectedFuelTypes.Any() ? string.Join(", ", selectedFuelTypes) : Translator["Choose"]),
+                                       ShowOverline = true,
+                                       Overline = Translator["FuelType"]
+                                   })
                             <ul class="dropdown-menu w-100" name="fuelType" aria-labelledby="dropdownFuelTypeButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["fuelType"])
                                 {
                                     <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedFuelTypes.Contains(option.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = option.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
+                                        @await Html.PartialAsync("_ListItem", new _ListItem
+                                           {
+                                               Classes = "dropdown-item p-0",
+                                               Leading = await Html.PartialAsync("_Checkbox", new _Checkbox
+                                               {
+                                                   Attributes = $"value=\"{option.OriginalValue}\" {(selectedFuelTypes.Contains(option.OriginalValue) ? "checked" : "")}"
+                                               }),
+                                               Headline = option.TranslatedValue,
+                                               ShowDivider = true
+                                           })
                                     </li>
                                 }
                             </ul>
-
                         </div>
                         <input value="@Context.Request.Query["fuelType"]" type="hidden" id="fuelTypeInput" name="fuelType">
                     </div>
 
                     <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"button\" id=\"dropdownTransmissionButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
-                                    Placeholder = (selectedTransmissions.Any() ? string.Join(", ", selectedTransmissions) : Translator["Choose"]),
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["Transmission"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_ExpandButton", new _ExpandButton
+                               {
+                                   Attributes = $"type=\"button\" id=\"dropdownTransmissionButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+                                   Placeholder = (selectedTransmissions.Any() ? string.Join(", ", selectedTransmissions) : Translator["Choose"]),
+                                   ShowOverline = true,
+                                   Overline = Translator["Transmission"]
+                               })
                             <ul class="dropdown-menu w-100" name="transmission" aria-labelledby="dropdownTransmissionButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["transmission"])
                                 {
                                     <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedTransmissions.Contains(option.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = option.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
+                                        @await Html.PartialAsync("_ListItem", new _ListItem
+                                           {
+                                               Classes = "dropdown-item p-0",
+                                               Leading = await Html.PartialAsync("_Checkbox", new _Checkbox
+                                               {
+                                                   Attributes = $"value=\"{option.OriginalValue}\" {(selectedTransmissions.Contains(option.OriginalValue) ? "checked" : "")}"
+                                               }),
+                                               Headline = option.TranslatedValue,
+                                               ShowDivider = true
+                                           })
                                     </li>
                                 }
                             </ul>
@@ -512,67 +364,34 @@
 
                     <div class="pt-0 mb-3">
                         <div class="dropdown w-100">
-                            @Html.Partial("_ExpandButton", new
+                            @await Html.PartialAsync("_ExpandButton", new _ExpandButton
                                 {
-                                    Classes = "",
                                     Attributes = $"type=\"button\" id=\"dropdownColorButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-
-                                    Leading = (object)null,
                                     Placeholder = (selectedColors.Any() ? string.Join(", ", selectedColors) : Translator["Choose"]),
-
                                     ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = Translator["Color"],
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
+                                    Overline = Translator["Color"]
                                 })
                             <ul class="dropdown-menu w-100" name="color" aria-labelledby="dropdownColorButton">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["color"])
                                 {
                                     <li>
-                                        @Html.Partial("_ListItem", new
-                                            {
-                                                Classes = "dropdown-item p-0",
-                                                Attributes = "",
-
-                                                Leading = Html.Partial("_Checkbox", new
-                                                {
-                                                    Text = "",
-                                                    Classes = "",
-                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedColors.Contains(option.OriginalValue) ? "checked" : "")}"
-                                                }),
-                                                Trailing = (object)null,
-                                                Clickable = true,
-
-                                                Condition = "1-line",
-                                                Headline = option.TranslatedValue,
-
-                                                ShowOverline = false,
-                                                ShowOverlineInside = true,
-                                                HasOutsidOverlineSizeEffect = false,
-                                                Overline = "Overline111",
-
-                                                ShowSupportive = true,
-                                                ShowSupportiveInside = false,
-                                                HasOutsideSupportiveSizeEffect = false,
-                                                Supportive = "Supporting line",
-
-                                                ShowAdditional = false,
-                                                ShowAdditionalBackground = true,
-                                                Additional = "100+",
-
-                                                ShowDivider = true
-                                            })
+                                        @await Html.PartialAsync("_ListItem", new _ListItem
+                                           {
+                                               Classes = "dropdown-item p-0",
+                                               Leading = await Html.PartialAsync("_Checkbox", new _Checkbox
+                                               {
+                                                   Attributes = $"value=\"{option.OriginalValue}\" {(selectedColors.Contains(option.OriginalValue) ? "checked" : "")}"
+                                               }),
+                                               Headline = option.TranslatedValue,
+                                               ShowDivider = true
+                                           })
                                     </li>
                                 }
                             </ul>
-
                         </div>
                         <input value="@Context.Request.Query["color"]" type="hidden" id="colorInput" name="color">
                     </div>
+
 
                     @* <div class="py-2">
                     <div fh-regular>Min year:</div>
@@ -583,217 +402,94 @@
                     <input type="number" id="maxYear" name="maxYear" placeholder="@Translator["To"]" class="form-control" value="@Context.Request.Query["maxYear"]" />
                     </div> *@
 
-                    <div class="row d-flex mx-0 mb-3">
+                    <div class="row d-flex mx-0 mb-4">
                         <div class="col-6 ps-0 pe-1">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"minPrice\" name=\"minPrice\" value=\"{Context.Request.Query["minPrice"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["From"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Price"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = true,
-                                    ShowAdditionalBackground = false,
-                                    Additional = "zł"
-                                })
+                            @await Html.PartialAsync("_LineEdit", new _LineEdit
+                               {
+                                   Attributes = $"type=\"number\" id=\"minPrice\" name=\"minPrice\" value=\"{Context.Request.Query["minPrice"]}\"",
+                                   Placeholder = Translator["From"],
+                                   ShowOverline = true,
+                                   Overline = Translator["Price"],
+                                   ShowAdditional = true,
+                                   Additional = "zł"
+                               })
                         </div>
                         <div class="col-6 ps-1 pe-0">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"maxPrice\" name=\"maxPrice\" value=\"{Context.Request.Query["maxPrice"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["To"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Price"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = true,
-                                    ShowAdditionalBackground = false,
-                                    Additional = "zł"
-                                })
+                            @await Html.PartialAsync("_LineEdit", new _LineEdit
+                               {
+                                   Attributes = $"type=\"number\" id=\"maxPrice\" name=\"maxPrice\" value=\"{Context.Request.Query["maxPrice"]}\"",
+                                   Placeholder = Translator["To"],
+                                   ShowOverline = true,
+                                   Overline = Translator["Price"],
+                                   ShowAdditional = true,
+                                   Additional = "zł"
+                               })
                         </div>
                     </div>
 
-                    <div class="row mb-3 mx-0">
+                    <div class="row mb-4 mx-0">
                         <div class="col-6 ps-0 pe-1">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"minYear\" name=\"minYear\" value=\"{Context.Request.Query["minYear"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["From"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Year"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_LineEdit", new _LineEdit
+                               {
+                                   Attributes = $"type=\"number\" id=\"minYear\" name=\"minYear\" value=\"{Context.Request.Query["minYear"]}\"",
+                                   Placeholder = Translator["From"],
+                                   ShowOverline = true,
+                                   Overline = Translator["Year"]
+                               })
                         </div>
                         <div class="col-6 ps-1 pe-0">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"maxYear\" name=\"maxYear\" value=\"{Context.Request.Query["maxYear"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["To"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Year"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_LineEdit", new _LineEdit
+                               {
+                                   Attributes = $"type=\"number\" id=\"maxYear\" name=\"maxYear\" value=\"{Context.Request.Query["maxYear"]}\"",
+                                   Placeholder = Translator["To"],
+                                   ShowOverline = true,
+                                   Overline = Translator["Year"]
+                               })
                         </div>
                     </div>
 
-                    <div class="row mb-3 mx-0">
+                    <div class="row mb-4 mx-0">
                         <div class="col-6 ps-0 pe-1">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"minMileage\" name=\"minMileage\" value=\"{Context.Request.Query["minMileage"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["From"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Mileage"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_LineEdit", new _LineEdit
+                               {
+                                   Attributes = $"type=\"number\" id=\"minMileage\" name=\"minMileage\" value=\"{Context.Request.Query["minMileage"]}\"",
+                                   Placeholder = Translator["From"],
+                                   ShowOverline = true,
+                                   Overline = Translator["Mileage"]
+                               })
                         </div>
                         <div class="col-6 ps-1 pe-0">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"maxMileage\" name=\"maxMileage\" value=\"{Context.Request.Query["maxMileage"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["To"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["Mileage"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_LineEdit", new _LineEdit
+                               {
+                                   Attributes = $"type=\"number\" id=\"maxMileage\" name=\"maxMileage\" value=\"{Context.Request.Query["maxMileage"]}\"",
+                                   Placeholder = Translator["To"],
+                                   ShowOverline = true,
+                                   Overline = Translator["Mileage"]
+                               })
                         </div>
                     </div>
 
                     <div class="row mx-0">
                         <div class="col-6 ps-0 pe-1">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"minEngineVolume\" name=\"minEngineVolume\" value=\"{Context.Request.Query["minEngineVolume"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["From"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["EngineVolume"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_LineEdit", new _LineEdit
+                               {
+                                   Attributes = $"type=\"number\" id=\"minEngineVolume\" name=\"minEngineVolume\" value=\"{Context.Request.Query["minEngineVolume"]}\"",
+                                   Placeholder = Translator["From"],
+                                   ShowOverline = true,
+                                   Overline = Translator["EngineVolume"]
+                               })
                         </div>
                         <div class="col-6 ps-1 pe-0">
-                            @Html.Partial("_LineEdit", new
-                                {
-                                    Classes = "",
-                                    Attributes = $"type=\"number\" id=\"maxEngineVolume\" name=\"maxEngineVolume\" value=\"{Context.Request.Query["maxEngineVolume"]}\"",
-
-                                    Leading = (object)null,
-                                    Trailing = (object)null,
-
-                                    Placeholder = Translator["To"],
-
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    HasOutsidOverlineSizeEffect = false,
-                                    Overline = @Translator["EngineVolume"],
-
-                                    ShowSupportive = false,
-                                    HasOutsideSupportiveSizeEffect = false,
-                                    Supportive = "Supporting line",
-
-                                    ShowAdditional = false,
-                                    ShowAdditionalBackground = true,
-                                    Additional = "100+"
-                                })
+                            @await Html.PartialAsync("_LineEdit", new _LineEdit
+                               {
+                                   Attributes = $"type=\"number\" id=\"maxEngineVolume\" name=\"maxEngineVolume\" value=\"{Context.Request.Query["maxEngineVolume"]}\"",
+                                   Placeholder = Translator["To"],
+                                   ShowOverline = true,
+                                   Overline = Translator["EngineVolume"]
+                               })
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="row row-mobile-filter mx-0 justify-content-between">

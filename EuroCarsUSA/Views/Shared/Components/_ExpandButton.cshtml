@@ -1,11 +1,10 @@
-@model dynamic
+@model EuroCarsUSA.Views.Shared.Components._ExpandButton
 
 @{
-    string classes = Model.Classes ?? "";
-    string attributes = Model.Attributes ?? "";
+    string classes = Model.Classes;
+    string attributes = Model.Attributes;
 
     var leading = Model.Leading;
-
 
     string noLeadingClass = "";
     if (leading == null)
@@ -30,7 +29,7 @@
     string additional = Model.Additional;
 }
 
-<div class="@Html.Raw($"expand-button  position-relative {classes}")" @Html.Raw(attributes)>
+<div class="@Html.Raw($"expand-button position-relative {classes}")" @Html.Raw(attributes)>
     @if (showOverline && !showOverlineInside)
     {
         <div class="expand-button-overline-text text-neutral-900 text-label-md px-1 @noOverlineSizeEffectClass" style="@noOverlineSizeEffectStyle">
@@ -48,7 +47,7 @@
             }
 
             <div class="expand-button-content col p-0 d-block w-100 align-content-center">
-                <div class="row m-0 ">
+                <div class="row m-0">
                     <div class="expand-button-label-text col p-0 py-1">
                         @if ((showOverline == true) && (showOverlineInside == true))
                         {
@@ -64,8 +63,8 @@
                     </div>
                     @if (showAdditional)
                     {
-                        <div class=" col-auto expand-button-trailng-supportive-text text-label-sm text-primary-900 p-0 align-content-center">
-                            <div class="d-flex  @additionalBackgroundClass rounded-16 align-items-center justify-content-center "
+                        <div class="col-auto expand-button-trailng-supportive-text text-label-sm text-primary-900 p-0 align-content-center">
+                            <div class="d-flex @additionalBackgroundClass rounded-16 align-items-center justify-content-center"
                                  style="width: 24px; height:24px;">
                                 @additional
                             </div>

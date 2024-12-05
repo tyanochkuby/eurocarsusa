@@ -2,6 +2,7 @@
 @using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Data.Enums
 @using Microsoft.Extensions.Localization
+@using EuroCarsUSA.Views.Shared.Components
 @inject IStringLocalizer<CustomOrderController> Translator
 
 @model CustomOrderViewModel
@@ -22,35 +23,35 @@
             <div id="forms-container">
                 @for (int i = 0; i < Model.Forms.Count(); i++)
                 {
-                    @Html.Partial("_CustomOrderForm", new FormViewModel
-           {
-               Index = i,
-               CarMakes = Model.Forms[i].CarMakes,
-               CarColors = Model.Forms[i].CarColors,
-               CarTypes = Model.Forms[i].CarTypes,
-               CarFuelTypes = Model.Forms[i].CarFuelTypes,
-               CarTransmissions = Model.Forms[i].CarTransmissions,
-               Model = Model.Forms[i].Model,
-               MaxPrice = Model.Forms[i].MaxPrice,
-               MaxMileage = Model.Forms[i].MaxMileage,
-               MinYear = Model.Forms[i].MinYear,
-               MaxYear = Model.Forms[i].MaxYear,
-               Description = Model.Forms[i].Description
-           })
+                    @await Html.PartialAsync("_CustomOrderForm", new FormViewModel
+                    {
+                        Index = i,
+                        CarMakes = Model.Forms[i].CarMakes,
+                        CarColors = Model.Forms[i].CarColors,
+                        CarTypes = Model.Forms[i].CarTypes,
+                        CarFuelTypes = Model.Forms[i].CarFuelTypes,
+                        CarTransmissions = Model.Forms[i].CarTransmissions,
+                        Model = Model.Forms[i].Model,
+                        MaxPrice = Model.Forms[i].MaxPrice,
+                        MaxMileage = Model.Forms[i].MaxMileage,
+                        MinYear = Model.Forms[i].MinYear,
+                        MaxYear = Model.Forms[i].MaxYear,
+                        Description = Model.Forms[i].Description
+                    })
                 }
             </div>
 
             <div class="d-flex justify-content-center mb-3">
-                @Html.Partial("_Button", new
-                    {
-                        Text = "Add Form",
-                        Color = "primary",
-                        Classes = "",
-                        Attributes = "type=\"button\" onclick=\"addForm()\"",
-                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Add"), Color = "white" }),
-                        RightIcon = (object)null,
-                        TextColor = "",
-                    })
+                @await Html.PartialAsync("_Button", new _Button
+                {
+                    Text = "Add Form",
+                    Color = "primary",
+                    Classes = "",
+                    Attributes = "type=\"button\" onclick=\"addForm()\"",
+                    LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Add"), Color = "white" }),
+                    RightIcon = null,
+                    TextColor = ""
+                })
             </div>
 
             <div class="bg-secondary-100 p-3 rounded-16 row mx-0 mt-3">
@@ -75,16 +76,16 @@
 
             <div class="row mx-0 mt-3">
                 <div class="d-flex justify-content-end">
-                    @Html.Partial("_Button", new
-                        {
-                            Text = "Submit and send form",
-                            Color = "primary",
-                            Classes = "",
-                            Attributes = "type=\"submit\" ",
-                            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Done"), Color = "white" }),
-                            RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
-                            TextColor = "",
-                        })
+                    @await Html.PartialAsync("_Button", new _Button
+                    {
+                        Text = "Submit and send form",
+                        Color = "primary",
+                        Classes = "",
+                        Attributes = "type=\"submit\" ",
+                        LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Done"), Color = "white" }),
+                        RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
+                        TextColor = ""
+                    })
                 </div>
             </div>
         </div>
@@ -175,3 +176,4 @@
         });
     </script>
 }
+

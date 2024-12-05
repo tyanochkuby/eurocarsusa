@@ -2,6 +2,7 @@
 @using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Models
+@using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.Extensions.Localization
 @model MainlViewModel
 
@@ -27,33 +28,31 @@
                     <div class="row mx-0 mb-3 d-flex align-items-stretch">
                         <div class="col px-0 text-headline-sm">We recommend</div>
                         <div class="col px-0 flex-grow-1 justify-content-end d-flex">
-                            @Html.Partial("_Button", new
-                                {
-                                    Text = "See all",
-                                    Color = "primary",
-                                    Classes = "py-0 h-100 bg-white",
-                                    Attributes = "",
-                                    LeftIcon = (object)null,
-                                    RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "neutral900" }),
-                                    TextColor = "text-neutral-900",
-                                })
+                            @await Html.PartialAsync("_Button", new _Button
+                            {
+                                Text = "See all",
+                                Color = "primary",
+                                Classes = "py-0 h-100 bg-white",
+                                Attributes = "",
+                                LeftIcon = null,
+                                RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "neutral900" }),
+                                TextColor = "text-neutral-900"
+                            })
 
                             @if (User.IsInRole("Admin"))
                             {
-                                @Html.Partial("_Button", new
-                                    {
-                                        Text = "Edit",
-                                        Color = "primary",
-                                        Classes = "py-0 h-100 ms-2",
-                                        Attributes = "",
-                                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
-                                        RightIcon = (object)null,
-                                        TextColor = "",
-                                    })
+                                @await Html.PartialAsync("_Button", new _Button
+                                {
+                                    Text = "Edit",
+                                    Color = "primary",
+                                    Classes = "py-0 h-100 ms-2",
+                                    Attributes = "",
+                                    LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
+                                    RightIcon = null,
+                                    TextColor = ""
+                                })
                             }
                         </div>
-                    
-                        
                     </div>
                     <div class="row g-3 p-2 pt-0">
                         @foreach (CarCardViewModel car in Model.RecomendedCar)
@@ -87,16 +86,16 @@
                             </div>
                             <div class="d-flex justify-content-center">
                                 <a>
-                                    @Html.Partial("_Button", new
-                                        {
-                                            Text = "+48 53-44-22-089",
-                                            Color = "primary",
-                                            Classes = "",
-                                            Attributes = "",
-                                            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
-                                            RightIcon = (object)null,
-                                            TextColor = "",
-                                        })
+                                    @await Html.PartialAsync("_Button", new _Button
+                                    {
+                                        Text = "+48 53-44-22-089",
+                                        Color = "primary",
+                                        Classes = "",
+                                        Attributes = "",
+                                        LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
+                                        RightIcon = null,
+                                        TextColor = ""
+                                    })
                                 </a>
                             </div>
                         </div>
@@ -108,16 +107,16 @@
 
                             <div class="d-flex justify-content-center">
                                 <a>
-                                    @Html.Partial("_Button", new
-                                        {
-                                            Text = "Start making form",
-                                            Color = "primary",
-                                            Classes = "",
-                                            Attributes = "",
-                                            LeftIcon = (object)null,
-                                            RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
-                                            TextColor = "",
-                                        })
+                                    @await Html.PartialAsync("_Button", new _Button
+                                    {
+                                        Text = "Start making form",
+                                        Color = "primary",
+                                        Classes = "",
+                                        Attributes = "",
+                                        LeftIcon = null,
+                                        RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
+                                        TextColor = ""
+                                    })
                                 </a>
                             </div>
                         </div>
@@ -132,16 +131,16 @@
                 <div class="p-0 d-flex justify-content-between">
                     <div class="text-body-md">If there is no car you looking you can order car by dealer directly with you price</div>
                     <a asp-controller="CustomOrder" asp-action="Index">
-                        @Html.Partial("_Button", new
-                            {
-                                Text = "Start ordering",
-                                Color = "primary",
-                                Classes = "",
-                                Attributes = "",
-                                LeftIcon = (object)null,
-                                RightIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
-                                TextColor = "",
-                            })
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = "Start ordering",
+                            Color = "primary",
+                            Classes = "",
+                            Attributes = "",
+                            LeftIcon = null,
+                            RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
+                            TextColor = ""
+                        })
                     </a>
                 </div>
             </div>
@@ -161,5 +160,4 @@
         </div>
     </div>
 </div>
-
 

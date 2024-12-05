@@ -1,4 +1,4 @@
-@model dynamic
+@model EuroCarsUSA.Views.Shared.Components._LineEdit
 
 @{
     string classes = Model.Classes ?? "";
@@ -7,17 +7,8 @@
     var leading = Model.Leading;
     var trailing = Model.Trailing;
 
-    string noLeadingClass = "";
-    if (leading == null)
-    {
-        noLeadingClass = "ps-3";
-    }
-
-    string noTrailingClass = "";
-    if (trailing == null)
-    {
-        noTrailingClass = "pe-3";
-    }
+    string noLeadingClass = leading == null ? "ps-3" : "";
+    string noTrailingClass = trailing == null ? "pe-3" : "";
 
     string headline = Model.Placeholder;
 
@@ -35,7 +26,7 @@
 
     bool hasOutsideSupportiveSizeEffect = Model.HasOutsideSupportiveSizeEffect;
     string noSupportiveSizeEffectClass = hasOutsideSupportiveSizeEffect ? "" : "position-absolute";
-    
+
     string supportive = Model.Supportive;
 
     bool showAdditional = Model.ShowAdditional;
@@ -61,11 +52,10 @@
                 </div>
             }
 
-
             <div class="line-edit-content col p-0 d-block w-100 align-content-center">
                 <div class="row m-0 ">
                     <div class="line-edit-label-text col p-0 py-1">
-                        @if ((showOverline == true) && (showOverlineInside == true))
+                        @if (showOverline && showOverlineInside)
                         {
                             <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
                                 @overline
@@ -86,7 +76,7 @@
                     }
                 </div>
             </div>
-            @if ((trailing != null))
+            @if (trailing != null)
             {
                 <div class="col-auto p-0 d-flex line-edit-trailing-element">
                     @trailing
@@ -98,8 +88,10 @@
     <div class="active-indicator position-absolute w-100"> </div>
 
     <div class="line-edit-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass @noSupportiveClass">
-        @if (showSupportive) {
-            @supportive;
+        @if (showSupportive)
+        {
+            @supportive
+            ;
         }
     </div>
 </div>
@@ -118,7 +110,6 @@
             if (currentText.startsWith(errorMessage)) {
                 supportiveText.innerHTML = currentText.replace(errorMessage, "").trim();
                 supportiveText.innerHTML = supportiveText.innerHTML.replace("<br>", "").trim();
-
             }
             lineEdit.classList.remove('error');
         } else {
@@ -131,6 +122,4 @@
             lineEdit.classList.add('error');
         }
     }
-
-
 </script>

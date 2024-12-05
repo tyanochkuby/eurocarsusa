@@ -177,41 +177,17 @@
   <data name="SortOrder_ByPriceDesc" xml:space="preserve">
     <value>Najwyższa cena</value>
   </data>
-  <data name="CarTransmission_Automatic" xml:space="preserve">
-    <value>Automatyczna</value>
+  <data name="Electric" xml:space="preserve">
+    <value>Elektryczny</value>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>Wróć</value>
-  </data>
-  <data name="Choose" xml:space="preserve">
-    <value>Wybierz</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Wyczyść</value>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Pokaż więcej</value>
   </data>
   <data name="ContactSeller" xml:space="preserve">
     <value>Kontant ze sprzedawcą</value>
   </data>
-  <data name="Diesel" xml:space="preserve">
-    <value>Diesel</value>
-  </data>
-  <data name="Electric" xml:space="preserve">
-    <value>Elektryczny</value>
-  </data>
-  <data name="From" xml:space="preserve">
-    <value>Od</value>
-  </data>
-  <data name="CarTransmission_Manual" xml:space="preserve">
-    <value>Manualna</value>
-  </data>
-  <data name="Message" xml:space="preserve">
-    <value>Wiadomość</value>
-  </data>
   <data name="MessageSent" xml:space="preserve">
     <value>Wiadomość została wysłana!</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Imię</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Numer telefonu</value>
@@ -219,56 +195,44 @@
   <data name="SendMessage" xml:space="preserve">
     <value>Wyślij wiadomość</value>
   </data>
-  <data name="ShowMore" xml:space="preserve">
-    <value>Pokaż więcej</value>
-  </data>
-  <data name="To" xml:space="preserve">
-    <value>Do</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>Wpisz</value>
-  </data>
-  <data name="CarColor_Blue" xml:space="preserve">
-    <value>Niebieski</value>
-  </data>
-  <data name="CarColor_Red" xml:space="preserve">
-    <value>Czerwony</value>
-  </data>
-  <data name="CarColor_Green" xml:space="preserve">
-    <value>Zielony</value>
-  </data>
-  <data name="CarColor_Yellow" xml:space="preserve">
-    <value>Żółty</value>
+  <data name="CarColor_Beige" xml:space="preserve">
+    <value>Beżowy</value>
   </data>
   <data name="CarColor_Black" xml:space="preserve">
     <value>Czarny</value>
   </data>
-  <data name="CarColor_White" xml:space="preserve">
-    <value>Biały</value>
-  </data>
-  <data name="CarColor_Silver" xml:space="preserve">
-    <value>Srebrny</value>
-  </data>
-  <data name="CarColor_Gray" xml:space="preserve">
-    <value>Szary</value>
+  <data name="CarColor_Blue" xml:space="preserve">
+    <value>Niebieski</value>
   </data>
   <data name="CarColor_Brown" xml:space="preserve">
     <value>Brązowy</value>
   </data>
+  <data name="CarColor_Gray" xml:space="preserve">
+    <value>Szary</value>
+  </data>
+  <data name="CarColor_Green" xml:space="preserve">
+    <value>Zielony</value>
+  </data>
   <data name="CarColor_Orange" xml:space="preserve">
     <value>Pomarańczowy</value>
-  </data>
-  <data name="CarColor_Purple" xml:space="preserve">
-    <value>Fioletowy</value>
   </data>
   <data name="CarColor_Pink" xml:space="preserve">
     <value>Różowy</value>
   </data>
-  <data name="CarColor_Beige" xml:space="preserve">
-    <value>Beżowy</value>
+  <data name="CarColor_Purple" xml:space="preserve">
+    <value>Fioletowy</value>
   </data>
-  <data name="Call" xml:space="preserve">
-    <value>Zadzwoń</value>
+  <data name="CarColor_Red" xml:space="preserve">
+    <value>Czerwony</value>
+  </data>
+  <data name="CarColor_Silver" xml:space="preserve">
+    <value>Srebrny</value>
+  </data>
+  <data name="CarColor_White" xml:space="preserve">
+    <value>Biały</value>
+  </data>
+  <data name="CarColor_Yellow" xml:space="preserve">
+    <value>Żółty</value>
   </data>
   <data name="CarFuelType_Benzine" xml:space="preserve">
     <value>Benzyna</value>
@@ -279,8 +243,47 @@
   <data name="CarFuelType_Electric" xml:space="preserve">
     <value>Elektryczne</value>
   </data>
+  <data name="CarTransmission_Automatic" xml:space="preserve">
+    <value>Automatyczna</value>
+  </data>
+  <data name="CarTransmission_Manual" xml:space="preserve">
+    <value>Manualna</value>
+  </data>
   <data name="CarTransmission_Robot" xml:space="preserve">
     <value>Robot</value>
+  </data>
+  <data name="LikesHeader" xml:space="preserve">
+    <value>Twoje ulubione auta</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Wróć</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Wybierz</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Wyczyść</value>
+  </data>
+  <data name="Diesel" xml:space="preserve">
+    <value>Diesel</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Wiadomość</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Imię</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Do</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Wpisz</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Zadzwoń</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
@@ -288,7 +291,7 @@
   <data name="Details" xml:space="preserve">
     <value>Szczegóły</value>
   </data>
-  <data name="LikesHeader" xml:space="preserve">
-    <value>Twoje ulubione auta</value>
+  <data name="Empty" xml:space="preserve">
+    <value>Puste</value>
   </data>
 </root>

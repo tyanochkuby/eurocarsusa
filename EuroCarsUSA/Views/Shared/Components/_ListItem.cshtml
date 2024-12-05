@@ -1,8 +1,8 @@
-@model dynamic
+@model EuroCarsUSA.Views.Shared.Components._ListItem
 
 @{
-    string classes = Model.Classes ?? "";
-    string attributes = Model.Attributes ?? "";
+    string classes = Model.Classes;
+    string attributes = Model.Attributes;
 
     var leading = Model.Leading;
     var trailing = Model.Trailing;
@@ -27,7 +27,7 @@
     string noSupportiveSizeEffectClass = hasOutsideSupportiveSizeEffect ? "" : "position-absolute";
     string supportive = Model.Supportive;
 
-    string condition = Model.Condition ?? "1-line";             // "1-line" "2-line" "3-line"
+    string condition = Model.Condition;
     string finalCondition = condition;
 
     if (condition == "1-line")
@@ -52,9 +52,6 @@
 }
 
 <div class="@Html.Raw($"list-item position-relative {classes}")">
-    
-
-
     @if (showOverline && !showOverlineInside)
     {
         <div class="list-item-overline-text text-label-md text-neutral-900 px-1 @noOverlineSizeEffectClass" style="@noOverlineSizeEffectStyle">
@@ -67,51 +64,50 @@
 
             @if (leading != null)
             {
-                <div class="list-item-leading-element col-auto p-0 me-3 @noThreeLineClass">
+            <div class="list-item-leading-element col-auto p-0 me-3 @noThreeLineClass">
                     @leading
-                </div>
+            </div>
             }
 
-
-            <div class="list-item-content col p-0 d-block w-100 align-content-center">
+        <div class="list-item-content col p-0 d-block w-100 align-content-center">
                 @if ((showOverline == true) && (showOverlineInside == true))
                 {
-                    <div class="list-item-overline-text text-label-md text-neutral-900 row m-0">
+                <div class="list-item-overline-text text-label-md text-neutral-900 row m-0">
                         @overline
-                    </div>
-                }
-                <div class="text-body-lg text-neutral-900 row m-0">
-                    @headline
                 </div>
+                }
+            <div class="text-body-lg text-neutral-900 row m-0">
+                    @headline
+            </div>
 
                 @if ((showSupportive) && (showSupportiveInside))
                 {
-                    <div class="list-item-supportive-text text-body-md text-neutral-900 row m-0 @twoLineClass">
+                <div class="list-item-supportive-text text-body-md text-neutral-900 row m-0 @twoLineClass">
                         @supportive
-                    </div>
+                </div>
                 }
-            </div>
+        </div>
 
             @if ((trailing != null) || (showAdditional == true))
             {
-                <div class="list-item-trailing-element col-auto p-0 ms-3 @noThreeLineClass">
-                    <div class="row m-0 d-flex align-items-center" style="height: @heightStyle">
+            <div class="list-item-trailing-element col-auto p-0 ms-3 @noThreeLineClass">
+                <div class="row m-0 d-flex align-items-center" style="height: @heightStyle">
                         @if (showAdditional)
                         {
-                            <div class=" d-flex list-item-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-center align-items-center"
-                                 style="width: 24px; height:24px; margin-inline-end: 10px">
+                        <div class="d-flex list-item-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-center align-items-center"
+                             style="width: 24px; height:24px; margin-inline-end: 10px">
                                 @additional
-                            </div>
+                        </div>
                         }
 
                         @if (trailing != null)
                         {
-                            <div class="col-auto p-0 d-flex">
+                        <div class="col-auto p-0 d-flex">
                                 @trailing
-                            </div>
+                        </div>
                         }
-                    </div>
                 </div>
+            </div>
             }
         </@(Html.Raw(tag))>
     </div>
@@ -128,4 +124,3 @@
         </div>
     }
 </div>
-

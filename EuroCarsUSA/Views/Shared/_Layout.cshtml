@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using EuroCarsUSA.Views.Shared.Components
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,37 +23,39 @@
             <div class="container-fluid align-items-center d-flex topbar py-2">
 
                 <div class="me-auto d-flex">
-                    <a class= "d-flex me-3" asp-area="" asp-controller="Home" asp-action="Index">
+                    <a class="d-flex me-3" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/icons/logo2.svg" style="width: 160; height: 40" alt="EuroCarsUSA" />
                     </a>
 
                     <a href="tel:+48534422089" class="d-none d-md-block">
-                    @Html.Partial("_Button", new { Text = "+48 53 00-00-000", Color = "primary",
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = "+48 53 00-00-000",
+                            Color = "primary",
                             Classes = "",
                             Attributes = "asp-controller=\"Home\" asp-action=\"Likes\"",
-                            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("phone"), Color = "white" }),
-                            RightIcon = (object)null,
-                            TextColor = "",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("phone"), Color = "white" }),
+                            RightIcon = null,
+                            TextColor = ""
                         })
                     </a>
-
                 </div>
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.Partial("_Switch", new { Text = "lalal", Classes = "me-3 d-none d-md-flex", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
+                    @await Html.PartialAsync("_Switch", new { Text = "lalal", Classes = "me-3 d-none d-md-flex", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
                 }
 
                 <div class="me-3">
                     <a asp-controller="Home"
                        asp-action="Likes"
                        asp-route-culture="@CultureInfo.CurrentUICulture.Name" class="d-none d-md-flex">
-                        @Html.Partial("_IconButton", new { IconName = "favorite", Color = "secondary", IconColor = "primary", Attributes = "" })
+                        @await Html.PartialAsync("_IconButton", new { IconName = "favorite", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                 </div>
                 
                 <div class="dropdown">
                     <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="d-none d-md-flex">
-                        @Html.Partial("_IconButton", new { IconName = "Language chinese dayi", Color = "secondary", IconColor = "primary", Attributes = "" })
+                        @await Html.PartialAsync("_IconButton", new { IconName = "Language chinese dayi", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                         <li><a class="dropdown-item" href="?culture=en&ui-culture=en">English</a></li>
@@ -62,7 +65,6 @@
             </div>
         </nav>
     </header>
-
 
     <div class="px-0">
         <div class="sidebar bg-primary-50 shadow py-2 d-none d-md-flex flex-column align-items-center gap-3">
@@ -75,7 +77,7 @@
                         @{
                             ViewData["IconSrc"] = Url.Content("Home");
                         }
-                        @Html.Partial("_FAB")
+                        @await Html.PartialAsync("_FAB")
                     </a>
                 </div>
                 <div>
@@ -85,7 +87,7 @@
                         @{
                             ViewData["IconSrc"] = Url.Content("View carousel");
                         }
-                        @Html.Partial("_FAB")
+                        @await Html.PartialAsync("_FAB")
                     </a>
                 </div>
                 <div>
@@ -95,7 +97,7 @@
                         @{
                             ViewData["IconSrc"] = Url.Content("Search");
                         }
-                        @Html.Partial("_FAB")
+                        @await Html.PartialAsync("_FAB")
                     </a>
                 </div>
                 <div>
@@ -105,7 +107,7 @@
                         @{
                             ViewData["IconSrc"] = Url.Content("Edit note");
                         }
-                        @Html.Partial("_FAB")
+                        @await Html.PartialAsync("_FAB")
                     </a>
                 </div>
                 <div>
@@ -115,7 +117,7 @@
                         @{
                             ViewData["IconSrc"] = Url.Content("Data thresholding");
                         }
-                        @Html.Partial("_FAB")
+                        @await Html.PartialAsync("_FAB")
                     </a>
                 </div>
             }
@@ -128,7 +130,7 @@
                         @{
                             ViewData["IconSrc"] = Url.Content("Home");
                         }
-                        @Html.Partial("_FAB")
+                        @await Html.PartialAsync("_FAB")
                     </a>
                 </div>
                 <div>
@@ -138,8 +140,7 @@
                         @{
                             ViewData["IconSrc"] = Url.Content("View carousel");
                         }
-                        @Html.Partial("_FAB")
-
+                        @await Html.PartialAsync("_FAB")
                     </a>
                 </div>
                 <div>
@@ -149,7 +150,7 @@
                         @{
                             ViewData["IconSrc"] = Url.Content("Search");
                         }
-                        @Html.Partial("_FAB")
+                        @await Html.PartialAsync("_FAB")
                     </a>
                 </div>
             }

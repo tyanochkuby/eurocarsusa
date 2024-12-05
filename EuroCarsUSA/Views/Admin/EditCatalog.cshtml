@@ -10,52 +10,52 @@
     <div class="row py-2">
         <div class="d-flex col">
             <a asp-controller="Home" asp-action="BackToCatalogWithFilters">
-                @Html.Partial("_Button", new
-                    {
-                        Text = "Back",
-                        Color = "primary",
-                        Classes = "me-2",
-                        Attributes = "",
-                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
-                        RightIcon = (object)null,
-                        TextColor = "",
-                    })
+                @await Html.PartialAsync("_Button", new _Button
+                {
+                    Text = "Back",
+                    Color = "primary",
+                    Classes = "me-2",
+                    Attributes = "",
+                    LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                    RightIcon = null,
+                    TextColor = ""
+                })
             </a>
 
-            <a asp-controller="Admib" asp-action="EditCatalog">
-                @Html.Partial("_Button", new
-                    {
-                        Text = $"Edit catalog",
-                        Color = "secondary",
-                        Classes = "me-2",
-                        Attributes = "type=\"button\"",
-                        LeftIcon = (object)null,
-                        RightIcon = (object)null,
-                        TextColor = "text-primary",
-                    })
+            <a asp-controller="Admin" asp-action="EditCatalog">
+                @await Html.PartialAsync("_Button", new _Button
+                {
+                    Text = "Edit catalog",
+                    Color = "secondary",
+                    Classes = "me-2",
+                    Attributes = "type=\"button\"",
+                    LeftIcon = null,
+                    RightIcon = null,
+                    TextColor = "text-primary"
+                })
             </a>
         </div>
         <div class="col-auto">
-            @Html.Partial("_Button", new
-                {
-                    Text = $"Add",
-                    Color = "primary",
-                    Classes = "me-2",
-                    Attributes = "type=\"button\" onclick=\"addNewRow()\"",
-                    LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Add"), Color = "white" }),
-                    RightIcon = (object)null,
-                    TextColor = "",
-                })
-            @Html.Partial("_Button", new
-                {
-                    Text = $"Save Changes",
-                    Color = "primary",
-                    Classes = "me-2",
-                    Attributes = "type=\"submit\"",
-                    LeftIcon = (object)null,
-                    RightIcon = (object)null,
-                    TextColor = "",
-                })
+            @await Html.PartialAsync("_Button", new _Button
+            {
+                Text = "Add",
+                Color = "primary",
+                Classes = "me-2",
+                Attributes = "type=\"button\" onclick=\"addNewRow()\"",
+                LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Add"), Color = "white" }),
+                RightIcon = null,
+                TextColor = ""
+            })
+            @await Html.PartialAsync("_Button", new _Button
+            {
+                Text = "Save Changes",
+                Color = "primary",
+                Classes = "me-2",
+                Attributes = "type=\"submit\"",
+                LeftIcon = null,
+                RightIcon = null,
+                TextColor = ""
+            })
         </div>
     </div>
 
@@ -64,13 +64,10 @@
             @for (int i = 0; i < Model.Count(); i++)
             {
                 var car = Model.ElementAt(i);
-                @Html.Partial("_EditCar", new Tuple<CatalogEditionViewModel, int>(car, i) )
+                @await Html.PartialAsync("_EditCar", new Tuple<CatalogEditionViewModel, int>(car, i))
             }
         </div>
-        
     </div>
-
-    
 </form>
 
 @section Scripts {
@@ -144,3 +141,4 @@
         }
     </script>
 }
+

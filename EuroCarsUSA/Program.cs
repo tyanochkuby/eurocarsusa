@@ -11,6 +11,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using EuroCarsUSA.Data.Attributes;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using EuroCarsUSA.Resources;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddScoped<ICookieService, CookieService>();
 builder.Services.AddScoped<ICatalogEditingService, CatalogEditingService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddScoped<Localizer>();
 
 // Adding session services
 builder.Services.AddSession(options =>

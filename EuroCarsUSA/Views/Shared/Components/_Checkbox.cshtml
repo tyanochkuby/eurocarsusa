@@ -1,18 +1,11 @@
-@model dynamic
+@model EuroCarsUSA.Views.Shared.Components._Checkbox
 
 @{
     string classes = Model.Classes ?? "";
     string attributes = Model.Attributes ?? "";
-
     string text = Model.Text ?? "";
-    string ifNoTextClass = "";
-    if (text == "")
-    {
-        ifNoTextClass = "d-none";
-    }
+    string ifNoTextClass = string.IsNullOrEmpty(text) ? "d-none" : "";
 }
-
-
 
 <label class="@Html.Raw($"checkbox-container ripple- d-flex {classes}")">
     <input type="checkbox" class="myCheckBox" @Html.Raw(attributes)>
