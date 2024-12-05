@@ -1,6 +1,7 @@
 ﻿@model FormViewModel
 @using EuroCarsUSA.Controllers
 @using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<CustomOrderController> Translator
 
@@ -11,7 +12,7 @@
     </div>
     <div class="row">
         <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
        {
            DropdownId = $"dropdownMenuButton{Model.Index}",
            Placeholder = Translator["Choose"],
@@ -24,7 +25,7 @@
        })
         </div>
         <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
        {
            DropdownId = $"dropdownMenuButtonColors{Model.Index}",
            Placeholder = Translator["Choose"],
@@ -37,7 +38,7 @@
        })
         </div>
         <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
        {
            DropdownId = $"dropdownMenuButtonTypes{Model.Index}",
            Placeholder = Translator["Choose"],
@@ -52,7 +53,7 @@
     </div>
     <div class="row">
         <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
        {
            DropdownId = $"dropdownMenuButtonFuelTypes{Model.Index}",
            Placeholder = Translator["Choose"],
@@ -65,7 +66,7 @@
        })
         </div>
         <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new MultipleChoiceDropdownViewModel
+            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
        {
            DropdownId = $"dropdownMenuButtonTransmissions{Model.Index}",
            Placeholder = Translator["Choose"],
@@ -79,7 +80,7 @@
         </div>
         <div class="form-group col">
             <label asp-for="Model"></label>
-            <input asp-for="Model" class="form-control" />
+            <input name="@($"Forms[{Model.Index}].Model")" asp-for="Model" class="form-control" />
             <span asp-validation-for="Model" class="text-danger"></span>
         </div>
     </div>
@@ -88,31 +89,31 @@
             <div class="row">
                 <div class="form-group col">
                     <label asp-for="MaxPrice"></label>
-                    <input asp-for="MaxPrice" class="form-control" />
+                    <input name="@($"Forms[{Model.Index}].MaxPrice")" asp-for="MaxPrice" class="form-control" />
                     <span asp-validation-for="MaxPrice" class="text-danger"></span>
                 </div>
                 <div class="form-group col">
                     <label asp-for="MaxMileage"></label>
-                    <input asp-for="MaxMileage" class="form-control" />
+                    <input name="@($"Forms[{Model.Index}].MaxMileage")" asp-for="MaxMileage" class="form-control" />
                     <span asp-validation-for="MaxMileage" class="text-danger"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col">
                     <label asp-for="MinYear"></label>
-                    <input asp-for="MinYear" class="form-control" />
+                    <input name="@($"Forms[{Model.Index}].MixYear")" asp-for="MinYear" class="form-control" />
                     <span asp-validation-for="MinYear" class="text-danger"></span>
                 </div>
                 <div class="form-group col">
                     <label asp-for="MaxYear"></label>
-                    <input asp-for="MaxYear" class="form-control" />
+                    <input name="@($"Forms[{Model.Index}].MaxYear")" asp-for="MaxYear" class="form-control" />
                     <span asp-validation-for="MaxYear" class="text-danger"></span>
                 </div>
             </div>
         </div>
         <div class="form-group col-4">
             <label asp-for="Description"></label>
-            <textarea asp-for="Description" class="form-control"></textarea>
+            <textarea name="@($"Forms[{Model.Index}].Description")" asp-for="Description" class="form-control"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
     </div>

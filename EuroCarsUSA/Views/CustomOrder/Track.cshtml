@@ -11,8 +11,6 @@
 
 <h2>Track Your Order</h2>
 
-
-
 <div class="bg-neutral-200 w-100 h-100 py-4">
     <div class="container p-5 pt-3 bg-white rounded-32 justify-content-center mb-2">
         <div class="d-flex justify-content-center">
@@ -30,28 +28,28 @@
             <div class="col px-0">
                 <div class="row mx-0">
                     <a asp-controller="Admin" asp-action="BackToCatalogWithFilters" class="col-auto ps-0 pe-3">
-                        @Html.Partial("_Button", new
-                            {
-                                Text = "Back",
-                                Color = "primary",
-                                Classes = "",
-                                Attributes = "",
-                                LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
-                                RightIcon = (object)null,
-                                TextColor = "",
-                            })
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = "Back",
+                            Color = "primary",
+                            Classes = "",
+                            Attributes = "",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                            RightIcon = null,
+                            TextColor = ""
+                        })
                     </a>
                     <a class="col-auto px-0">
-                        @Html.Partial("_Button", new
-                            {
-                                Text = "Individual order",
-                                Color = "secondary",
-                                Classes = "",
-                                Attributes = "",
-                                LeftIcon = (object)null,
-                                RightIcon = (object)null,
-                                TextColor = "",
-                            })
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = "Individual order",
+                            Color = "secondary",
+                            Classes = "",
+                            Attributes = "",
+                            LeftIcon = null,
+                            RightIcon = null,
+                            TextColor = ""
+                        })
                     </a>
                 </div>
             </div>
@@ -66,21 +64,20 @@
                         </div>
                         <div class="col-auto d-flex flex-column justify-content-end px-0">
                             <a class="submit">
-                                @Html.Partial("_Button", new
-                                    {
-                                        Text = "Find",
-                                        Color = "primary",
-                                        Classes = "",
-                                        Attributes = "",
-                                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-                                        RightIcon = (object)null,
-                                        TextColor = "",
-                                    })
+                                @await Html.PartialAsync("_Button", new _Button
+                                {
+                                    Text = "Find",
+                                    Color = "primary",
+                                    Classes = "",
+                                    Attributes = "",
+                                    LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                                    RightIcon = null,
+                                    TextColor = ""
+                                })
                             </a>
                         </div>
                     </div>
                 </form>
-                
             </div>
         </div>
     </div>
@@ -143,5 +140,3 @@
         </div>
     </div>
 </div>
-
-

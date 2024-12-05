@@ -1,42 +1,31 @@
-@model dynamic
+@model EuroCarsUSA.Views.Shared.Components._Button
 
 @{
     string attributes = Model.Attributes;
     string classes = Model.Classes;
 
-    string color = Model.Color ?? "";
-    string text = Model.Text ?? false;
+    string color = Model.Color;
+    string text = Model.Text;
 
     var leftIcon = Model.LeftIcon;
     var rightIcon = Model.RightIcon;
 
-    string customTextColor = Model.TextColor ?? "";
+    string customTextColor = Model.TextColor;
 
-
-    bool hasLeftIcon = false;
-    bool hasRightIcon = false;
-    @if (leftIcon != null)
-    {
-        hasLeftIcon = true;
-    }
-    @if (rightIcon != null)
-    {
-        hasRightIcon = true;
-    }
+    bool hasLeftIcon = leftIcon != null;
+    bool hasRightIcon = rightIcon != null;
 
     string backgroundColorValue = color == "primary" ? "bg-primary" : "bg-secondary";
-    string textColorValue = customTextColor ?? (color == "primary" ? "text-white" : "text-primary");
-    //string iconColorValue = customIconColor ?? (color == "primary" ? "white" : "primary");
+    string textColorValue = !string.IsNullOrEmpty(customTextColor) ? customTextColor : (color == "primary" ? "text-white" : "text-primary");
 }
 
-<button @Html.Raw(attributes) class="@Html.Raw($"text-title-sm  btn-custom {classes} {backgroundColorValue} {textColorValue} {(hasLeftIcon ? "ps-3" : "ps-4")} {(hasRightIcon ? "ps-3" : "ps-4")}")">
-
+<button @Html.Raw(attributes) class="@Html.Raw($"text-title-sm btn-custom {classes} {backgroundColorValue} {textColorValue} {(hasLeftIcon ? "ps-3" : "ps-4")} {(hasRightIcon ? "ps-3" : "ps-4")}")">
     @if (hasLeftIcon)
     {
         @leftIcon
     }
 
-    <span>@(text)</span>
+    <span>@text</span>
 
     @if (hasRightIcon)
     {

@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 
-namespace EuroCarsUSA.ViewModels
+namespace EuroCarsUSA.Views.Shared.Components
 {
-    public class MultipleChoiceDropdownViewModel
+    public class _MultipleChoiceDropdown
     {
         public string DropdownId { get; set; }
         public string Placeholder { get; set; }
