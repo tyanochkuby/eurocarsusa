@@ -9,10 +9,12 @@ namespace EuroCarsUSA.Services
     public class CustomOrderService : ICustomOrderService
     {
         private readonly ICustomOrderRepository _customOrderRepository;
+        private readonly IEmailService _emailService;
 
-        public CustomOrderService(ICustomOrderRepository customorderRepository)
+        public CustomOrderService(ICustomOrderRepository customorderRepository, IEmailService emailService)
         {
             _customOrderRepository = customorderRepository;
+            _emailService = emailService;
         }
 
         public async Task<List<CustomOrderViewModel>> GetAll()
