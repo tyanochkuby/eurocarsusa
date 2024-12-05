@@ -4,21 +4,70 @@
 @using Microsoft.AspNetCore.Components
 @model IEnumerable<CatalogEditionViewModel>
 
-<h1>Catalog Edition</h1>
-
-<form method="post" asp-action="SaveCatalogChanges">
+<form method="post" asp-action="SaveCatalogChanges" class="container">
     <input type="hidden" id="deletedCarsIds" name="deletedCarsIds" value="" />
 
-    <div class="bg-neutral-500 p-3">
-        <div id="catalog">
+    <div class="row py-2">
+        <div class="d-flex col">
+            <a asp-controller="Home" asp-action="BackToIndexWithFilters">
+                @Html.Partial("_Button", new
+                    {
+                        Text = "Back",
+                        Color = "primary",
+                        Classes = "me-2",
+                        Attributes = "",
+                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                        RightIcon = (object)null,
+                        TextColor = "",
+                    })
+            </a>
+
+            <a asp-controller="Admib" asp-action="EditCatalog">
+                @Html.Partial("_Button", new
+                    {
+                        Text = $"Edit catalog",
+                        Color = "secondary",
+                        Classes = "me-2",
+                        Attributes = "type=\"button\"",
+                        LeftIcon = (object)null,
+                        RightIcon = (object)null,
+                        TextColor = "text-primary",
+                    })
+            </a>
+        </div>
+        <div class="col-auto">
+            @Html.Partial("_Button", new
+                {
+                    Text = $"Add",
+                    Color = "primary",
+                    Classes = "me-2",
+                    Attributes = "type=\"button\" onclick=\"addNewRow()\"",
+                    LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Add"), Color = "white" }),
+                    RightIcon = (object)null,
+                    TextColor = "",
+                })
+            @Html.Partial("_Button", new
+                {
+                    Text = $"Save Changes",
+                    Color = "primary",
+                    Classes = "me-2",
+                    Attributes = "type=\"submit\"",
+                    LeftIcon = (object)null,
+                    RightIcon = (object)null,
+                    TextColor = "",
+                })
+        </div>
+    </div>
+
+    <div class="bg-neutral-500 p-3 p-3 rounded-16">
+        <div id="catalog" class="row gy-2">
             @for (int i = 0; i < Model.Count(); i++)
             {
                 var car = Model.ElementAt(i);
                 @Html.Partial("_EditCar", new Tuple<CatalogEditionViewModel, int>(car, i) )
             }
         </div>
-        <button type="button" class="btn btn-info" onclick="addNewRow()">Add</button>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        
     </div>
 
     
