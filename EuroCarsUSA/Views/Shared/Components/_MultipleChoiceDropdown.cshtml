@@ -1,4 +1,5 @@
-﻿@model EuroCarsUSA.Views.Shared.Components._MultipleChoiceDropdown
+﻿@using EuroCarsUSA.Views.Shared.Components
+@model EuroCarsUSA.Views.Shared.Components._MultipleChoiceDropdown
 
 @{
     string dropdownId = Model.DropdownId;
@@ -6,57 +7,34 @@
     string overline = Model.Overline;
     var selectedValues = Model.SelectedValues;
     var options = Model.Options;
-    var translator = Model.Translator;
     var name = Model.Name;
 }
 
 <div class="pt-0" name="@name">
     <div class="dropdown w-100">
-        @Html.Partial("_ExpandButton", new
-            {
-                Classes = "",
-                Attributes = $"type=\"button\" id=\"{dropdownId}\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-                Leading = (object)null,
-                Placeholder = (selectedValues.Any() ? string.Join(", ", selectedValues) : placeholder),
-                ShowOverline = true,
-                ShowOverlineInside = true,
-                HasOutsidOverlineSizeEffect = false,
-                Overline = overline,
-                ShowAdditional = false,
-                ShowAdditionalBackground = true,
-                Additional = "100+"
-            })
+        @Html.Partial("_ExpandButton", new _ExpandButton
+        {
+            Classes="mt-2",
+            Attributes = $"type=\"button\" id=\"{dropdownId}\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
+            Placeholder = (selectedValues.Any() ? string.Join(", ", selectedValues) : placeholder),
+            ShowOverline = true,
+            ShowOverlineInside = true,
+            ShowAdditionalBackground = true
+        })
         <ul class="dropdown-menu w-100" name="@Model.Name" aria-labelledby="@dropdownId">
             @foreach (var option in options)
             {
                 <li>
-                    @Html.Partial("_ListItem", new
-                        {
-                            Classes = "dropdown-item p-0",
-                            Attributes = "",
-                            Leading = Html.Partial("_Checkbox", new
-                            {
-                                Text = "",
-                                Classes = "",
-                                Attributes = $"value=\"{option.OriginalValue}\" {(selectedValues.Contains(option.OriginalValue) ? "checked" : "")}"
-                            }),
-                            Trailing = (object)null,
-                            Clickable = true,
-                            Condition = "1-line",
-                            Headline = option.TranslatedValue,
-                            ShowOverline = false,
-                            ShowOverlineInside = true,
-                            HasOutsidOverlineSizeEffect = false,
-                            Overline = "Overline111",
-                            ShowSupportive = true,
-                            ShowSupportiveInside = false,
-                            HasOutsideSupportiveSizeEffect = false,
-                            Supportive = "Supporting line",
-                            ShowAdditional = false,
-                            ShowAdditionalBackground = true,
-                            Additional = "100+",
-                            ShowDivider = true
-                        })
+                    @Html.Partial("_ListItem", new _ListItem
+                       {
+                           Classes = "dropdown-item p-0",
+                           Leading = Html.Partial("_Checkbox", new _Checkbox
+                           {
+                               Attributes = $"value=\"{option.OriginalValue}\" {(selectedValues.Contains(option.OriginalValue) ? "checked" : "")}"
+                           }),
+                           Headline = option.TranslatedValue,
+                           ShowDivider = true
+                       })
                 </li>
             }
         </ul>
