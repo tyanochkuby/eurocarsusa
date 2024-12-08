@@ -1254,3 +1254,27 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
 .edit-car-details {
     transition: max-height 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
+
+.main-recommend{
+    flex-wrap: nowrap !important;
+    overflow: scroll;
+}
+
+@media (min-width:992px) {
+    .main-recommend {
+        flex-wrap: wrap !important;
+        overflow: visible;
+    }
+}
+
+.main-wdrodze {
+    flex-wrap: nowrap !important;
+    overflow: scroll;
+}
+
+@media (min-width:992px) {
+    .main-wdrodze {
+        flex-wrap: wrap !important;
+        overflow: visible;
+    }
+}

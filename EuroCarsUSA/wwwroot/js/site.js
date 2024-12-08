@@ -67,3 +67,20 @@ function getCookie(name) {
     }
     return null;
 }
+
+function toggleDetails(uniqueId, event) {
+    console.log("asdasd")
+    event.preventDefault();
+    event.stopPropagation();
+
+    var detailsDiv = document.getElementById("details-" + uniqueId);
+    var iconDiv = document.getElementById("icon-" + uniqueId);
+
+    if (detailsDiv.style.maxHeight == "0px") {
+        detailsDiv.style.maxHeight = "500px"
+        iconDiv.style.transform = "scaleY(-1)";
+    } else {
+        detailsDiv.style.maxHeight = "0px"
+        iconDiv.style.transform = "scaleY(1)";
+    }
+}
