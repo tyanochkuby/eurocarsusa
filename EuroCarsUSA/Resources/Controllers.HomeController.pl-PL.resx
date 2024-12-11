@@ -294,4 +294,21 @@
   <data name="Empty" xml:space="preserve">
     <value>Puste</value>
   </data>
+  <data name="CustomOrderEmailSubject" xml:space="preserve">
+    <value>EuroCarUsa - Przyjeliśmy Twoje zamówienie</value>
+  </data>
+  <data name="CustomOrderEmailBody" xml:space="preserve">
+    <value>Dzień dobry!\n\n
+
+Cieszymy się, że wybrałeś nas! Z przyjemnością powiadomiamy, że dostaliśmy Twoje zamówienie. Niedługo nasi specjaliści do Ciebie oddzwonią lub odpiszą.\n\n
+
+Z poważaniem,\n
+Zespół EuroCarUsa</value>
+  </data>
+  <data name="AdminCustomOrderEmailSubject" xml:space="preserve">
+    <value>EuroCarUsa - Новый заказ</value>
+  </data>
+  <data name="AdminCustomOrderEmailBody" xml:space="preserve">
+    <value>Получен новый заказ. Номер и емейл клиента - {0} , {1}. Подробности на сайте.</value>
+  </data>
 </root>
