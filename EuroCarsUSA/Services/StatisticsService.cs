@@ -23,13 +23,14 @@ namespace EuroCarsUSA.Services
             _statisticsRepository = sqlProcedureRepository;
         }
 
-        public async Task<List<CarStatisticViewModel>> GetCarsStatistics(int pageNumber, int pageSize)
+        public async Task<List<CarStatisticViewModel>> GetCarsStatistics(int? pageNumber, int? pageSize)
         {
             var carStatistics = await _statisticsRepository.GetCarsStatistics(pageNumber, pageSize);
 
             return carStatistics.Select(stat => new CarStatisticViewModel
             {
                 Make = stat.Make,
+                Type = stat.Type,
                 Model = stat.Model,
                 Year = stat.Year,
                 Likes = stat.Likes,

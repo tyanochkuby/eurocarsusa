@@ -5,7 +5,8 @@ namespace EuroCarsUSA.ViewModels
 {
     public class CarCardViewModel
     {
-        static public CarCardViewModel FromCar(Car car, List<Guid> likedCars)
+        public static List<Guid> likedCars { get; set; } = new List<Guid>();
+        static public CarCardViewModel FromCar(Car car)
         {
             return new CarCardViewModel
             {
