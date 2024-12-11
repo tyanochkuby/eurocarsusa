@@ -75,5 +75,6 @@ namespace EuroCarsUSA.Resources
         public string CustomOrderEmailBody => _localizer[nameof(CustomOrderEmailBody)];
         public string AdminCustomOrderEmailSubject => _localizer[nameof(AdminCustomOrderEmailSubject)];
         public string AdminCustomOrderEmailBody => _localizer[nameof(AdminCustomOrderEmailBody)];
+        public string Delete => _localizer[nameof(Delete)];
     }
 }
