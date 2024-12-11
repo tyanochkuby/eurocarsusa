@@ -311,4 +311,7 @@ EuroCarUsa team</value>
   <data name="AdminCustomOrderEmailBody" xml:space="preserve">
     <value>Получен новый заказ. Номер и емейл клиента - {0} , {1}. Подробности на сайте.</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>
