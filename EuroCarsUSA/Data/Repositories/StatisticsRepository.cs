@@ -1,7 +1,5 @@
 using EuroCarsUSA.Data.DTOs;
 using EuroCarsUSA.Data.Interfaces;
-using EuroCarsUSA.Models;
-using EuroCarsUSA.ViewModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +28,7 @@ namespace EuroCarsUSA.Data.Repositories
 
             await _context.Database.ExecuteSqlRawAsync("EXEC UpdateViewsCount @CarId", carIdParam);
         }
-        public async Task<List<CarStatisticDto>> GetCarsStatistics(int pageNumber, int pageSize)
+        public async Task<List<CarStatisticDto>> GetCarsStatistics(int? pageNumber, int? pageSize)
         {
             var query = _context.CarStatistics
                 .Join(
@@ -41,6 +39,7 @@ namespace EuroCarsUSA.Data.Repositories
                     {
                         CarId = stat.CarId,
                         Make = car.Make,
+                        Type = car.Type,
                         Model = car.Model,
                         Year = car.Year,
                         Likes = stat.Likes,
@@ -48,10 +47,14 @@ namespace EuroCarsUSA.Data.Repositories
                     }
                 );
 
-            return await query
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+            if(pageNumber.HasValue && pageSize.HasValue)
+            {
+                query = query
+                .Skip((pageNumber.Value - 1) * pageSize.Value)
+                .Take(pageSize.Value);
+            }
+
+            return await query.ToListAsync();
         }
     }
 }

@@ -32,11 +32,12 @@ namespace EuroCarsUSA.Controllers
         private readonly ICookieService _cookieService;
         private readonly IStatisticsService _statisticsService;
         private readonly ICompositeViewEngine _viewEngine;
+        private readonly IRecommendationService _recommendationService;
 
         private const int carsPerLoad = 6;
         private Dictionary<string, List<FilterOptionViewModel>> _availableFilters; 
         
-        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService, IStringLocalizer<HomeController> localizer, ICookieService cookieService, IStatisticsService statisticsService, ICompositeViewEngine viewEngine)
+        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService, IStringLocalizer<HomeController> localizer, ICookieService cookieService, IStatisticsService statisticsService, ICompositeViewEngine viewEngine, IRecommendationService recommendationService)
         {
             _carRepository = carRepository;
             _detailPageFormRepository = detailPageFormRepository;
@@ -46,6 +47,7 @@ namespace EuroCarsUSA.Controllers
             _cookieService = cookieService;
             _statisticsService = statisticsService;
             _viewEngine = viewEngine;
+            _recommendationService = recommendationService;
         }
 
         public async Task<IActionResult> Catalog(string sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
@@ -89,15 +91,15 @@ namespace EuroCarsUSA.Controllers
             await _statisticsService.ViewCar(id);
             Car car = await _carRepository.GetById(id);
 
-            var likes = _cookieService.GetUserLikedCars();
-            var recomendedCars = await _carRepository.GetRange(0, 4, null, null);
-            var recomendedCardsViewModel = recomendedCars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+            var recomendedCars = await _recommendationService.GetFirstNCars(4);
+            CarCardViewModel.likedCars = _cookieService.GetUserLikedCars();
+            var recomendedCardsViewModels = recomendedCars.Select(c => CarCardViewModel.FromCar(c)).ToList();
 
             DetailViewModel viewModel = new()
             {
                 Car = car,
                 DetailPageForm = new DetailPageForm { CarId = car.Id },
-                RecomendedCar = recomendedCardsViewModel,
+                RecomendedCar = recomendedCardsViewModels,
             };
 
             return View(viewModel);
@@ -162,8 +164,8 @@ namespace EuroCarsUSA.Controllers
             var showMoreButton = carsCount > carsDisplayed + carsPerLoad;
             ViewBag.ShowMoreButton = showMoreButton;
 
-            var likedCars = _cookieService.GetUserLikedCars();
-            var model = nextCars.Select(c => CarCardViewModel.FromCar(c, likedCars)).ToList();
+            CarCardViewModel.likedCars = _cookieService.GetUserLikedCars();
+            var model = nextCars.Select(c => CarCardViewModel.FromCar(c)).ToList();
 
             var partialView = PartialView(model);
             return partialView;
@@ -178,6 +180,7 @@ namespace EuroCarsUSA.Controllers
             }
 
             var likes = _cookieService.GetUserLikedCars();
+
             List<Car> likedCars = new List<Car>();
             foreach(Guid guid in likes)
             {
@@ -187,25 +190,28 @@ namespace EuroCarsUSA.Controllers
                     likedCars.Add(car);
                 }
             }
-            var model = likedCars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+            CarCardViewModel.likedCars = likes;
+            var model = likedCars.Select(c => CarCardViewModel.FromCar(c)).ToList();
             return View(model);
         }
 
         public async Task<IActionResult> Index()
         {
             var likes = _cookieService.GetUserLikedCars();
+            CarCardViewModel.likedCars = likes;
 
             var carsWDrodze = await _carRepository.GetRange(0, 4, null, null);
-            var recomendedCars = await _carRepository.GetRange(0, 6, null, null);
+            var recomendedCars = await _recommendationService.GetFirstNCars(6);
             
-            var cardsWDrodzeViewModel = carsWDrodze.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
-            var recomendedCadrsViewModel = recomendedCars.Select(c => CarCardViewModel.FromCar(c, likes)).ToList();
+            var cardsWDrodzeViewModel = carsWDrodze.Select(c => CarCardViewModel.FromCar(c)).ToList();
+            var recomendedCadrsViewModel = recomendedCars.Select(c => CarCardViewModel.FromCar(c)).ToList();
+            var lastAddedCar = await _recommendationService.GetLastAddedCar();
 
             MainlViewModel viewModel = new()
             {
-                CarWDrodze = cardsWDrodzeViewModel.ToList(),
-                RecomendedCar = recomendedCadrsViewModel.ToList(),
-                LastAddedCar = cardsWDrodzeViewModel[0]
+                CarWDrodze = cardsWDrodzeViewModel,
+                RecomendedCar = recomendedCadrsViewModel,
+                LastAddedCar = lastAddedCar == null ? new CarCardViewModel() : CarCardViewModel.FromCar(lastAddedCar)
             };
 
             return View(viewModel);
