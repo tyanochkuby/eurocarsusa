@@ -87,7 +87,7 @@
     <div class="edit-car-details bg-white overflow-hide overflow-scroll" id="popup-@uniqueId" style="max-height:0px; height:320px;">
         <div class="py-2">
             <div class="py-2 ps-3 pe-4 forEditMode d-block" style="height:56px;">
-                <partial name="~/Views/Shared/Components/_ImageEditor.cshtml" model="Tuple.Create(car.Images, uniqueId)" />
+                <partial name="~/Views/Shared/Components/_ImageEditor.cshtml" model="@(Tuple.Create(car.Images, uniqueId, car.Id))" />
                 <input type="hidden" id="ImagesJson-@uniqueId" name="@($"[{i}].ImagesJson")" value="@car.ImagesJson" />
             </div>
 

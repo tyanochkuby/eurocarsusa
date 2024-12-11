@@ -19,5 +19,7 @@ namespace EuroCarsUSA.Data.Interfaces
         Task<bool> DeleteRange(IEnumerable<Guid> carIds);
         Task<bool> Save();
 
+        public Task<bool> AddImage(Guid carId, string imageUrl);
+
     }
 }

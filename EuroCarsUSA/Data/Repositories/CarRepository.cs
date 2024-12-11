@@ -174,5 +174,15 @@ namespace EuroCarsUSA.Data.Repositories
             _context.Cars.RemoveRange(_context.Cars.Where(c => carIds.Contains(c.Id)));
             return await Save();
         }
+
+        public async Task<bool> AddImage(Guid carId, string imageUrl)
+        {
+            var car = await _context.Cars.FirstOrDefaultAsync(c => c.Id == carId);
+            if (car == null)
+                return false;
+
+            car.Images.Add(imageUrl);
+            return await Save();
+        }
     }
 }
