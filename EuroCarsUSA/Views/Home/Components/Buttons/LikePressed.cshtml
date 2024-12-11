@@ -5,5 +5,5 @@
         IconName = "Favorite",
         Color = "secondary",
         IconColor = "error",
-        Attributes = $"type=\"button\" onclick=\"likeCar('{@Model}', event, this)\""
+        Attributes = $"type=\"button\" data-car-id=\"{@Model}\" onclick=\"likeCar('{@Model}', event, this)\""
     })
