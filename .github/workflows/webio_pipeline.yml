@@ -27,6 +27,12 @@ jobs:
     - name: Publish
       run: dotnet publish --configuration Release --output ./publish --no-build
 
+    - name: Create appsettings.json
+      env:
+        APPSETTINGS_JSON_BASE64: ${{ secrets.APPSETTINGS_JSON_BASE64 }}
+      run: |
+        echo $APPSETTINGS_JSON_BASE64 | base64 -d > ./publish/appsettings.json
+
     - name: Deploy using WebDeploy
       env:
         DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
