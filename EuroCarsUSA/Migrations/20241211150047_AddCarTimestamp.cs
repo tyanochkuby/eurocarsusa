@@ -20,7 +20,7 @@ namespace EuroCarsUSA.Migrations
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "Timestamp",
-                table: "Orders",
+                table: "CustomOrders",
                 type: "datetime2",
                 nullable: false,
                 defaultValueSql: "GETDATE()");
@@ -35,7 +35,7 @@ namespace EuroCarsUSA.Migrations
 
             migrationBuilder.DropColumn(
                 name: "Timestamp",
-                table: "Orders");
+                table: "CustomOrders");
         }
     }
 }
