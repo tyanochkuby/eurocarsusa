@@ -25,7 +25,7 @@ function likeCar(carId, event, buttonElement) {
         type: 'GET',
         data: { carId: carId },
         success: function (response) {
-            $(buttonElement).replaceWith(response.html);
+            $(`button[data-car-id="${carId}"]`).replaceWith(response.html);
         },
         error: function () {
             console.error('Error loading button state');
@@ -81,6 +81,19 @@ function toggleDetails(uniqueId, event) {
         iconDiv.style.transform = "scaleY(-1)";
     } else {
         detailsDiv.style.maxHeight = "0px"
+        iconDiv.style.transform = "scaleY(1)";
+    }
+}
+function toggleOrderVisibility(formId) {
+    var popupDiv = document.getElementById("expanded-" + formId);
+    var iconDiv = document.getElementById("icon-" + formId);
+    console.log('alal')
+
+    if (popupDiv.style.maxHeight === "320px") {
+        popupDiv.style.maxHeight = "0px";
+        iconDiv.style.transform = "scaleY(-1)";
+    } else {
+        popupDiv.style.maxHeight = "320px";
         iconDiv.style.transform = "scaleY(1)";
     }
 }

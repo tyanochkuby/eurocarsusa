@@ -387,7 +387,7 @@ button#mobile-filter-select-save-button .carIcon {
     color: #FAEBD7
 }
 .text-byzantine {
-    color: #bd33a4
+    color: #bd33a4 !important
 }
 
 .br-0 {
@@ -580,6 +580,18 @@ button#mobile-filter-select-save-button .carIcon {
     background-color: #646468
 }
 
+.bg-md-transparent {
+    background-color: transparent
+}
+@media (min-width:768px) {
+    .bg-md-transparent {
+        background-color: transparent !important;
+    }
+}
+
+
+
+
 .topbar {
     height: 56px;
 }
@@ -715,6 +727,9 @@ button#mobile-filter-select-save-button .carIcon {
     letter-spacing: 0.5px;
     font-weight: 500;
     font-family: Roboto;
+}
+.main {
+    margin-top: 56px; /* height of header */
 }
 
 @media (min-width:768px) {
@@ -1252,6 +1267,10 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
 }
 
 .edit-car-details {
+    transition: max-height 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.order-details {
     transition: max-height 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
 
