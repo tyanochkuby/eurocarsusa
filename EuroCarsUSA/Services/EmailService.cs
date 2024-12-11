@@ -7,13 +7,17 @@ namespace EuroCarsUSA.Services
 {
     public class EmailService : IEmailService
     {
-
         private readonly EmailSettings _emailSettings;
+
+        public string AdminEmail { get; init; }
+
         public EmailService(IOptions<EmailSettings> emailSettings)
         {
             _emailSettings = emailSettings.Value;
+            AdminEmail = _emailSettings.AdminEmail;
         }
-        public void SendEmail(string to, string subject, string body)
+
+        public async Task SendEmail(string to, string subject, string body)
         {
             string email = _emailSettings.Email;
             string password = _emailSettings.Password;
@@ -28,17 +32,18 @@ namespace EuroCarsUSA.Services
             mail.Body = body;
 
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp-mail.outlook.com";
-            smtp.Port = 587;
+            smtp.Host = "smtp.webio.pl"; // Webio SMTP host
+            smtp.Port = 587; // Webio SMTP port
             smtp.Credentials = new System.Net.NetworkCredential(email, password);
             smtp.EnableSsl = true;
+
             try
             {
-                smtp.Send(mail);
+                await smtp.SendMailAsync(mail);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception("Failed to send email.", ex);
             }
         }
     }

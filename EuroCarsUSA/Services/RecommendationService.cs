@@ -80,7 +80,7 @@ public class RecommendationService : IRecommendationService
         return score;
     }
 
-    public async Task<Car?> GetLastAddedCar()
+    public async Task<Car> GetLastAddedCar()
     {
         return (await _carRepository.GetAll()).OrderByDescending(c => c.TimeStamp).FirstOrDefault();
     }

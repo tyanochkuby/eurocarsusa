@@ -211,7 +211,7 @@ namespace EuroCarsUSA.Controllers
             {
                 CarWDrodze = cardsWDrodzeViewModel,
                 RecomendedCar = recomendedCadrsViewModel,
-                LastAddedCar = lastAddedCar == null ? new CarCardViewModel() : CarCardViewModel.FromCar(lastAddedCar)
+                LastAddedCar = lastAddedCar == null ? null : CarCardViewModel.FromCar(lastAddedCar)
             };
 
             return View(viewModel);
