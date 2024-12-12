@@ -33,6 +33,17 @@
     bool showAdditionalBackground = Model.ShowAdditionalBackground;
     string additionalBackgroundClass = showAdditionalBackground ? "bg-secondary" : "";
     string additional = Model.Additional;
+
+    string onlyPlaceholderClass = "";
+    bool noIcons = ((leading == null) && (trailing == null));
+    bool noOverline = string.IsNullOrEmpty(overline);
+    bool noOverlineInside = ((showOverlineInside == null) || (showOverlineInside == false));
+    
+
+    if (noIcons && (noOverline || noOverlineInside))
+    {
+        onlyPlaceholderClass = "line-edit-only-placeholder";
+    }
 }
 
 <div class="@Html.Raw($"line-edit  position-relative {classes}")">
@@ -62,7 +73,7 @@
                             </div>
                         }
                         <div class="text-body-lg text-neutral-900 row m-0">
-                            <input class="p-0 text-neutral-900 line-edit-input" @Html.Raw(attributes) placeholder="@(headline)" oninput="validateInput(this)">
+                            <input class="@Html.Raw($"p-0 text-neutral-900 line-edit-input {onlyPlaceholderClass}")" @Html.Raw(attributes) placeholder="@(headline)" oninput="validateInput(this)">
                         </div>
                     </div>
                     @if (showAdditional)

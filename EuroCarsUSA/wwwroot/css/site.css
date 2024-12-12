@@ -1192,6 +1192,11 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
 
+.line-edit-only-placeholder {
+    height: 40px;
+}
+
+
 .fab {
     padding: 0;
     border: 0;
