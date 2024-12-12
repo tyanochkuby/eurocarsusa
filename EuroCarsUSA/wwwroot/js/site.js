@@ -69,7 +69,6 @@ function getCookie(name) {
 }
 
 function toggleDetails(uniqueId, event) {
-    console.log("asdasd")
     event.preventDefault();
     event.stopPropagation();
 
@@ -78,16 +77,15 @@ function toggleDetails(uniqueId, event) {
 
     if (detailsDiv.style.maxHeight == "0px") {
         detailsDiv.style.maxHeight = "500px"
-        iconDiv.style.transform = "scaleY(-1)";
+        iconDiv.style.transform = "scaleY(1)";
     } else {
         detailsDiv.style.maxHeight = "0px"
-        iconDiv.style.transform = "scaleY(1)";
+        iconDiv.style.transform = "scaleY(-1)";
     }
 }
 function toggleOrderVisibility(formId) {
     var popupDiv = document.getElementById("expanded-" + formId);
     var iconDiv = document.getElementById("icon-" + formId);
-    console.log('alal')
 
     if (popupDiv.style.maxHeight === "320px") {
         popupDiv.style.maxHeight = "0px";

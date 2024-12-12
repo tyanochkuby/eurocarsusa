@@ -8,11 +8,11 @@
 
 <div>
     <img class="w-100" style="height: 340px;"></img>
-
-    <div class="bg-neutral-200 row mx-0 gap-4 p-4">
+    <div class="container">
+        <div class="bg-neutral-200 row mx-0 gap-4 p-4">
         <div class="col-12 px-0">
             <div class="row g-4 g-md-3 d-flex">
-                <div class="col-lg-4 col-md-5 col-12 order-2 order-md-1">
+                <div class="col-lg-4 col-md-6 col-12 order-2 order-md-1">
                     <div class="bg-white rounded-16 p-3">
                         <div class="row mx-0 text-headline-sm mb-3">
                             Last added auto
@@ -27,10 +27,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-7 col-12 order-1 order-md-2">
-                    <div class="bg-white rounded-16 p-3">
-                        <div class="row mx-0 mb-3 d-flex align-items-stretch justify-content-end">
-                            <div class="col-auto px-0 text-headline-sm text-nowrap">We recommend</div>
+                <div class="col-lg-8 col-md-6 col-12 order-1 order-md-2">
+                    <div class="bg-white rounded-16 pt-3 px-0 pb-2">
+                        <div class="row mx-0 mb-3 px-3 d-flex align-items-stretch justify-content-end">
+                            <div class="col px-0 text-headline-sm text-nowrap">We recommend</div>
                             <div class="col px-0 flex-grow-1 justify-content-end d-flex">
                                 @await Html.PartialAsync("_Button", new _Button
                                 {
@@ -57,27 +57,30 @@
                                            TextColor = ""
                                        })
                                 </div>
-                            }
-                            
+                            }                           
                         </div>
-                        <div class="row g-3 p-2 pt-0 main-recommend">
-                            @for (int i=0; i<3; i += 1)
-                            {
-                                CarCardViewModel car1 = Model.RecomendedCar[i * 2];
-                                car1.Classes = "px-0";
-                                car1.IsFullSize = false;
+                        <div class="px-3">
+                            <div class="overflow-hidden rounded-3">
+                                <div class="row g-3 py-2 pt-0 main-recommend">
+                                    @for (int i=0; i<3; i += 1)
+                                    {
+                                        CarCardViewModel car1 = Model.RecomendedCar[i * 2];
+                                        car1.Classes = "col-6 col-md-12";
+                                        car1.IsFullSize = false;
 
-                                CarCardViewModel car2 = Model.RecomendedCar[i * 2 + 1];
-                                car2.Classes = "px-0";
-                                car2.IsFullSize = false;
+                                        CarCardViewModel car2 = Model.RecomendedCar[i * 2 + 1];
+                                        car2.Classes = "col-6 col-md-12";
+                                        car2.IsFullSize = false;
 
-                                <div class="col-8 col-md-6 col-lg-4 overflow-visible">
-                                    <div class="row mx-0 gap-3 overflow-visible">
-                                        @await Html.PartialAsync("_CarCard", car1)
-                                        @await Html.PartialAsync("_CarCard", car2)
-                                    </div>
+                                        <div class="col-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
+                                            <div class="row mt-0 h-100 gx-3 gy-md-3 overflow-visible justify-content-between align-content-between">
+                                                @await Html.PartialAsync("_CarCard", car1)
+                                                @await Html.PartialAsync("_CarCard", car2)
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -186,5 +189,6 @@
             </div>
         </div>
     </div>
+    </di>
 </div>
 
