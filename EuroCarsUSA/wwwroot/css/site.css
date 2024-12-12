@@ -376,6 +376,13 @@ button#mobile-filter-select-save-button .carIcon {
 }
 
 
+.offcanvas-body a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
 /* to rename classes */
 @media (max-width: 767px) {
     .row.mb-md-3 > .col-md-6:nth-child(odd) {
@@ -774,17 +781,18 @@ button#mobile-filter-select-save-button .carIcon {
     .mobile-sidebar-style.open {
         width: 75%;
     }
+
+@media (min-width: 768px) {
+    .mobile-sidebar-style {
+        display: none;
+    }
+}
 @media (min-width: 576px) {
     .mobile-sidebar-style.open {
-        width: 50%;
+        width: 60%;
     }
 }
 
-
-.icon-size svg {
-    width: 24px;
-    height: 24px;
-}
 
 .icon-container svg path {
     fill: currentColor;
@@ -1112,6 +1120,11 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
         height: 16px;
     }
 
+
+.list-item {
+    min-height: 56px;
+    align-content: center;
+}
 
 .list-item-state-layer {
     transition: all 0.3s cubic-bezier(0.3, 0, 0, 1);
