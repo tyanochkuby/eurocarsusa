@@ -143,6 +143,16 @@ img.rounded-xxl {
     border-radius: 16px !important;
 }
 
+.rounded-top-0 {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+.rounded-bottom-0 {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
 
 .img-container {
     position: relative;
@@ -289,6 +299,7 @@ div.carPhotoThumbnailSelected {
         /* When the filters panel has the 'open' class, slide it in */
         #filters-mobile-list.open {
             right: 0;
+            z-index: 1500;
         }
     #sort-mobile-list {
         box-sizing: border-box;
@@ -315,8 +326,12 @@ div.carPhotoThumbnailSelected {
 }
 
 .row-mobile-filter{
-    height: 4em;
 }
+
+.border-secondary-500 {
+    border-color: var(--bs-secondary) !important
+}
+
 
 .text-ellipsis {
     margin-bottom: 0px;
@@ -332,10 +347,9 @@ div.carPhotoThumbnailSelected {
     right: -100%;
     width: 100%;
     height: 100%;
-    background: white;
+    background: var(--bs-secondary);
     transition: right 0.3s ease-in-out;
     overflow-y: auto;
-    padding: 20px;
     z-index: 2;
 }
     .mobile-filter-select-screen.open {

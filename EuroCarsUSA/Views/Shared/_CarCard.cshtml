@@ -47,7 +47,7 @@
                         @if (Model.IsFullSize) 
                         {
                             <div class="col-auto px-0 text-title-md align-items-center" style="height:44px">
-                                @Html.Partial("_IconButton", new { IconName = "Keyboard arrow down", Color = "primary", IconColor = "primary", Attributes = $"id=\"icon-{@Model.Id}\" onclick=\"toggleDetails('{@Model.Id}', event)\"" })
+                                @Html.Partial("_IconButton", new { IconName = "Keyboard arrow up", Color = "primary", IconColor = "primary", Attributes = $"id=\"icon-{@Model.Id}\" onclick=\"toggleDetails('{@Model.Id}', event)\"" })
                             </div>
                         }
                     </div>
