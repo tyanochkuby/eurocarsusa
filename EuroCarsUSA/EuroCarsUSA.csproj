@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Procedures\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

@@ -35,6 +35,7 @@ builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddScoped<ICookieService, CookieService>();
 builder.Services.AddScoped<ICatalogEditingService, CatalogEditingService>();
+builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddScoped<Localizer>();
 
@@ -46,7 +47,7 @@ builder.Services.AddSession(options =>
 });
 
 // Configure services
-var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
+var connectionString = builder.Configuration.GetConnectionString("WebioDev");
 builder.Services.Configure<CookieNames>(
             builder.Configuration.GetSection("CookieNames")
         );

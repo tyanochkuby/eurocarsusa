@@ -294,4 +294,24 @@
   <data name="Empty" xml:space="preserve">
     <value>Empty</value>
   </data>
+  <data name="CustomOrderEmailSubject" xml:space="preserve">
+    <value>EuroCarUsa - we received your order</value>
+  </data>
+  <data name="CustomOrderEmailBody" xml:space="preserve">
+    <value>Hello!\n\n
+
+We're glad you chose us! We just got your custom order and our specialists will contact you soon\n\n
+
+Best regards,\n
+EuroCarUsa team</value>
+  </data>
+  <data name="AdminCustomOrderEmailSubject" xml:space="preserve">
+    <value>EuroCarUsa - Новый заказ</value>
+  </data>
+  <data name="AdminCustomOrderEmailBody" xml:space="preserve">
+    <value>Получен новый заказ. Номер и емейл клиента - {0} , {1}. Подробности на сайте.</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>

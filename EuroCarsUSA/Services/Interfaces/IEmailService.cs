@@ -2,6 +2,7 @@
 {
     public interface IEmailService
     {
-        void SendEmail(string to, string subject, string body);
+        public string AdminEmail { get; init; }
+        Task SendEmail(string to, string subject, string body);
     }
 }

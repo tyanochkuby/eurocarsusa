@@ -19,6 +19,7 @@ namespace EuroCarsUSA.Models
         public int? EngineVolume { get; set; }
         public CarTransmission Transmission { get; set; }
         public int Price { get; set; }
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
 
         public Car() { }
 

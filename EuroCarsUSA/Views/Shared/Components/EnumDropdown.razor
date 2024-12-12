@@ -8,7 +8,7 @@
 
 @typeparam TEnum
 
-<select @bind="SelectedValue" @bind:event="onchange" class="form-control @CssClass" name="@Name" style="@Style">
+<select @bind="SelectedValue" @bind:event="onchange" class="form-control @CssClass" name="@Name" style="height: 46px; @Style">
     @foreach (var option in Enum.GetValues(typeof(TEnum)).Cast<TEnum>())
     {
         <option value="@option">@option.ToString()</option>

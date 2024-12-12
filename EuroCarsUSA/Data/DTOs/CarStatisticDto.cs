@@ -6,6 +6,8 @@ namespace EuroCarsUSA.Data.DTOs
     {
         public Guid CarId { get; set; }
         public CarMake Make { get; set; }
+
+        public CarType Type { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }
         public int Views { get; set; }

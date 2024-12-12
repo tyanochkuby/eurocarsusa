@@ -1,8 +1,9 @@
-@model Tuple<List<string>, string>
+@model Tuple<List<string>, string, Guid>
 
 @{
     var images = Model.Item1;
     var uniqueId = Model.Item2;
+    var carId = Model.Item3.ToString();
 }
 
 <div>
@@ -25,8 +26,13 @@
                             </li>
                         }
                     </ul>
+                    <!-- Text input for uploading links -->
                     <input type="text" id="newImageUrl-@uniqueId" placeholder="Enter image URL" class="form-control mt-2" />
                     <button type="button" class="btn btn-success mt-2" onclick="addImage('@uniqueId')">Add Image</button>
+
+                    <!-- File input for uploading images -->
+                    <input type="file" id="fileInput-@uniqueId" class="form-control mt-2" accept="image/*" />
+                    <button type="button" class="btn btn-primary mt-2" onclick="uploadImage('@uniqueId', '@carId')">Upload Image</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="hideModal('@uniqueId')">Close</button>
@@ -37,3 +43,36 @@
     </div>
     <div id="modalBackdrop-@uniqueId" class="modal-backdrop" style="display:none;"></div>
 </div>
+
+
+<script>
+    function uploadImage(uniqueId, carId) {
+        var fileInput = document.getElementById('fileInput-' + uniqueId);
+        var formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('carId', carId);
+
+        fetch('/api/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                var newImageUrl = data.url;
+                var imagesList = document.querySelector('#imageEditorModal-' + uniqueId + ' .list-group');
+                var newImageItem = document.createElement('li');
+                newImageItem.className = 'list-group-item';
+                newImageItem.innerHTML = `<img src="${newImageUrl}" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px;" />
+                                          <button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">Remove</button>`;
+                imagesList.appendChild(newImageItem);
+            } else {
+                alert('Image upload failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error uploading image:', error);
+            alert('Image upload failed');
+        });
+    }
+</script>
