@@ -759,6 +759,27 @@ button#mobile-filter-select-save-button .carIcon {
     }
 }
 
+.mobile-sidebar-style {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.3s;
+    z-index: 2000;
+}
+
+    .mobile-sidebar-style.open {
+        width: 75%;
+    }
+@media (min-width: 576px) {
+    .mobile-sidebar-style.open {
+        width: 50%;
+    }
+}
+
 
 .icon-size svg {
     width: 24px;
@@ -1090,7 +1111,6 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
         width: 16px;
         height: 16px;
     }
-
 
 
 .list-item-state-layer {

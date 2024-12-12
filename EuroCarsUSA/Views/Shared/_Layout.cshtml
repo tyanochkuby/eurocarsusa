@@ -20,7 +20,7 @@
 <body class="">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary-100 border-bottom box-shadow fixed-top px-3 py-0">
-            <div class="container-fluid align-items-center d-flex topbar py-2">
+            <div class="container-fluid align-items-center d-flex topbar py-2 px-0">
 
                 <div class="me-auto d-flex">
                     <a class="d-flex me-3" asp-area="" asp-controller="Home" asp-action="Index">
@@ -40,15 +40,23 @@
                         })
                     </a>
                 </div>
+
+                <a class="d-flex d-md-none me-2 me-md-0" id="mobile-sidebar-menu-btn" onclick="toggleSidebar()">
+                    @await Html.PartialAsync("_IconButton", new { IconName = "Menu", Color = "secondary", IconColor = "primary", Attributes = "" })
+                </a>
+                    
+                </div>
+
+
                 @if (User.IsInRole("Admin"))
                 {
-                    @await Html.PartialAsync("_Switch", new { Text = "lalal", Classes = "me-3 d-none d-md-flex", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
+                    @await Html.PartialAsync("_Switch", new { Text = "lalal", Classes = "me-md-3 d-none d-md-flex", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
                 }
 
-                <div class="me-3">
+                <div class="me-3 d-none d-md-flex">
                     <a asp-controller="Home"
                        asp-action="Likes"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name" class="d-none d-md-flex">
+                       asp-route-culture="@CultureInfo.CurrentUICulture.Name" class="">
                         @await Html.PartialAsync("_IconButton", new { IconName = "favorite", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                 </div>
@@ -156,6 +164,64 @@
             }
         </div>
         
+        <div id="mobile-sidebar" class="mobile-sidebar-style">
+            <div class="topbar bg-secondary-100 border-bottom border-primary row mx-0 px-2 align-content-center">
+                <div class="col-auto px-0">
+                    <div class="row mx-0">
+                        <a asp-controller="Home"
+                           asp-action="Likes"
+                           asp-route-culture="@CultureInfo.CurrentUICulture.Name"  class="col px-0 me-2">
+                            @await Html.PartialAsync("_IconButton", new { IconName = "favorite", Color = "secondary", IconColor = "primary", Attributes = "" })
+                        </a>
+                        <div class="dropdown col px-0">
+                            <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="">
+                                @await Html.PartialAsync("_IconButton", new { IconName = "Language chinese dayi", Color = "secondary", IconColor = "primary", Attributes = "" })
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                                <li><a class="dropdown-item" href="?culture=en&ui-culture=en">English</a></li>
+                                <li><a class="dropdown-item" href="?culture=pl-PL&ui-culture=pl-PL">Polski</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col px-0">
+                    <div class="d-flex justify-content-end">
+                        <a class="me-3" id="mobile-sidebar-menu-btn" onclick="toggleSidebar()">
+                            @await Html.PartialAsync("_IconButton", new { IconName = "Arrow forward", Color = "secondary", IconColor = "primary", Attributes = "" })
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Headline = "Main Page",
+                        ShowOverline = false,
+                        Leading = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Home"), Color = "neutral900" }),
+                    })
+                </div>
+                <div>
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Headline = "Catalog",
+                        ShowOverline = false,
+                        Leading = await Html.PartialAsync("_Icon", new { IconName = Url.Content("View carousel"), Color = "neutral900" }),
+                    })
+                </div>
+                <div>
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Headline = "Individual order",
+                        ShowOverline = false,
+                        Leading = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "neutral900" }),
+                    })
+                </div>
+            </div>
+        </div>
+
+
         <main role="main" class="main pb-3">
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">

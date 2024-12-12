@@ -95,3 +95,8 @@ function toggleOrderVisibility(formId) {
         iconDiv.style.transform = "scaleY(1)";
     }
 }
+function toggleSidebar() {
+    const sidebar = document.getElementById("mobile-sidebar");
+    sidebar.classList.toggle("open");
+}
+
