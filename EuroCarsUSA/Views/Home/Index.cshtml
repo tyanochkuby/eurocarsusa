@@ -70,7 +70,8 @@ else
                         <div class="px-3">
                             <div class="overflow-hidden rounded-3">
                                 <div class="row g-3 py-2 pt-0 main-recommend">
-                                    @for (int i=0; i<3; i += 1)
+                                    
+                                    @for (int i = 0; i < (float)(Model.RecomendedCar.Count()/2); i += 1)
                                     {
                                         CarCardViewModel car1 = Model.RecomendedCar[i * 2];
                                         car1.Classes = "col-6 col-md-12";
@@ -84,6 +85,18 @@ else
                                             <div class="row mt-0 h-100 gx-3 gy-md-3 overflow-visible justify-content-between align-content-between">
                                                 @await Html.PartialAsync("_CarCard", car1)
                                                 @await Html.PartialAsync("_CarCard", car2)
+                                            </div>
+                                        </div>
+                                    }
+                                    @if ((float)(Model.RecomendedCar.Count()%2) != 0) 
+                                    {
+                                        CarCardViewModel car1 = Model.RecomendedCar[Model.RecomendedCar.Count()-1];
+                                        car1.Classes = "col-6 col-md-12";
+                                        car1.IsFullSize = false;
+
+                                        <div class="col-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
+                                            <div class="row mt-0 h-100 gx-3 gy-md-3 overflow-visible justify-content-between align-content-between">
+                                                @await Html.PartialAsync("_CarCard", car1)
                                             </div>
                                         </div>
                                     }
