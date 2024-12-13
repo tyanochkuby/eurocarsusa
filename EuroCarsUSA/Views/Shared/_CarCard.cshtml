@@ -59,30 +59,31 @@
                 
 
                 <div class="row mx-0 fh-regular gap-2 overflow-hidden cardDetails" id="details-@(Model.Id)" style="max-height: 500px;">
-                    <div class="row mx-0 px-0">
-                        <div class="col px-0">
-                            <div class="d-flex align-items-center justify-content-start">
-                                <img class="carIcon" src="/icons/car_millage.svg">
-                                <div class="ms-2 text-body-lg">Mileage</div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="text-body-md text-neutral-900">@Model.Mileage</div>
-                                <div class="ms-2 text-body-md text-neutral-900">km</div>
-                            </div>
-                        </div>
-
-                        <div class="col px-0">
-                            <div class="d-flex align-items-center justify-content-end">
-                                <img class="carIcon" src="/icons/car_year.svg">
-                                <div class="ms-2 text-body-lg">Year</div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-end">
-                                <div class="text-body-md text-neutral-900">@Model.Year</div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     @if (Model.IsFullSize)
                     {
+                        <div class="row mx-0 px-0">
+                            <div class="col px-0">
+                                <div class="d-flex align-items-center justify-content-start">
+                                    <img class="carIcon" src="/icons/car_millage.svg">
+                                    <div class="ms-2 text-body-lg">Mileage</div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-start">
+                                    <div class="text-body-md text-neutral-900">@Model.Mileage</div>
+                                    <div class="ms-2 text-body-md text-neutral-900">km</div>
+                                </div>
+                            </div>
+
+                            <div class="col px-0">
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <img class="carIcon" src="/icons/car_year.svg">
+                                    <div class="ms-2 text-body-lg">Year</div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <div class="text-body-md text-neutral-900">@Model.Year</div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mx-0 px-0">
                             <div class="col px-0">
                                 <div class="d-flex align-items-center justify-content-start">
@@ -127,10 +128,35 @@
                             </div>
                         </div>
                     }
+                    else
+                    {
+                        <div class="d-none d-sm-flex row mx-0 px-0">
+                            <div class="col px-0">
+                                <div class="d-flex align-items-center justify-content-start">
+                                    <img class="carIcon" src="/icons/car_millage.svg">
+                                    <div class="ms-2 text-body-lg">Mileage</div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-start">
+                                    <div class="text-body-md text-neutral-900">@Model.Mileage</div>
+                                    <div class="ms-2 text-body-md text-neutral-900">km</div>
+                                </div>
+                            </div>
+
+                            <div class="col px-0">
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <img class="carIcon" src="/icons/car_year.svg">
+                                    <div class="ms-2 text-body-lg">Year</div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <div class="text-body-md text-neutral-900">@Model.Year</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
                 @if (!Model.IsFullSize)
                 {
-                    <div class="col-12 px-0 text-title-md text-primary-900 d-flex justify-content-end mt-2">
+                    <div class="col-12 px-0 text-title-md text-primary-900 d-flex justify-content-end mt-0 mt-sm-2">
                         <div class="mb-0">@string.Format(new System.Globalization.CultureInfo("pl-PL"), "{0:N0}", Model.Price) PLN</div>
                     </div>
                 }
