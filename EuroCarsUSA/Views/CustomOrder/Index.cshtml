@@ -19,8 +19,70 @@
                 This section is dedicated to your personal requests. If you cannot find your desired car, you can apply your request to the dealer via this section. Provide your personal preferences with the help of these filters. Provide your contact information so we can contact you back.
             </div>
         </div>
-        <div class="container p-4 bg-white rounded-32">        
-            <div id="forms-container">
+
+        <div class="container mt-5 mt-md-4 mb-2 ">
+            <div class="row px-md-5 ">
+                <div class="col-auto px-0">
+                    <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
+                        <a asp-controller="Admin" asp-action="BackToCatalogWithFilters" class="col-auto ps-0 pe-3">
+                            @await Html.PartialAsync("_Button", new _Button
+                       {
+                           Text = "Back",
+                           Color = "primary",
+                           Classes = "",
+                           Attributes = "",
+                           LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                           RightIcon = null,
+                           TextColor = ""
+                       })
+                        </a>
+                        <a class="col-auto px-0">
+                            @await Html.PartialAsync("_Button", new _Button
+                       {
+                           Text = "Individual order",
+                           Color = "secondary",
+                           Classes = "",
+                           Attributes = "",
+                           LeftIcon = null,
+                           RightIcon = null,
+                           TextColor = "text-primary"
+                       })
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mb-3 p-4 pt-3 rounded-32 bg-white">
+            <div class="text-headline-sm px-2 mb-2">Search your order</div>
+            <div class="col-md col-12 p-3 bg-secondary-200 rounded-16">
+                <div class="row m-0">
+                    <div class="col-12 col-md-4 p-md-0 p-2 px-0 me-md-3 bg-secondary-200 mb-2 mb-md-0">
+                        <component type="typeof(EditableField<int>)"
+                                   render-mode="ServerPrerendered"
+                                   param-CssClass="@( "h-100" )" />
+                    </div>
+                    <div class="col-12 col-md-auto d-flex flex-column justify-content-end px-0">
+                        <a class="submit">
+                            @await Html.PartialAsync("_Button", new _Button
+                       {
+                           Text = "Find",
+                           Color = "primary",
+                           Classes = "col-12",
+                           Attributes = "",
+                           LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                           RightIcon = null,
+                           TextColor = ""
+                       })
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container p-4 bg-white rounded-32">
+            <div class="text-headline-sm px-2 mb-2">Create your order</div>
+            <div id="forms-container" class="row mx-0 gy-4">
                 @for (int i = 0; i < Model.Forms.Count(); i++)
                 {
                     @await Html.PartialAsync("_CustomOrderForm", new FormViewModel
@@ -41,7 +103,7 @@
                 }
             </div>
 
-            <div class="d-flex justify-content-center mb-3">
+            <div class="d-flex justify-content-center my-3">
                 @await Html.PartialAsync("_Button", new _Button
                 {
                     Text = "Add Form",
@@ -55,7 +117,7 @@
             </div>
 
             <div class="bg-secondary-100 p-3 rounded-16 row mx-0 mt-3">
-                <div class="col">
+                <div class="col px-0">
                     <div class="form-group col">
                         <label asp-for="Email"></label>
                         <input asp-for="Email" class="form-control" />

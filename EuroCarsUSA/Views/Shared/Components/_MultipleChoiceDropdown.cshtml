@@ -14,7 +14,7 @@
     <div class="dropdown w-100">
         @Html.Partial("_ExpandButton", new _ExpandButton
         {
-            Classes="mt-2",
+            Classes="",
             Attributes = $"type=\"button\" id=\"{dropdownId}\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
             Placeholder = (selectedValues.Any() ? string.Join(", ", selectedValues) : placeholder),
             ShowOverline = true,

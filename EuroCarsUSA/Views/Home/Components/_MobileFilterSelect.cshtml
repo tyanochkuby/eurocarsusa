@@ -1,40 +1,58 @@
 ﻿@using EuroCarsUSA.Controllers
 @using EuroCarsUSA.Views.Home.Components.ViewModels
 @using Microsoft.Extensions.Localization
+@using EuroCarsUSA.Views.Shared.Components
 @model IEnumerable<FilterOptionViewModel>
 
 @inject IStringLocalizer<HomeController> Translator
 
 
-<div class="mobile-filter-select-screen d-flex flex-column vh-100" style="z-index: 1000;">
-    <div class="row mt-4 justify-content-between w-100">
-        <div class="col-5"></div>
-        <div class="col-6">
-            <p class="fs-5">Select Filter</p>
-        </div>
-        <div class="col-1" id="filter-mobile-select-close-button">
-            <img class="filterIcon" src="/icons/clear.svg" />
+<div class="mobile-filter-select-screen d-flex flex-column vh-100" style="z-index: 2000;">
+    <div class="px-4 border-bottom border-primary bg-white">
+        <div class="topbar position-relative align-content-center">
+            <div class="text-headline-sm d-flex justify-content-center ">Select Filter</div>
+            <a class="position-absolute end-0 top-0 h-100 align-content-center" id="filter-mobile-select-close-button">
+                @await Html.PartialAsync("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "black", Attributes = "" })
+            </a>
         </div>
     </div>
-    <div class="mobile-list-items mb-auto">
-        @foreach (var option in Model)
-        {
-            <div class="mobile-list-item d-flex justify-content-between align-items-center py-2 border-bottom" style="cursor: pointer;">
-                <label for="@option.OriginalValue" class="mb-0">@option.TranslatedValue</label>
-                <input type="checkbox" value="@option.OriginalValue" id="@option.OriginalValue" class="ml-auto" />
-            </div>
-        }
-    </div>
-    <div class="row mt-auto">
-        <div class="col-6">
-            <button id="filter-mobile-select-clear-button" class="btn btn-secondary rounded-pill py-2 w-100">
-                <img class="carIcon" src="/icons/clear.svg" /> @Translator["Clear"]
-            </button>
+    <div class="container px-0 py-2">
+        <div class="mobile-list-items mb-auto bg-white rounded-16">
+            @foreach (var option in Model)
+            {
+                <div class="mobile-list-item d-flex justify-content-between align-items-center py-2 border-bottom" style="cursor: pointer;">
+                    <label for="@option.OriginalValue" class="mb-0">@option.TranslatedValue</label>
+                    <input type="checkbox" value="@option.OriginalValue" id="@option.OriginalValue" class="ml-auto" />
+                </div>
+            }
         </div>
-        <div class="col-6">
-            <button class="btn btn-primary rounded-pill py-2 w-100" id="mobile-filter-select-save-button">
-                @Translator["Save"]
-            </button>
+    </div>
+    <div class="container mt-auto">
+        <div class="row gx-3 bg-white rounded-16 rounded-bottom-0 topbar align-content-center">
+            <a id="filter-mobile-select-clear-button" class="col-6 ">
+                @await Html.PartialAsync("_Button", new _Button
+           {
+               Text = Translator["Clear"],
+               Color = "secondary",
+               Classes = "w-100",
+               Attributes = "",
+               LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
+               RightIcon = null,
+               TextColor = "text-primary"
+           })
+            </a>
+            <a id="mobile-filter-select-save-button" class="col-6">
+                @await Html.PartialAsync("_Button", new _Button
+           {
+               Text = Translator["Save"],
+               Color = "primary",
+               Classes = "w-100",
+               Attributes = $"type=\"submit\"",
+               LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+               RightIcon = null,
+               TextColor = ""
+           })
+            </a>
         </div>
     </div>
 </div>

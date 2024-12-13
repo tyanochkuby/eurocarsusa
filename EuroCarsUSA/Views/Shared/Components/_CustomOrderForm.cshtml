@@ -5,116 +5,148 @@
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<CustomOrderController> Translator
 
-<div class="form-viewmodel-container mb-3 p-3 bg-secondary-100 rounded-16" data-index="@Model.Index">
-    <div class="d-flex justify-content-between">
-        <h5>Form @(Model.Index + 1)</h5>
-        <button type="button" class="btn btn-danger btn-sm" onclick="removeForm(this)">Delete</button>
+<div class="form-viewmodel-container p-3 bg-secondary-100 rounded-16" data-index="@Model.Index">
+    <div class="d-flex justify-content-between position-relative ">
+        <div class="text-title-lg text-neutral-900">Form @(Model.Index + 1)</div>
+        <div class="position-absolute end-0 align-self-center d-flex">
+            
+            <a class="">
+                @await Html.PartialAsync("_IconButton", new
+                    {
+                        IconName = "Delete",
+                        Color = "primary",
+                        IconColor = "primary",
+                        Attributes = $"type=\"button\" onclick=\"removeForm(this)\""
+                    })
+            </a>
+            <a class="d-none">
+                @await Html.PartialAsync("_IconButton", new
+                    {
+                        IconName = "More horiz",
+                        Color = "primary",
+                        IconColor = "primary",
+                        Attributes = $"type=\"button\" "
+                    })
+            </a>
+            <a class="">
+                @await Html.PartialAsync("_IconButton", new
+                    {
+                        IconName = "Keyboard arrow down",
+                        Color = "primary",
+                        IconColor = "primary",
+                        Attributes = $"type=\"button\" id=\"icon-{(Model.Index + 1)}\" onclick=\"toggleOrderVisibility('{(Model.Index + 1)}')\""
+                    })
+            </a>
+        </div>     
     </div>
-    <div class="row">
-        <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
-       {
-           DropdownId = $"dropdownMenuButton{Model.Index}",
-           Placeholder = Translator["Choose"],
-           Overline = Translator["Make"],
-           Name = $"Forms[{Model.Index}].CarMakes",
-           InputId = $"carmakesInput{Model.Index}",
-           SelectedValues = Model.CarMakes.Select(m => m.ToString()),
-           Options = ViewBag.AvailableFilters["make"],
-           Translator = Translator
-       })
-        </div>
-        <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
-       {
-           DropdownId = $"dropdownMenuButtonColors{Model.Index}",
-           Placeholder = Translator["Choose"],
-           Overline = Translator["Color"],
-           Name = $"Forms[{Model.Index}].CarColors",
-           InputId = $"carcolorsInput{Model.Index}",
-           SelectedValues = Model.CarColors.Select(c => c.ToString()),
-           Options = ViewBag.AvailableFilters["color"],
-           Translator = Translator
-       })
-        </div>
-        <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
-       {
-           DropdownId = $"dropdownMenuButtonTypes{Model.Index}",
-           Placeholder = Translator["Choose"],
-           Overline = Translator["Type"],
-           Name = $"Forms[{Model.Index}].CarTypes",
-           InputId = $"cartypesInput{Model.Index}",
-           SelectedValues = Model.CarTypes.Select(t => t.ToString()),
-           Options = ViewBag.AvailableFilters["carType"],
-           Translator = Translator
-       })
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
-       {
-           DropdownId = $"dropdownMenuButtonFuelTypes{Model.Index}",
-           Placeholder = Translator["Choose"],
-           Overline = Translator["Fuel Type"],
-           Name = $"Forms[{Model.Index}].CarFuelTypes",
-           InputId = $"carfueltypesInput{Model.Index}",
-           SelectedValues = Model.CarFuelTypes.Select(f => f.ToString()),
-           Options = ViewBag.AvailableFilters["fuelType"],
-           Translator = Translator
-       })
-        </div>
-        <div class="form-group col">
-            @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
-       {
-           DropdownId = $"dropdownMenuButtonTransmissions{Model.Index}",
-           Placeholder = Translator["Choose"],
-           Overline = Translator["Transmission"],
-           Name = $"Forms[{Model.Index}].CarTransmissions",
-           InputId = $"cartransmissionsInput{Model.Index}",
-           SelectedValues = Model.CarTransmissions.Select(t => t.ToString()),
-           Options = ViewBag.AvailableFilters["transmission"],
-           Translator = Translator
-       })
-        </div>
-        <div class="form-group col">
-            <label asp-for="Model"></label>
-            <input name="@($"Forms[{Model.Index}].Model")" asp-for="Model" class="form-control" />
-            <span asp-validation-for="Model" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8">
-            <div class="row">
-                <div class="form-group col">
-                    <label asp-for="MaxPrice"></label>
-                    <input name="@($"Forms[{Model.Index}].MaxPrice")" asp-for="MaxPrice" class="form-control" />
-                    <span asp-validation-for="MaxPrice" class="text-danger"></span>
-                </div>
-                <div class="form-group col">
-                    <label asp-for="MaxMileage"></label>
-                    <input name="@($"Forms[{Model.Index}].MaxMileage")" asp-for="MaxMileage" class="form-control" />
-                    <span asp-validation-for="MaxMileage" class="text-danger"></span>
-                </div>
+    <div id="expanded-@(Model.Index + 1)" style="max-height: 320px; margin-left: -8px; margin-right: -8px" class="overflow-auto order-details px-2">
+        <h5 class="mb-3"></h5>
+        <div class="row g-3 mb-3">
+            <div class="form-group col-md col-12">
+                @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
+           {
+               DropdownId = $"dropdownMenuButton{Model.Index}",
+               Placeholder = Translator["Choose"],
+               Overline = Translator["Make"],
+               Name = $"Forms[{Model.Index}].CarMakes",
+               InputId = $"carmakesInput{Model.Index}",
+               SelectedValues = Model.CarMakes.Select(m => m.ToString()),
+               Options = ViewBag.AvailableFilters["make"],
+               Translator = Translator
+           })
             </div>
-            <div class="row">
-                <div class="form-group col">
-                    <label asp-for="MinYear"></label>
-                    <input name="@($"Forms[{Model.Index}].MixYear")" asp-for="MinYear" class="form-control" />
-                    <span asp-validation-for="MinYear" class="text-danger"></span>
-                </div>
-                <div class="form-group col">
-                    <label asp-for="MaxYear"></label>
-                    <input name="@($"Forms[{Model.Index}].MaxYear")" asp-for="MaxYear" class="form-control" />
-                    <span asp-validation-for="MaxYear" class="text-danger"></span>
-                </div>
+            <div class="form-group col-md col-12">
+                @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
+           {
+               DropdownId = $"dropdownMenuButtonColors{Model.Index}",
+               Placeholder = Translator["Choose"],
+               Overline = Translator["Color"],
+               Name = $"Forms[{Model.Index}].CarColors",
+               InputId = $"carcolorsInput{Model.Index}",
+               SelectedValues = Model.CarColors.Select(c => c.ToString()),
+               Options = ViewBag.AvailableFilters["color"],
+               Translator = Translator
+           })
+            </div>
+            <div class="form-group col-md col-12">
+                @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
+           {
+               DropdownId = $"dropdownMenuButtonTypes{Model.Index}",
+               Placeholder = Translator["Choose"],
+               Overline = Translator["Type"],
+               Name = $"Forms[{Model.Index}].CarTypes",
+               InputId = $"cartypesInput{Model.Index}",
+               SelectedValues = Model.CarTypes.Select(t => t.ToString()),
+               Options = ViewBag.AvailableFilters["carType"],
+               Translator = Translator
+           })
             </div>
         </div>
-        <div class="form-group col-4">
-            <label asp-for="Description"></label>
-            <textarea name="@($"Forms[{Model.Index}].Description")" asp-for="Description" class="form-control"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
+        <div class="row g-3 mb-3">
+            <div class="form-group col-md col-12">
+                @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
+           {
+               DropdownId = $"dropdownMenuButtonFuelTypes{Model.Index}",
+               Placeholder = Translator["Choose"],
+               Overline = Translator["Fuel Type"],
+               Name = $"Forms[{Model.Index}].CarFuelTypes",
+               InputId = $"carfueltypesInput{Model.Index}",
+               SelectedValues = Model.CarFuelTypes.Select(f => f.ToString()),
+               Options = ViewBag.AvailableFilters["fuelType"],
+               Translator = Translator
+           })
+            </div>
+            <div class="form-group col-md col-12">
+                @Html.Partial("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
+           {
+               DropdownId = $"dropdownMenuButtonTransmissions{Model.Index}",
+               Placeholder = Translator["Choose"],
+               Overline = Translator["Transmission"],
+               Name = $"Forms[{Model.Index}].CarTransmissions",
+               InputId = $"cartransmissionsInput{Model.Index}",
+               SelectedValues = Model.CarTransmissions.Select(t => t.ToString()),
+               Options = ViewBag.AvailableFilters["transmission"],
+               Translator = Translator
+           })
+            </div>
+            <div class="form-group col-md col-12">
+                <label asp-for="Model"></label>
+                <input name="@($"Forms[{Model.Index}].Model")" asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-8 col-12">
+                <div class="row g-3 mb-3">
+                    <div class="form-group col-md col-12">
+                        <label asp-for="MaxPrice"></label>
+                        <input name="@($"Forms[{Model.Index}].MaxPrice")" asp-for="MaxPrice" class="form-control" />
+                        <span asp-validation-for="MaxPrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md col-12">
+                        <label asp-for="MaxMileage"></label>
+                        <input name="@($"Forms[{Model.Index}].MaxMileage")" asp-for="MaxMileage" class="form-control" />
+                        <span asp-validation-for="MaxMileage" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="form-group col-md col-12">
+                        <label asp-for="MinYear"></label>
+                        <input name="@($"Forms[{Model.Index}].MixYear")" asp-for="MinYear" class="form-control" />
+                        <span asp-validation-for="MinYear" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md col-12">
+                        <label asp-for="MaxYear"></label>
+                        <input name="@($"Forms[{Model.Index}].MaxYear")" asp-for="MaxYear" class="form-control" />
+                        <span asp-validation-for="MaxYear" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4 col-12">
+                <label asp-for="Description"></label>
+                <textarea name="@($"Forms[{Model.Index}].Description")" asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
         </div>
     </div>
 </div>

@@ -20,55 +20,46 @@
         </div>
     </div>
 
-    <div class="container mt-4 mb-2">
-        <div class="row px-5 ">
-            <div class="col px-0">
-                <div class="row mx-0">
+    <div class="container mt-4 mb-md-2 mb-3 ">
+        <div class="row px-md-5 ">
+            <div class="col-auto px-0">
+                <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
                     <a asp-controller="Admin" asp-action="BackToCatalogWithFilters" class="col-auto ps-0 pe-3">
                         @await Html.PartialAsync("_Button", new _Button
-                        {
-                            Text = "Back",
-                            Color = "primary",
-                            Classes = "",
-                            Attributes = "",
-                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
-                            RightIcon = null,
-                            TextColor = ""
-                        })
+                           {
+                               Text = "Back",
+                               Color = "primary",
+                               Classes = "",
+                               Attributes = "",
+                               LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                               RightIcon = null,
+                               TextColor = ""
+                           })
                     </a>
-                    <a class="col-auto px-0">
-                        @await Html.PartialAsync("_Button", new _Button
-                        {
-                            Text = "Individual order",
-                            Color = "secondary",
-                            Classes = "",
-                            Attributes = "",
-                            LeftIcon = null,
-                            RightIcon = null,
-                            TextColor = "text-primary"
-                        })
-                    </a>
-                </div>           
-            </div>
-            <div class="col px-0">
-                <div class="row m-0 justify-content-end">
-                    <div class="col-auto px-0 me-3">
-                        <component type="typeof(EditableField<int>)"
-                                   render-mode="ServerPrerendered"
-                                   param-CssClass="@( "h-100" )" />
-                    </div>
-                    <div class="col-auto d-flex flex-column justify-content-end px-0">
-                        <a class="submit">
+                    <div class="col px-0 d-flex overflow-auto rounded-16 modal-dialog-scrollable">
+                        <a class="col-auto px-0 pe-3">
                             @await Html.PartialAsync("_Button", new _Button
                             {
-                                Text = "Find",
-                                Color = "primary",
-                                Classes = "",
-                                Attributes = "",
-                                LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-                                RightIcon = null,
-                                TextColor = ""
+                                   Text = "Individual order",
+                                   Color = "secondary",
+                                   Classes = "",
+                                   Attributes = "",
+                                   LeftIcon = null,
+                                   RightIcon = null,
+                                   TextColor = "text-primary"
                             })
+                        </a>
+                        <a class="col-auto px-0">
+                            @await Html.PartialAsync("_Button", new _Button
+                               {
+                                   Text = $"{@Model.Id}",
+                                   Color = "secondary",
+                                   Classes = "",
+                                   Attributes = "",
+                                   LeftIcon = null,
+                                   RightIcon = null,
+                                   TextColor = "text-primary"
+                               })
                         </a>
                     </div>
                 </div>
@@ -77,171 +68,230 @@
     </div>
 
     <div class="container p-4 bg-white rounded-32">
-        <div class="row mb-3">
+        <div class="row mb-2">
             <div class="text-headline-sm">Order - @Model.Id</div>
-            <div class="text-body-lg text-neutral-900">Status - @Model.Status</div>
+            <div class="text-body-lg text-neutral-900">Status - <span class="text-primary">@Model.Status</span></div>
         </div>
-        <div class="bg-secondary-100 py-3 px-2 rounded-16 row gx-3 mx-0">
+        <div class="bg-secondary-100 p-3 rounded-16 mx-0">
             <div class="text-title-lg mb-2 text-neutral-900">Your contact data</div>
-            <div class="col">
-                @await Html.PartialAsync("_ListItem", new _ListItem
-                {
-                    Headline = @Model.Email != null ? Model.Email : localizer.Empty,
-                    ShowOverline = true,
-                    ShowOverlineInside = true,
-                    Overline = "Email",
-                    ShowDivider = true
-                })
-            </div>
-            <div class="col">
-                @await Html.PartialAsync("_ListItem", new _ListItem
-                {
-                    Headline = @Model.PhoneNumber != null ? Model.PhoneNumber : localizer.Empty,
-                    ShowOverline = true,
-                    ShowOverlineInside = true,
-                    Overline = "Phone number",
-                    ShowDivider = true
-                })
-            </div>
-            <div class="col">
-                @await Html.PartialAsync("_ListItem", new _ListItem
-                {
-                    Headline = @Model.Name != null ? Model.Name : localizer.Empty,
-                    ShowOverline = true,
-                    ShowOverlineInside = true,
-                    Overline = "Name",
-                    ShowDivider = true
-                })
+            <div class="row gx-3 gy-3 text-wrap">
+                <div class="col-md-4 col-12">
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Headline = @Model.Name != null ? Model.Name : localizer.Empty,
+                        ShowOverline = true,
+                        ShowOverlineInside = true,
+                        Overline = "Name",
+                        ShowDivider = true
+                    })
+                    </div>
+                <div class="col-md-4 col-12">
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+               {
+                   Headline = @Model.Email != null ? Model.Email : localizer.Empty,
+                   ShowOverline = true,
+                   ShowOverlineInside = true,
+                   Overline = "Email",
+                   ShowDivider = true
+               })
+                </div>
+                <div class="col-md-4 col-12">
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Headline = @Model.PhoneNumber != null ? Model.PhoneNumber : localizer.Empty,
+                        ShowOverline = true,
+                        ShowOverlineInside = true,
+                        Overline = "Phone number",
+                        ShowDivider = true
+                    })
+                </div>
             </div>
         </div>
         @foreach (var form in Model.Forms)
         {
             <div class="bg-secondary-100 p-3 rounded-16 mx-0 mt-3">
-                <div class="text-title-lg mb-2 text-neutral-900">Form @(Model.Forms.IndexOf(form) + 1)</div>
-                <div class="row gx-3 mb-3">
-                    <div class="col">
-                        @await Html.PartialAsync("_ExpandButton", new _ExpandButton
-                        {
-                            Placeholder = (form.CarMakes.Any() ? string.Join(", ", form.CarMakes) : localizer.Empty),
-                            ShowOverline = true,
-                            ShowOverlineInside = true,
-                            Overline = "Make"
-                        })
-                    </div>
-                    <div class="col">
-                        @await Html.PartialAsync("_ExpandButton", new _ExpandButton
-                        {
-                            Placeholder = (form.CarColors.Any() ? string.Join(", ", form.CarColors) : localizer.Empty),
-                            ShowOverline = true,
-                            ShowOverlineInside = true,
-                            Overline = "Color"
-                        })
-                    </div>
-                    <div class="col">
-                        @await Html.PartialAsync("_ExpandButton", new _ExpandButton
-                        {
-                            Placeholder = (form.CarTypes.Any() ? string.Join(", ", form.CarTypes) : localizer.Empty),
-                            ShowOverline = true,
-                            ShowOverlineInside = true,
-                            Overline = "Color"
-                        })
+                <div class="d-flex justify-content-between position-relative">
+                    <div class="text-title-lg text-neutral-900">Form @(Model.Forms.IndexOf(form) + 1)</div>
+                    <div class="position-absolute end-0 align-self-center d-flex">
+                        <a class="d-none">
+                            @await Html.PartialAsync("_IconButton", new
+                                {
+                                    IconName = "More horiz",
+                                    Color = "primary",
+                                    IconColor = "primary",
+                                    Attributes = $"type=\"button\" "
+                                })
+                        </a>
+                        <a class="">
+                            @await Html.PartialAsync("_IconButton", new
+                                {
+                                    IconName = "Keyboard arrow up",
+                                    Color = "primary",
+                                    IconColor = "primary",
+                                    Attributes = $"type=\"button\" id=\"icon-{(Model.Forms.IndexOf(form) + 1)}\" onclick=\"toggleOrderVisibility('{(Model.Forms.IndexOf(form) + 1)}')\""
+                                })
+                        </a>
                     </div>
                 </div>
-                <div class="row gx-3 gy-3 mb-3">
-                    <div class="col">
-                        @await Html.PartialAsync("_ExpandButton", new _ExpandButton
-                        {
-                            Placeholder = (form.CarFuelTypes.Any() ? string.Join(", ", form.CarFuelTypes) : localizer.Empty),
-                            ShowOverline = true,
-                            ShowOverlineInside = true,
-                            Overline = "Color"
-                        })
-                    </div>
-                    <div class="col">
-                        @await Html.PartialAsync("_ExpandButton", new _ExpandButton
-                        {
-                            Placeholder = (form.CarTransmissions.Any() ? string.Join(", ", form.CarTransmissions) : localizer.Empty),
-                            ShowOverline = true,
-                            ShowOverlineInside = true,
-                            Overline = "Color"
-                        })
-                    </div>
-                    <div class="col">
-                        @await Html.PartialAsync("_ListItem", new _ListItem
-                        {
-                            Headline = form.Model is null ? localizer.Empty : form.Model,
-                            ShowOverline = true,
-                            ShowOverlineInside = true,
-                            Overline = "Model",
-                            ShowSupportive = true,
-                            ShowSupportiveInside = true,
-                            ShowDivider = true
-                        })
-                    </div>
-                </div>
-                <div class="row gx-3">
-                    <div class="col-8">
-                        <div class="row gx-3 mb-3">
-                            <div class="col">
+                <div id="expanded-@(Model.Forms.IndexOf(form) + 1)" style="max-height: 320px; margin-left: -8px; margin-right: -8px" class="overflow-auto order-details px-2">
+                    <h5 class="mb-3"></h5>
+                    <div class="row gx-3 gy-3 mb-3">
+                            <div class="col-md col-12">
                                 @await Html.PartialAsync("_ListItem", new _ListItem
                                 {
-                                    Headline = form.MaxPrice is null ? localizer.Empty : form.MaxPrice.ToString(),
+                                    Headline = (form.CarMakes.Any() ? string.Join(", ", form.CarMakes) : localizer.Empty),
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Max price",
+                                    Overline = "Make",
                                     ShowDivider = true
                                 })
                             </div>
-                            <div class="col">
+                            <div class="col-md col-12">
                                 @await Html.PartialAsync("_ListItem", new _ListItem
                                 {
-                                    Headline = form.MaxMileage is null ? localizer.Empty : form.MaxMileage.ToString(),
+                                    Headline = (form.CarColors.Any() ? string.Join(", ", form.CarColors) : localizer.Empty),
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Max mileage",
+                                    Overline = "Color", 
+                                    ShowDivider = true
+                                })
+                            </div>
+                            <div class="col-md col-12">
+                                @await Html.PartialAsync("_ListItem", new _ListItem
+                                {
+                                    Headline = (form.CarTypes.Any() ? string.Join(", ", form.CarTypes) : localizer.Empty),
+                                    ShowOverline = true,
+                                    ShowOverlineInside = true,
+                                    Overline = "Color",
                                     ShowDivider = true
                                 })
                             </div>
                         </div>
-                        <div class="row gx-3">
-                            <div class="col">
+                    <div class="row gx-3 gy-3 mb-3">
+                            <div class="col-md col-12">
                                 @await Html.PartialAsync("_ListItem", new _ListItem
                                 {
-                                    Headline = form.MinYear is null ? localizer.Empty : form.MinYear.ToString(),
+                                    Headline = (form.CarFuelTypes.Any() ? string.Join(", ", form.CarFuelTypes) : localizer.Empty),
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Min year",
+                                    Overline = "Color", 
                                     ShowDivider = true
                                 })
                             </div>
-                            <div class="col">
+                            <div class="col-md col-12">
                                 @await Html.PartialAsync("_ListItem", new _ListItem
                                 {
-                                    Headline = form.MaxYear is null ? localizer.Empty : form.MaxYear.ToString(),
+                                    Headline = (form.CarTransmissions.Any() ? string.Join(", ", form.CarTransmissions) : localizer.Empty),
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Max year",
+                                    Overline = "Color",
+                                    ShowDivider = true
+                                })
+                            </div>
+                            <div class="col-md col-12">
+                                @await Html.PartialAsync("_ListItem", new _ListItem
+                                {
+                                    Headline = form.Model is null ? localizer.Empty : form.Model,
+                                    ShowOverline = true,
+                                    ShowOverlineInside = true,
+                                    Overline = "Model",
+                                    ShowSupportive = true,
+                                    ShowSupportiveInside = true,
                                     ShowDivider = true
                                 })
                             </div>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        @await Html.PartialAsync("_ListItem", new _ListItem
-                        {
-                            Classes = "h-100",
-                            Headline = form.Description ?? localizer.Empty,
-                            ShowOverline = true,
-                            ShowOverlineInside = true,
-                            Overline = "Description",
-                            ShowSupportive = true,
-                            ShowSupportiveInside = true,
-                            ShowDivider = true
-                        })
-                    </div>
+                    <div class="row gx-3">
+                            <div class="col-md-8 col-12">
+                                <div class="row gx-3 gy-3 mb-3">
+                                    <div class="col-md col-12">
+                                        @await Html.PartialAsync("_ListItem", new _ListItem
+                                        {
+                                            Headline = form.MaxPrice is null ? localizer.Empty : form.MaxPrice.ToString(),
+                                            ShowOverline = true,
+                                            ShowOverlineInside = true,
+                                            Overline = "Max price",
+                                            ShowDivider = true
+                                        })
+                                    </div>
+                                    <div class="col-md col-12">
+                                        @await Html.PartialAsync("_ListItem", new _ListItem
+                                        {
+                                            Headline = form.MaxMileage is null ? localizer.Empty : form.MaxMileage.ToString(),
+                                            ShowOverline = true,
+                                            ShowOverlineInside = true,
+                                            Overline = "Max mileage",
+                                            ShowDivider = true
+                                        })
+                                    </div>
+                                </div>
+                                <div class="row gx-3 gy-3">
+                                    <div class="col-md col-12">
+                                        @await Html.PartialAsync("_ListItem", new _ListItem
+                                        {
+                                            Headline = form.MinYear is null ? localizer.Empty : form.MinYear.ToString(),
+                                            ShowOverline = true,
+                                            ShowOverlineInside = true,
+                                            Overline = "Min year",
+                                            ShowDivider = true
+                                        })
+                                    </div>
+                                    <div class="col-md col-12">
+                                        @await Html.PartialAsync("_ListItem", new _ListItem
+                                        {
+                                            Headline = form.MaxYear is null ? localizer.Empty : form.MaxYear.ToString(),
+                                            ShowOverline = true,
+                                            ShowOverlineInside = true,
+                                            Overline = "Max year",
+                                            ShowDivider = true
+                                        })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                @await Html.PartialAsync("_ListItem", new _ListItem
+                                {
+                                    Classes = "h-100",
+                                    Headline = form.Description ?? localizer.Empty,
+                                    ShowOverline = true,
+                                    ShowOverlineInside = true,
+                                    Overline = "Description",
+                                    ShowSupportive = true,
+                                    ShowSupportiveInside = true,
+                                    ShowDivider = true
+                                })
+                            </div>
+                        </div>
                 </div>
             </div>
         }
+    </div>
+
+    <div class="container mt-3 p-4 pt-3 rounded-32 bg-white">
+        <div class="text-headline-sm px-2 mb-2">Search your order</div>
+        <div class="p-3 bg-secondary-200 rounded-16">
+            <div class="row m-0">
+                <div class="col-12 col-md-4 p-md-0 p-2 px-0 me-md-3 bg-secondary-200 mb-2 mb-md-0">
+                    <component type="typeof(EditableField<int>)"
+                               render-mode="ServerPrerendered"
+                               param-CssClass="@( "h-100" )" />
+                </div>
+                <div class="col-12 col-md-auto d-flex flex-column justify-content-end px-0">
+                    <a class="submit">
+                        @await Html.PartialAsync("_Button", new _Button
+                   {
+                       Text = "Find",
+                       Color = "primary",
+                       Classes = "col-12",
+                       Attributes = "",
+                       LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                       RightIcon = null,
+                       TextColor = ""
+                   })
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

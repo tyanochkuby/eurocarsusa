@@ -16,7 +16,23 @@
     bool hasRightIcon = rightIcon != null;
 
     string backgroundColorValue = color == "primary" ? "bg-primary" : "bg-secondary";
-    string textColorValue = !string.IsNullOrEmpty(customTextColor) ? customTextColor : (color == "primary" ? "text-white" : "text-primary");
+    string textColorValue = "";
+    if (!string.IsNullOrEmpty(customTextColor))
+    {
+        textColorValue = customTextColor;
+
+    }
+    else
+    {
+        if (color == "primary")
+        {
+            textColorValue = "text-white";
+        }
+        else
+        {
+            textColorValue = "text-primary";
+        }
+    }
 }
 
 <button @Html.Raw(attributes) class="@Html.Raw($"text-title-sm btn-custom {classes} {backgroundColorValue} {textColorValue} {(hasLeftIcon ? "ps-3" : "ps-4")} {(hasRightIcon ? "ps-3" : "ps-4")}")">
@@ -25,7 +41,7 @@
         @leftIcon
     }
 
-    <span>@text</span>
+    <span class="text-nowrap">@text</span>
 
     @if (hasRightIcon)
     {

@@ -47,7 +47,7 @@
                         @if (Model.IsFullSize) 
                         {
                             <div class="col-auto px-0 text-title-md align-items-center" style="height:44px">
-                                @Html.Partial("_IconButton", new { IconName = "Keyboard arrow down", Color = "primary", IconColor = "primary", Attributes = $"id=\"icon-{@Model.Id}\" onclick=\"toggleDetails('{@Model.Id}', event)\"" })
+                                @Html.Partial("_IconButton", new { IconName = "Keyboard arrow up", Color = "primary", IconColor = "primary", Attributes = $"id=\"icon-{@Model.Id}\" onclick=\"toggleDetails('{@Model.Id}', event)\"" })
                             </div>
                         }
                     </div>
@@ -140,21 +140,3 @@
     </a>
 </div>
 
-<script>
-    function toggleDetails(uniqueId, event) {
-        console.log("asdasd")
-        event.preventDefault();
-        event.stopPropagation();
-        
-        var detailsDiv = document.getElementById("details-" + uniqueId);
-        var iconDiv = document.getElementById("icon-" + uniqueId);
-
-        if (detailsDiv.style.maxHeight == "0px") {
-            detailsDiv.style.maxHeight = "500px"
-            iconDiv.style.transform = "scaleY(-1)";
-        } else {
-            detailsDiv.style.maxHeight = "0px"
-            iconDiv.style.transform = "scaleY(1)";
-        }
-    }
-</script>

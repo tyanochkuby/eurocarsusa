@@ -25,7 +25,7 @@ function likeCar(carId, event, buttonElement) {
         type: 'GET',
         data: { carId: carId },
         success: function (response) {
-            $(buttonElement).replaceWith(response.html);
+            $(`button[data-car-id="${carId}"]`).replaceWith(response.html);
         },
         error: function () {
             console.error('Error loading button state');
@@ -67,3 +67,36 @@ function getCookie(name) {
     }
     return null;
 }
+
+function toggleDetails(uniqueId, event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    var detailsDiv = document.getElementById("details-" + uniqueId);
+    var iconDiv = document.getElementById("icon-" + uniqueId);
+
+    if (detailsDiv.style.maxHeight == "0px") {
+        detailsDiv.style.maxHeight = "500px"
+        iconDiv.style.transform = "scaleY(1)";
+    } else {
+        detailsDiv.style.maxHeight = "0px"
+        iconDiv.style.transform = "scaleY(-1)";
+    }
+}
+function toggleOrderVisibility(formId) {
+    var popupDiv = document.getElementById("expanded-" + formId);
+    var iconDiv = document.getElementById("icon-" + formId);
+
+    if (popupDiv.style.maxHeight === "320px") {
+        popupDiv.style.maxHeight = "0px";
+        iconDiv.style.transform = "scaleY(-1)";
+    } else {
+        popupDiv.style.maxHeight = "320px";
+        iconDiv.style.transform = "scaleY(1)";
+    }
+}
+function toggleSidebar() {
+    const sidebar = document.getElementById("mobile-sidebar");
+    sidebar.classList.toggle("open");
+}
+
