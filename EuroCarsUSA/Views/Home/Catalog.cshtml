@@ -52,7 +52,7 @@
 
 </div>
 
-<div class="filters-mobile bg-secondary " id="filters-mobile-list">
+<div class="filters-mobile bg-secondary d-flex flex-column" id="filters-mobile-list">
     <div class="px-4 border-bottom border-primary bg-white">
         <div class="topbar position-relative align-content-center">
             <div class="text-headline-sm d-flex justify-content-center ">Filters</div>
@@ -61,9 +61,9 @@
             </a>
         </div>
     </div>
-    <form method="get" id="mobileFiltersForm" class="container d-flex flex-column vh-100 px-0">
-        <div class="py-2 mb-auto">
-            <div class="bg-white rounded-16 py-2">
+	<form method="get" id="mobileFiltersForm" class="px-2 px-sm-0 align-content-between h-100 row mx-0">
+        <div class="px-0 col-12 py-2">
+            <div class="bg-white rounded-16 py-2 container px-0">
                 <input hidden id="mobileSortOrder" name="sortOrder" value=""></input>
                 <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="make">
                     <div class="col-3">
@@ -182,32 +182,34 @@
                 <input type="hidden" id="carTypeMobileInput" name="carType" value="@Context.Request.Query["carType"].ToString()" />
             </div>
         </div>
-        <div class="mt-auto">
-            <div class="row gx-3 row-mobile-filter justify-content-between bg-white rounded-16 rounded-bottom-0 topbar align-content-center">
-                <a id="" class="col-6 filter-mobile-close-button">
-                    @await Html.PartialAsync("_Button", new _Button
-                    {
-                        Text = Translator["Close"],
-                        Color = "secondary",
-                        Classes = "w-100",
-                        Attributes = "",
-                        LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
-                        RightIcon = null,
-                        TextColor = "text-primary"
-                    })
-                </a>
-                <a id="mobileFilterSubmitButton" class="col-6">
-                    @await Html.PartialAsync("_Button", new _Button
-                    {
-                        Text = Translator["Find"],
-                        Color = "primary",
-                        Classes = "w-100",
-                        Attributes = $"type=\"submit\"",
-                        LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-                        RightIcon = null,
-                        TextColor = ""
-                    })
-                </a>
+        <div class="px-2 col-12">
+            <div class="container px-0">
+                <div class="row gx-3 row-mobile-filter justify-content-between bg-white rounded-16 rounded-bottom-0 topbar align-content-center">
+                    <a id="" class="col-6 filter-mobile-close-button">
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = Translator["Close"],
+                            Color = "secondary",
+                            Classes = "w-100",
+                            Attributes = "",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
+                            RightIcon = null,
+                            TextColor = "text-primary"
+                        })
+                    </a>
+                    <a id="mobileFilterSubmitButton" class="col-6">
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = Translator["Find"],
+                            Color = "primary",
+                            Classes = "w-100",
+                            Attributes = $"type=\"submit\"",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                            RightIcon = null,
+                            TextColor = ""
+                        })
+                    </a>
+                </div>
             </div>
         </div>
         

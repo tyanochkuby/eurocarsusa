@@ -16,7 +16,7 @@
             </a>
         </div>
     </div>
-    <div class="container px-0 py-2">
+    <div class="container px-0 py-2 h-100">
         <div class="mobile-list-items mb-auto bg-white rounded-16">
             @foreach (var option in Model)
             {
@@ -27,7 +27,7 @@
             }
         </div>
     </div>
-    <div class="container mt-auto">
+    <div class="container">
         <div class="row gx-3 bg-white rounded-16 rounded-bottom-0 topbar align-content-center">
             <a id="filter-mobile-select-clear-button" class="col-6 ">
                 @await Html.PartialAsync("_Button", new _Button

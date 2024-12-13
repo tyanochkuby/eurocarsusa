@@ -180,7 +180,7 @@
                     </div>
                 </div>
                 <a class="me-2" id="mobile-sidebar-menu-btn" data-bs-dismiss="offcanvas" aria-label="Close">
-                    @await Html.PartialAsync("_IconButton", new { IconName = "Arrow forward", Color = "secondary", IconColor = "primary", Attributes = "" })
+                    @await Html.PartialAsync("_IconButton", new { IconName = Url.Content("Close small"), Color = "secondary", IconColor = "primary", Attributes = "" })
                 </a>
             </div>
             <div class="offcanvas-body">

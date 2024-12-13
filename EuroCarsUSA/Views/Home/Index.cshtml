@@ -81,7 +81,7 @@ else
                                         car2.Classes = "col-6 col-md-12";
                                         car2.IsFullSize = false;
 
-                                        <div class="col-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
+                                        <div class="col-12 col-sm-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
                                             <div class="row mt-0 h-100 gx-3 gy-md-3 overflow-visible justify-content-between align-content-between">
                                                 @await Html.PartialAsync("_CarCard", car1)
                                                 @await Html.PartialAsync("_CarCard", car2)
@@ -91,10 +91,10 @@ else
                                     @if ((float)(Model.RecomendedCar.Count()%2) != 0) 
                                     {
                                         CarCardViewModel car1 = Model.RecomendedCar[Model.RecomendedCar.Count()-1];
-                                        car1.Classes = "col-6 col-md-12";
+                                        car1.Classes = "col-12";
                                         car1.IsFullSize = false;
 
-                                        <div class="col-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
+                                        <div class="col-12 col-sm-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
                                             <div class="row mt-0 h-100 gx-3 gy-md-3 overflow-visible justify-content-between align-content-between">
                                                 @await Html.PartialAsync("_CarCard", car1)
                                             </div>
@@ -132,15 +132,15 @@ else
                                 <div class="d-flex justify-content-center">
                                     <a>
                                         @await Html.PartialAsync("_Button", new _Button
-                                   {
-                                       Text = "+48 53-44-22-089",
-                                       Color = "primary",
-                                       Classes = "",
-                                       Attributes = "",
-                                       LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
-                                       RightIcon = null,
-                                       TextColor = ""
-                                   })
+                                {
+                                    Text = "+48 53-44-22-089",
+                                    Color = "primary",
+                                    Classes = "",
+                                    Attributes = "",
+                                    LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
+                                    RightIcon = null,
+                                    TextColor = ""
+                                })
                                     </a>
                                 </div>
                             </div>
@@ -155,15 +155,15 @@ else
                                 <div class="d-flex justify-content-center">
                                     <a>
                                         @await Html.PartialAsync("_Button", new _Button
-                                   {
-                                       Text = "Start making form",
-                                       Color = "primary",
-                                       Classes = "",
-                                       Attributes = "",
-                                       LeftIcon = null,
-                                       RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
-                                       TextColor = ""
-                                   })
+                                        {
+                                            Text = "Start making form",
+                                            Color = "primary",
+                                            Classes = "",
+                                            Attributes = "",
+                                            LeftIcon = null,
+                                            RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
+                                            TextColor = ""
+                                        })
                                     </a>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@ else
                     <div class="row px-0 gx-3 main-wdrodze">
                         @foreach (CarCardViewModel car in Model.CarWDrodze)
                         {
-                            car.Classes = "col-7 col-sm-5 col-lg-3";
+                            car.Classes = "col-9 col-sm-5 col-lg-3";
                             car.IsFullSize = false;
                             @await Html.PartialAsync("_CarCard", car)
                         }
