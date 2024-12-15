@@ -1,4 +1,5 @@
-﻿@using EuroCarsUSA.ViewModels
+﻿@using EuroCarsUSA.Resources
+@using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Controllers
 @using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
@@ -6,6 +7,7 @@
 @using Microsoft.Extensions.Localization
 @model CarCardViewModel
 @inject IStringLocalizer<HomeController> Translator
+@inject Localizer localizer
     
 @{
     string mainPaddingClass = Model.IsFullSize ? "p-3" : "";
