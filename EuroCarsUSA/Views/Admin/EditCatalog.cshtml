@@ -7,7 +7,7 @@
 <form method="post" asp-action="SaveCatalogChanges" class="container bg-neutral-200 py-5">
     <input type="hidden" id="deletedCarsIds" name="deletedCarsIds" value="" />
 
-    <div class="row pt-2 pb-1 px-3">
+    <div class="row pt-2 pb-3 px-3">
         <div class="d-flex col overflow-auto rounded-pill align-items-center">
             <a asp-controller="Home" asp-action="BackToCatalogWithFilters">
                 @await Html.PartialAsync("_Button", new _Button
@@ -36,15 +36,6 @@
             </a>
         </div>
         <div class="d-block col-auto ">
-            <a class="">
-                @await Html.PartialAsync("_IconButton", new
-                    {
-                        IconName = "More horiz",
-                        Color = "secondary",
-                        IconColor = "primary",
-                        Attributes = $"type=\"button\""
-                    })
-            </a>
             <div class="d-flex">
                 @await Html.PartialAsync("_Button", new _Button
                     {
@@ -137,7 +128,7 @@
         }
         function addNewRow() {
             var tableBody = document.getElementById('catalog');
-            var index = tableBody.children.length;
+            var index = tableBody.children.length / 2;
 
             $.ajax({
                 url: '/Admin/GetNewCatalogRow',
