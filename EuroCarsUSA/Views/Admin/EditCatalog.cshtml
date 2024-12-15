@@ -21,19 +21,6 @@
                     TextColor = ""
                 })
             </a>
-
-            <a asp-controller="Admin" asp-action="EditCatalog">
-                @await Html.PartialAsync("_Button", new _Button
-                {
-                    Text = "Edit catalog",
-                    Color = "secondary",
-                    Classes = "me-2",
-                    Attributes = "type=\"button\"",
-                    LeftIcon = null,
-                    RightIcon = null,
-                    TextColor = "text-primary"
-                })
-            </a>
         </div>
         <div class="d-block col-auto ">
             <div class="d-flex">
