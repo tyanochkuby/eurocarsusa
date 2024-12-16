@@ -218,11 +218,6 @@ img.rounded-xxl {
 }
 
 
-div.carPhotoThumbnailSelected {
-    border: 3px solid var(--bs-primary);
-    box-sizing: border-box;
-}
-
 .btn-arrow{
     flex: 1;
 }
@@ -233,31 +228,6 @@ div.carPhotoThumbnailSelected {
     vertical-align: middle;
 }
 
-
-.filterIcon {
-    height: 1.5em;
-    width: 1.5em;
-    vertical-align: middle;
-}
-.arrow-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none; /* This allows clicks to pass through to the image */
-}
-
-
-#leftArrowButton, #rightArrowButton {
-    position: static; /* Remove the absolute positioning */
-    pointer-events: auto; /* This allows the arrows to be clickable */
-}
-
-
-
 .galleryIcon {
     height: 5em;
     width: 5em;
@@ -265,9 +235,132 @@ div.carPhotoThumbnailSelected {
     z-index: 1000;
     transition: transform 0.1s ease-in-out;
 }
+
     .galleryIcon:hover {
         transform: scale(1.2);
     }
+
+
+.filterIcon {
+    height: 1.5em;
+    width: 1.5em;
+    vertical-align: middle;
+}
+
+/* =============================
+   Gallery Container
+   ============================== */
+.gallery-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 100%;
+    margin: auto;
+}
+
+/* =============================
+   Selected Image Styling
+   ============================== */
+.selected-image {
+    text-align: center;
+    position: relative;
+}
+
+.selected-image .image-wrapper {
+    position: relative;
+    width: 100%; /* Takes the full width of the parent container */
+    padding-bottom: 56.25%; /* 9:16 aspect ratio (56.25% height relative to width) */
+    overflow: hidden; /* Hides parts of image that overflow */
+}
+
+.selected-image .image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Makes the image take full width of the container */
+    height: 100%; /* Makes the image take full height of the container */
+    object-fit: cover; /* Maintains center and crops the image if necessary */
+}
+
+/* =============================
+   Arrow Navigation Buttons
+   ============================== */
+.arrow-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Circular shape */
+    width: 3em;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.2s; /* Smooth transition for hover effect */
+}
+
+.arrow-button:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+}
+
+.left-arrow {
+    left: 10px; /* Position left arrow on the left side */
+}
+
+.right-arrow {
+    right: 10px; /* Position right arrow on the right side */
+}
+
+/* =============================
+   Thumbnail Gallery Styling
+   ============================== */
+.thumbnail-gallery {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto; /* Allows horizontal scrolling */
+    scrollbar-width: thin; /* Custom scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE 10+ */
+}
+
+
+.thumbnail-gallery::-webkit-scrollbar {
+    height: 8px; /* Define height for custom scrollbar */
+}
+
+.thumbnail-gallery::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3); /* Dark thumb for the scrollbar */
+    border-radius: 4px;
+}
+
+/* =============================
+   Thumbnail Image Links Styling
+   ============================== */
+.thumbnail-link {
+    flex-shrink: 0; /* Prevent thumbnails from shrinking */
+    border: 4px solid transparent; /* No border by default */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.thumbnail-link.selected {
+    border-color: var(--bs-primary); /* Blue border when thumbnail is selected */
+}
+    .thumbnail-link.selected .thumbnail-image {
+        border-radius: 0px;
+    }
+
+.thumbnail-image {
+    height: 70px; /* Set fixed height for thumbnails */
+    object-fit: cover; /* Maintain aspect ratio while cropping */
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
 
 @media only screen and (max-width: 576px) {
     html {
