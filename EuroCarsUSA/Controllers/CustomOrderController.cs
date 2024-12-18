@@ -5,19 +5,28 @@ using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
 using EuroCarsUSA.Views.Home.Components.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace EuroCarsUSA.Controllers
 {
     public class CustomOrderController : Controller
     {
         private readonly ICustomOrderService _customOrderService;
-        public CustomOrderController(ICustomOrderService customOrderService)
+        private readonly string _recaptchaSecret;
+
+        public CustomOrderController(ICustomOrderService customOrderService, IConfiguration configuration)
         {
             _customOrderService = customOrderService;
+            _recaptchaSecret = configuration["CaptchaSecretKey"];
         }
         [HttpPost]
-        public async Task<IActionResult> SubmitForm(CustomOrderViewModel customOrderViewModel)
+        public async Task<IActionResult> SubmitForm(CustomOrderViewModel customOrderViewModel, string recaptchaResponse)
         {
+            if (!await IsReCaptchaValid(recaptchaResponse))
+            {
+                ModelState.AddModelError(string.Empty, "Invalid reCAPTCHA. Please try again.");
+                return View("Index", customOrderViewModel);
+            }
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
@@ -30,6 +39,17 @@ namespace EuroCarsUSA.Controllers
                 return BadRequest();
             }
             return RedirectToAction("Thanks", new { id = formId });
+        }
+
+        private async Task<bool> IsReCaptchaValid(string recaptchaResponse)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsync($"https://www.google.com/recaptcha/api/siteverify?secret={_recaptchaSecret}&response={recaptchaResponse}", null);
+                var jsonString = await response.Content.ReadAsStringAsync();
+                dynamic jsonData = JObject.Parse(jsonString);
+                return jsonData.success == "true";
+            }
         }
 
         public async Task<IActionResult> Order(Guid id)

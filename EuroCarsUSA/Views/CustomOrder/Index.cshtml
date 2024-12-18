@@ -8,7 +8,7 @@
 @model CustomOrderViewModel
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
-    <form asp-action="SubmitForm" method="post">
+    <form id="customOrderForm" asp-action="SubmitForm" method="post">
         <div class="container p-5 pt-3 bg-white rounded-32 mb-3 justify-content-center">
             <div class="d-flex justify-content-center">
                 <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
@@ -136,18 +136,20 @@
                 </div>
             </div>
 
+            <input type="hidden" name="recaptchaResponse" id="recaptchaResponse" />
+
             <div class="row mx-0 mt-3">
                 <div class="d-flex justify-content-end">
                     @await Html.PartialAsync("_Button", new _Button
-                    {
-                        Text = "Submit and send form",
-                        Color = "primary",
-                        Classes = "",
-                        Attributes = "type=\"submit\" ",
-                        LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Done"), Color = "white" }),
-                        RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
-                        TextColor = ""
-                    })
+               {
+                   Text = "Submit and send form",
+                   Color = "primary",
+                   Classes = "",
+                   Attributes = "type=\"button\" onclick=\"onClick(event)\"",
+                   LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Done"), Color = "white" }),
+                   RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
+                   TextColor = ""
+               })
                 </div>
             </div>
         </div>
@@ -236,6 +238,15 @@
             options.rules["atleastoneproperty"] = options.params.properties;
             options.messages["atleastoneproperty"] = options.message;
         });
+
+        function onClick(e) {
+            e.preventDefault();
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
+                    document.getElementById('recaptchaResponse').value = token;
+                    document.getElementById('customOrderForm').submit();
+                });
+            });
+        }
     </script>
 }
-
