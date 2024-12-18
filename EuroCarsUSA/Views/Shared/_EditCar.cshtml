@@ -58,29 +58,25 @@
 
     <div class="edit-car-details bg-white overflow-hide overflow-scroll" id="popup-@uniqueId" style="max-height:0px; height:320px;">
         <div class="py-2">
-            <div class="py-2 ps-3 pe-4" style="height:56px;">
-                <div class="h-100">
-                    <label for="@($"[{i}].Color")">@localizer.Color</label>
-<component type="typeof(EnumDropdown<CarColor>)"
-           render-mode="ServerPrerendered"
-           param-SelectedValue="car.Color"
-           param-SelectedValueChanged="@(EventCallback.Factory.Create<CarColor>(this, value => car.Color = value))"
-           param-Name="@($"[{i}].Color")"
-           param-CssClass="@( "" )" />
-                </div>
+            <div class="py-2 ps-3 pe-4">
+                <label for="@($"[{i}].Color")">@localizer.Color</label>
+                <component type="typeof(EnumDropdown<CarColor>)"
+                           render-mode="ServerPrerendered"
+                           param-SelectedValue="car.Color"
+                           param-SelectedValueChanged="@(EventCallback.Factory.Create<CarColor>(this, value => car.Color = value))"
+                           param-Name="@($"[{i}].Color")"
+                           param-CssClass="@( "" )" />
             </div>
 
-            <div class="py-2 ps-3 pe-4" style="height:56px;">
-                <div class="h-100">
-                    <label for="@($"[{i}].Price")">@localizer.Price</label>
-<component type="typeof(EditableField<int>)"
-           render-mode="ServerPrerendered"
-           param-Value="car.Price"
-           param-ValueChanged="@(EventCallback.Factory.Create<int>(this, value => car.Price = value))"
-           param-Name="@($"[{i}].Price")"
-           style=""
-           param-CssClass="@( "" )" />
-                </div>
+            <div class="py-2 ps-3 pe-4">
+                <label for="@($"[{i}].Price")">@localizer.Price</label>
+                <component type="typeof(EditableField<int>)"
+                            render-mode="ServerPrerendered"
+                            param-Value="car.Price"
+                            param-ValueChanged="@(EventCallback.Factory.Create<int>(this, value => car.Price = value))"
+                            param-Name="@($"[{i}].Price")"
+                            style=""
+                            param-CssClass="@( "" )" />
             </div>
 
             <div class="py-2 ps-3 pe-4 forEditMode d-block" style="height:56px;">

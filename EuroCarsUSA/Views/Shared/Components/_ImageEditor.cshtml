@@ -1,4 +1,7 @@
+@using EuroCarsUSA.Resources
 @model Tuple<List<string>, string, Guid>
+@inject Localizer localizer
+
 
 @{
     var images = Model.Item1;
@@ -7,13 +10,13 @@
 }
 
 <div>
-    <button type="button" class="btn btn-primary" onclick="showModal('@uniqueId')">Edit Images</button>
+    <button type="button" class="btn btn-primary" onclick="showModal('@uniqueId')">@localizer.EditImages</button>
 
     <div id="imageEditorModal-@uniqueId" class="modal" tabindex="-1" style="display:none;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Images</h5>
+                    <h5 class="modal-title">@localizer.EditImages</h5>
                     <button type="button" class="btn-close" onclick="hideModal('@uniqueId')"></button>
                 </div>
                 <div class="modal-body">
@@ -22,21 +25,21 @@
                         {
                             <li class="list-group-item">
                                 <img src="@images[i]" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px;" />
-                                <button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">Remove</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">@localizer.Delete</button>
                             </li>
                         }
                     </ul>
                     <!-- Text input for uploading links -->
-                    <input type="text" id="newImageUrl-@uniqueId" placeholder="Enter image URL" class="form-control mt-2" />
-                    <button type="button" class="btn btn-success mt-2" onclick="addImage('@uniqueId')">Add Image</button>
+                    <input type="text" id="newImageUrl-@uniqueId" placeholder="@localizer.EnterImageURL" class="form-control mt-2" />
+                    <button type="button" class="btn btn-success mt-2" onclick="addImage('@uniqueId')">@localizer.AddImage</button>
 
                     <!-- File input for uploading images -->
                     <input type="file" id="fileInput-@uniqueId" class="form-control mt-2" accept="image/*" />
-                    <button type="button" class="btn btn-primary mt-2" onclick="uploadImage('@uniqueId', '@carId')">Upload Image</button>
+                    <button type="button" class="btn btn-primary mt-2" onclick="uploadImage('@uniqueId', '@carId')">@localizer.UploadImage</button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="hideModal('@uniqueId')">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="saveChanges('@uniqueId')">Save changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="hideModal('@uniqueId')">@localizer.Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveChanges('@uniqueId')">@localizer.Save</button>
                 </div>
             </div>
         </div>
@@ -75,4 +78,42 @@
             alert('Image upload failed');
         });
     }
+    function showModal(uniqueId) {
+            document.getElementById('imageEditorModal-' + uniqueId).style.display = 'block';
+            document.getElementById('modalBackdrop-' + uniqueId).style.display = 'block';
+        }
+
+        function hideModal(uniqueId) {
+            document.getElementById('imageEditorModal-' + uniqueId).style.display = 'none';
+            document.getElementById('modalBackdrop-' + uniqueId).style.display = 'none';
+        }
+
+        function addImage(uniqueId) {
+            var newImageUrl = document.getElementById('newImageUrl-' + uniqueId).value;
+            if (newImageUrl) {
+                var listGroup = document.querySelector('#imageEditorModal-' + uniqueId + ' .list-group');
+                var newItem = document.createElement('li');
+                newItem.className = 'list-group-item';
+                newItem.innerHTML = '<img src="' + newImageUrl + '" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px;" />' +
+                                    '<button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">Remove</button>';
+                listGroup.appendChild(newItem);
+                document.getElementById('newImageUrl-' + uniqueId).value = '';
+            }
+        }
+
+        function removeImage(button) {
+            var listItem = button.parentElement;
+            listItem.parentElement.removeChild(listItem);
+        }
+
+        function saveChanges(uniqueId) {
+            var images = [];
+            var listItems = document.querySelectorAll('#imageEditorModal-' + uniqueId + ' .list-group-item img');
+            listItems.forEach(function(img) {
+                images.push(img.src);
+            });
+            document.getElementById('ImagesJson-' + uniqueId).value = JSON.stringify(images);
+            hideModal(uniqueId);
+        }
+
 </script>
