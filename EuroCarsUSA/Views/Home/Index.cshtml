@@ -151,22 +151,24 @@ else
                     </div>
                 </div>
             </div>
-
-            <div class="col-12 px-0">
-                <div class="row bg-white p-3 rounded-16 mx-0">
-                    <div class="col px-0">
-                        <div class="row p-0 mx-0 text-headline-sm mb-2">Samochody w drodze</div>
-                        <div class="row px-0 gx-3 main-wdrodze">
-                            @foreach (CarCardViewModel car in Model.CarWDrodze)
-                            {
-                                car.Classes = "col-9 col-sm-5 col-lg-3";
-                                car.IsFullSize = false;
-                                @await Html.PartialAsync("_CarCard", car)
-                            }
+            @if (Model.CarWDrodze.Count() > 0)
+            {
+                <div class="col-12 px-0">
+                    <div class="row bg-white p-3 rounded-16 mx-0">
+                        <div class="col px-0">
+                            <div class="row p-0 mx-0 text-headline-sm mb-2">Samochody w drodze</div>
+                            <div class="row px-0 gx-3 main-wdrodze">
+                                @foreach (CarCardViewModel car in Model.CarWDrodze)
+                                {
+                                    car.Classes = "col-9 col-sm-5 col-lg-3";
+                                    car.IsFullSize = false;
+                                    @await Html.PartialAsync("_CarCard", car)
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>

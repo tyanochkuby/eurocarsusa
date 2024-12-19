@@ -200,7 +200,7 @@ namespace EuroCarsUSA.Controllers
             var likes = _cookieService.GetUserLikedCars();
             CarCardViewModel.likedCars = likes;
 
-            var carsWDrodze = await _carRepository.GetRange(0, 4, null, null);
+            var carsWDrodze = await _carRepository.GetRange(0, 4, new() { Status = CarStatus.Shipping }, null);
             var recomendedCars = await _recommendationService.GetFirstNCars(6);
             
             var cardsWDrodzeViewModel = carsWDrodze.Select(c => CarCardViewModel.FromCar(c)).ToList();

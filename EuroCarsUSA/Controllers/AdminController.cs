@@ -46,8 +46,8 @@ namespace EuroCarsUSA.Controllers
                 Mileage = car.Mileage,
                 Color = car.Color,
                 Images = car.Images,
-                ImagesJson = JsonSerializer.Serialize(car.Images)
-
+                ImagesJson = JsonSerializer.Serialize(car.Images),
+                Status = car.Status,
             }).ToList();
             return View(viewModel);
         }
