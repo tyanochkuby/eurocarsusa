@@ -76,5 +76,10 @@ namespace EuroCarsUSA.Resources
         public string AdminCustomOrderEmailSubject => _localizer[nameof(AdminCustomOrderEmailSubject)];
         public string AdminCustomOrderEmailBody => _localizer[nameof(AdminCustomOrderEmailBody)];
         public string Delete => _localizer[nameof(Delete)];
+        public string Status => _localizer[nameof(Status)];
+        
+        public string CarStatus_Available => _localizer[nameof(CarStatus_Available)];
+        public string CarStatus_Shipping => _localizer[nameof(CarStatus_Shipping)];
+        public string CarStatus_Recommended => _localizer[nameof(CarStatus_Recommended)];
     }
 }

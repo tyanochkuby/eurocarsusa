@@ -157,6 +157,15 @@
                     param-Name="@($"[{i}].VIN")" />
             </div>
 
+            <div class="py-2 ps-3 pe-4">
+                <label for="@($"[{i}].Status")">@localizer.Status</label>
+                <component type="typeof(EnumDropdown<CarStatus>)"
+                           render-mode="ServerPrerendered"
+                           param-SelectedValue="car.Status"
+                           param-SelectedValueChanged="@(EventCallback.Factory.Create<CarStatus>(this, value => car.Status = value))"
+                           param-Name="@($"[{i}].Status")" />
+            </div>
+
 
             <div class="py-2 ps-3 pe-4 forEditMode d-block" style="height:56px" >
                 <button type="button" class="btn btn-danger" onclick="deleteCar('@car.Id', '@uniqueId')">Delete</button>

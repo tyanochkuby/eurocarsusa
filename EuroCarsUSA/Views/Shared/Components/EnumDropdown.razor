@@ -1,17 +1,21 @@
 ﻿﻿@using System.Net.Http
+@using EuroCarsUSA.Controllers
+@using EuroCarsUSA.Extensions
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
+@using Microsoft.Extensions.Localization
 @using Microsoft.JSInterop
 
-@typeparam TEnum
+@typeparam TEnum where TEnum : Enum
+@inject IStringLocalizer<HomeController> Translator
 
 <select @bind="SelectedValue" @bind:event="onchange" class="form-control @CssClass" name="@Name" style="height: 46px; @Style">
     @foreach (var option in Enum.GetValues(typeof(TEnum)).Cast<TEnum>())
     {
-        <option value="@option">@option.ToString()</option>
+        <option value="@option">@option.ToLocalizedString(Translator)</option>
     }
 </select>
 
