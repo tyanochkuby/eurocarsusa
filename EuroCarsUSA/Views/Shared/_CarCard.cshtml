@@ -1,4 +1,5 @@
-﻿@using EuroCarsUSA.ViewModels
+﻿@using EuroCarsUSA.Resources
+@using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Controllers
 @using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
@@ -6,6 +7,7 @@
 @using Microsoft.Extensions.Localization
 @model CarCardViewModel
 @inject IStringLocalizer<HomeController> Translator
+@inject Localizer localizer
     
 @{
     string mainPaddingClass = Model.IsFullSize ? "p-3" : "";
@@ -66,7 +68,7 @@
                             <div class="col px-0">
                                 <div class="d-flex align-items-center justify-content-start">
                                     <img class="carIcon" src="/icons/car_millage.svg">
-                                    <div class="ms-2 text-body-lg">Mileage</div>
+                                    <div class="ms-2 text-body-lg">@localizer.Mileage</div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
                                     <div class="text-body-md text-neutral-900">@Model.Mileage</div>
@@ -77,7 +79,7 @@
                             <div class="col px-0">
                                 <div class="d-flex align-items-center justify-content-end">
                                     <img class="carIcon" src="/icons/car_year.svg">
-                                    <div class="ms-2 text-body-lg">Year</div>
+                                    <div class="ms-2 text-body-lg">@localizer.Year</div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-end">
                                     <div class="text-body-md text-neutral-900">@Model.Year</div>
@@ -88,16 +90,16 @@
                             <div class="col px-0">
                                 <div class="d-flex align-items-center justify-content-start">
                                     <img class="carIcon" src="/icons/car_year.svg">
-                                    <div class="ms-2 text-body-lg">Fuel type</div>
+                                    <div class="ms-2 text-body-lg"> @localizer.FuelType </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
-                                    <div class="text-body-md text-neutral-900">@Model.FuelType</div>
+                                    <div class="text-body-md text-neutral-900">@(((CarFuelType)Model.FuelType).ToLocalizedString(Translator))</div>
                                 </div>
                             </div>
                             <div class="col px-0">
                                 <div class="d-flex align-items-center justify-content-end">
                                     <img class="carIcon" src="/icons/car_gearbox.svg">
-                                    <div class="ms-2 text-body-lg">Gearbox</div>
+                                    <div class="ms-2 text-body-lg">@localizer.Gearbox</div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-end">
                                     <div class="text-body-md text-neutral-900">@(((CarTransmission)Model.Transmission).ToLocalizedString(Translator))</div>
@@ -110,17 +112,17 @@
                             <div class="col px-0 text-nowrap">
                                 <div class="d-flex align-items-center justify-content-start">
                                     <img class="carIcon" src="/icons/car_engine.svg">
-                                    <div class="ms-2 text-body-lg">Engine volume</div>
+                                    <div class="ms-2 text-body-lg">@localizer.EngineVolume</div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
-                                    <div class="text-body-md text-neutral-900">@(Model.FuelType == EuroCarsUSA.Data.Enums.CarFuelType.Electric ? Translator["Electric"] : Model.EngineVolume.ToString() + " cm3")</div>
+                                    <div class="text-body-md text-neutral-900">@(Model.FuelType == EuroCarsUSA.Data.Enums.CarFuelType.Electric ? localizer.Electric : Model.EngineVolume.ToString() + " cm3")</div>
                                 </div>
                             </div>
 
                             <div class="col px-0">
                                 <div class="d-flex align-items-center justify-content-end">
                                     <img class="carIcon" src="/icons/car_gearbox.svg">
-                                    <div class="ms-2 text-body-lg">Type</div>
+                                    <div class="ms-2 text-body-lg">@localizer.BodyType</div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-end">
                                     <div class="text-body-md text-neutral-900">@Model.Type</div>
@@ -134,7 +136,7 @@
                             <div class="col px-0">
                                 <div class="d-flex align-items-center justify-content-start">
                                     <img class="carIcon" src="/icons/car_millage.svg">
-                                    <div class="ms-2 text-body-lg">Mileage</div>
+                                    <div class="ms-2 text-body-lg"> @localizer.Mileage </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
                                     <div class="text-body-md text-neutral-900">@Model.Mileage</div>
@@ -145,7 +147,7 @@
                             <div class="col px-0">
                                 <div class="d-flex align-items-center justify-content-end">
                                     <img class="carIcon" src="/icons/car_year.svg">
-                                    <div class="ms-2 text-body-lg">Year</div>
+                                    <div class="ms-2 text-body-lg">@localizer.Year</div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-end">
                                     <div class="text-body-md text-neutral-900">@Model.Year</div>

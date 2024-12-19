@@ -1,10 +1,12 @@
-﻿@using EuroCarsUSA.ViewModels
+﻿@using EuroCarsUSA.Resources
+@using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
 @using EuroCarsUSA.Models
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.Extensions.Localization
 @model MainlViewModel
+@inject Localizer localizer
 
 @if(Model.LastAddedCar is null)
 {
@@ -16,203 +18,158 @@ else
 {
 <div>
     <img class="w-100" style="height: 340px;"></img>
-    <div class="container">
-        <div class="bg-neutral-200 row mx-0 gap-4 p-4">
-        <div class="col-12 px-0">
-            <div class="row g-4 g-md-3 d-flex">
-                <div class="col-lg-4 col-md-6 col-12 order-2 order-md-1">
-                    <div class="bg-white rounded-16 p-3">
-                        <div class="row mx-0 text-headline-sm mb-3">
-                            Last added auto
-                        </div>
-                        <div class="auto-card">
-                            @{
-                                CarCardViewModel lastCar = Model.LastAddedCar;
-                                lastCar.Classes = "col-12";
-                                lastCar.IsFullSize = true;
-                                @await Html.PartialAsync("_CarCard", lastCar)
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 col-md-6 col-12 order-1 order-md-2">
-                    <div class="bg-white rounded-16 pt-3 px-0 pb-2">
-                        <div class="row mx-0 mb-3 px-3 d-flex align-items-stretch justify-content-end">
-                            <div class="col px-0 text-headline-sm text-nowrap">We recommend</div>
-                            <div class="col px-0 flex-grow-1 justify-content-end d-flex">
-                                @await Html.PartialAsync("_Button", new _Button
-                                {
-                                    Text = "See all",
-                                    Color = "primary",
-                                    Classes = "py-0 h-100 bg-white",
-                                    Attributes = "",
-                                    LeftIcon = null,
-                                    RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "neutral900" }),
-                                    TextColor = "text-neutral-900"
-                                })
-                            </div>
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <div class="col-auto px-0 justify-content-end d-flex">
-                                    @await Html.PartialAsync("_Button", new _Button
-                                       {
-                                           Text = "Edit",
-                                           Color = "primary",
-                                           Classes = "py-0 h-100 ms-2",
-                                           Attributes = "",
-                                           LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
-                                           RightIcon = null,
-                                           TextColor = ""
-                                       })
+        <div class="container">
+            <div class="bg-neutral-200 row mx-0 gap-4 p-4">
+                <div class="col-12 px-0">
+                    <div class="row g-4 g-md-3 d-flex">
+                        <div class="col-lg-4 col-md-6 col-12 order-2 order-md-1">
+                            <div class="bg-white rounded-16 p-3">
+                                <div class="row mx-0 text-headline-sm mb-3">
+                                    @localizer.LastAddedAuto
                                 </div>
-                            }                           
+                                <div class="auto-card">
+                                    @{
+                                        CarCardViewModel lastCar = Model.LastAddedCar;
+                                        lastCar.Classes = "col-12";
+                                        lastCar.IsFullSize = true;
+                                        @await Html.PartialAsync("_CarCard", lastCar)
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <div class="px-3">
-                            <div class="overflow-hidden rounded-3">
-                                <div class="row g-3 py-2 pt-0 main-recommend">
+                        <div class="col-lg-8 col-md-6 col-12 order-1 order-md-2">
+                            <div class="bg-white rounded-16 pt-3 px-0 pb-2">
+                                <div class="row mx-0 mb-3 px-3 d-flex align-items-stretch justify-content-end">
+                                    <div class="col px-0 text-headline-sm text-nowrap">@localizer.WeRecommend</div>
+                                    <div class="col px-0 flex-grow-1 justify-content-end d-flex">
+                                        <a asp-controller="Home" asp-action="Catalog">
+                                            @await Html.PartialAsync("_Button", new _Button
+                                            {
+                                                Text = localizer.SeeAll,
+                                                Color = "primary",
+                                                Classes = "py-0 h-100 bg-white",
+                                                LeftIcon = null,
+                                                RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "neutral900" }),
+                                                TextColor = "text-neutral-900"
+                                            })
+                                        </a>
+                                    </div>            
+                                </div>
+                                <div class="px-3">
+                                    <div class="overflow-hidden rounded-3">
+                                        <div class="row g-3 py-2 pt-0 main-recommend">
                                     
-                                    @for (int i = 0; i < (float)(Model.RecomendedCar.Count()/2); i += 1)
-                                    {
-                                        CarCardViewModel car1 = Model.RecomendedCar[i * 2];
-                                        car1.Classes = "col-6 col-md-12";
-                                        car1.IsFullSize = false;
+                                            @for (int i = 0; i < (float)(Model.RecomendedCar.Count()/2); i += 1)
+                                            {
+                                                CarCardViewModel car1 = Model.RecomendedCar[i * 2];
+                                                car1.Classes = "col-6 col-md-12";
+                                                car1.IsFullSize = false;
 
-                                        CarCardViewModel car2 = Model.RecomendedCar[i * 2 + 1];
-                                        car2.Classes = "col-6 col-md-12";
-                                        car2.IsFullSize = false;
+                                                CarCardViewModel car2 = Model.RecomendedCar[i * 2 + 1];
+                                                car2.Classes = "col-6 col-md-12";
+                                                car2.IsFullSize = false;
 
-                                        <div class="col-12 col-sm-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
-                                            <div class="row mt-0 h-100 gx-3 gy-md-3 overflow-visible justify-content-between align-content-between">
-                                                @await Html.PartialAsync("_CarCard", car1)
-                                                @await Html.PartialAsync("_CarCard", car2)
-                                            </div>
+                                                <div class="col-12 col-sm-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
+                                                    <div class="row mt-0 h-100 gx-3 gy-md-3 overflow-visible justify-content-between align-content-between">
+                                                        @await Html.PartialAsync("_CarCard", car1)
+                                                        @await Html.PartialAsync("_CarCard", car2)
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if ((float)(Model.RecomendedCar.Count()%2) != 0) 
+                                            {
+                                                CarCardViewModel car1 = Model.RecomendedCar[Model.RecomendedCar.Count()-1];
+                                                car1.Classes = "col-12";
+                                                car1.IsFullSize = false;
+
+                                                <div class="col-12 col-sm-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
+                                                    <div class="row mt-0 h-100 gx-3 gy-md-3 overflow-visible justify-content-between align-content-between">
+                                                        @await Html.PartialAsync("_CarCard", car1)
+                                                    </div>
+                                                </div>
+                                            }
                                         </div>
-                                    }
-                                    @if ((float)(Model.RecomendedCar.Count()%2) != 0) 
-                                    {
-                                        CarCardViewModel car1 = Model.RecomendedCar[Model.RecomendedCar.Count()-1];
-                                        car1.Classes = "col-12";
-                                        car1.IsFullSize = false;
-
-                                        <div class="col-12 col-sm-10 col-md-8 col-lg-4 overflow-visible mt-md-0">
-                                            <div class="row mt-0 h-100 gx-3 gy-md-3 overflow-visible justify-content-between align-content-between">
-                                                @await Html.PartialAsync("_CarCard", car1)
-                                            </div>
-                                        </div>
-                                    }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-12 px-0">
-            <div class="row bg-white mx-0 p-3 rounded-16">
-                <div class="col px-0">
-                    <div class="row mx-0 text-headline-sm mb-3">About us & contact</div>
-                    <div class="row gx-5 gy-3">
-                        <div class="col-lg-4">
-                            <div class="bg-neutral-100 rounded-16 p-3">
-                                <div class="pb-3 text-headline-sm text-center">About us</div>
-                                <div class="text-body-md">
-                                    We are Belarus-based company thats provides a wide spector of cars with low-cost prices.
-                                    We bought cars if US, which provides a reason of such cheap costs.
-                                    We want to sell cars all across the EU, but now we are currecntly focused on Poland.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="bg-neutral-100 rounded-16 p-3">
-                                <div class="pb-3 text-headline-sm text-center">Contact through phone</div>
-                                <div class="text-body-md pb-2">
-                                    If you want to contact us you can just call us using this number
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <a>
-                                        @await Html.PartialAsync("_Button", new _Button
-                                {
-                                    Text = "+48 53-44-22-089",
-                                    Color = "primary",
-                                    Classes = "",
-                                    Attributes = "",
-                                    LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
-                                    RightIcon = null,
-                                    TextColor = ""
-                                })
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="bg-neutral-100 rounded-16 p-3">
-                                <div class="pb-3 text-headline-sm text-center">Contact through form</div>
-                                <div class="text-body-md pb-2">
-                                    Another way to contact us is using simple form. Just click on button below. After clicking a tiny window with form will pop-up.
-                                </div>
-
-                                <div class="d-flex justify-content-center">
-                                    <a>
-                                        @await Html.PartialAsync("_Button", new _Button
-                                        {
-                                            Text = "Start making form",
-                                            Color = "primary",
-                                            Classes = "",
-                                            Attributes = "",
-                                            LeftIcon = null,
-                                            RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
-                                            TextColor = ""
-                                        })
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 px-0">
-            <div class="row bg-white mx-0 p-3 rounded-16">
-                <div class="row p-0 mx-0 text-headline-sm mb-3">Individual order</div>
-                <div class="p-0 d-flex justify-content-between">
-                    <div class="text-body-md">If there is no car you looking you can order car by dealer directly with you price</div>
-                    <a asp-controller="CustomOrder" asp-action="Index">
-                        @await Html.PartialAsync("_Button", new _Button
-                        {
-                            Text = "Start ordering",
-                            Color = "primary",
-                            Classes = "",
-                            Attributes = "",
-                            LeftIcon = null,
-                            RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
-                            TextColor = ""
-                        })
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        @if (Model.CarWDrodze.Count() > 0)
-        {
             <div class="col-12 px-0">
-                <div class="row bg-white p-3 rounded-16 mx-0">
+                <div class="row bg-white mx-0 p-3 rounded-16">
                     <div class="col px-0">
-                        <div class="row p-0 mx-0 text-headline-sm mb-2">Samochody w drodze</div>
-                        <div class="row px-0 gx-3 main-wdrodze">
-                            @foreach (CarCardViewModel car in Model.CarWDrodze)
-                            {
-                                car.Classes = "col-9 col-sm-5 col-lg-3";
-                                car.IsFullSize = false;
-                                @await Html.PartialAsync("_CarCard", car)
-                            }
+                        <div class="row gx-5 gy-3">
+                            <div class="col-lg-4">
+                                <div class="bg-neutral-100 rounded-16 p-3">
+                                    <div class="pb-3 text-headline-sm text-center">@localizer.AboutUs</div>
+                                    <div class="text-body-md">
+                                        @localizer.AboutUsText
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="bg-neutral-100 rounded-16 p-3">
+                                    <div class="pb-3 text-headline-sm text-center">@localizer.PhoneContact</div>
+                                    <div class="text-body-md pb-2">
+                                        @localizer.PhoneContactText
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="tel:+4853442208" class="my-2">
+                                            @await Html.PartialAsync("_Button", new _Button
+                                            {
+                                                Text = "+48 53-44-22-089",
+                                                Color = "primary",
+                                                LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
+                                                RightIcon = null,
+                                            })
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="bg-neutral-100 rounded-16 p-3">
+                                    <div class="pb-3 text-headline-sm text-center">@localizer.FormContact</div>
+                                    <div class="text-body-md pb-2">
+                                        @localizer.FormContactText
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <a asp-controller="CustomOrder" asp-action="Index">
+                                            @await Html.PartialAsync("_Button", new _Button
+                                            {
+                                                Text = localizer.IndividualOrder,
+                                                Color = "primary",
+                                                LeftIcon = null,
+                                                RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow forward"), Color = "white" }),
+                                            })
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        }
-    </div>
+            @if (Model.CarWDrodze.Count() > 0)
+            {
+                <div class="col-12 px-0">
+                    <div class="row bg-white p-3 rounded-16 mx-0">
+                        <div class="col px-0">
+                            <div class="row p-0 mx-0 text-headline-sm mb-2">Samochody w drodze</div>
+                            <div class="row px-0 gx-3 main-wdrodze">
+                                @foreach (CarCardViewModel car in Model.CarWDrodze)
+                                {
+                                    car.Classes = "col-9 col-sm-5 col-lg-3";
+                                    car.IsFullSize = false;
+                                    @await Html.PartialAsync("_CarCard", car)
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>
 

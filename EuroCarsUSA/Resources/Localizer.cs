@@ -1,5 +1,6 @@
 ﻿using EuroCarsUSA.Controllers;
 using Microsoft.Extensions.Localization;
+using Microsoft.Identity.Client;
 
 namespace EuroCarsUSA.Resources
 {
@@ -77,9 +78,29 @@ namespace EuroCarsUSA.Resources
         public string AdminCustomOrderEmailBody => _localizer[nameof(AdminCustomOrderEmailBody)];
         public string Delete => _localizer[nameof(Delete)];
         public string Status => _localizer[nameof(Status)];
-        
         public string CarStatus_Available => _localizer[nameof(CarStatus_Available)];
         public string CarStatus_Shipping => _localizer[nameof(CarStatus_Shipping)];
         public string CarStatus_Recommended => _localizer[nameof(CarStatus_Recommended)];
+        public string Gearbox => _localizer[nameof(Gearbox)];
+        public string BodyType => _localizer[nameof(BodyType)];
+        public string EditImages => _localizer[nameof(EditImages)];
+        public string AddImage => _localizer[nameof(AddImage)];
+        public string UploadImage => _localizer[nameof(UploadImage)];
+        public string Add => _localizer[nameof(Add)];
+        public string EnterImageURL => _localizer[nameof(EnterImageURL)];
+        public string LastAddedAuto => _localizer[nameof(LastAddedAuto)];
+        public string WeRecommend => _localizer[nameof(WeRecommend)];
+        public string SeeAll => _localizer[nameof(SeeAll)];
+        public string AboutUs => _localizer[nameof(AboutUs)];
+        public string AboutUsText => _localizer[nameof(AboutUsText)];
+        public string PhoneContact => _localizer[nameof(PhoneContact)];
+        public string PhoneContactText => _localizer[nameof(PhoneContactText)];
+        public string FormContact => _localizer[nameof(FormContact)];
+        public string FormContactText => _localizer[nameof(FormContactText)];
+        public string IndividualOrder => _localizer[nameof(IndividualOrder)];
+        public string Likes => _localizer[nameof(Likes)];
+        public string Views => _localizer[nameof(Views)];
+        public string Statistics => _localizer[nameof(Statistics)];
+
     }
 }
