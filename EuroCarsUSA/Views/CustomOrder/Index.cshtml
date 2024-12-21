@@ -215,7 +215,6 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Находим все элементы с классом field-validation-valid
             const validationElements = document.querySelectorAll(".field-validation-valid");
 
             validationElements.forEach((element) => {
@@ -225,14 +224,12 @@
                             mutation.type === "attributes" &&
                             mutation.attributeName === "class"
                         ) {
-                            // Проверяем, если класс изменился на field-validation-error
                             if (element.classList.contains("field-validation-error")) {
                                 const parentLineEdit = element.closest(".line-edit");
                                 if (parentLineEdit) {
                                     parentLineEdit.classList.add("error");
                                 }
                             } else {
-                                // Убираем класс error, если он больше не нужен
                                 const parentLineEdit = element.closest(".line-edit");
                                 if (parentLineEdit) {
                                     parentLineEdit.classList.remove("error");
@@ -241,11 +238,9 @@
                         }
                     });
                 });
-
-                // Наблюдаем за изменением атрибутов элемента
                 observer.observe(element, {
-                    attributes: true, // Следим за изменением атрибутов
-                    attributeFilter: ["class"], // Только за изменением класса
+                    attributes: true,
+                    attributeFilter: ["class"],
                 });
             });
         });

@@ -248,18 +248,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-12">
-                                @await Html.PartialAsync("_ListItem", new _ListItem
-                                {
-                                    Classes = "h-100",
-                                    Headline = form.Description ?? localizer.Empty,
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    Overline = "Description",
-                                    ShowSupportive = true,
-                                    ShowSupportiveInside = true,
-                                    ShowDivider = true
-                                })
+                            <div class="col-md-4 col-12 mt-3 mt-md-0">
+                                <div class="list-item position-relative h-100">
+
+                                    <div class="list-item-state-building-block bg-white h-100">
+                                        <div class="list-item-state-layer py-2 ps-3 pe-4 row m-0 h-100">
+                                            <div class="list-item-content col p-0 w-100 align-content-center h-100">
+                                                <div class="list-item-overline-text text-label-md text-neutral-900 row m-0">
+                                                    Description
+                                                </div>
+                                                <div class="text-body-lg text-neutral-900 row h-100 m-0">
+                                                    @(form.Description ?? localizer.Empty)
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="position-absolute border-2 border-bottom border-neutral600 w-100" style="right: 0; transform: translateY(-1.6px);"> </div>
+
+                                </div>
                             </div>
                         </div>
                 </div>
