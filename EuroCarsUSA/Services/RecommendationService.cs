@@ -32,7 +32,7 @@ public class RecommendationService : IRecommendationService
 
     public async Task<List<Car>> GetFirstNCars(int count)
     {
-        var cars = (await _carRepository.GetAll()).ToList();
+        var cars = (await _carRepository.GetAll(null)).ToList();
         var viewedIds = _cookieService.GetUserViewedCars();
         var likedIds = _cookieService.GetUserLikedCars();
 
@@ -82,6 +82,6 @@ public class RecommendationService : IRecommendationService
 
     public async Task<Car> GetLastAddedCar()
     {
-        return (await _carRepository.GetAll()).OrderByDescending(c => c.TimeStamp).FirstOrDefault();
+        return (await _carRepository.GetAll(null)).OrderByDescending(c => c.TimeStamp).FirstOrDefault();
     }
 }

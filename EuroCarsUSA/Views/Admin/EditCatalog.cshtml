@@ -1,18 +1,20 @@
 ﻿@using EuroCarsUSA.Data.Enums
+@using EuroCarsUSA.Resources
 @using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.AspNetCore.Components
 @model IEnumerable<CatalogEditionViewModel>
+@inject Localizer localizer
 
 <form method="post" asp-action="SaveCatalogChanges" class="container bg-neutral-200 py-5">
     <input type="hidden" id="deletedCarsIds" name="deletedCarsIds" value="" />
 
-    <div class="row pt-2 pb-1 px-3">
+    <div class="row pt-2 pb-3 px-3">
         <div class="d-flex col overflow-auto rounded-pill align-items-center">
             <a asp-controller="Home" asp-action="BackToCatalogWithFilters">
                 @await Html.PartialAsync("_Button", new _Button
                 {
-                    Text = "Back",
+                    Text = localizer.Back,
                     Color = "primary",
                     Classes = "me-2",
                     Attributes = "",
@@ -21,34 +23,12 @@
                     TextColor = ""
                 })
             </a>
-
-            <a asp-controller="Admin" asp-action="EditCatalog">
-                @await Html.PartialAsync("_Button", new _Button
-                {
-                    Text = "Edit catalog",
-                    Color = "secondary",
-                    Classes = "me-2",
-                    Attributes = "type=\"button\"",
-                    LeftIcon = null,
-                    RightIcon = null,
-                    TextColor = "text-primary"
-                })
-            </a>
         </div>
         <div class="d-block col-auto ">
-            <a class="">
-                @await Html.PartialAsync("_IconButton", new
-                    {
-                        IconName = "More horiz",
-                        Color = "secondary",
-                        IconColor = "primary",
-                        Attributes = $"type=\"button\""
-                    })
-            </a>
             <div class="d-flex">
                 @await Html.PartialAsync("_Button", new _Button
                     {
-                        Text = "Add new",
+                        Text = localizer.Add,
                         Color = "secondary",
                         Classes = "me-2",
                         Attributes = "type=\"button\" onclick=\"addNewRow()\"",
@@ -58,7 +38,7 @@
                     })
                 @await Html.PartialAsync("_Button", new _Button
                 {
-                    Text = "Save Changes",
+                    Text = localizer.Save,
                     Color = "primary",
                     Classes = "me-2",
                     Attributes = "type=\"submit\"",
@@ -84,44 +64,6 @@
 
 @section Scripts {
     <script>
-        function showModal(uniqueId) {
-            document.getElementById('imageEditorModal-' + uniqueId).style.display = 'block';
-            document.getElementById('modalBackdrop-' + uniqueId).style.display = 'block';
-        }
-
-        function hideModal(uniqueId) {
-            document.getElementById('imageEditorModal-' + uniqueId).style.display = 'none';
-            document.getElementById('modalBackdrop-' + uniqueId).style.display = 'none';
-        }
-
-        function addImage(uniqueId) {
-            var newImageUrl = document.getElementById('newImageUrl-' + uniqueId).value;
-            if (newImageUrl) {
-                var listGroup = document.querySelector('#imageEditorModal-' + uniqueId + ' .list-group');
-                var newItem = document.createElement('li');
-                newItem.className = 'list-group-item';
-                newItem.innerHTML = '<img src="' + newImageUrl + '" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px;" />' +
-                                    '<button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">Remove</button>';
-                listGroup.appendChild(newItem);
-                document.getElementById('newImageUrl-' + uniqueId).value = '';
-            }
-        }
-
-        function removeImage(button) {
-            var listItem = button.parentElement;
-            listItem.parentElement.removeChild(listItem);
-        }
-
-        function saveChanges(uniqueId) {
-            var images = [];
-            var listItems = document.querySelectorAll('#imageEditorModal-' + uniqueId + ' .list-group-item img');
-            listItems.forEach(function(img) {
-                images.push(img.src);
-            });
-            document.getElementById('ImagesJson-' + uniqueId).value = JSON.stringify(images);
-            hideModal(uniqueId);
-        }
-
         function deleteCar(carId, uniqueId) {
             var deletedCarsIdsInput = document.getElementById('deletedCarsIds');
             var deletedCarsIds = deletedCarsIdsInput.value ? JSON.parse(deletedCarsIdsInput.value) : [];
@@ -137,7 +79,7 @@
         }
         function addNewRow() {
             var tableBody = document.getElementById('catalog');
-            var index = tableBody.children.length;
+            var index = tableBody.children.length / 2;
 
             $.ajax({
                 url: '/Admin/GetNewCatalogRow',

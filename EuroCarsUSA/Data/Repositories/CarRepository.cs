@@ -46,9 +46,14 @@ namespace EuroCarsUSA.Data.Repositories
             return await Save();
         }
 
-        async Task<IEnumerable<Car>> ICarRepository.GetAll()
+        async Task<IEnumerable<Car>> ICarRepository.GetAll(CarStatus? status)
         {
-            return await _context.Cars.ToListAsync();
+            var repository = _context.Cars.AsQueryable();
+            if (status.HasValue)
+            {
+                repository = repository.Where(c => c.Status == status.Value);
+            }
+            return await repository.ToListAsync();
         }
 
         async Task<Car> ICarRepository.GetById(Guid id)
@@ -61,11 +66,16 @@ namespace EuroCarsUSA.Data.Repositories
             var cars = _context.Cars.AsQueryable();
 
             cars = ApplyFilters(cars, filters);
+            //if(filters.CarType != null && filters.CarType.Count > 0)
+            //{
+            //    cars = cars.Where(c => filters.CarType.Contains(c.Type));
+            //}
             sortOrder = sortOrder ?? SortOrder.NewFirst;
             if(sortFunctions.ContainsKey(sortOrder.Value))
             {
                 cars = sortFunctions[sortOrder.Value](cars);
             }
+
             cars = cars.Skip(start).Take(count);
             var carsList = await cars.ToListAsync();
             return carsList;
@@ -84,21 +94,24 @@ namespace EuroCarsUSA.Data.Repositories
         {
             if (filters != null)
             {
-                cars = _context.Cars.Where(c =>
-                    (filters.Make.Count == 0 || filters.Make.Any(m => m == c.Make)) &&
+                cars = cars.Where(c =>
+                    (filters.Make == null || filters.Make.Count == 0 || filters.Make.Any(m => m == c.Make)) &&
                     (string.IsNullOrEmpty(filters.Model) || c.Model.Contains(filters.Model) || filters.Model.Contains(c.Model)) &&
                     (!filters.MinPrice.HasValue || c.Price >= filters.MinPrice.Value) &&
                     (!filters.MaxPrice.HasValue || c.Price <= filters.MaxPrice.Value) &&
                     (!filters.MinYear.HasValue || c.Year >= filters.MinYear.Value) &&
                     (!filters.MaxYear.HasValue || c.Year <= filters.MaxYear.Value) &&
-                    (!filters.MinMileage.HasValue || c.Mileage >= filters.MinMileage.Value) && // Corrected here
-                    (!filters.MaxMileage.HasValue || c.Mileage <= filters.MaxMileage.Value) && // Corrected here
+                    (!filters.MinMileage.HasValue || c.Mileage >= filters.MinMileage.Value) &&
+                    (!filters.MaxMileage.HasValue || c.Mileage <= filters.MaxMileage.Value) &&
                     (!filters.MinEngineVolume.HasValue || c.EngineVolume >= filters.MinEngineVolume.Value) &&
                     (!filters.MaxEngineVolume.HasValue || c.EngineVolume <= filters.MaxEngineVolume.Value) &&
-                    (filters.FuelType.Count == 0 || filters.FuelType.Any(f => f == c.FuelType)) &&
-                    (filters.CarType.Count == 0 || filters.CarType.Any(f => f == c.Type)) &&
-                    (filters.Transmission.Count == 0 || filters.Transmission.Any(f => f == c.Transmission)) &&
-                    (filters.Color.Count == 0 || filters.Color.Any(f => f == c.Color))
+                    (filters.FuelType == null || filters.FuelType.Count == 0 || filters.FuelType.Any(f => f == c.FuelType)) &&
+                    (filters.CarType == null || filters.CarType.Count == 0 || filters.CarType.Any(f => f == c.Type)) &&
+                    (filters.Transmission == null || filters.Transmission.Count == 0 || filters.Transmission.Any(f => f == c.Transmission)) &&
+                    (filters.Color == null || filters.Color.Count == 0 || filters.Color.Any(f => f == c.Color)) &&
+                    (filters.DateFrom == null || c.TimeStamp >= filters.DateFrom) &&
+                    (filters.DateTo == null || c.TimeStamp <= filters.DateTo) &&
+                    (filters.Status == null || c.Status == filters.Status)
                 );
             }
             return cars;

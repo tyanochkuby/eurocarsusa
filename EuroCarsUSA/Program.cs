@@ -16,12 +16,6 @@ using EuroCarsUSA.Resources;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-builder.Services.AddControllersWithViews()
-    .AddRazorOptions(options =>
-    {
-        options.ViewLocationFormats.Add("/Views/Home/Components/Buttons/{0}.cshtml");
-    });
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpContextAccessor();
 
@@ -47,13 +41,16 @@ builder.Services.AddSession(options =>
 });
 
 // Configure services
-var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
+var connectionString = builder.Configuration.GetConnectionString("WebioProd");
 builder.Services.Configure<CookieNames>(
             builder.Configuration.GetSection("CookieNames")
         );
 builder.Services.Configure<EmailSettings>(
                builder.Configuration.GetSection("EmailSettings")
         );
+builder.Services.Configure<string>(
+    builder.Configuration.GetSection("CaptchaSecretKey")
+);
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString, options => options.CommandTimeout(90));

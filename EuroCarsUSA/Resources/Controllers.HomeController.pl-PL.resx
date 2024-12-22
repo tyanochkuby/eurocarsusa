@@ -298,12 +298,11 @@
     <value>EuroCarUsa - Przyjeliśmy Twoje zamówienie</value>
   </data>
   <data name="CustomOrderEmailBody" xml:space="preserve">
-    <value>Dzień dobry!\n\n
-
-Cieszymy się, że wybrałeś nas! Z przyjemnością powiadomiamy, że dostaliśmy Twoje zamówienie. Niedługo nasi specjaliści do Ciebie oddzwonią lub odpiszą.\n\n
-
-Z poważaniem,\n
-Zespół EuroCarUsa</value>
+    <value>Dzień dobry!
+    Cieszymy się, że wybrałeś nas! Z przyjemnością powiadomiamy, że dostaliśmy Twoje zamówienie. Niedługo nasi specjaliści do Ciebie oddzwonią lub odpiszą.
+    
+    Z poważaniem,
+    Zespół EuroCarUsa</value>
   </data>
   <data name="AdminCustomOrderEmailSubject" xml:space="preserve">
     <value>EuroCarUsa - Новый заказ</value>
@@ -313,5 +312,311 @@ Zespół EuroCarUsa</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Usuń</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CarStatus_Available" xml:space="preserve">
+    <value>Dostępny</value>
+  </data>
+  <data name="CarStatus_Shipping" xml:space="preserve">
+    <value>W drodze</value>
+  </data>
+  <data name="CarStatus_Recommended" xml:space="preserve">
+    <value>Rekomendowane</value>
+  </data>
+<data name="CarMake_Ford">
+  <value>Ford</value>
+</data>
+<data name="CarMake_Chevrolet">
+  <value>Chevrolet</value>
+</data>
+<data name="CarMake_Tesla">
+  <value>Tesla</value>
+</data>
+<data name="CarMake_Jeep">
+  <value>Jeep</value>
+</data>
+<data name="CarMake_Dodge">
+  <value>Dodge</value>
+</data>
+<data name="CarMake_Chrysler">
+  <value>Chrysler</value>
+</data>
+<data name="CarMake_Lincoln">
+  <value>Lincoln</value>
+</data>
+<data name="CarMake_Cadillac">
+  <value>Cadillac</value>
+</data>
+<data name="CarMake_Buick">
+  <value>Buick</value>
+</data>
+<data name="CarMake_GMC">
+  <value>GMC</value>
+</data>
+<data name="CarMake_Hummer">
+  <value>Hummer</value>
+</data>
+<data name="CarMake_Pontiac">
+  <value>Pontiac</value>
+</data>
+<data name="CarMake_LandRover">
+  <value>Land Rover</value>
+</data>
+<data name="CarMake_Jaguar">
+  <value>Jaguar</value>
+</data>
+<data name="CarMake_MINI">
+  <value>MINI</value>
+</data>
+<data name="CarMake_MG">
+  <value>MG</value>
+</data>
+<data name="CarMake_Rover">
+  <value>Rover</value>
+</data>
+<data name="CarMake_Bentley">
+  <value>Bentley</value>
+</data>
+<data name="CarMake_RollsRoyce">
+  <value>Rolls-Royce</value>
+</data>
+<data name="CarMake_AstonMartin">
+  <value>Aston Martin</value>
+</data>
+<data name="CarMake_Fiat">
+  <value>Fiat</value>
+</data>
+<data name="CarMake_AlfaRomeo">
+  <value>Alfa Romeo</value>
+</data>
+<data name="CarMake_Maserati">
+  <value>Maserati</value>
+</data>
+<data name="CarMake_Lancia">
+  <value>Lancia</value>
+</data>
+<data name="CarMake_Iveco">
+  <value>Iveco</value>
+</data>
+<data name="CarMake_Chery">
+  <value>Chery</value>
+</data>
+<data name="CarMake_Geely">
+  <value>Geely</value>
+</data>
+<data name="CarMake_BYD">
+  <value>BYD</value>
+</data>
+<data name="CarMake_GreatWall">
+  <value>Great Wall</value>
+</data>
+<data name="CarMake_JAC">
+  <value>JAC</value>
+</data>
+<data name="CarMake_Lifan">
+  <value>Lifan</value>
+</data>
+<data name="CarMake_Dongfeng">
+  <value>Dongfeng</value>
+</data>
+<data name="CarMake_Dadi">
+  <value>Dadi</value>
+</data>
+<data name="CarMake_FAW">
+  <value>FAW</value>
+</data>
+<data name="CarMake_Hyundai">
+  <value>Hyundai</value>
+</data>
+<data name="CarMake_Kia">
+  <value>Kia</value>
+</data>
+<data name="CarMake_Daewoo">
+  <value>Daewoo</value>
+</data>
+<data name="CarMake_SsangYong">
+  <value>SsangYong</value>
+</data>
+<data name="CarMake_Volkswagen">
+  <value>Volkswagen</value>
+</data>
+<data name="CarMake_BMW">
+  <value>BMW</value>
+</data>
+<data name="CarMake_Audi">
+  <value>Audi</value>
+</data>
+<data name="CarMake_MercedesBenz">
+  <value>Mercedes-Benz</value>
+</data>
+<data name="CarMake_Opel">
+  <value>Opel</value>
+</data>
+<data name="CarMake_Porsche">
+  <value>Porsche</value>
+</data>
+<data name="CarMake_Smart">
+  <value>Smart</value>
+</data>
+<data name="CarMake_Lada">
+  <value>Lada</value>
+</data>
+<data name="CarMake_GAZ">
+  <value>GAZ</value>
+</data>
+<data name="CarMake_UAZ">
+  <value>UAZ</value>
+</data>
+<data name="CarMake_ZAZ">
+  <value>ZAZ</value>
+</data>
+<data name="CarMake_Bogdan">
+  <value>Bogdan</value>
+</data>
+<data name="CarMake_Renault">
+  <value>Renault</value>
+</data>
+<data name="CarMake_Peugeot">
+  <value>Peugeot</value>
+</data>
+<data name="CarMake_Citroen">
+  <value>Citroën</value>
+</data>
+<data name="CarMake_Nissan">
+  <value>Nissan</value>
+</data>
+<data name="CarMake_Toyota">
+  <value>Toyota</value>
+</data>
+<data name="CarMake_Mazda">
+  <value>Mazda</value>
+</data>
+<data name="CarMake_Mitsubishi">
+  <value>Mitsubishi</value>
+</data>
+<data name="CarMake_Honda">
+  <value>Honda</value>
+</data>
+<data name="CarMake_Lexus">
+  <value>Lexus</value>
+</data>
+<data name="CarMake_Subaru">
+  <value>Subaru</value>
+</data>
+<data name="CarMake_Infiniti">
+  <value>Infiniti</value>
+</data>
+<data name="CarMake_Suzuki">
+  <value>Suzuki</value>
+</data>
+<data name="CarMake_Acura">
+  <value>Acura</value>
+</data>
+<data name="CarMake_Daihatsu">
+  <value>Daihatsu</value>
+</data>
+<data name="CarMake_Isuzu">
+  <value>Isuzu</value>
+</data>
+<data name="CarMake_Lamborghini">
+  <value>Lamborghini</value>
+</data>
+<data name="CarType_Sedan">
+  <value>Sedan</value>
+</data>
+<data name="CarType_Coupe">
+  <value>Coupe</value>
+</data>
+<data name="CarType_Convertible">
+  <value>Kabriolet</value>
+</data>
+<data name="CarType_Hatchback">
+  <value>Hatchback</value>
+</data>
+<data name="CarType_SUV">
+  <value>SUV</value>
+</data>
+<data name="CarType_Crossover">
+  <value>Crossover</value>
+</data>
+<data name="CarType_Minivan">
+  <value>Minivan</value>
+</data>
+<data name="CarType_Pickup">
+  <value>Pickup</value>
+</data>
+<data name="CarType_Van">
+  <value>Van</value>
+</data>
+<data name="CarType_Wagon">
+  <value>Kombi</value>
+</data>
+<data name="CarType_Sports">
+  <value>Sportowy</value>
+</data>
+  <data name="YourOrderWasReceived" xml:space="preserve">
+    <value>Twoje zamówienie zostało wysłane</value>
+  </data>
+  <data name="Gearbox" xml:space="preserve">
+    <value>Skrzynia biegów</value>
+  </data>
+  <data name="BodyType" xml:space="preserve">
+    <value>Typ nadwozia</value>
+  </data>
+  <data name="EditImages" xml:space="preserve">
+    <value>Edytuj zdjęcia</value>
+  </data>
+  <data name="AddImage" xml:space="preserve">
+    <value>Dodaj zdjęcie</value>
+  </data>
+  <data name="UploadImage" xml:space="preserve">
+    <value>Wrzuć zdjęcie</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="EnterImageURL" xml:space="preserve">
+    <value>Wklej link do zdjęcia</value>
+  </data>
+  <data name="LastAddedAuto" xml:space="preserve">
+    <value>Ostatnio dodane auto</value>
+  </data>
+  <data name="WeRecommend" xml:space="preserve">
+    <value>Sugestje</value>
+  </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>Zobacz wszystkie</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>O nas</value>
+  </data>
+  <data name="AboutUsText" xml:space="preserve">
+    <value>Jesteśmy białoruską firmą specjalizującą się w sprzedaży samochodów w atrakcyjnych cenach. Nasza oferta obejmuje szeroką gamę pojazdów, które sprowadzamy z USA, co pozwala nam zaoferować wyjątkowo konkurencyjne ceny. </value>
+  </data>
+  <data name="PhoneContact" xml:space="preserve">
+    <value>Kontakt telefoniczny</value>
+  </data>
+  <data name="PhoneContactText" xml:space="preserve">
+    <value>Najszybszym sposobem na kontakt z nami jest ten przycisk - wciśnij i zadzwoń</value>
+  </data>
+  <data name="FormContact" xml:space="preserve">
+    <value>Kontakt poprzez formularz</value>
+  </data>
+  <data name="FormContactText" xml:space="preserve">
+    <value>Drugi sposób na kontakt z nami to formularz. Kliknij, zostaw swoje spersonalizowane zamówienie, a my odzwonimy.</value>
+  </data>
+  <data name="IndividualOrder" xml:space="preserve">
+    <value>Zamówienie</value>
+  </data>
+  <data name="Likes" xml:space="preserve">
+    <value>Upodobania</value>
+  </data>
+  <data name="Views" xml:space="preserve">
+    <value>Obejrzenia</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statystyki</value>
   </data>
 </root>

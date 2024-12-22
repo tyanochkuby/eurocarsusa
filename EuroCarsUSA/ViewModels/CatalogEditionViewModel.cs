@@ -30,5 +30,8 @@ namespace EuroCarsUSA.ViewModels
         [Range(0, int.MaxValue)]
         public int Price { get; set; }
 
+        [Required]
+        public CarStatus Status { get; set; }
+
     }
 }

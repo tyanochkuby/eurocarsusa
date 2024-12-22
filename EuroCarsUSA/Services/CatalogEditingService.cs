@@ -33,7 +33,7 @@ namespace EuroCarsUSA.Services
 
         public async Task<IEnumerable<Car>> GetAll()
         {
-            return await _carRepository.GetAll();
+            return await _carRepository.GetAll(null);
         }
 
         public Task<IEnumerable<Car>> GetRange()

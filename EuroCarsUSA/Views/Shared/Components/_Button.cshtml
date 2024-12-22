@@ -6,6 +6,7 @@
 
     string color = Model.Color;
     string text = Model.Text;
+    string link = Model.Link;
 
     var leftIcon = Model.LeftIcon;
     var rightIcon = Model.RightIcon;
@@ -41,7 +42,7 @@
         @leftIcon
     }
 
-    <span class="text-nowrap">@text</span>
+    <span href="@link" class="text-nowrap">@text</span>
 
     @if (hasRightIcon)
     {
