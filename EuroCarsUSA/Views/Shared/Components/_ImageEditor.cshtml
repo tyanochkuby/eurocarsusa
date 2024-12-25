@@ -1,4 +1,5 @@
 @using EuroCarsUSA.Resources
+@using EuroCarsUSA.Views.Shared.Components
 @model Tuple<List<string>, string, Guid>
 @inject Localizer localizer
 
@@ -14,10 +15,18 @@
 
     <div id="imageEditorModal-@uniqueId" class="modal" tabindex="-1" style="display:none;">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content my-shadow-5">
                 <div class="modal-header">
-                    <h5 class="modal-title">@localizer.EditImages</h5>
-                    <button type="button" class="btn-close" onclick="hideModal('@uniqueId')"></button>
+                    <h5 class="modal-title text-headline-sm">@localizer.EditImages</h5>
+                    <a href="#">
+                        @Html.Partial("_IconButton", new
+                            {
+                                IconName = "Clear",
+                                Color = "primary",
+                                IconColor = "black",
+                                Attributes = $"type=\"button\" onclick=\"hideModal('{@uniqueId}')\""
+                            })
+                    </a>
                 </div>
                 <div class="modal-body">
                     
@@ -28,9 +37,9 @@
 
                     *@
                     <!-- File input for uploading images -->
-                    <label for="fileInput-@uniqueId" class="bg-secondary-50 text-center rounded-16 w-100 p-0" style="height: 300px">
+                    <label for="fileInput-@uniqueId" class="bg-secondary-50 text-center rounded-16 w-100 p-0" style="height: 300px" id="droparea-img-upload" ondrop="onDrop(this, event)">
                         <input type="file" id="fileInput-@uniqueId" class="form-control" accept="image/*" onchange="uploadImage(this, '@uniqueId', '@carId')" hidden />
-                        <div id="img-drag-drop" class="w-100 h-100 rounded-16 bg-secondary-200">
+                        <div id="img-drag-drop" class="w-100 h-100 rounded-16 bg-secondary-200 align-content-center">
                             <img src="/icons/dragNdrop.png" class="mt-4">
                             <p class="text-body-lg">Drag and drop or click here <br>to upload image</p>
                             <span class="text-neutral-900 text-body-sm">Upload any images from desktop</span>
@@ -41,12 +50,12 @@
                         @for (int i = 0; i < images.Count; i++)
                         {
                             <div class="col-auto position-relative">
-                                <img src="@images[i]" alt="Image" class="img-thumbnail" style="width: 120px; height: 90px;" />
-                                <a class="position-absolute end-0 me-2">
+                                <img src="@images[i]" alt="Image" class="img-thumbnail" style="width: 144px; height: 108px;" />
+                                <a href="#" class="position-absolute end-0 me-2 mt-1">
                                     @Html.Partial("_IconButton", new
                                     {
                                         IconName = "Delete",
-                                        Color = "primary",
+                                        Color = "secondary",
                                         IconColor = "error",
                                         Attributes = $"type=\"button\" onclick=\"removeImage(this)\""
                                     })
@@ -59,22 +68,59 @@
                     *@                
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="hideModal('@uniqueId')">@localizer.Close</button>
-                    <button type="button" class="btn btn-primary" onclick="saveChanges('@uniqueId')">@localizer.Save</button>
+                    <a onclick="hideModal('@uniqueId')">
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = @localizer.Close,
+                            Color = "secondary",
+                            Classes = "",
+                            Attributes = "type=\"button\"",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
+                            RightIcon = null,
+                            TextColor = ""
+                        })
+                    </a>
+                    <a onclick="saveChanges('@uniqueId')">
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = @localizer.Save,
+                            Color = "primary",
+                            Classes = "",
+                            Attributes = "type=\"button\" ",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Done"), Color = "white" }),
+                            RightIcon = null,
+                            TextColor = ""
+                        })
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-    <div id="modalBackdrop-@uniqueId" class="modal-backdrop" style="display:none;"></div>
+    <div id="modalBackdrop-@uniqueId" class="modal-backdrop opacity-50" style="display:none;"></div>
 </div>
 
 
 <script>
-    document.getElementById('fileInput-' + uniqueId).addEventListener('change', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        uploadImage(uniqueId, carId);
+    var dropArea = document.getElementById("droparea-img-upload");
+
+    dropArea.addEventListener("dragover", function (e) {
+        e.preventDefault();
     });
+
+    function onDrop(elem, e) {
+        e.preventDefault();
+
+        const inputFile = elem.querySelector("input");
+        inputFile.files = e.dataTransfer.files;
+
+        const onchangeAttr = inputFile.getAttribute("onchange");
+
+        const match = onchangeAttr.match(/uploadImage\(([^)]+)\)/);
+        const args = match[1].split(',').map(arg => arg.trim().replace(/['"]+/g, ''));
+        uploadImage(inputFile, args[1], args[2]);
+    };
+
+    
 
 
     function uploadImage(input, uniqueId, carId) {
@@ -98,27 +144,7 @@
                     var newCol = document.createElement('div');
                     newCol.className = 'col-auto position-relative';
                     newCol.innerHTML = `
-                        <img src="${newImageUrl}" alt="Image" class="img-thumbnail" style="width: 120px; height: 90px;" />
-                        <a class="position-absolute end-0 me-2">
-                            <button type="button" onclick="removeImage(this)" class="icon-btn-custom p-0">
-                                <div class="rounded-pill ripple-effect-primary overflow-hidden bg-primary">
-                                    <div class="p-2 bg-primary">
-                                        <div class="icon-container icon-size d-flex align-items-center justify-content-center text-byzantine">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_374_14602)">
-                                                    <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" fill="black"></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_374_14602">
-                                                        <rect width="24" height="24" fill="white"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </a>
+                        <img src="${newImageUrl}" alt="Image" class="img-thumbnail" style="width: 144px; height: 108px;" />
                     `;
                     galleryRow.appendChild(newCol);
                 } else {
@@ -135,11 +161,13 @@
     function showModal(uniqueId) {
         document.getElementById('imageEditorModal-' + uniqueId).style.display = 'block';
         document.getElementById('modalBackdrop-' + uniqueId).style.display = 'block';
+        document.body.classList.add('overflow-hidden');
     }
 
     function hideModal(uniqueId) {
         document.getElementById('imageEditorModal-' + uniqueId).style.display = 'none';
         document.getElementById('modalBackdrop-' + uniqueId).style.display = 'none';
+        document.body.classList.remove('overflow-hidden');
     }
 
     function addImage(uniqueId) {
