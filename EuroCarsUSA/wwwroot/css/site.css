@@ -1349,3 +1349,16 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
         overflow: visible;
     }
 }
+#img-drag-drop {
+    border: 2px dashed var(--bs-primary);
+}
+
+#img-drag-drop img {
+    width: 100px;
+}
+
+.image-upload-galley {
+    flex-wrap: nowrap !important;
+    overflow: scroll;
+    overflow-y: auto
+}

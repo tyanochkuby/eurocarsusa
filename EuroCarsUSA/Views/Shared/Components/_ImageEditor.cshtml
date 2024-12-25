@@ -20,21 +20,33 @@
                     <button type="button" class="btn-close" onclick="hideModal('@uniqueId')"></button>
                 </div>
                 <div class="modal-body">
-                    <ul class="list-group">
-                        @for (int i = 0; i < images.Count; i++)
-                        {
-                            <li class="list-group-item">
-                                <img src="@images[i]" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px;" />
-                                <button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">@localizer.Delete</button>
-                            </li>
-                        }
-                    </ul>
+                    
+                    @*
                     <!-- Text input for uploading links -->
                     <input type="text" id="newImageUrl-@uniqueId" placeholder="@localizer.EnterImageURL" class="form-control mt-2" />
                     <button type="button" class="btn btn-success mt-2" onclick="addImage('@uniqueId')">@localizer.AddImage</button>
 
+                    *@
                     <!-- File input for uploading images -->
-                    <input type="file" id="fileInput-@uniqueId" class="form-control mt-2" accept="image/*" />
+                    <label for="fileInput-@uniqueId" class="bg-secondary-50 text-center rounded-16 w-100 p-4" style="height: 300px">
+                        <input type="file" id="fileInput-@uniqueId" class="form-control" accept="image/*" hidden/>
+                        <div id="img-drag-drop" class="w-100 h-100 rounded-16 bg-secondary-200">
+                            <img src="/icons/dragNdrop.png" class="mt-4">
+                            <p class="text-body-lg">Drag and drop or click here <br>to upload image</p>
+                            <span class="text-neutral-900 text-body-sm">Upload any images from desktop</span>
+                        </div>
+                    </label>
+                    
+                    <div class="row image-upload-galley gx-3">
+                        @for (int i = 0; i < images.Count; i++)
+                        {
+                            <div class="col-auto position-relative">
+                                <img src="@images[i]" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px;" />
+                                <button type="button" class="btn btn-danger btn-sm position-absolute end-0 me-2" onclick="removeImage(this)">@localizer.Delete</button>
+                            </div>
+                        }
+                    </div>
+
                     <button type="button" class="btn btn-primary mt-2" onclick="uploadImage('@uniqueId', '@carId')">@localizer.UploadImage</button>
                 </div>
                 <div class="modal-footer">
