@@ -84,6 +84,7 @@ namespace EuroCarsUSA.Controllers
                 Mileage = car.Mileage,
                 Color = car.Color,
                 Images = car.Images,
+                Status = car.Status
             }).ToList();
 
             try
