@@ -2,7 +2,7 @@
 
 namespace EuroCarsUSA.Data.Enums
 {
-    public enum SortOrder
+    public enum SortOrderType
     {
 
         NewFirst,
