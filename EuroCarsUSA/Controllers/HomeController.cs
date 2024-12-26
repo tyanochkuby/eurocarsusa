@@ -70,7 +70,7 @@ namespace EuroCarsUSA.Controllers
                 Make = EnumHelper.GetEnumListFromString<CarMake>(make),
                 Model = model,
             };
-            SortOrder sortOrderEnum;
+            SortOrderType sortOrderEnum;
             if (Enum.TryParse(sortOrder, true, out sortOrderEnum))
             {
                 filters.SortOrder = sortOrderEnum;
