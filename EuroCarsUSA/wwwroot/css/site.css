@@ -798,6 +798,10 @@ button#mobile-filter-select-save-button .carIcon {
     fill: currentColor;
 }
 
+.icon-size svg {
+    width: 24px;
+    height: 24px;
+}
 
 /* Исходные стили для btn-custom */
 .btn-custom {
