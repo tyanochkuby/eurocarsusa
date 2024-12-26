@@ -144,7 +144,28 @@
                     var newCol = document.createElement('div');
                     newCol.className = 'col-auto position-relative';
                     newCol.innerHTML = `
-                        <img src="${newImageUrl}" alt="Image" class="img-thumbnail" style="width: 144px; height: 108px;" />
+                        <img src="${newImageUrl}" alt="Image" class="img-thumbnail" style="width: 144px; height: 108px;" +
+                            '<a href="#" class="position-absolute end-0 me-2 mt-1">
+                                <button type="button" onclick="removeImage(this)" class="icon-btn-custom p-0">
+                                    <div class="rounded-pill ripple-effect-primary overflow-hidden bg-secondary">
+                                        <div class="p-2 bg-secondary">
+                                            <div class="icon-container icon-size d-flex align-items-center justify-content-center text-byzantine">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_374_14602)">
+                                                        <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" fill="black"></path>
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_374_14602">
+                                                            <rect width="24" height="24" fill="white"></rect>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                    </a>'/>
                     `;
                     galleryRow.appendChild(newCol);
                 } else {
