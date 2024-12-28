@@ -17,13 +17,13 @@
             Classes="",
             Attributes = $"type=\"button\" id=\"{dropdownId}\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
             Placeholder = (selectedValues.Any() ? string.Join(", ", selectedValues) : placeholder),
-            ShowOverline = false,
+            ShowOverline = true,
             ShowOverlineInside = true,
             ShowAdditionalBackground = true,
             ShowAdditional = (selectedValues.Any() ? true : false),
             Additional = (selectedValues.Count().ToString()),
         })
-        <ul class="dropdown-menu w-100" name="@Model.Name" aria-labelledby="@dropdownId">
+        <ul class="dropdown-menu w-100 my-shadow-3" name="@Model.Name" aria-labelledby="@dropdownId" style="max-height: 200px; overflow-y:scroll">
             @foreach (var option in options)
             {
                 <li>

@@ -288,7 +288,7 @@
                                 ShowOverline = true,
                                 Overline = Translator["Make"]
                             })
-                            <ul class="dropdown-menu w-100" name="make" aria-labelledby="dropdownMenuButton">
+                            <ul class="dropdown-menu w-100 my-shadow-1" name="make" aria-labelledby="dropdownMenuButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel makeOption in ViewBag.AvailableFilters["make"])
                                 {
                                     <li>
@@ -332,7 +332,7 @@
                                    ShowOverline = true,
                                    Overline = Translator["CarType"]
                                })
-                            <ul class="dropdown-menu w-100" name="carType" aria-labelledby="dropdownCarTypeButton">
+                            <ul class="dropdown-menu w-100 my-shadow-1" name="carType" aria-labelledby="dropdownCarTypeButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["carType"])
                                 {
                                     <li>
@@ -362,7 +362,7 @@
                                        ShowOverline = true,
                                        Overline = Translator["FuelType"]
                                    })
-                            <ul class="dropdown-menu w-100" name="fuelType" aria-labelledby="dropdownFuelTypeButton">
+                            <ul class="dropdown-menu w-100 my-shadow-1" name="fuelType" aria-labelledby="dropdownFuelTypeButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["fuelType"])
                                 {
                                     <li>
@@ -392,7 +392,7 @@
                                    ShowOverline = true,
                                    Overline = Translator["Transmission"]
                                })
-                            <ul class="dropdown-menu w-100" name="transmission" aria-labelledby="dropdownTransmissionButton">
+                            <ul class="dropdown-menu w-100 my-shadow-1" name="transmission" aria-labelledby="dropdownTransmissionButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["transmission"])
                                 {
                                     <li>
@@ -422,7 +422,7 @@
                                     ShowOverline = true,
                                     Overline = Translator["Color"]
                                 })
-                            <ul class="dropdown-menu w-100" name="color" aria-labelledby="dropdownColorButton">
+                            <ul class="dropdown-menu w-100 my-shadow-1" name="color" aria-labelledby="dropdownColorButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["color"])
                                 {
                                     <li>
