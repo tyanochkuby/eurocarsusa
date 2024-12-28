@@ -24,6 +24,7 @@
     string overline = Model.Overline;
 
     bool showAdditional = Model.ShowAdditional;
+    string showAdditionalClass = showAdditional ? "d-block" : "d-none";
     bool showAdditionalBackground = Model.ShowAdditionalBackground;
     string additionalBackgroundClass = showAdditionalBackground ? "bg-secondary" : "";
     string additional = Model.Additional;
@@ -46,9 +47,9 @@
                 </div>
             }
 
-            <div class="expand-button-content col p-0 d-block w-100 align-content-center">
+            <div class="expand-button-content col p-0 d-block w-100 align-content-center text-truncate">
                 <div class="row m-0">
-                    <div class="expand-button-label-text col p-0 py-1">
+                    <div class="expand-button-label-text col p-0 py-1 text-truncate">
                         @if ((showOverline == true) && (showOverlineInside == true))
                         {
                             <div class="expand-button-overline-text text-label-md text-neutral-900 row m-0">
@@ -56,20 +57,17 @@
                             </div>
                         }
                         <div class="text-body-lg text-neutral-900 row m-0">
-                            <span class="p-0 text-neutral-900 expand-button-input">
+                            <span class="p-0 text-neutral-900 expand-button-input d-inline-block text-truncate" style="max-width: 100%;">
                                 @headline
                             </span>
                         </div>
                     </div>
-                    @if (showAdditional)
-                    {
-                        <div class="col-auto expand-button-trailng-supportive-text text-label-sm text-primary-900 p-0 align-content-center">
-                            <div class="d-flex @additionalBackgroundClass rounded-16 align-items-center justify-content-center"
-                                 style="width: 24px; height:24px;">
-                                @additional
-                            </div>
+                    <div class="col-auto expand-button-trailng-supportive-text text-label-sm text-primary-900 p-0 align-content-center @Html.Raw(showAdditionalClass)">
+                        <div class="d-flex @additionalBackgroundClass rounded-16 align-items-center justify-content-center"
+                             style="width: 24px; height:24px;">
+                            @additional
                         </div>
-                    }
+                    </div>
                 </div>
             </div>
             <div class="col-auto p-0 d-flex expand-button-trailing-element">
