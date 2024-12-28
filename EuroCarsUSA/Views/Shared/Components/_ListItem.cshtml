@@ -9,6 +9,7 @@
 
     bool clickable = Model.Clickable;
     string tag = clickable ? "label" : "div";
+    string clickableClass = clickable ? "cursor-pointer" : "";
 
     string headline = Model.Headline;
 
@@ -60,7 +61,7 @@
     }
 
     <div class="list-item-state-building-block bg-white">
-        <@(Html.Raw(tag)) class="list-item-state-layer py-2 ps-3 pe-4 row d-flex m-0">
+        <@(Html.Raw(tag)) class="list-item-state-layer py-2 ps-3 pe-4 row d-flex m-0 @Html.Raw(clickableClass)">
 
             @if (leading != null)
             {

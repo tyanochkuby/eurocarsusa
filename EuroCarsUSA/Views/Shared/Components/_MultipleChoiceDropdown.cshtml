@@ -33,7 +33,8 @@
                                Attributes = $"value=\"{option.OriginalValue}\" {(selectedValues.Contains(option.OriginalValue) ? "checked" : "")}"
                            }),
                            Headline = option.TranslatedValue,
-                           ShowDivider = true
+                           ShowDivider = true,
+                           Clickable = true,
                        })
                 </li>
             }
