@@ -638,7 +638,7 @@ EuroCarUsa team</value>
   <data name="AddForm" xml:space="preserve">
     <value>Add form</value>
   </data>
-  <data name="Submit form" xml:space="preserve">
+  <data name="SubmitForm" xml:space="preserve">
     <value>Submit form</value>
   </data>
   <data name="Form" xml:space="preserve">

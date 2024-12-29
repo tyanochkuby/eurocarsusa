@@ -637,7 +637,7 @@
   <data name="AddForm" xml:space="preserve">
     <value>Dodaj opcję</value>
   </data>
-  <data name="Submit form" xml:space="preserve">
+  <data name="SubmitForm" xml:space="preserve">
     <value>Wyślij </value>
   </data>
   <data name="Form" xml:space="preserve">
