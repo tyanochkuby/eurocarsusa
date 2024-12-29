@@ -53,7 +53,7 @@
                 <div class="me-3 d-none d-md-flex">
                     <a asp-controller="Home"
                        asp-action="Likes"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name" class="">
+                       class="">
                         @await Html.PartialAsync("_IconButton", new { IconName = "favorite", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                 </div>
@@ -63,8 +63,8 @@
                         @await Html.PartialAsync("_IconButton", new { IconName = "Language chinese dayi", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                        <li><a class="dropdown-item" href="?culture=en&ui-culture=en">English</a></li>
-                        <li><a class="dropdown-item" href="?culture=pl-PL&ui-culture=pl-PL">Polski</a></li>
+                        <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en">English</a></li>
+                        <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="pl-PL">Polski</a></li>
                     </ul>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                 <div>
                     <a asp-controller="Home"
                        asp-action="Index"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                      >
                         @{
                             ViewData["IconSrc"] = Url.Content("Home");
                         }
@@ -88,7 +88,7 @@
                 <div>
                     <a asp-controller="Home"
                        asp-action="Catalog"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                      >
                         @{
                             ViewData["IconSrc"] = Url.Content("View carousel");
                         }
@@ -98,7 +98,7 @@
                 <div>
                     <a asp-controller="Admin"
                        asp-action="Orders"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                      >
                         @{
                             ViewData["IconSrc"] = Url.Content("Search");
                         }
@@ -108,7 +108,7 @@
                 <div>
                     <a asp-controller="Admin"
                        asp-action="EditCatalog"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                      >
                         @{
                             ViewData["IconSrc"] = Url.Content("Edit note");
                         }
@@ -118,7 +118,7 @@
                 <div>
                     <a asp-controller="Admin"
                        asp-action="Statistics"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                      >
                         @{
                             ViewData["IconSrc"] = Url.Content("Data thresholding");
                         }
@@ -131,7 +131,7 @@
                 <div>
                     <a asp-controller="Home"
                        asp-action="Index"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                      >
                         @{
                             ViewData["IconSrc"] = Url.Content("Home");
                         }
@@ -141,7 +141,7 @@
                 <div>
                     <a asp-controller="Home"
                        asp-action="Catalog"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                      >
                         @{
                             ViewData["IconSrc"] = Url.Content("View carousel");
                         }
@@ -151,7 +151,7 @@
                 <div>
                     <a asp-controller="CustomOrder"
                        asp-action="Index"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                      >
                         @{
                             ViewData["IconSrc"] = Url.Content("Search");
                         }
@@ -166,7 +166,7 @@
                 <div class="row mx-0">
                     <a asp-controller="Home"
                        asp-action="Likes"
-                       asp-route-culture="@CultureInfo.CurrentUICulture.Name" class="col px-0 me-2">
+                       class="col px-0 me-2">
                         @await Html.PartialAsync("_IconButton", new { IconName = "favorite", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
                     <div class="dropdown col px-0">
@@ -174,8 +174,8 @@
                             @await Html.PartialAsync("_IconButton", new { IconName = "Language chinese dayi", Color = "secondary", IconColor = "primary", Attributes = "" })
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                            <li><a class="dropdown-item" href="?culture=en&ui-culture=en">English</a></li>
-                            <li><a class="dropdown-item" href="?culture=pl-PL&ui-culture=pl-PL">Polski</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en">English</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="pl-PL">Polski</a></li>
                         </ul>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
             </div>
             <div class="offcanvas-body">
                 <div>
-                    <a asp-controller="Home" asp-action="Index" asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                    <a asp-controller="Home" asp-action="Index">
                     @await Html.PartialAsync("_ListItem", new _ListItem
                     {
                         Classes = "",
@@ -198,7 +198,7 @@
                     </a>
                 </div>
                 <div>
-                    <a asp-controller="Home" asp-action="Catalog" asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                    <a asp-controller="Home" asp-action="Catalog">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
                             Headline = "Catalog",
@@ -209,7 +209,7 @@
                 </div>
                 @if (User.IsInRole("Admin"))
                 {
-                    <a asp-controller="Admin" asp-action="Orders" asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                    <a asp-controller="Admin" asp-action="Orders">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
                             Headline = "Individual order",
@@ -221,7 +221,7 @@
                 else
                 {
                 <div>
-                    <a asp-controller="CustomOrder" asp-action="Index" asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                    <a asp-controller="CustomOrder" asp-action="Index">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
                             Headline = "Individual order",
@@ -234,7 +234,7 @@
                 @if (User.IsInRole("Admin"))
                 {
                   <div>
-                        <a asp-controller="Admin" asp-action="EditCatalog" asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        <a asp-controller="Admin" asp-action="EditCatalog">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
                             Headline = "Catalog edition",
@@ -244,7 +244,7 @@
                     </a>
                 </div>
                 <div>
-                        <a asp-controller="Admin" asp-action="Statistics" asp-route-culture="@CultureInfo.CurrentUICulture.Name">
+                        <a asp-controller="Admin" asp-action="Statistics">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
                             Headline = "Statistic",

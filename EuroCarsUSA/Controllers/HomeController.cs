@@ -145,13 +145,8 @@ namespace EuroCarsUSA.Controllers
             }
         }
 
-        public async Task<IActionResult> GetCars(int carsDisplayed, string culture)
-        {
-            if (!string.IsNullOrEmpty(culture))
-            {
-                CultureInfo.CurrentCulture = new CultureInfo(culture);
-                CultureInfo.CurrentUICulture = new CultureInfo(culture);
-            }
+        public async Task<IActionResult> GetCars(int carsDisplayed)
+        { 
             CarFilter filters = new CarFilter();
             var sessionData = HttpContext.Session.GetString("CurrentFilters");
             if (!string.IsNullOrEmpty(sessionData))
@@ -171,14 +166,8 @@ namespace EuroCarsUSA.Controllers
             return partialView;
         }
 
-        public async Task<IActionResult> Likes(string culture)
-        {
-            if (!string.IsNullOrEmpty(culture))
-            {
-                CultureInfo.CurrentCulture = new CultureInfo(culture);
-                CultureInfo.CurrentUICulture = new CultureInfo(culture);
-            }
-
+        public async Task<IActionResult> Likes()
+        { 
             var likes = _cookieService.GetUserLikedCars();
 
             List<Car> likedCars = new List<Car>();
@@ -196,7 +185,7 @@ namespace EuroCarsUSA.Controllers
         }
 
         public async Task<IActionResult> Index()
-        {
+        { 
             var likes = _cookieService.GetUserLikedCars();
             CarCardViewModel.likedCars = likes;
 
@@ -257,8 +246,14 @@ namespace EuroCarsUSA.Controllers
             );
 
             var returnUrl = Request.Headers["Referer"].ToString();
+            if (!Url.IsLocalUrl(returnUrl))
+            {
+                returnUrl = Url.Action("Index", "Home");
+            }
+
             return LocalRedirect(returnUrl);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> LikeCar(Guid carId)
