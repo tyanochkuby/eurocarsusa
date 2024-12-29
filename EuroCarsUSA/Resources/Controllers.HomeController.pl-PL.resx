@@ -619,4 +619,64 @@
   <data name="Statistics" xml:space="preserve">
     <value>Statystyki</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="CustomOrderText" xml:space="preserve">
+    <value>Ta sekcja jest dedykowana Twoim osobistym potrzebom. Jeśli nie możesz znaleźć samochodu, który Ci odpowiada, możesz złożyć swoje zapytanie do dealera za pośrednictwem tej sekcji. Podaj swoje osobiste preferencje za pomocą tych filtrów. Podaj swoje dane kontaktowe, abyśmy mogli się z Tobą skontaktować.</value>
+  </data>
+  <data name="CustomOrder" xml:space="preserve">
+    <value>Zamówienie indywidualne</value>
+  </data>
+  <data name="TrackYourOrder" xml:space="preserve">
+    <value>Śledź swoje zamówienie</value>
+  </data>
+  <data name="CreateYourOrder" xml:space="preserve">
+    <value>Nowe zamówienie</value>
+  </data>
+  <data name="AddForm" xml:space="preserve">
+    <value>Dodaj opcję</value>
+  </data>
+  <data name="Submit form" xml:space="preserve">
+    <value>Wyślij </value>
+  </data>
+  <data name="Form" xml:space="preserve">
+    <value>Opcja</value>
+  </data>
+  <data name="MaxPrice" xml:space="preserve">
+    <value>Cena maksymalna</value>
+  </data>
+  <data name="MaxMileage" xml:space="preserve">
+    <value>Przebieg maksymalny</value>
+  </data>
+  <data name="MinYear" xml:space="preserve">
+    <value>Rok minimalny</value>
+  </data>
+  <data name="MaxYear" xml:space="preserve">
+    <value>Rok maksymalny</value>
+  </data>
+  <data name="TrackOrder" xml:space="preserve">
+    <value>Śledź zamówienie</value>
+  </data>
+  <data name="ClientOrders" xml:space="preserve">
+    <value>Zamówienia klientów</value>
+  </data>
+  <data name="NotProvided" xml:space="preserve">
+    <value>Nie podano</value>
+  </data>
+  <data name="DateAdded" xml:space="preserve">
+    <value>Data dodania</value>
+  </data>
+  <data name="OrderStatus_Sent" xml:space="preserve">
+    <value>Przyjęte</value>
+  </data>
+  <data name="OrderStatus_Opened" xml:space="preserve">
+    <value>Otwarte</value>
+  </data>
+  <data name="OrderStatus_Closed" xml:space="preserve">
+    <value>Zamknięte</value>
+  </data>
+  <data name="ContactData" xml:space="preserve">
+    <value>Dane kontaktowe</value>
+  </data>
 </root>

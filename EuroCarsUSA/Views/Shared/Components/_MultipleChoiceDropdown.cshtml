@@ -12,11 +12,12 @@
 
 <div class="pt-0" name="@name">
     <div class="dropdown w-100">
-        @Html.Partial("_ExpandButton", new _ExpandButton
+        @await Html.PartialAsync("_ExpandButton", new _ExpandButton
         {
             Classes="",
             Attributes = $"type=\"button\" id=\"{dropdownId}\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
             Placeholder = (selectedValues.Any() ? string.Join(", ", selectedValues) : placeholder),
+	        Overline = overline,
             ShowOverline = true,
             ShowOverlineInside = true,
             ShowAdditionalBackground = true
@@ -25,10 +26,10 @@
             @foreach (var option in options)
             {
                 <li>
-                    @Html.Partial("_ListItem", new _ListItem
+                    @await Html.PartialAsync("_ListItem", new _ListItem
                        {
                            Classes = "dropdown-item p-0",
-                           Leading = Html.Partial("_Checkbox", new _Checkbox
+                           Leading = await Html.PartialAsync("_Checkbox", new _Checkbox
                            {
                                Attributes = $"value=\"{option.OriginalValue}\" {(selectedValues.Contains(option.OriginalValue) ? "checked" : "")}"
                            }),
