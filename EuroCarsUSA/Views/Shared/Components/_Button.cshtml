@@ -7,6 +7,7 @@
     string color = Model.Color;
     string text = Model.Text;
     string link = Model.Link;
+    string type = Model.Type;
 
     var leftIcon = Model.LeftIcon;
     var rightIcon = Model.RightIcon;
@@ -36,7 +37,7 @@
     }
 }
 
-<button @Html.Raw(attributes) class="@Html.Raw($"text-title-sm btn-custom {classes} {backgroundColorValue} {textColorValue} {(hasLeftIcon ? "ps-3" : "ps-4")} {(hasRightIcon ? "ps-3" : "ps-4")}")">
+<button @Html.Raw(attributes) type="@type" class="@Html.Raw($"text-title-sm btn-custom {classes} {backgroundColorValue} {textColorValue} {(hasLeftIcon ? "ps-3" : "ps-4")} {(hasRightIcon ? "ps-3" : "ps-4")}")">
     @if (hasLeftIcon)
     {
         @leftIcon

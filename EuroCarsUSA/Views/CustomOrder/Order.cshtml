@@ -9,25 +9,15 @@
 @inject Localizer localizer
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
-    <div class="container p-5 pt-3 bg-white rounded-32 justify-content-center mb-2">
-        <div class="d-flex justify-content-center">
-            <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
-                Individual order
-            </div>
-        </div>
-        <div class="text-display-sm text-subhead">
-            This section dedicated to your personal requests. If cannot find your taste’s car you can apply you request to dealer via this section. Provide you personal preferences with the help of those filters. Provide you contact information so we can contact you back.
-        </div>
-    </div>
 
     <div class="container mt-4 mb-md-2 mb-3 ">
         <div class="row px-md-5 ">
             <div class="col-auto px-0">
                 <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
-                    <a asp-controller="Admin" asp-action="BackToCatalogWithFilters" class="col-auto ps-0 pe-3">
+                    <a asp-controller="Admin" asp-action="Orders" class="col-auto ps-0 pe-3">
                         @await Html.PartialAsync("_Button", new _Button
                            {
-                               Text = "Back",
+                               Text = localizer.Back,
                                Color = "primary",
                                Classes = "",
                                Attributes = "",
@@ -37,10 +27,10 @@
                            })
                     </a>
                     <div class="col px-0 d-flex overflow-auto rounded-16 modal-dialog-scrollable">
-                        <a class="col-auto px-0 pe-3">
+                        <a asp-controller="Admin" asp-action="Orders" class="col-auto px-0 pe-3">
                             @await Html.PartialAsync("_Button", new _Button
                             {
-                                   Text = "Individual order",
+                                   Text = localizer.CustomOrder,
                                    Color = "secondary",
                                    Classes = "",
                                    Attributes = "",
@@ -69,11 +59,11 @@
 
     <div class="container p-4 bg-white rounded-32">
         <div class="row mb-2">
-            <div class="text-headline-sm">Order - @Model.Id</div>
-            <div class="text-body-lg text-neutral-900">Status - <span class="text-primary">@Model.Status</span></div>
+            <div class="text-headline-sm">@localizer.IndividualOrder - @Model.Id</div>
+            <div class="text-body-lg text-neutral-900">@localizer.Status - <span class="text-primary">@localizer.ToLocalizedString(Model.Status)</span></div>
         </div>
         <div class="bg-secondary-100 p-3 rounded-16 mx-0">
-            <div class="text-title-lg mb-2 text-neutral-900">Your contact data</div>
+            <div class="text-title-lg mb-2 text-neutral-900">@localizer.ContactData</div>
             <div class="row gx-3 gy-3 text-wrap">
                 <div class="col-md-4 col-12">
                     @await Html.PartialAsync("_ListItem", new _ListItem
@@ -81,7 +71,7 @@
                         Headline = @Model.Name != null ? Model.Name : localizer.Empty,
                         ShowOverline = true,
                         ShowOverlineInside = true,
-                        Overline = "Name",
+                        Overline = localizer.Name,
                         ShowDivider = true
                     })
                     </div>
@@ -101,7 +91,7 @@
                         Headline = @Model.PhoneNumber != null ? Model.PhoneNumber : localizer.Empty,
                         ShowOverline = true,
                         ShowOverlineInside = true,
-                        Overline = "Phone number",
+                        Overline = localizer.PhoneNumber,
                         ShowDivider = true
                     })
                 </div>
@@ -111,7 +101,7 @@
         {
             <div class="bg-secondary-100 p-3 rounded-16 mx-0 mt-3">
                 <div class="d-flex justify-content-between position-relative">
-                    <div class="text-title-lg text-neutral-900">Form @(Model.Forms.IndexOf(form) + 1)</div>
+                    <div class="text-title-lg text-neutral-900">@localizer.Form @(Model.Forms.IndexOf(form) + 1)</div>
                     <div class="position-absolute end-0 align-self-center d-flex">
                         <a class="d-none">
                             @await Html.PartialAsync("_IconButton", new
@@ -142,7 +132,7 @@
                                     Headline = (form.CarMakes.Any() ? string.Join(", ", form.CarMakes) : localizer.Empty),
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Make",
+                                    Overline = localizer.Make,
                                     ShowDivider = true
                                 })
                             </div>
@@ -152,7 +142,7 @@
                                     Headline = (form.CarColors.Any() ? string.Join(", ", form.CarColors) : localizer.Empty),
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Color", 
+                                    Overline = localizer.Color, 
                                     ShowDivider = true
                                 })
                             </div>
@@ -162,7 +152,7 @@
                                     Headline = (form.CarTypes.Any() ? string.Join(", ", form.CarTypes) : localizer.Empty),
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Color",
+                                    Overline = localizer.CarType,
                                     ShowDivider = true
                                 })
                             </div>
@@ -174,7 +164,7 @@
                                     Headline = (form.CarFuelTypes.Any() ? string.Join(", ", form.CarFuelTypes) : localizer.Empty),
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Color", 
+                                    Overline = localizer.FuelType, 
                                     ShowDivider = true
                                 })
                             </div>
@@ -184,7 +174,7 @@
                                     Headline = (form.CarTransmissions.Any() ? string.Join(", ", form.CarTransmissions) : localizer.Empty),
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Color",
+                                    Overline = localizer.Transmission,
                                     ShowDivider = true
                                 })
                             </div>
@@ -194,7 +184,7 @@
                                     Headline = form.Model is null ? localizer.Empty : form.Model,
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Model",
+                                    Overline = localizer.Model,
                                     ShowSupportive = true,
                                     ShowSupportiveInside = true,
                                     ShowDivider = true
@@ -210,7 +200,7 @@
                                             Headline = form.MaxPrice is null ? localizer.Empty : form.MaxPrice.ToString(),
                                             ShowOverline = true,
                                             ShowOverlineInside = true,
-                                            Overline = "Max price",
+                                            Overline = localizer.MaxPrice,
                                             ShowDivider = true
                                         })
                                     </div>
@@ -220,7 +210,7 @@
                                             Headline = form.MaxMileage is null ? localizer.Empty : form.MaxMileage.ToString(),
                                             ShowOverline = true,
                                             ShowOverlineInside = true,
-                                            Overline = "Max mileage",
+                                            Overline = localizer.MaxMileage,
                                             ShowDivider = true
                                         })
                                     </div>
@@ -232,7 +222,7 @@
                                             Headline = form.MinYear is null ? localizer.Empty : form.MinYear.ToString(),
                                             ShowOverline = true,
                                             ShowOverlineInside = true,
-                                            Overline = "Min year",
+                                            Overline = localizer.MinYear,
                                             ShowDivider = true
                                         })
                                     </div>
@@ -242,7 +232,7 @@
                                             Headline = form.MaxYear is null ? localizer.Empty : form.MaxYear.ToString(),
                                             ShowOverline = true,
                                             ShowOverlineInside = true,
-                                            Overline = "Max year",
+                                            Overline = localizer.MaxYear,
                                             ShowDivider = true
                                         })
                                     </div>
@@ -255,7 +245,7 @@
                                     Headline = form.Description ?? localizer.Empty,
                                     ShowOverline = true,
                                     ShowOverlineInside = true,
-                                    Overline = "Description",
+                                    Overline = localizer.Description,
                                     ShowSupportive = true,
                                     ShowSupportiveInside = true,
                                     ShowDivider = true
@@ -268,7 +258,7 @@
     </div>
 
     <div class="container mt-3 p-4 pt-3 rounded-32 bg-white">
-        <div class="text-headline-sm px-2 mb-2">Search your order</div>
+        <div class="text-headline-sm px-2 mb-2">@localizer.TrackYourOrder</div>
         <div class="p-3 bg-secondary-200 rounded-16">
             <div class="row m-0">
                 <div class="col-12 col-md-4 p-md-0 p-2 px-0 me-md-3 bg-secondary-200 mb-2 mb-md-0">
@@ -280,7 +270,7 @@
                     <a class="submit">
                         @await Html.PartialAsync("_Button", new _Button
                    {
-                       Text = "Find",
+                       Text = localizer.Find,
                        Color = "primary",
                        Classes = "col-12",
                        Attributes = "",

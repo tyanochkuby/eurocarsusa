@@ -1,11 +1,9 @@
-﻿using EuroCarsUSA.Controllers;
-using EuroCarsUSA.Data.Enums;
+﻿using EuroCarsUSA.Data.Enums;
 using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models.Form;
 using EuroCarsUSA.Resources;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
-using Microsoft.Extensions.Localization;
 
 namespace EuroCarsUSA.Services
 {
@@ -25,7 +23,7 @@ namespace EuroCarsUSA.Services
         public async Task<List<CustomOrderViewModel>> GetAll()
         {
             var customOrders = await _customOrderRepository.GetAll();
-            
+
             var viewModels = customOrders.OrderByDescending(c => c.TimeStamp).Select(co => new CustomOrderViewModel()
             {
                 Id = co.Id,
@@ -33,7 +31,8 @@ namespace EuroCarsUSA.Services
                 Email = co.Email,
                 Name = co.Name,
                 PhoneNumber = co.PhoneNumber,
-                Status = co.Status
+                Status = co.Status,
+                TimeStapm = co.TimeStamp
             }).ToList();
 
             return viewModels;
@@ -82,7 +81,7 @@ namespace EuroCarsUSA.Services
                 {
                     _emailService.SendEmail(customOrderViewModel.Email, _localizer.CustomOrderEmailSubject, _localizer.CustomOrderEmailBody);
                     _emailService.SendEmail(_emailService.AdminEmail, _localizer.AdminCustomOrderEmailSubject, string.Format(_localizer.AdminCustomOrderEmailBody, customOrderViewModel.PhoneNumber, customOrderViewModel.Email));
-                } 
+                }
                 return customOrder.Id;
             }
 
