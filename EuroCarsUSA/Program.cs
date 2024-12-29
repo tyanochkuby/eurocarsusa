@@ -97,7 +97,6 @@ var requestLocalizationOptions = new RequestLocalizationOptions
     SupportedUICultures = supportedCultures,
     RequestCultureProviders = new IRequestCultureProvider[]
     {
-        new QueryStringRequestCultureProvider(),
         new CookieRequestCultureProvider(),
         new AcceptLanguageHeaderRequestCultureProvider()
     }
