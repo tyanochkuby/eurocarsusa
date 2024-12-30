@@ -18,7 +18,7 @@
     var selectedTransmissions = Context.Request.Query["transmission"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
     var selectedColors = Context.Request.Query["color"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
 }
-<div class="container p-3 d-md-none d-flex">
+<div class="container p-3 d-md-none d-block">
     <div class="row g-3 mb-2">
         <a class="col-6">
             @await Html.PartialAsync("_Button", new _Button
