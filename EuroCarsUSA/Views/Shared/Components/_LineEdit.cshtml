@@ -38,7 +38,7 @@
     bool noIcons = ((leading == null) && (trailing == null));
     bool noOverline = string.IsNullOrEmpty(overline);
     bool noOverlineInside = ((showOverlineInside == null) || (showOverlineInside == false));
-    
+
 
     if (noIcons && (noOverline || noOverlineInside))
     {
@@ -54,7 +54,7 @@
         </div>
     }
 
-    <label class="line-edit-text-field d-flex row m-0 bg-white">
+    <label class="line-edit-text-field d-flex row m-0 bg-white position-relative">
         <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex @noLeadingClass @noTrailingClass">
             @if (leading != null)
             {
@@ -94,9 +94,10 @@
                 </div>
             }
         </div>
+
+        <div class="active-indicator position-absolute w-100"> </div>
     </label>
 
-    <div class="active-indicator position-absolute w-100"> </div>
 
     <div class="line-edit-supportive-text text-label-md text-neutral-900 row px-3 m-0 pt-1 @noSupportiveSizeEffectClass @noSupportiveClass">
         @if (showSupportive)
@@ -107,30 +108,3 @@
     </div>
 </div>
 
-<script>
-    function validateInput(input) {
-        const lineEdit = input.closest('.line-edit');
-
-        const supportiveText = lineEdit.querySelector('.line-edit-supportive-text');
-
-        const errorMessage = (input.title || "Invalid input!");
-
-        const currentText = supportiveText.textContent;
-
-        if (input.checkValidity()) {
-            if (currentText.startsWith(errorMessage)) {
-                supportiveText.innerHTML = currentText.replace(errorMessage, "").trim();
-                supportiveText.innerHTML = supportiveText.innerHTML.replace("<br>", "").trim();
-            }
-            lineEdit.classList.remove('error');
-        } else {
-            if (supportiveText.classList.contains('d-none')) {
-                supportiveText.classList.replace('d-none', 'd-block');
-            }
-            if (!currentText.startsWith(errorMessage)) {
-                supportiveText.innerHTML = `${errorMessage}<br>${currentText}`.trim();
-            }
-            lineEdit.classList.add('error');
-        }
-    }
-</script>

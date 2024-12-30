@@ -9,13 +9,13 @@
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
     <form asp-action="SubmitForm" method="post">
-        <div class="container p-5 pt-3 bg-white rounded-32 mb-3 justify-content-center">
+        <div class="container p-md-5 pt-md-3 p-3 pt-2 text-center text-md-start bg-white rounded-32 mb-3 justify-content-center">
             <div class="d-flex justify-content-center">
-                <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
+                <div class="text-md-display-lg text-title-lg mb-3 text-subhead text-center border-bottom">
                     Individual order
                 </div>
             </div>
-            <div class="text-display-sm text-subhead">
+            <div class="text-md-display-sm text-body-md text-subhead">
                 This section is dedicated to your personal requests. If you cannot find your desired car, you can apply your request to the dealer via this section. Provide your personal preferences with the help of these filters. Provide your contact information so we can contact you back.
             </div>
         </div>
@@ -24,29 +24,29 @@
             <div class="row px-md-5 ">
                 <div class="col-auto px-0">
                     <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
-                        <a asp-controller="Admin" asp-action="BackToCatalogWithFilters" class="col-auto ps-0 pe-3">
+                        <a class="col-auto ps-0 pe-3">
                             @await Html.PartialAsync("_Button", new _Button
-                       {
-                           Text = "Back",
-                           Color = "primary",
-                           Classes = "",
-                           Attributes = "",
-                           LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
-                           RightIcon = null,
-                           TextColor = ""
-                       })
+                            {
+                                Text = "Back",
+                                Color = "primary",
+                                Classes = "",
+                                Attributes = "type=\"button\"",
+                                LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                                RightIcon = null,
+                                TextColor = ""
+                            })
                         </a>
                         <a class="col-auto px-0">
                             @await Html.PartialAsync("_Button", new _Button
-                       {
-                           Text = "Individual order",
-                           Color = "secondary",
-                           Classes = "",
-                           Attributes = "",
-                           LeftIcon = null,
-                           RightIcon = null,
-                           TextColor = "text-primary"
-                       })
+                            {
+                                Text = "Individual order",
+                                Color = "secondary",
+                                Classes = "",
+                                Attributes = "type=\"button\"",
+                                LeftIcon = null,
+                                RightIcon = null,
+                                TextColor = "text-primary"
+                            })
                         </a>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                            Text = "Find",
                            Color = "primary",
                            Classes = "col-12",
-                           Attributes = "",
+                           Attributes = "type=\"button\"",
                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
                            RightIcon = null,
                            TextColor = ""
@@ -117,21 +117,79 @@
             </div>
 
             <div class="bg-secondary-100 p-3 rounded-16 row mx-0 mt-3">
+                <div class="text-title-lg text-neutral-900 mb-3 px-0">Provide your contact data</div>
                 <div class="col px-0">
-                    <div class="form-group col">
-                        <label asp-for="Email"></label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="form-group col mb-2">
+                        <div class="line-edit position-relative">
+                            <label class="line-edit-text-field d-flex row m-0 bg-white position-relative" asp-for="Email">
+                                <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                    <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                        <div class="row m-0 ">
+                                            <div class="line-edit-label-text col p-0 py-1">
+                                                <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                    Email
+                                                </div>
+                                                <div class="text-body-lg text-neutral-900 row m-0">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="Email" asp-for="Email" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="active-indicator position-absolute w-100"> </div>
+                            </label>
+                            <span class="line-edit-supportive-text text-label-md text-neutral-900 px-3 m-0 pt-1 d-flex text-byzantine" asp-validation-for="Email">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col mb-2">
+                        <div class="line-edit position-relative">
+                            <label class="line-edit-text-field d-flex row m-0 bg-white position-relative" asp-for="PhoneNumber">
+                                <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                    <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                        <div class="row m-0 ">
+                                            <div class="line-edit-label-text col p-0 py-1">
+                                                <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                    Phone Number
+                                                </div>
+                                                <div class="text-body-lg text-neutral-900 row m-0">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="PhoneNumber" oninput="validateInput(this)" asp-for="PhoneNumber">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="active-indicator position-absolute w-100"> </div>
+                            </label>
+                            <span class="line-edit-supportive-text text-label-md text-neutral-900 px-3 m-0 pt-1 d-flex text-byzantine" asp-validation-for="PhoneNumber">
+                            </span>
+                        </div>
                     </div>
                     <div class="form-group col">
-                        <label asp-for="PhoneNumber"></label>
-                        <input asp-for="PhoneNumber" class="form-control" />
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col">
-                        <label asp-for="Name"></label>
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
+                        <div class="line-edit position-relative">
+                            <label class="line-edit-text-field d-flex row m-0 bg-white position-relative" asp-for="Name">
+                                <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                    <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                        <div class="row m-0 ">
+                                            <div class="line-edit-label-text col p-0 py-1">
+                                                <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                    Name
+                                                </div>
+                                                <div class="text-body-lg text-neutral-900 row m-0">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="Name" oninput="validateInput(this)" asp-for="Name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="active-indicator position-absolute w-100"> </div>
+                            </label>
+                            <span class="line-edit-supportive-text text-label-md text-neutral-900 px-3 m-0 pt-1 d-flex text-byzantine" asp-validation-for="Name">
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -156,6 +214,39 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const validationElements = document.querySelectorAll(".field-validation-valid");
+
+            validationElements.forEach((element) => {
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (
+                            mutation.type === "attributes" &&
+                            mutation.attributeName === "class"
+                        ) {
+                            if (element.classList.contains("field-validation-error")) {
+                                const parentLineEdit = element.closest(".line-edit");
+                                if (parentLineEdit) {
+                                    parentLineEdit.classList.add("error");
+                                }
+                            } else {
+                                const parentLineEdit = element.closest(".line-edit");
+                                if (parentLineEdit) {
+                                    parentLineEdit.classList.remove("error");
+                                }
+                            }
+                        }
+                    });
+                });
+                observer.observe(element, {
+                    attributes: true,
+                    attributeFilter: ["class"],
+                });
+            });
+        });
+
+    </script>
     <script>
         function addForm() {
             var formsContainer = document.getElementById('forms-container');

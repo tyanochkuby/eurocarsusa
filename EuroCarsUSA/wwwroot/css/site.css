@@ -731,6 +731,19 @@ button#mobile-filter-select-save-button .carIcon {
     font-family: Roboto;
 }
 
+@media (min-width:768px) {
+    .text-md-display-sm {
+        font-size: 36px !important;
+        line-height: 44px !important;
+        font-family: Roboto !important;
+    }
+    .text-md-display-lg {
+        font-size: 57px !important;
+        line-height: 64px !important;
+        letter-spacing: -0.25px !important;
+        font-family: Roboto !important;
+    }
+}
 
 
 .text-headline-lg {
