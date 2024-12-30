@@ -104,7 +104,28 @@ namespace EuroCarsUSA.Controllers
         public async Task<IActionResult> Orders()
         {
             var recievedForms = await customOrderService.GetAll();
-            return View(recievedForms);
+            List<CustomOrderViewModel> formstatusSent = new List<CustomOrderViewModel>();
+            List<CustomOrderViewModel> formstatusOpened = new List<CustomOrderViewModel>();
+            List<CustomOrderViewModel> formstatusClosed = new List<CustomOrderViewModel>();
+            foreach (var form in recievedForms)
+            {
+                if (form.Status == OrderStatus.Sent)
+                {
+                    formstatusSent.Add(form);
+                }
+                else if (form.Status == OrderStatus.Opened) {
+                    formstatusOpened.Add(form);
+                }
+                else
+                {
+                    formstatusClosed.Add(form);
+                }
+            }
+            OrdersViewModel orders = new OrdersViewModel();
+            orders.Sent = formstatusSent;
+            orders.Opened = formstatusOpened;
+            orders.Closed = formstatusClosed;
+            return View(orders);
         }
 
         [HttpPut]
