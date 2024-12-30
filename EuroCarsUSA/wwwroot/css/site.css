@@ -965,6 +965,10 @@ button#mobile-filter-select-save-button .carIcon {
 }
 
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 
 .myCheckBox {
     display: none;
@@ -1365,4 +1369,18 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     flex-wrap: nowrap !important;
     overflow: scroll;
     overflow-y: auto
+}
+}
+
+.customOrderForm {
+    max-height: 320px;
+    overflow-y: auto;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+@media (min-width:768px) {
+    .customOrderForm {
+        max-height: none;
+    }
 }
