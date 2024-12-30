@@ -218,37 +218,55 @@
 </div>
 
 
-<div class="filters-mobile" id="sort-mobile-list">
-    <div class="row mt-4 justify-content-between w-100">
-        <div class="col-5 "></div>
-        <div class="col-6 "><p class="fs-5">@Translator["SortBy"]</p></div>
-        <div class="col-1 "><img class="filterIcon sort-mobile-close-button" src="~/icons/clear.svg" /></div>
-    </div>
-    @foreach (SortOrderType sortOrder in Enum.GetValues(typeof(SortOrderType)))
-    {
-        <div class="row w-100 justify-content-between mb-2 mx-0 mobile-sort-option row-mobile-filter d-inline-flex align-items-center">
-            <div class="col-10 d-flex align-items-center">
-                <label class="ps-3 fh-filter-text" value="@sortOrder">@sortOrder.ToLocalizedString(Translator)</label>
-            </div>
-            @if (Context.Request.Query["sortOrder"] == sortOrder.ToString() || (Context.Request.Query["sortOrder"] == String.Empty && sortOrder == SortOrderType.NewFirst))
-            {
-                <div class="col-2 d-flex align-items-center">
-                    <svg width="96" height="96" viewBox="0 0 96 96" class="carIcon" fill="#7E9DED" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_449_5772)">
-                            <path d="M36.0001 64.8L19.2001 48L13.6001 53.6L36.0001 76L84.0001 28L78.4001 22.4L36.0001 64.8Z" fill="#7E9DED" />
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_449_5772">
-                                <rect width="96" height="96" fill="#7E9DED" />
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </div>
-            }
+<div class="filters-mobile bg-secondary d-flex flex-column" id="sort-mobile-list">
+    <div class="px-4 border-bottom border-primary bg-white">
+        <div class="topbar position-relative align-content-center">
+            <div class="text-headline-sm d-flex justify-content-center ">@Translator["SortBy"]</div>
+            <a class="sort-mobile-close-button position-absolute end-0 top-0 h-100 align-content-center">
+                @await Html.PartialAsync("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "black", Attributes = "" })
+            </a>
         </div>
-        <hr style="border-top: 1px solid #000;" class="my-0">
-
-    }
+    </div>
+    <div class="px-2 px-sm-0 align-content-between h-100 row mx-0">
+        <div class="px-0 col-12 py-2">
+            <div class="bg-white rounded-16 py-2 container px-0">
+                @foreach (SortOrderType sortOrder in Enum.GetValues(typeof(SortOrderType)))
+                {
+                    @if (Context.Request.Query["sortOrder"] == sortOrder.ToString() || (Context.Request.Query["sortOrder"].ToString() == String.Empty && sortOrder == SortOrderType.NewFirst))
+                    {
+                        <div class="row m-0 mobile-sort-option" value="@sortOrder">
+                            @await Html.PartialAsync("_ListItem", new _ListItem
+                            {
+                                Classes = "p-0",
+                                Attributes = "",
+                                Leading = (object)null,
+                                Trailing = Html.Partial("_Icon", new { IconName = Url.Content("Done"), Color = "primary" }),
+                                Headline = $"{@sortOrder.ToLocalizedString(Translator)}",
+                                ShowDivider = true,
+                                Clickable = true
+                            })    
+                        </div>
+                    }    
+                    else
+                    {
+                        <div class="row m-0 mobile-sort-option " value="@sortOrder">
+                            @await Html.PartialAsync("_ListItem", new _ListItem
+                            {
+                                Classes = "p-0",
+                                Attributes = "",
+                                Leading = (object)null,
+                                Trailing = (object)null,
+                                Headline = $"{@sortOrder.ToLocalizedString(Translator)}",
+                                ShowDivider = true,
+                                Clickable = true
+                            })
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    
 </div>
 
 <div class="row mx-0">
@@ -679,7 +697,7 @@
             });
 
             $('.mobile-sort-option').click(function () {
-                var sortOrder = $(this).find("label").first().attr('value');
+                var sortOrder = $(this).attr('value');
                 $('#mobileSortOrder').val(sortOrder);
                 $('#mobileFiltersForm').submit();
             });
