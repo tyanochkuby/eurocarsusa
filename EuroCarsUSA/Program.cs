@@ -41,7 +41,7 @@ builder.Services.AddSession(options =>
 });
 
 // Configure services
-var connectionString = builder.Configuration.GetConnectionString("WebioProd");
+var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
 builder.Services.Configure<CookieNames>(
             builder.Configuration.GetSection("CookieNames")
         );
