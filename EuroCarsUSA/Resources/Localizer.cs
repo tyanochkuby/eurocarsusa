@@ -1,6 +1,5 @@
 ﻿using EuroCarsUSA.Controllers;
 using Microsoft.Extensions.Localization;
-using Microsoft.Identity.Client;
 
 namespace EuroCarsUSA.Resources
 {
@@ -12,6 +11,8 @@ namespace EuroCarsUSA.Resources
         {
             _localizer = localizer;
         }
+        public string ToLocalizedString(Enum enumValue) => _localizer[$"{enumValue.GetType().Name}_{enumValue}"];
+
 
         public string Back => _localizer[nameof(Back)];
         public string CarType => _localizer[nameof(CarType)];
@@ -28,12 +29,12 @@ namespace EuroCarsUSA.Resources
         public string SortBy => _localizer[nameof(SortBy)];
         public string Transmission => _localizer[nameof(Transmission)];
         public string Year => _localizer[nameof(Year)];
-        public string SortOrder_NewFirst => _localizer[nameof(SortOrder_NewFirst)];
-        public string SortOrder_ByYear => _localizer[nameof(SortOrder_ByYear)];
-        public string SortOrder_ByYearDesc => _localizer[nameof(SortOrder_ByYearDesc)];
-        public string SortOrder_ByMileage => _localizer[nameof(SortOrder_ByMileage)];
-        public string SortOrder_ByPrice => _localizer[nameof(SortOrder_ByPrice)];
-        public string SortOrder_ByPriceDesc => _localizer[nameof(SortOrder_ByPriceDesc)];
+        public string SortOrderType_NewFirst => _localizer[nameof(SortOrderType_NewFirst)];
+        public string SortOrderType_ByYear => _localizer[nameof(SortOrderType_ByYear)];
+        public string SortOrderType_ByYearDesc => _localizer[nameof(SortOrderType_ByYearDesc)];
+        public string SortOrderType_ByMileage => _localizer[nameof(SortOrderType_ByMileage)];
+        public string SortOrderType_ByPrice => _localizer[nameof(SortOrderType_ByPrice)];
+        public string SortOrderType_ByPriceDesc => _localizer[nameof(SortOrderType_ByPriceDesc)];
         public string Electric => _localizer[nameof(Electric)];
         public string ShowMore => _localizer[nameof(ShowMore)];
         public string ContactSeller => _localizer[nameof(ContactSeller)];
@@ -101,6 +102,26 @@ namespace EuroCarsUSA.Resources
         public string Likes => _localizer[nameof(Likes)];
         public string Views => _localizer[nameof(Views)];
         public string Statistics => _localizer[nameof(Statistics)];
+        public string CustomOrderText => _localizer[nameof(CustomOrderText)];
+        public string CustomOrder => _localizer[nameof(CustomOrder)];
+        public string TrackYourOrder => _localizer[nameof(TrackYourOrder)];
+        public string TrackOrder => _localizer[nameof(TrackOrder)];
+        public string CreateYourOrder => _localizer[nameof(CreateYourOrder)];
+        public string AddForm => _localizer[nameof(AddForm)];
+        public string SubmitForm => _localizer[nameof(SubmitForm)];
+        public string Form => _localizer[nameof(Form)];
+        public string MaxPrice => _localizer[nameof(MaxPrice)];
+        public string MaxMileage => _localizer[nameof(MaxMileage)];
+        public string MinYear => _localizer[nameof(MinYear)];
+        public string MaxYear => _localizer[nameof(MaxYear)];
+        public string Description => _localizer[nameof(Description)];
+        public string ClientOrders => _localizer[nameof(ClientOrders)];
+        public string NotProvided => _localizer[nameof(NotProvided)];
+        public string DateAdded => _localizer[nameof(DateAdded)];
+        public string OrderStatus_Sent => _localizer[nameof(OrderStatus_Sent)];
+        public string OrderStatus_Opened => _localizer[nameof(OrderStatus_Opened)];
+        public string OrderStatus_Closed => _localizer[nameof(OrderStatus_Closed)];
+        public string ContactData => _localizer[nameof(ContactData)];
 
     }
 }

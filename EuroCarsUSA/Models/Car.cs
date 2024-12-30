@@ -21,7 +21,7 @@ namespace EuroCarsUSA.Models
         public int Price { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.Now;
 
-        public CarStatus Status { get; set; }
+        public CarStatus Status { get; set; } = CarStatus.Available;
 
         public Car() { }
 

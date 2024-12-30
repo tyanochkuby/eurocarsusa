@@ -159,22 +159,22 @@
   <data name="Year" xml:space="preserve">
     <value>Year</value>
   </data>
-  <data name="SortOrder_NewFirst" xml:space="preserve">
+  <data name="SortOrderType_NewFirst" xml:space="preserve">
     <value>Freshly added</value>
   </data>
-  <data name="SortOrder_ByYear" xml:space="preserve">
+  <data name="SortOrderType_ByYear" xml:space="preserve">
     <value>Oldest first</value>
   </data>
-  <data name="SortOrder_ByYearDesc" xml:space="preserve">
+  <data name="SortOrderType_ByYearDesc" xml:space="preserve">
     <value>Newest first</value>
   </data>
-  <data name="SortOrder_ByMileage" xml:space="preserve">
+  <data name="SortOrderType_ByMileage" xml:space="preserve">
     <value>Lowest mileage</value>
   </data>
-  <data name="SortOrder_ByPrice" xml:space="preserve">
+  <data name="SortOrderType_ByPrice" xml:space="preserve">
     <value>Lowest price</value>
   </data>
-  <data name="SortOrder_ByPriceDesc" xml:space="preserve">
+  <data name="SortOrderType_ByPriceDesc" xml:space="preserve">
     <value>Highest price</value>
   </data>
   <data name="Electric" xml:space="preserve">
@@ -326,237 +326,237 @@ EuroCarUsa team</value>
   <data name="CarStatus_Recommended" xml:space="preserve">
     <value>Recommended</value>
   </data>
-<data name="CarMake_Ford">
-  <value>Ford</value>
-</data>
-<data name="CarMake_Chevrolet">
-  <value>Chevrolet</value>
-</data>
-<data name="CarMake_Tesla">
-  <value>Tesla</value>
-</data>
-<data name="CarMake_Jeep">
-  <value>Jeep</value>
-</data>
-<data name="CarMake_Dodge">
-  <value>Dodge</value>
-</data>
-<data name="CarMake_Chrysler">
-  <value>Chrysler</value>
-</data>
-<data name="CarMake_Lincoln">
-  <value>Lincoln</value>
-</data>
-<data name="CarMake_Cadillac">
-  <value>Cadillac</value>
-</data>
-<data name="CarMake_Buick">
-  <value>Buick</value>
-</data>
-<data name="CarMake_GMC">
-  <value>GMC</value>
-</data>
-<data name="CarMake_Hummer">
-  <value>Hummer</value>
-</data>
-<data name="CarMake_Pontiac">
-  <value>Pontiac</value>
-</data>
-<data name="CarMake_LandRover">
-  <value>Land Rover</value>
-</data>
-<data name="CarMake_Jaguar">
-  <value>Jaguar</value>
-</data>
-<data name="CarMake_MINI">
-  <value>MINI</value>
-</data>
-<data name="CarMake_MG">
-  <value>MG</value>
-</data>
-<data name="CarMake_Rover">
-  <value>Rover</value>
-</data>
-<data name="CarMake_Bentley">
-  <value>Bentley</value>
-</data>
-<data name="CarMake_RollsRoyce">
-  <value>Rolls-Royce</value>
-</data>
-<data name="CarMake_AstonMartin">
-  <value>Aston Martin</value>
-</data>
-<data name="CarMake_Fiat">
-  <value>Fiat</value>
-</data>
-<data name="CarMake_AlfaRomeo">
-  <value>Alfa Romeo</value>
-</data>
-<data name="CarMake_Maserati">
-  <value>Maserati</value>
-</data>
-<data name="CarMake_Lancia">
-  <value>Lancia</value>
-</data>
-<data name="CarMake_Iveco">
-  <value>Iveco</value>
-</data>
-<data name="CarMake_Chery">
-  <value>Chery</value>
-</data>
-<data name="CarMake_Geely">
-  <value>Geely</value>
-</data>
-<data name="CarMake_BYD">
-  <value>BYD</value>
-</data>
-<data name="CarMake_GreatWall">
-  <value>Great Wall</value>
-</data>
-<data name="CarMake_JAC">
-  <value>JAC</value>
-</data>
-<data name="CarMake_Lifan">
-  <value>Lifan</value>
-</data>
-<data name="CarMake_Dongfeng">
-  <value>Dongfeng</value>
-</data>
-<data name="CarMake_Dadi">
-  <value>Dadi</value>
-</data>
-<data name="CarMake_FAW">
-  <value>FAW</value>
-</data>
-<data name="CarMake_Hyundai">
-  <value>Hyundai</value>
-</data>
-<data name="CarMake_Kia">
-  <value>Kia</value>
-</data>
-<data name="CarMake_Daewoo">
-  <value>Daewoo</value>
-</data>
-<data name="CarMake_SsangYong">
-  <value>SsangYong</value>
-</data>
-<data name="CarMake_Volkswagen">
-  <value>Volkswagen</value>
-</data>
-<data name="CarMake_BMW">
-  <value>BMW</value>
-</data>
-<data name="CarMake_Audi">
-  <value>Audi</value>
-</data>
-<data name="CarMake_MercedesBenz">
-  <value>Mercedes-Benz</value>
-</data>
-<data name="CarMake_Opel">
-  <value>Opel</value>
-</data>
-<data name="CarMake_Porsche">
-  <value>Porsche</value>
-</data>
-<data name="CarMake_Smart">
-  <value>Smart</value>
-</data>
-<data name="CarMake_Lada">
-  <value>Lada</value>
-</data>
-<data name="CarMake_GAZ">
-  <value>GAZ</value>
-</data>
-<data name="CarMake_UAZ">
-  <value>UAZ</value>
-</data>
-<data name="CarMake_ZAZ">
-  <value>ZAZ</value>
-</data>
-<data name="CarMake_Bogdan">
-  <value>Bogdan</value>
-</data>
-<data name="CarMake_Renault">
-  <value>Renault</value>
-</data>
-<data name="CarMake_Peugeot">
-  <value>Peugeot</value>
-</data>
-<data name="CarMake_Citroen">
-  <value>Citroën</value>
-</data>
-<data name="CarMake_Nissan">
-  <value>Nissan</value>
-</data>
-<data name="CarMake_Toyota">
-  <value>Toyota</value>
-</data>
-<data name="CarMake_Mazda">
-  <value>Mazda</value>
-</data>
-<data name="CarMake_Mitsubishi">
-  <value>Mitsubishi</value>
-</data>
-<data name="CarMake_Honda">
-  <value>Honda</value>
-</data>
-<data name="CarMake_Lexus">
-  <value>Lexus</value>
-</data>
-<data name="CarMake_Subaru">
-  <value>Subaru</value>
-</data>
-<data name="CarMake_Infiniti">
-  <value>Infiniti</value>
-</data>
-<data name="CarMake_Suzuki">
-  <value>Suzuki</value>
-</data>
-<data name="CarMake_Acura">
-  <value>Acura</value>
-</data>
-<data name="CarMake_Daihatsu">
-  <value>Daihatsu</value>
-</data>
-<data name="CarMake_Isuzu">
-  <value>Isuzu</value>
-</data>
-<data name="CarMake_Lamborghini">
-  <value>Lamborghini</value>
-</data>
-<data name="CarType_Sedan">
-  <value>Sedan</value>
-</data>
-<data name="CarType_Coupe">
-  <value>Coupe</value>
-</data>
-<data name="CarType_Convertible">
-  <value>Convertible</value>
-</data>
-<data name="CarType_Hatchback">
-  <value>Hatchback</value>
-</data>
-<data name="CarType_SUV">
-  <value>SUV</value>
-</data>
-<data name="CarType_Crossover">
-  <value>Crossover</value>
-</data>
-<data name="CarType_Minivan">
-  <value>Minivan</value>
-</data>
-<data name="CarType_Pickup">
-  <value>Pickup</value>
-</data>
-<data name="CarType_Van">
-  <value>Van</value>
-</data>
-<data name="CarType_Wagon">
-  <value>Wagon</value>
-</data>
-<data name="CarType_Sports">
-  <value>Sports</value>
-</data>
+  <data name="CarMake_Ford" xml:space="preserve">
+    <value>Ford</value>
+  </data>
+  <data name="CarMake_Chevrolet" xml:space="preserve">
+    <value>Chevrolet</value>
+  </data>
+  <data name="CarMake_Tesla" xml:space="preserve">
+    <value>Tesla</value>
+  </data>
+  <data name="CarMake_Jeep" xml:space="preserve">
+    <value>Jeep</value>
+  </data>
+  <data name="CarMake_Dodge" xml:space="preserve">
+    <value>Dodge</value>
+  </data>
+  <data name="CarMake_Chrysler" xml:space="preserve">
+    <value>Chrysler</value>
+  </data>
+  <data name="CarMake_Lincoln" xml:space="preserve">
+    <value>Lincoln</value>
+  </data>
+  <data name="CarMake_Cadillac" xml:space="preserve">
+    <value>Cadillac</value>
+  </data>
+  <data name="CarMake_Buick" xml:space="preserve">
+    <value>Buick</value>
+  </data>
+  <data name="CarMake_GMC" xml:space="preserve">
+    <value>GMC</value>
+  </data>
+  <data name="CarMake_Hummer" xml:space="preserve">
+    <value>Hummer</value>
+  </data>
+  <data name="CarMake_Pontiac" xml:space="preserve">
+    <value>Pontiac</value>
+  </data>
+  <data name="CarMake_LandRover" xml:space="preserve">
+    <value>Land Rover</value>
+  </data>
+  <data name="CarMake_Jaguar" xml:space="preserve">
+    <value>Jaguar</value>
+  </data>
+  <data name="CarMake_MINI" xml:space="preserve">
+    <value>MINI</value>
+  </data>
+  <data name="CarMake_MG" xml:space="preserve">
+    <value>MG</value>
+  </data>
+  <data name="CarMake_Rover" xml:space="preserve">
+    <value>Rover</value>
+  </data>
+  <data name="CarMake_Bentley" xml:space="preserve">
+    <value>Bentley</value>
+  </data>
+  <data name="CarMake_RollsRoyce" xml:space="preserve">
+    <value>Rolls-Royce</value>
+  </data>
+  <data name="CarMake_AstonMartin" xml:space="preserve">
+    <value>Aston Martin</value>
+  </data>
+  <data name="CarMake_Fiat" xml:space="preserve">
+    <value>Fiat</value>
+  </data>
+  <data name="CarMake_AlfaRomeo" xml:space="preserve">
+    <value>Alfa Romeo</value>
+  </data>
+  <data name="CarMake_Maserati" xml:space="preserve">
+    <value>Maserati</value>
+  </data>
+  <data name="CarMake_Lancia" xml:space="preserve">
+    <value>Lancia</value>
+  </data>
+  <data name="CarMake_Iveco" xml:space="preserve">
+    <value>Iveco</value>
+  </data>
+  <data name="CarMake_Chery" xml:space="preserve">
+    <value>Chery</value>
+  </data>
+  <data name="CarMake_Geely" xml:space="preserve">
+    <value>Geely</value>
+  </data>
+  <data name="CarMake_BYD" xml:space="preserve">
+    <value>BYD</value>
+  </data>
+  <data name="CarMake_GreatWall" xml:space="preserve">
+    <value>Great Wall</value>
+  </data>
+  <data name="CarMake_JAC" xml:space="preserve">
+    <value>JAC</value>
+  </data>
+  <data name="CarMake_Lifan" xml:space="preserve">
+    <value>Lifan</value>
+  </data>
+  <data name="CarMake_Dongfeng" xml:space="preserve">
+    <value>Dongfeng</value>
+  </data>
+  <data name="CarMake_Dadi" xml:space="preserve">
+    <value>Dadi</value>
+  </data>
+  <data name="CarMake_FAW" xml:space="preserve">
+    <value>FAW</value>
+  </data>
+  <data name="CarMake_Hyundai" xml:space="preserve">
+    <value>Hyundai</value>
+  </data>
+  <data name="CarMake_Kia" xml:space="preserve">
+    <value>Kia</value>
+  </data>
+  <data name="CarMake_Daewoo" xml:space="preserve">
+    <value>Daewoo</value>
+  </data>
+  <data name="CarMake_SsangYong" xml:space="preserve">
+    <value>SsangYong</value>
+  </data>
+  <data name="CarMake_Volkswagen" xml:space="preserve">
+    <value>Volkswagen</value>
+  </data>
+  <data name="CarMake_BMW" xml:space="preserve">
+    <value>BMW</value>
+  </data>
+  <data name="CarMake_Audi" xml:space="preserve">
+    <value>Audi</value>
+  </data>
+  <data name="CarMake_MercedesBenz" xml:space="preserve">
+    <value>Mercedes-Benz</value>
+  </data>
+  <data name="CarMake_Opel" xml:space="preserve">
+    <value>Opel</value>
+  </data>
+  <data name="CarMake_Porsche" xml:space="preserve">
+    <value>Porsche</value>
+  </data>
+  <data name="CarMake_Smart" xml:space="preserve">
+    <value>Smart</value>
+  </data>
+  <data name="CarMake_Lada" xml:space="preserve">
+    <value>Lada</value>
+  </data>
+  <data name="CarMake_GAZ" xml:space="preserve">
+    <value>GAZ</value>
+  </data>
+  <data name="CarMake_UAZ" xml:space="preserve">
+    <value>UAZ</value>
+  </data>
+  <data name="CarMake_ZAZ" xml:space="preserve">
+    <value>ZAZ</value>
+  </data>
+  <data name="CarMake_Bogdan" xml:space="preserve">
+    <value>Bogdan</value>
+  </data>
+  <data name="CarMake_Renault" xml:space="preserve">
+    <value>Renault</value>
+  </data>
+  <data name="CarMake_Peugeot" xml:space="preserve">
+    <value>Peugeot</value>
+  </data>
+  <data name="CarMake_Citroen" xml:space="preserve">
+    <value>Citroën</value>
+  </data>
+  <data name="CarMake_Nissan" xml:space="preserve">
+    <value>Nissan</value>
+  </data>
+  <data name="CarMake_Toyota" xml:space="preserve">
+    <value>Toyota</value>
+  </data>
+  <data name="CarMake_Mazda" xml:space="preserve">
+    <value>Mazda</value>
+  </data>
+  <data name="CarMake_Mitsubishi" xml:space="preserve">
+    <value>Mitsubishi</value>
+  </data>
+  <data name="CarMake_Honda" xml:space="preserve">
+    <value>Honda</value>
+  </data>
+  <data name="CarMake_Lexus" xml:space="preserve">
+    <value>Lexus</value>
+  </data>
+  <data name="CarMake_Subaru" xml:space="preserve">
+    <value>Subaru</value>
+  </data>
+  <data name="CarMake_Infiniti" xml:space="preserve">
+    <value>Infiniti</value>
+  </data>
+  <data name="CarMake_Suzuki" xml:space="preserve">
+    <value>Suzuki</value>
+  </data>
+  <data name="CarMake_Acura" xml:space="preserve">
+    <value>Acura</value>
+  </data>
+  <data name="CarMake_Daihatsu" xml:space="preserve">
+    <value>Daihatsu</value>
+  </data>
+  <data name="CarMake_Isuzu" xml:space="preserve">
+    <value>Isuzu</value>
+  </data>
+  <data name="CarMake_Lamborghini" xml:space="preserve">
+    <value>Lamborghini</value>
+  </data>
+  <data name="CarType_Sedan" xml:space="preserve">
+    <value>Sedan</value>
+  </data>
+  <data name="CarType_Coupe" xml:space="preserve">
+    <value>Coupe</value>
+  </data>
+  <data name="CarType_Convertible" xml:space="preserve">
+    <value>Convertible</value>
+  </data>
+  <data name="CarType_Hatchback" xml:space="preserve">
+    <value>Hatchback</value>
+  </data>
+  <data name="CarType_SUV" xml:space="preserve">
+    <value>SUV</value>
+  </data>
+  <data name="CarType_Crossover" xml:space="preserve">
+    <value>Crossover</value>
+  </data>
+  <data name="CarType_Minivan" xml:space="preserve">
+    <value>Minivan</value>
+  </data>
+  <data name="CarType_Pickup" xml:space="preserve">
+    <value>Pickup</value>
+  </data>
+  <data name="CarType_Van" xml:space="preserve">
+    <value>Van</value>
+  </data>
+  <data name="CarType_Wagon" xml:space="preserve">
+    <value>Wagon</value>
+  </data>
+  <data name="CarType_Sports" xml:space="preserve">
+    <value>Sports</value>
+  </data>
   <data name="YourOrderWasReceived" xml:space="preserve">
     <value>Your order was received</value>
   </data>
@@ -619,5 +619,65 @@ EuroCarUsa team</value>
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="CustomOrderText" xml:space="preserve">
+    <value>This section dedicated to your personal requests. If cannot find your taste’s car you can apply you request to dealer via this section. Provide you personal preferences with the help of those filters. Provide you contact information so we can contact you back.</value>
+  </data>
+  <data name="CustomOrder" xml:space="preserve">
+    <value>Custom order</value>
+  </data>
+  <data name="TrackYourOrder" xml:space="preserve">
+    <value>Track your order</value>
+  </data>
+  <data name="CreateYourOrder" xml:space="preserve">
+    <value>Create your order</value>
+  </data>
+  <data name="AddForm" xml:space="preserve">
+    <value>Add form</value>
+  </data>
+  <data name="SubmitForm" xml:space="preserve">
+    <value>Submit form</value>
+  </data>
+  <data name="Form" xml:space="preserve">
+    <value>Form</value>
+  </data>
+  <data name="MaxPrice" xml:space="preserve">
+    <value>Max price</value>
+  </data>
+  <data name="MaxMileage" xml:space="preserve">
+    <value>MaxMileage</value>
+  </data>
+  <data name="MinYear" xml:space="preserve">
+    <value>Min year</value>
+  </data>
+  <data name="MaxYear" xml:space="preserve">
+    <value>Max year</value>
+  </data>
+  <data name="TrackOrder" xml:space="preserve">
+    <value>Track order</value>
+  </data>
+  <data name="ClientOrders" xml:space="preserve">
+    <value>Client orders</value>
+  </data>
+  <data name="NotProvided" xml:space="preserve">
+    <value>Not provided</value>
+  </data>
+  <data name="DateAdded" xml:space="preserve">
+    <value>Date added</value>
+  </data>
+  <data name="OrderStatus_Sent" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="OrderStatus_Opened" xml:space="preserve">
+    <value>Opened</value>
+  </data>
+  <data name="OrderStatus_Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="ContactData" xml:space="preserve">
+    <value>Contact data</value>
   </data>
 </root>

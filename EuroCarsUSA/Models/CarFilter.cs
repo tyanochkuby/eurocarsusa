@@ -19,7 +19,7 @@ namespace EuroCarsUSA.Models
         public List<CarType> CarType { get; set; }
         public List<CarTransmission> Transmission { get; set; }
         public List<CarColor> Color { get; set; }
-        public SortOrder SortOrder { get; set; }
+        public SortOrderType SortOrder { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
         public CarStatus? Status { get; set; }

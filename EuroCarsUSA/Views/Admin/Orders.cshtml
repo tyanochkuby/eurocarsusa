@@ -1,56 +1,25 @@
 ﻿@using EuroCarsUSA.Data.Enums
+@using EuroCarsUSA.Resources
 @using EuroCarsUSA.Services.Interfaces
 @using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.AspNetCore.Components
 @model IEnumerable<CustomOrderViewModel>
 @inject ICustomOrderService formService
+@inject Localizer localizer
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
     <div class="container p-5 pt-3 bg-white rounded-32 justify-content-center mb-2">
-        <div class="d-flex justify-content-center">
-            <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
-                Individual order
-            </div>
-        </div>
-        <div class="text-display-sm text-subhead">
-            This section dedicated to your personal requests. If cannot find your taste’s car you can apply you request to dealer via this section. Provide you personal preferences with the help of those filters. Provide you contact information so we can contact you back.
+        <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
+           @localizer.CustomOrder
         </div>
     </div>
 
     <div class="container mt-4 mb-md-2 mb-3 ">
         <div class="row px-md-5 ">
-            <div class="col-auto px-0">
-                <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
-                    <a asp-controller="Admin" asp-action="BackToCatalogWithFilters" class="col-auto ps-0 pe-3">
-                        @await Html.PartialAsync("_Button", new _Button
-                        {
-                            Text = "Back",
-                            Color = "primary",
-                            Classes = "",
-                            Attributes = "",
-                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
-                            RightIcon = null,
-                            TextColor = ""
-                        })
-                    </a>
-                    <a class="col-auto px-0">
-                        @await Html.PartialAsync("_Button", new _Button
-                        {
-                            Text = "Individual order",
-                            Color = "secondary",
-                            Classes = "",
-                            Attributes = "",
-                            LeftIcon = null,
-                            RightIcon = null,
-                            TextColor = "text-primary"
-                        })
-                    </a>
-                </div>           
-            </div>
             <div class="col-md col-12 p-md-0 px-3 py-2 rounded-16 bg-white bg-md-transparent">
                 <div class="row m-0 justify-content-end     ">
-                    <div class="text-title-lg d-md-none text-neutral-900 mb-2 mb-md-0 px-0">Search order</div>
+                    <div class="text-title-lg d-md-none text-neutral-900 mb-2 mb-md-0 px-0">@localizer.TrackOrder</div>
                     <div class="col-12 col-md-auto p-md-0 p-2 me-md-3 bg-secondary-200 mb-2 mb-md-0">
                         <component type="typeof(EditableField<int>)"
                         render-mode="ServerPrerendered"
@@ -60,7 +29,7 @@
                         <a class="submit">
                             @await Html.PartialAsync("_Button", new _Button
                             {
-                                Text = "Find",
+                                Text = localizer.Find,
                                 Color = "primary",
                                 Classes = "col-12 col-md-auto",
                                 Attributes = "",
@@ -77,7 +46,7 @@
 
     <div class="container p-3 bg-white rounded-32">
         <div class="">
-            <span class="mb-3 text-headline-sm">Client orders</span>
+            <span class="mb-3 text-headline-sm">@localizer.ClientOrders</span>
             <div class="bg-secondary rounded-16 row gx-3 gy-3 m-0 p-2 pt-0 pb-3">
                 @foreach (var order in Model)
                 {
@@ -102,16 +71,16 @@
                                     <div class="row mx-0 px-0">
                                         <div class="col-6 px-0">
                                             <div class="d-flex align-items-center justify-content-start">
-                                                <div class="text-body-lg">Date added</div>
+                                                <div class="text-body-lg">@localizer.DateAdded</div>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-start">
-                                                <div class="text-body-md text-neutral-900 w-100">@order.Name</div>
+                                                <div class="text-body-md text-neutral-900 w-100">@order.TimeStapm.ToShortDateString()</div>
                                             </div>
                                         </div>
 
                                         <div class="col-6 px-0">
                                             <div class="d-flex align-items-center justify-content-end">
-                                                <div class="text-body-lg">Name</div>
+                                                <div class="text-body-lg">@localizer.Name</div>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-end">
                                                 <div class="text-body-md text-neutral-900">@order.Name</div>
@@ -129,10 +98,10 @@
                                         </div>
                                         <div class="col-6 px-0">
                                             <div class="d-flex align-items-center justify-content-end">
-                                                <div class="text-body-lg text-end">Phone number</div>
+                                                <div class="text-body-lg text-end">@localizer.PhoneNumber</div>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-end ">
-                                                <div class="text-body-md text-neutral-900">@(order.PhoneNumber != null ? order.PhoneNumber : "Not provided")</div>
+                                                <div class="text-body-md text-neutral-900">@(order.PhoneNumber != null ? order.PhoneNumber : localizer.NotProvided)</div>
                                             </div>
                                         </div>
                                     </div>
@@ -143,7 +112,7 @@
                                 <div class="row mx-0">
                                     <div class="justify-content-between row px-0 mx-0">
                                         <div class="col px-0 text-label-lg">
-                                            <div>Status</div>
+                                            <div>@localizer.Status</div>
                                         </div>
                                     </div>
                                 </div>
@@ -153,11 +122,11 @@
                                         {
                                             if (status == order.Status)
                                             {
-                                                <option value="@status" selected>@status</option>
+                                                <option value="@status" selected>@localizer.ToLocalizedString(status)</option>
                                             }
                                             else
                                             {
-                                                <option value="@status">@status</option>
+                                                <option value="@status">@localizer.ToLocalizedString(status)</option>
                                             }
                                         }
                                     </select>
