@@ -37,32 +37,34 @@
             }
         </div>
     </div>
-    <div class="container">
-        <div class="row gx-3 bg-white rounded-16 rounded-bottom-0 topbar align-content-center">
-            <a id="filter-mobile-select-clear-button" class="col-6 ">
-                @await Html.PartialAsync("_Button", new _Button
-           {
-               Text = Translator["Clear"],
-               Color = "secondary",
-               Classes = "w-100",
-               Attributes = "",
-               LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
-               RightIcon = null,
-               TextColor = "text-primary"
-           })
-            </a>
-            <a id="mobile-filter-select-save-button" class="col-6">
-                @await Html.PartialAsync("_Button", new _Button
-           {
-               Text = Translator["Save"],
-               Color = "primary",
-               Classes = "w-100",
-               Attributes = $"type=\"submit\"",
-               LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-               RightIcon = null,
-               TextColor = ""
-           })
-            </a>
+    <div class="px-2">
+        <div class="container px-0">
+            <div class="row mx-0 gx-3 bg-white rounded-16 rounded-bottom-0 topbar align-content-center border border-1 border-bottom-0 border-primary">
+                <a id="filter-mobile-select-clear-button" class="col-6 ">
+                    @await Html.PartialAsync("_Button", new _Button
+               {
+                   Text = Translator["Clear"],
+                   Color = "secondary",
+                   Classes = "w-100",
+                   Attributes = "",
+                   LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
+                   RightIcon = null,
+                   TextColor = "text-primary"
+               })
+                </a>
+                <a id="mobile-filter-select-save-button" class="col-6">
+                    @await Html.PartialAsync("_Button", new _Button
+               {
+                   Text = Translator["Save"],
+                   Color = "primary",
+                   Classes = "w-100",
+                   Attributes = $"type=\"submit\"",
+                   LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                   RightIcon = null,
+                   TextColor = ""
+               })
+                </a>
+            </div>
         </div>
     </div>
 </div>
