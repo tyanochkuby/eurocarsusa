@@ -966,6 +966,10 @@ button#mobile-filter-select-save-button .carIcon {
 }
 
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 
 .myCheckBox {
     display: none;
@@ -1352,5 +1356,32 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     .main-wdrodze {
         flex-wrap: wrap !important;
         overflow: visible;
+    }
+}
+#img-drag-drop {
+    border: 2px dashed var(--bs-primary);
+}
+
+#img-drag-drop img {
+    width: 100px;
+}
+
+.image-upload-galley {
+    flex-wrap: nowrap !important;
+    overflow: scroll;
+    overflow-y: auto
+}
+}
+
+.customOrderForm {
+    max-height: 320px;
+    overflow-y: auto;
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+@media (min-width:768px) {
+    .customOrderForm {
+        max-height: none;
     }
 }
