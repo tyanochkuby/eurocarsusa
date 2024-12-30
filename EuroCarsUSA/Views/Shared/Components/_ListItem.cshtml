@@ -90,22 +90,36 @@
 
             @if ((trailing != null) || (showAdditional == true))
             {
-            <div class="list-item-trailing-element col-auto p-0 ms-3 @noThreeLineClass">
-                <div class="row m-0 d-flex align-items-center" style="height: @heightStyle">
-                        @if (showAdditional)
+            <div class="list-item-trailing-element col p-0 ms-3 justify-content-end @noThreeLineClass">
+                <div class="row m-0 align-items-center w-100 @Html.Raw((showAdditional && showAdditionalBackground) ? "" : "overflow-hidden")" style="height: @heightStyle">
+                
+                    @if (showAdditional)
+                    {
+                        @if (showAdditionalBackground)
                         {
-                        <div class="d-flex list-item-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-center align-items-center"
-                             style="width: 24px; height:24px; margin-inline-end: 10px">
+                            <div class="col d-flex list-item-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-center align-items-center text-nowrap position-relative"
+                                    style="height:24px; width: 24px; margin-inline-end: 10px">
+                                <div class="position-absolute">
+                                    @additional
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col d-flex list-item-trailng-supportive-text text-label-sm text-primary-900 p-0 @additionalBackgroundClass rounded-16 justify-content-start align-items-center text-truncate"
+                                    style="margin-inline-end: 10px">
                                 @additional
-                        </div>
+                            </div>
                         }
+                    }
+                        
 
-                        @if (trailing != null)
-                        {
-                        <div class="col-auto p-0 d-flex">
-                                @trailing
-                        </div>
-                        }
+                    @if (trailing != null)
+                    {
+                    <div class="col-auto p-0 d-flex">
+                            @trailing
+                    </div>
+                    }
                 </div>
             </div>
             }
