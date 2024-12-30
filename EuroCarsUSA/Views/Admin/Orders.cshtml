@@ -9,15 +9,14 @@
 @inject Localizer localizer
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
-    <div class="container p-5 pt-3 bg-white rounded-32 justify-content-center mb-2">
+    <div class="container p-md-5 pt-md-3 p-3 pt-2 text-center text-md-start bg-white rounded-32 mb-3 justify-content-center">
         <div class="d-flex justify-content-center">
-            <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
-                Individual order <br/>
+            <div class="text-md-display-lg text-title-lg mb-3 text-subhead text-center border-bottom">
                 @localizer.CustomOrder
             </div>
         </div>
-        <div class="text-display-sm text-subhead">
-            This section dedicated to your personal requests. If cannot find your taste’s car you can apply you request to dealer via this section. Provide you personal preferences with the help of those filters. Provide you contact information so we can contact you back.
+        <div class="text-md-display-sm text-body-md text-subhead">
+            This section is dedicated to your personal requests. If you cannot find your desired car, you can apply your request to the dealer via this section. Provide your personal preferences with the help of these filters. Provide your contact information so we can contact you back.
         </div>
     </div>
 
@@ -25,13 +24,13 @@
         <div class="row px-md-5 ">
             <div class="col-auto px-0">
                 <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
-                    <a asp-controller="Admin" asp-action="BackToCatalogWithFilters" class="col-auto ps-0 pe-3">
+                    <a class="col-auto ps-0 pe-3">
                         @await Html.PartialAsync("_Button", new _Button
                         {
                             Text = "Back",
                             Color = "primary",
                             Classes = "",
-                            Attributes = "",
+                            Attributes = "type=\"button\"",
                             LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
                             RightIcon = null,
                             TextColor = ""
@@ -43,7 +42,7 @@
                             Text = "Individual order",
                             Color = "secondary",
                             Classes = "",
-                            Attributes = "",
+                            Attributes = "type=\"button\"",
                             LeftIcon = null,
                             RightIcon = null,
                             TextColor = "text-primary"
@@ -113,7 +112,7 @@
                                                             <div class="text-body-lg">@localizer.DateAdded</div>
                                                         </div>
                                                         <div class="d-flex align-items-center justify-content-start">
-                                                            <div class="text-body-md text-neutral-900 w-100">@order.TimeStapm.ToShortDateString()</div>
+                                                            <div class="text-body-md text-neutral-900 w-100">@order.TimeStamp.ToShortDateString()</div>
                                                         </div>
                                                     </div>
 
@@ -210,7 +209,7 @@
                                                             <div class="text-body-lg">@localizer.DateAdded</div>
                                                         </div>
                                                         <div class="d-flex align-items-center justify-content-start">
-                                                            <div class="text-body-md text-neutral-900 w-100">@order.TimeStapm.ToShortDateString()</div>
+                                                            <div class="text-body-md text-neutral-900 w-100">@order.TimeStamp.ToShortDateString()</div>
                                                         </div>
                                                     </div>
 
@@ -308,7 +307,7 @@
                                                         <div class="text-body-lg">@localizer.DateAdded</div>
                                                     </div>
                                                     <div class="d-flex align-items-center justify-content-start">
-                                                        <div class="text-body-md text-neutral-900 w-100">@order.TimeStapm.ToShortDateString()</div>
+                                                        <div class="text-body-md text-neutral-900 w-100">@order.TimeStamp.ToShortDateString()</div>
                                                     </div>
                                                 </div>
 

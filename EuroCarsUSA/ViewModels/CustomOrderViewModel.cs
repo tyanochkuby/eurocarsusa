@@ -1,6 +1,7 @@
 ﻿using EuroCarsUSA.Data.Attributes;
 using EuroCarsUSA.Data.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace EuroCarsUSA.ViewModels
 {
@@ -24,6 +25,7 @@ namespace EuroCarsUSA.ViewModels
         [Phone]
         public string? PhoneNumber { get; set; }
 
-        public DateTime TimeStapm { get; set; }
+        [Timestamp]
+        public DateTime TimeStamp { get; set; }
     }
 }
