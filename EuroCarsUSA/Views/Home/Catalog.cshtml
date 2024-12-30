@@ -52,6 +52,9 @@
 
 </div>
 
+
+
+
 <div class="filters-mobile bg-secondary d-flex flex-column" id="filters-mobile-list">
     <div class="px-4 border-bottom border-primary bg-white">
         <div class="topbar position-relative align-content-center">
@@ -61,67 +64,124 @@
             </a>
         </div>
     </div>
-	<form method="get" id="mobileFiltersForm" class="px-2 px-sm-0 align-content-between h-100 row mx-0">
-        <div class="px-0 col-12 py-2">
-            <div class="bg-white rounded-16 py-2 container px-0">
+	<form method="get" id="mobileFiltersForm" class="px-3 px-sm-0 align-content-between h-100 row mx-0">
+        <div class="px-0 col-12 py-2 pt-3 ">
+
+            <div class="row d-flex mx-0 mb-2 align-items-center">
+                <div class="col ps-0 pe-1">
+                    @await Html.PartialAsync("_LineEdit", new _LineEdit
+                    {
+                        Attributes = $"type=\"number\" id=\"minPrice\" name=\"minPrice\" value=\"{Context.Request.Query["minPrice"]}\"",
+                        Placeholder = Translator["From"],
+                        ShowOverline = true,
+                        ShowOverlineInside = true,
+                        Overline = Translator["Price"],
+                        ShowAdditional = true,
+                        Additional = "zł",
+                        ShowSupportive = false,
+                        HasOutsideSupportiveSizeEffect = true,
+                        Supportive = Translator["From"]
+                    })
+                </div>
+                <hr style="width: 8px; border: none; height: 2px" class="px-0 bg-primary opacity-100 col-auto mb-0">
+                <div class="col ps-1 pe-0">
+                    @await Html.PartialAsync("_LineEdit", new _LineEdit
+                    {
+                        Attributes = $"type=\"number\" id=\"maxPrice\" name=\"maxPrice\" value=\"{Context.Request.Query["maxPrice"]}\"",
+                        Placeholder = Translator["To"],
+                        ShowOverline = true,
+                        ShowOverlineInside = true,
+                        Overline = Translator["Price"],
+                        ShowAdditional = true,
+                        Additional = "zł",
+                        ShowSupportive = false,
+                        HasOutsideSupportiveSizeEffect = true,
+                        Supportive = Translator["To"]
+                    })
+                </div>
+            </div>
+
+
+            <div class="bg-white rounded-16 py-2 container px-0 mt-1">
                 <input hidden id="mobileSortOrder" name="sortOrder" value=""></input>
+
                 <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="make">
-                    <div class="col-3">
-                        <label class="ps-1" for="make">@Translator["Make"]</label>
-                    </div>
-                    <div class="col-8 text-end">
-                        <p name="make" class="text-ellipsis"> @Context.Request.Query["make"].ToString() </p>
-                    </div>
-                    <div class="col-1 ps-0">
-                        <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-                    </div>
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Classes = "p-0",
+                        Attributes = "",
+                        Leading = (object)null,
+                        Trailing = Html.Partial("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "primary" }),
+                        Headline = Translator["Make"],
+                        ShowDivider = true,
+                        Clickable = true,
+                        Additional = Context.Request.Query["make"].ToString(),
+                        ShowAdditional = true,
+                        ShowAdditionalBackground = false
+                    })
                 </div>
 
 
                 <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="carType">
-                    <div class="col-4">
-                        <label class="ps-1" for="make">@Translator["CarType"]</label>
-                    </div>
-                    <div class="col-7 text-end">
-                        <p name="carType" class="text-ellipsis"> @Context.Request.Query["carType"].ToString() </p>
-                    </div>
-                    <div class="col-1 ps-0">
-                        <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-                    </div>
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Classes = "p-0",
+                        Attributes = "",
+                        Leading = (object)null,
+                        Trailing = Html.Partial("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "primary" }),
+                        Headline = Translator["CarType"],
+                        ShowDivider = true,
+                        Clickable = true,
+                        Additional = Context.Request.Query["carType"].ToString(),
+                        ShowAdditional = true,
+                        ShowAdditionalBackground = false
+                    })
                 </div>
                 <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="fuelType">
-                    <div class="col-4">
-                        <label class="ps-1" for="fuelType">@Translator["FuelType"]</label>
-                    </div>
-                    <div class="col-7 text-end">
-                        <p name="fuelType" class="text-ellipsis"> @Context.Request.Query["fuelType"].ToString() </p>
-                    </div>
-                    <div class="col-1 ps-0">
-                        <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-                    </div>
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Classes = "p-0",
+                        Attributes = "",
+                        Leading = (object)null,
+                        Trailing = Html.Partial("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "primary" }),
+                        Headline = Translator["FuelType"],
+                        ShowDivider = true,
+                        Clickable = true,
+                        Additional = Context.Request.Query["fuelType"].ToString(),
+                        ShowAdditional = true,
+                        ShowAdditionalBackground = false
+                    })
                 </div>
 
                 <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="transmission">
-                    <div class="col-3">
-                        <label class="ps-1" for="transmission">@Translator["Transmission"]</label>
-                    </div>
-                    <div class="col-8 text-end">
-                        <p name="transmission" class="text-ellipsis"> @Context.Request.Query["transmission"].ToString() </p>
-                    </div>
-                    <div class="col-1 ps-0">
-                        <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-                    </div>
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Classes = "p-0",
+                        Attributes = "",
+                        Leading = (object)null,
+                        Trailing = Html.Partial("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "primary" }),
+                        Headline = Translator["Transmission"],
+                        ShowDivider = true,
+                        Clickable = true,
+                        Additional = Context.Request.Query["transmission"].ToString(),
+                        ShowAdditional = true,
+                        ShowAdditionalBackground = false
+                    })
                 </div>
                 <div class="row justify-content-between mb-2 mx-0 row-mobile-filter mobile-filter-select align-items-center" filterType="color">
-                    <div class="col-3">
-                        <label class="ps-1" for="color">@Translator["Color"]</label>
-                    </div>
-                    <div class="col-8 text-end">
-                        <p name="color" class="text-ellipsis"> @Context.Request.Query["color"].ToString() </p>
-                    </div>
-                    <div class="col-1 ps-0">
-                        <img class="filterIcon" src="~/icons/arrow_right_alt.svg" />
-                    </div>
+                    @await Html.PartialAsync("_ListItem", new _ListItem
+                    {
+                        Classes = "p-0",
+                        Attributes = "",
+                        Leading = (object)null,
+                        Trailing = Html.Partial("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "primary" }),
+                        Headline = Translator["Color"],
+                        ShowDivider = true,
+                        Clickable = true,
+                        Additional = Context.Request.Query["color"].ToString(),
+                        ShowAdditional = true,
+                        ShowAdditionalBackground = false
+                    })
                 </div>
 
                 <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
@@ -131,17 +191,6 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
-                    <label class="ps-3" for="minPrice">@Translator["Price"]</label>
-                    <div class="col-6 pe-1">
-                        <input type="number" id="minPrice" name="minPrice" placeholder="Min" class="form-control" value="@Context.Request.Query["minPrice"]" />
-                    </div>
-        
-                    <div class="col-6 ps-1">
-                        <input type="number" id="maxPrice" name="maxPrice" placeholder="Max" class="form-control" value="@Context.Request.Query["maxPrice"]" />
-                    </div>
-
-                </div>
                 <div class="row justify-content-between mb-2 mx-0 row-mobile-filter">
                     <label class="ps-3" for="minYear">@Translator["Year"]</label>
                     <div class="col-6 pe-1">
@@ -757,6 +806,7 @@
                     });
                     $('input[name="' + filterType + '"]').val(values.join(', '));
                     $('p[name="' + filterType + '"]').text(values.join(', '));
+                    $('[filterType="' + filterType + '"] .list-item-trailng-supportive-text').text(values.join(', '));
                     $('.mobile-filter-select-screen').remove();
                 });
 

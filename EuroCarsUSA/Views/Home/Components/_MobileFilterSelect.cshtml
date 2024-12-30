@@ -16,14 +16,24 @@
             </a>
         </div>
     </div>
-    <div class="container px-0 py-2 h-100">
-        <div class="mobile-list-items mb-auto bg-white rounded-16">
+    <div class="container px-0 py-2 h-100 px-3">
+        <div class="mobile-list-items mb-auto bg-white rounded-16 overflow-hidden">
             @foreach (var option in Model)
             {
-                <div class="mobile-list-item d-flex justify-content-between align-items-center py-2 border-bottom" style="cursor: pointer;">
-                    <label for="@option.OriginalValue" class="mb-0">@option.TranslatedValue</label>
-                    <input type="checkbox" value="@option.OriginalValue" id="@option.OriginalValue" class="ml-auto" />
-                </div>
+                @await Html.PartialAsync("_ListItem", new _ListItem
+                {
+                    Classes = "",
+                    Attributes = "",
+                    Leading = await Html.PartialAsync("_Checkbox", new _Checkbox
+                    {
+                        Classes = "",
+                        Attributes = $"value=\"{@option.OriginalValue}\" id=\"{@option.OriginalValue}\"",
+                    }),
+                    Trailing = (object)null,
+                    Headline = option.TranslatedValue,
+                    ShowDivider = true,
+                    Clickable = true
+                })
             }
         </div>
     </div>
