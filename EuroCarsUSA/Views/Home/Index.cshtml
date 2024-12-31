@@ -44,16 +44,16 @@ else
                             <div class="bg-white rounded-16 pt-3 px-0 pb-2">
                                 <div class="row mx-0 mb-3 px-3 d-flex align-items-stretch justify-content-end">
                                     <div class="col px-0 text-headline-sm text-nowrap">@localizer.WeRecommend</div>
-                                    <div class="col px-0 flex-grow-1 justify-content-end d-flex">
+                                    <div class="col px-0 flex-grow-1 justify-content-end d-sm-flex d-none d-md-none d-lg-flex">
                                         <a asp-controller="Home" asp-action="Catalog">
                                             @await Html.PartialAsync("_Button", new _Button
                                             {
                                                 Text = localizer.SeeAll,
                                                 Color = "primary",
-                                                Classes = "py-0 h-100 bg-white",
+                                                Classes = "py-0 h-100",
                                                 LeftIcon = null,
-                                                RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "neutral900" }),
-                                                TextColor = "text-neutral-900"
+                                                RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "white" }),
+                                                TextColor = ""
                                             })
                                         </a>
                                     </div>            
@@ -93,6 +93,19 @@ else
                                             }
                                         </div>
                                     </div>
+                                </div>
+                                <div class="d-flex d-sm-none d-md-flex d-lg-none px-3 py-2">
+                                    <a asp-controller="Home" asp-action="Catalog" class="w-100">
+                                        @await Html.PartialAsync("_Button", new _Button
+                                        {
+                                            Text = localizer.SeeAll,
+                                            Color = "primary",
+                                            Classes = "py-1 py-md-2 w-100",
+                                            LeftIcon = null,
+                                            RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Keyboard arrow right"), Color = "white" }),
+                                            TextColor = ""
+                                        })
+                                    </a>
                                 </div>
                             </div>
                         </div>
