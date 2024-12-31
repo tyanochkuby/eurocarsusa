@@ -273,10 +273,10 @@
                     <div class="col px-0 text-headline-sm">@localizer.ShowMore</div>
                 </div>
 
-                <div class="row gx-2">
+                <div class="row gx-2 flex-nowrap overflow-auto">
                     @foreach (CarCardViewModel car in Model.RecomendedCar)
                     {
-                        car.Classes = "col-3";
+                        car.Classes = "col-6 col-lg-4 col-xl-3";
                         car.IsFullSize = false;
                         @await Html.PartialAsync("_CarCard", car)
                     }
