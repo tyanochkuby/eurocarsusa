@@ -352,7 +352,7 @@
                                 Overline = @Translator["SortBy"] + " :",
                                 ShowAdditionalBackground = true
                             })
-                            <ul class="dropdown-menu w-100" name="" aria-labelledby="dropdownSortbyButton">
+                            <ul class="dropdown-menu w-100" name="dropdownSortby" aria-labelledby="dropdownSortbyButton">
                                 @foreach (SortOrderType sortOrder in Enum.GetValues(typeof(SortOrderType)))
                                 {
                                     <li>
@@ -394,7 +394,7 @@
                                 Placeholder = (selectedMakes.Any() ? string.Join(", ", selectedMakes) : Translator["Choose"]),
                                 ShowOverline = true,
                                 ShowOverlineInside = false, 
-                                   HasOutsidOverlineSizeEffect = true,
+                                HasOutsidOverlineSizeEffect = true,
                                 Overline = Translator["Make"]
                             })
                             <ul class="dropdown-menu w-100 my-shadow-1" name="make" aria-labelledby="dropdownMenuButton" style="max-height: 320px; overflow-y:auto">
@@ -423,13 +423,13 @@
 
 
                     <div class="mb-2">
-                    @await Html.PartialAsync("_LineEdit", new _LineEdit
+                        @await Html.PartialAsync("_LineEdit", new _LineEdit
                     {
                         Attributes = $"type=\"text\" id=\"model\" name=\"model\" value=\"{Context.Request.Query["model"]}\"",
                         Placeholder = Translator["Type"],
                         ShowOverline = true,
                         ShowOverlineInside = false, 
-                                   HasOutsidOverlineSizeEffect = true,
+                        HasOutsidOverlineSizeEffect = true,
                         Overline = Translator["Model"]
                     })
                     </div>
@@ -457,7 +457,8 @@
                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedCarTypes.Contains(option.OriginalValue) ? "checked" : "")}"
                                                }),
                                                Headline = option.TranslatedValue,
-                                               ShowDivider = true
+                                               ShowDivider = true,
+                                               Clickable = true,
                                            })
                                     </li>
                                 }
@@ -474,7 +475,7 @@
                                        Placeholder = (selectedFuelTypes.Any() ? string.Join(", ", selectedFuelTypes) : Translator["Choose"]),
                                        ShowOverline = true,
                                        ShowOverlineInside = false, 
-                                   HasOutsidOverlineSizeEffect = true,
+                                       HasOutsidOverlineSizeEffect = true,
                                        Overline = Translator["FuelType"]
                                    })
                             <ul class="dropdown-menu w-100 my-shadow-1" name="fuelType" aria-labelledby="dropdownFuelTypeButton" style="max-height: 320px; overflow-y:auto">
@@ -489,7 +490,8 @@
                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedFuelTypes.Contains(option.OriginalValue) ? "checked" : "")}"
                                                }),
                                                Headline = option.TranslatedValue,
-                                               ShowDivider = true
+                                               ShowDivider = true,
+                                               Clickable = true,
                                            })
                                     </li>
                                 }
@@ -521,7 +523,8 @@
                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedTransmissions.Contains(option.OriginalValue) ? "checked" : "")}"
                                                }),
                                                Headline = option.TranslatedValue,
-                                               ShowDivider = true
+                                               ShowDivider = true,
+                                               Clickable = true,
                                            })
                                     </li>
                                 }
@@ -538,7 +541,7 @@
                                     Placeholder = (selectedColors.Any() ? string.Join(", ", selectedColors) : Translator["Choose"]),
                                     ShowOverline = true,
                                     ShowOverlineInside = false, 
-                                   HasOutsidOverlineSizeEffect = true,
+                                    HasOutsidOverlineSizeEffect = true,
                                     Overline = Translator["Color"]
                                 })
                             <ul class="dropdown-menu w-100 my-shadow-1" name="color" aria-labelledby="dropdownColorButton" style="max-height: 320px; overflow-y:auto">
@@ -553,7 +556,8 @@
                                                    Attributes = $"value=\"{option.OriginalValue}\" {(selectedColors.Contains(option.OriginalValue) ? "checked" : "")}"
                                                }),
                                                Headline = option.TranslatedValue,
-                                               ShowDivider = true
+                                               ShowDivider = true,
+                                               Clickable = true,
                                            })
                                     </li>
                                 }
@@ -561,16 +565,6 @@
                         </div>
                         <input value="@Context.Request.Query["color"]" type="hidden" id="colorInput" name="color">
                     </div>
-
-
-                    @* <div class="py-2">
-                    <div fh-regular>Min year:</div>
-                    <input type="number" id="minYear" name="minYear" placeholder="@Translator["From"]" class="form-control" value="@Context.Request.Query["minYear"]" />
-                    </div>
-                    <div class="py-2">
-                    <div fh-regular>Max year:</div>
-                    <input type="number" id="maxYear" name="maxYear" placeholder="@Translator["To"]" class="form-control" value="@Context.Request.Query["maxYear"]" />
-                    </div> *@
 
                     <div class="row d-flex mx-0 mb-2">
                         <div class="col-6 ps-0 pe-1">
@@ -737,23 +731,20 @@
 @section Scripts {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const dropdownItems = document.querySelectorAll(".dropdown-menu .dropdown-item");
+            const dropdownItems = document.querySelectorAll('.dropdown-menu[name="dropdownSortby"] .dropdown-item');
             const hiddenSelect = document.getElementById("sortOrderSelect");
-            const expandButtonText = document.querySelector(".expand-button-input"); // Ищем нужный <span>
+            const expandButtonText = document.querySelector(".expand-button-input");
 
             dropdownItems.forEach(item => {
                 item.addEventListener("click", function () {
                     const selectedValue = this.getAttribute("data-value");
 
-                    // Обновляем значение скрытого select
                     hiddenSelect.value = selectedValue;
 
-                    // Обновляем текст внутри expandButton
                     if (expandButtonText) {
-                        expandButtonText.textContent = this.textContent.trim(); // Меняем только текст в <span>
+                        expandButtonText.textContent = this.textContent.trim();
                     }
 
-                    // Закрываем выпадающее меню (если требуется)
                     const expandButton = document.getElementById("dropdownSortbyButton");
                     const dropdown = bootstrap.Dropdown.getInstance(expandButton);
                     dropdown.hide();
