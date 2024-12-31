@@ -8,15 +8,23 @@
 
 @inject IStringLocalizer<HomeController> Translator
 
-<h1 class="fh-header text-center mb-3">@Translator["LikesHeader"]</h1>
+<h1 class="fh-header text-center mb-3"></h1>
+<div class="container pt-3 pt-md-4">
+    <div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()" class="">
+        <div class="row mx-0 p-3 bg-secondary-200 rounded-32">
+            
+            <div class="px-3 pb-2">
+                <div class="row justify-content-center justify-content-md-start text-headline-sm text-neutral-900 border-neutral900 border-bottom mx-0 ">
+                    @Translator["LikesHeader"]
+                </div>
+            </div>
 
-<div data-show-more-button="@ViewBag.ShowMoreButton" data-cars-in-view="@Model.Count()">
-    <div class="row mx-0 p-3">
-        @foreach (CarCardViewModel car in Model)
-        {
-            car.IsFullSize = true;
-            car.Classes = "col-xl-3 col-lg-4 col-sm-6 col-12 p-2";
-            @await Html.PartialAsync("_CarCard", car)
-        }
+            @foreach (CarCardViewModel car in Model)
+            {
+                car.IsFullSize = true;
+                car.Classes = "col-xl-3 col-lg-4 col-sm-6 col-12 p-2";
+                @await Html.PartialAsync("_CarCard", car)
+            }
+        </div>
     </div>
 </div>

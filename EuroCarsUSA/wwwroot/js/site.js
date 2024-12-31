@@ -95,8 +95,35 @@ function toggleOrderVisibility(formId) {
         iconDiv.style.transform = "scaleY(1)";
     }
 }
+
 function toggleSidebar() {
     const sidebar = document.getElementById("mobile-sidebar");
     sidebar.classList.toggle("open");
+}
+
+function validateInput(input) {
+    const lineEdit = input.closest('.line-edit');
+
+    const supportiveText = lineEdit.querySelector('.line-edit-supportive-text');
+
+    const errorMessage = (input.title || "Invalid input!");
+
+    const currentText = supportiveText.textContent;
+
+    if (input.checkValidity()) {
+        if (currentText.startsWith(errorMessage)) {
+            supportiveText.innerHTML = currentText.replace(errorMessage, "").trim();
+            supportiveText.innerHTML = supportiveText.innerHTML.replace("<br>", "").trim();
+        }
+        lineEdit.classList.remove('error');
+    } else {
+        if (supportiveText.classList.contains('d-none')) {
+            supportiveText.classList.replace('d-none', 'd-block');
+        }
+        if (!currentText.startsWith(errorMessage)) {
+            supportiveText.innerHTML = `${errorMessage}<br>${currentText}`.trim();
+        }
+        lineEdit.classList.add('error');
+    }
 }
 
