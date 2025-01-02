@@ -1,5 +1,4 @@
 ﻿using EuroCarsUSA.Data.Enums;
-using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
@@ -52,10 +51,10 @@ namespace EuroCarsUSA.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> GetNewCatalogRow(int index) 
+        public async Task<IActionResult> GetNewCatalogRow(int index)
         {
             var car = new CatalogEditionViewModel();
-            return PartialView("~/Views/Shared/_EditCar.cshtml", new Tuple<CatalogEditionViewModel, int>(car, index));
+            return PartialView("~/Views/Shared/Components/_EditCar.cshtml", new Tuple<CatalogEditionViewModel, int>(car, index));
         }
 
         [HttpPost]
@@ -74,8 +73,8 @@ namespace EuroCarsUSA.Controllers
                 Id = car.Id,
                 Make = car.Make,
                 Type = car.Type,
-                Model = car.Model,
-                VIN = car.VIN,
+                Model = car.Model ?? "",
+                VIN = car.VIN ?? "",
                 FuelType = car.FuelType,
                 EngineVolume = car.EngineVolume,
                 Transmission = car.Transmission,

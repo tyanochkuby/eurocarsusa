@@ -20,7 +20,7 @@
     <a asp-controller="Home" asp-action="Detail" asp-route-id=@Model.Id class="text-black text-decoration-none">
         <div class="card @(mainPaddingClass) box-shadow rounded-16">
             <div class="img-container @(imageContainerClass) overflow-hidden">
-                <img class="card-img float-left" src=@Model.Images[0] alt=@(Model.Color.ToString() + Model.Make.ToString() + Model.Model)>
+                <img class="card-img float-left" src=@(Model.Images.Count > 0 ? Model.Images[0] : "https://www.freeiconspng.com/images/no-image-icon") alt=@(Model.Color.ToString() + Model.Make.ToString() + Model.Model)>
                 <div class="row position-absolute end-0 mx-0">
                     <div class="justify-content-end p-0">
                         @if (Model.IsLiked)

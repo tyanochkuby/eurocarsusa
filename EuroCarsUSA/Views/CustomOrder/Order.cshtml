@@ -281,9 +281,7 @@
         <div class="p-3 bg-secondary-200 rounded-16">
             <div class="row m-0">
                 <div class="col-12 col-md-4 p-md-0 p-2 px-0 me-md-3 bg-secondary-200 mb-2 mb-md-0">
-                    <component type="typeof(EditableField<int>)"
-                               render-mode="ServerPrerendered"
-                               param-CssClass="@( "h-100" )" />
+                    @await Html.PartialAsync("_EditableField", new EditableField())
                 </div>
                 <div class="col-12 col-md-auto d-flex flex-column justify-content-end px-0">
                     <a class="submit">

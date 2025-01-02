@@ -100,7 +100,7 @@
         function addNewRow() {
             var tableBody = document.getElementById('catalog');
             var index = tableBody.children.length / 2;
-
+            console.log(index);
             $.ajax({
                 url: '/Admin/GetNewCatalogRow',
                 data: { index: index },
@@ -108,8 +108,9 @@
                 success: function (html) {
                     tableBody.insertAdjacentHTML('beforeend', html);
                 },
-                error: function () {
-                    alert('An error occurred while adding a row');
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error details:', textStatus, errorThrown);
+                    alert('An error occurred while adding a row: ' + textStatus + ' - ' + errorThrown);
                 }
             });
         }
@@ -122,6 +123,41 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        function toggleVisibility(uniqueId) {
+            var popupDiv = document.getElementById("popup-" + uniqueId);
+            var borderDiv = document.getElementById("border-" + uniqueId);
+            var iconDiv = document.getElementById("icon-" + uniqueId);
+
+            if (popupDiv.style.maxHeight === "0px") {
+                popupDiv.style.maxHeight = "320px";
+                borderDiv.style.opacity = 1;
+                iconDiv.style.transform = "scaleY(-1)";
+            } else {
+                popupDiv.style.maxHeight = "0px";
+                borderDiv.style.opacity = 0;
+                iconDiv.style.transform = "scaleY(1)";
+            }
+        }
+
+        function showBorder(uniqueId) {
+            var popupDiv = document.getElementById("popup-" + uniqueId);
+            var borderDiv = document.getElementById("border-" + uniqueId);
+            if (popupDiv.style.display === "none") {
+                borderDiv.style.opacity = 1;
+            }
+        }
+
+        function hideBorder(uniqueId) {
+            var popupDiv = document.getElementById("popup-" + uniqueId);
+            var borderDiv = document.getElementById("border-" + uniqueId);
+            if (popupDiv.style.display === "none") {
+                borderDiv.style.opacity = 0;
+            }
+        }
+
     </script>
 }
 
