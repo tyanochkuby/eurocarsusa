@@ -26,20 +26,20 @@
             <div class="row px-md-5 ">
                 <div class="col-auto px-0">
                     <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
-                        <a asp-controller="Home" asp-action="BackToCatalogWithFilters" class="col-auto ps-0 pe-3">
+                        <a href="javascript:history.back()" class="col-auto ps-0 pe-3">
                             @await Html.PartialAsync("_Button", new _Button
                        {
                            Text = localizer.Back,
                            Color = "primary",
                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
                            RightIcon = null,
-	                       Type = "button",
+                           Type = "button",
                        })
                         </a>
-                        <a class="col-auto px-0">
+                        <a asp-controller="CustomOrder" asp-action="Index" class="col-auto px-0">
                             @await Html.PartialAsync("_Button", new _Button
                             {
-                                Text = "Individual order",
+                                Text = localizer.CustomOrder,
                                 Color = "secondary",
                                 Classes = "",
                                 Attributes = "type=\"button\"",
