@@ -385,6 +385,8 @@
 
 
 @section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe/dist/photoswipe.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 
@@ -487,34 +489,27 @@
             const nextButton = document.getElementById('nextImageButton');
             const thumbnailGallery = document.getElementById('thumbnailGallery');
 
-            // Функция для обновления выбранного изображения
             function updateImage(index) {
                 currentIndex = index;
                 const newImage = images[currentIndex];
                 mainImage.src = newImage;
                 mainImageLink.href = newImage;
 
-                // Обновляем обводку миниатюр
                 updateSelectedThumbnail();
             }
 
-            // Функция для обновления обводки миниатюр
             function updateSelectedThumbnail() {
-                // Убираем класс 'selected' у всех миниатюр
                 const thumbnails = document.querySelectorAll('.thumbnail-link');
                 thumbnails.forEach(thumb => thumb.classList.remove('selected'));
 
-                // Добавляем класс 'selected' только к текущей миниатюре
                 const selectedThumbnail = document.querySelector(`.thumbnail-link[data-index="${currentIndex}"]`);
                 if (selectedThumbnail) {
                     selectedThumbnail.classList.add('selected');
-                    // Прокручиваем миниатюру в видимую область, но не прокручиваем страницу
                     selectedThumbnail.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                 }
             }
 
 
-            // Навигация по изображениям
             prevButton.addEventListener('click', () => {
                 const newIndex = (currentIndex - 1 + images.length) % images.length;
                 updateImage(newIndex);
@@ -525,7 +520,15 @@
                 updateImage(newIndex);
             });
 
-            // Инициализация при загрузке страницы
+            thumbnailGallery.addEventListener('click', (e) => {
+                const target = e.target.closest('.thumbnail-link');
+                if (target) {
+                    e.preventDefault();
+                    const newIndex = parseInt(target.getAttribute('data-index'), 10);
+                    updateImage(newIndex);
+                }
+            });
+
             updateImage(currentIndex);
         });
     </script>
@@ -557,7 +560,7 @@
                 mainImage.src = newSrc;
                 mainImageLink.href = newSrc;
 
-                mainImageLink.setAttribute('data-pswp-width', 1200); // Пример значений
+                mainImageLink.setAttribute('data-pswp-width', 1200);
                 mainImageLink.setAttribute('data-pswp-height', 900);
             });
         });
