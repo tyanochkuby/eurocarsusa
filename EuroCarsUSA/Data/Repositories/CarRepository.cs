@@ -186,7 +186,22 @@ namespace EuroCarsUSA.Data.Repositories
 
         public async Task<bool> DeleteRange(IEnumerable<Guid> carIds)
         {
-            _context.Cars.RemoveRange(_context.Cars.Where(c => carIds.Contains(c.Id)));
+            var carsToDelete = await _context.Cars.Where(c => carIds.Contains(c.Id)).ToListAsync();
+            if (carsToDelete.Count == 0) return false;
+
+            foreach (var car in carsToDelete)
+            {
+                // Delete images from the file system
+                foreach (var image in car.Images)
+                {
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", image);
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+                }
+            }
+            _context.Cars.RemoveRange(carsToDelete);
             return await Save();
         }
 

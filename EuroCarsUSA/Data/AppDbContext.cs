@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using EuroCarsUSA.Models.Form;
-using EuroCarsUSA.Data.Enums;
 
 namespace EuroCarsUSA.Data
 {

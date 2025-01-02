@@ -1,0 +1,30 @@
+﻿@using System.Net.Http
+@using EuroCarsUSA.Views.Shared.Components
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+
+@model EditableField
+
+@if (Model.IsVisible)
+{
+    var inputType = Model.Value?.GetType().Name switch
+    {
+        "Int32" => "number",
+        "String" => "text",
+        "Guid" => "text",
+        _ => "text"
+    };
+    <input value="@Model.Value?.ToString()"
+           class="@Model.CssClass"
+           style="@($"width:{Model.Width}; height: 46px; {Model.Style}")"
+           name="@Model.Name"
+           type="@inputType" />
+}
+else
+{
+    <input type="hidden" name="@Model.Name" value="@Model.Value?.ToString()" />
+}
