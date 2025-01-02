@@ -9,31 +9,41 @@
 @inject Localizer localizer
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
+    <div class="container p-md-5 pt-md-3 p-3 pt-2 text-center text-md-start bg-white rounded-32 mb-3 justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-md-display-lg text-title-lg mb-3 text-subhead text-center border-bottom">
+                @localizer.CustomOrder
+            </div>
+        </div>
+        <div class="text-md-display-sm text-body-md text-subhead">
+            This section is dedicated to your personal requests. If you cannot find your desired car, you can apply your request to the dealer via this section. Provide your personal preferences with the help of these filters. Provide your contact information so we can contact you back.
+        </div>
+    </div>
 
     <div class="container mt-4 mb-md-2 mb-3 ">
         <div class="row px-md-5 ">
             <div class="col-auto px-0">
                 <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
-                    <a asp-controller="Admin" asp-action="Orders" class="col-auto ps-0 pe-3">
+                    <a class="col-auto ps-0 pe-3">
                         @await Html.PartialAsync("_Button", new _Button
                            {
                                Text = localizer.Back,
                                Color = "primary",
                                Classes = "",
-                               Attributes = "",
+                               Attributes = "type=\"button\"",
                                LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
                                RightIcon = null,
                                TextColor = ""
                            })
                     </a>
                     <div class="col px-0 d-flex overflow-auto rounded-16 modal-dialog-scrollable">
-                        <a asp-controller="Admin" asp-action="Orders" class="col-auto px-0 pe-3">
+                        <a class="col-auto px-0 pe-3">
                             @await Html.PartialAsync("_Button", new _Button
                             {
                                    Text = localizer.CustomOrder,
                                    Color = "secondary",
                                    Classes = "",
-                                   Attributes = "",
+                                   Attributes = "type=\"button\"",
                                    LeftIcon = null,
                                    RightIcon = null,
                                    TextColor = "text-primary"
@@ -45,7 +55,7 @@
                                    Text = $"{@Model.Id}",
                                    Color = "secondary",
                                    Classes = "",
-                                   Attributes = "",
+                                   Attributes = "type=\"button\"",
                                    LeftIcon = null,
                                    RightIcon = null,
                                    TextColor = "text-primary"
@@ -238,18 +248,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-12">
-                                @await Html.PartialAsync("_ListItem", new _ListItem
-                                {
-                                    Classes = "h-100",
-                                    Headline = form.Description ?? localizer.Empty,
-                                    ShowOverline = true,
-                                    ShowOverlineInside = true,
-                                    Overline = localizer.Description,
-                                    ShowSupportive = true,
-                                    ShowSupportiveInside = true,
-                                    ShowDivider = true
-                                })
+                            <div class="col-md-4 col-12 mt-3 mt-md-0">
+                                <div class="list-item position-relative h-100">
+
+                                    <div class="list-item-state-building-block bg-white h-100">
+                                        <div class="list-item-state-layer py-2 ps-3 pe-4 row m-0 h-100">
+                                            <div class="list-item-content col p-0 w-100 align-content-center h-100">
+                                                <div class="list-item-overline-text text-label-md text-neutral-900 row m-0">
+                                                    Description
+                                                </div>
+                                                <div class="text-body-lg text-neutral-900 row h-100 m-0">
+                                                    @(form.Description ?? localizer.Empty)
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="position-absolute border-2 border-bottom border-neutral600 w-100" style="right: 0; transform: translateY(-1.6px);"> </div>
+
+                                </div>
                             </div>
                         </div>
                 </div>

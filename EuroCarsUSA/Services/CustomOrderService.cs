@@ -32,7 +32,7 @@ namespace EuroCarsUSA.Services
                 Name = co.Name,
                 PhoneNumber = co.PhoneNumber,
                 Status = co.Status,
-                TimeStapm = co.TimeStamp
+                TimeStamp = co.TimeStamp
             }).ToList();
 
             return viewModels;

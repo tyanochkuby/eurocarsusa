@@ -43,10 +43,10 @@
             </a>
         </div>     
     </div>
-    <div id="expanded-@(Model.Index + 1)" style="max-height: 320px; margin-left: -8px; margin-right: -8px" class="overflow-auto order-details px-2">
+    <div id="expanded-@(Model.Index + 1)" class="order-details px-2 customOrderForm">
         <h5 class="mb-3"></h5>
         <div class="row g-3 mb-3">
-            <div class="form-group col-md col-12">
+            <div class="form-group col-md-4 col-12">
                 @await Html.PartialAsync("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
            {
                DropdownId = $"dropdownMenuButton{Model.Index}",
@@ -59,7 +59,7 @@
                Translator = Translator
            })
             </div>
-            <div class="form-group col-md col-12">
+            <div class="form-group col-md-4 col-12">
                 @await Html.PartialAsync("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
            {
                DropdownId = $"dropdownMenuButtonColors{Model.Index}",
@@ -72,7 +72,7 @@
                Translator = Translator
            })
             </div>
-            <div class="form-group col-md col-12">
+            <div class="form-group col-md-4 col-12">
                 @await Html.PartialAsync("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
            {
                DropdownId = $"dropdownMenuButtonTypes{Model.Index}",
@@ -87,7 +87,7 @@
             </div>
         </div>
         <div class="row g-3 mb-3">
-            <div class="form-group col-md col-12">
+            <div class="form-group col-md-4 col-12">
                 @await Html.PartialAsync("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
            {
                DropdownId = $"dropdownMenuButtonFuelTypes{Model.Index}",
@@ -100,7 +100,7 @@
                Translator = Translator
            })
             </div>
-            <div class="form-group col-md col-12">
+            <div class="form-group col-md-4 col-12">
                 @await Html.PartialAsync("_MultipleChoiceDropdown", new _MultipleChoiceDropdown
            {
                DropdownId = $"dropdownMenuButtonTransmissions{Model.Index}",
@@ -114,42 +114,156 @@
            })
             </div>
             <div class="form-group col-md col-12">
-                <label asp-for="Model">@localizer.Model</label>
-                <input name="@($"Forms[{Model.Index}].Model")" asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
+                <div class="line-edit position-relative">
+                    <label class="line-edit-text-field d-flex row m-0 bg-white position-relative" asp-for="Model">
+                        <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                            <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                <div class="row m-0 ">
+                                    <div class="line-edit-label-text col p-0 py-1">
+                                        <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                            @localizer.Model
+                                        </div>
+                                        <div class="text-body-lg text-neutral-900 row m-0">
+                                            <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Model" asp-for="Model" name="@($"Forms[{Model.Index}].Model")">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="active-indicator position-absolute w-100"> </div>
+                    </label>
+                    <span class="line-edit-supportive-text text-label-md text-neutral-900 px-3 m-0 pt-1 d-flex text-byzantine" asp-validation-for="Model">
+                    </span>
+                </div>
             </div>
         </div>
         <div class="row g-3">
             <div class="col-md-8 col-12">
                 <div class="row g-3 mb-3">
                     <div class="form-group col-md col-12">
-                        <label asp-for="MaxPrice">@localizer.MaxPrice</label>
-                        <input name="@($"Forms[{Model.Index}].MaxPrice")" asp-for="MaxPrice" class="form-control" />
-                        <span asp-validation-for="MaxPrice" class="text-danger"></span>
+                        <div class="line-edit position-relative">
+                            <label class="line-edit-text-field d-flex row m-0 bg-white position-relative" asp-for="MaxPrice">
+                                <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                    <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                        <div class="row m-0 ">
+                                            <div class="line-edit-label-text col p-0 py-1">
+                                                <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                    @localizer.MaxPrice
+                                                </div>
+                                                <div class="text-body-lg text-neutral-900 row m-0">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.MaxPrice" asp-for="MaxPrice" name="@($"Forms[{Model.Index}].MaxPrice")">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="active-indicator position-absolute w-100"> </div>
+                            </label>
+                            <span class="line-edit-supportive-text text-label-md text-neutral-900 px-3 m-0 pt-1 d-flex text-byzantine" asp-validation-for="MaxPrice">
+                            </span>
+                        </div>
                     </div>
                     <div class="form-group col-md col-12">
-                        <label asp-for="MaxMileage">@localizer.MaxMileage</label>
-                        <input name="@($"Forms[{Model.Index}].MaxMileage")" asp-for="MaxMileage" class="form-control" />
-                        <span asp-validation-for="MaxMileage" class="text-danger"></span>
+                        <div class="line-edit position-relative">
+                            <label class="line-edit-text-field d-flex row m-0 bg-white position-relative" asp-for="MaxMileage">
+                                <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                    <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                        <div class="row m-0 ">
+                                            <div class="line-edit-label-text col p-0 py-1">
+                                                <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                    @localizer.MaxMileage
+                                                </div>
+                                                <div class="text-body-lg text-neutral-900 row m-0">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.MaxMileage" asp-for="MaxMileage" name="@($"Forms[{Model.Index}].MaxMileage")">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="active-indicator position-absolute w-100"> </div>
+                            </label>
+                            <span class="line-edit-supportive-text text-label-md text-neutral-900 px-3 m-0 pt-1 d-flex text-byzantine" asp-validation-for="MaxMileage">
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row g-3">
                     <div class="form-group col-md col-12">
-                        <label asp-for="MinYear">@localizer.MinYear</label>
-                        <input name="@($"Forms[{Model.Index}].MinYear")" asp-for="MinYear" class="form-control" />
-                        <span asp-validation-for="MinYear" class="text-danger"></span>
+                        <div class="line-edit position-relative">
+                            <label class="line-edit-text-field d-flex row m-0 bg-white position-relative" asp-for="MinYear">
+                                <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                    <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                        <div class="row m-0 ">
+                                            <div class="line-edit-label-text col p-0 py-1">
+                                                <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                    @localizer.MinYear
+                                                </div>
+                                                <div class="text-body-lg text-neutral-900 row m-0">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.MinYear" asp-for="MinYear" name="@($"Forms[{Model.Index}].MinYear")">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="active-indicator position-absolute w-100"> </div>
+                            </label>
+                            <span class="line-edit-supportive-text text-label-md text-neutral-900 px-3 m-0 pt-1 d-flex text-byzantine" asp-validation-for="MinYear">
+                            </span>
+                        </div>
                     </div>
                     <div class="form-group col-md col-12">
-                        <label asp-for="MaxYear">@localizer.MaxYear</label>
-                        <input name="@($"Forms[{Model.Index}].MaxYear")" asp-for="MaxYear" class="form-control" />
-                        <span asp-validation-for="MaxYear" class="text-danger"></span>
+                        <div class="line-edit position-relative">
+                            <label class="line-edit-text-field d-flex row m-0 bg-white position-relative" asp-for="MaxYear">
+                                <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                    <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                        <div class="row m-0 ">
+                                            <div class="line-edit-label-text col p-0 py-1">
+                                                <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                    @localizer.MaxYear
+                                                </div>
+                                                <div class="text-body-lg text-neutral-900 row m-0">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.MaxYear" asp-for="MaxYear" name="@($"Forms[{Model.Index}].MaxYear")">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="active-indicator position-absolute w-100"> </div>
+                            </label>
+                            <span class="line-edit-supportive-text text-label-md text-neutral-900 px-3 m-0 pt-1 d-flex text-byzantine" asp-validation-for="MaxYear">
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="form-group col-md-4 col-12">
-                <label asp-for="Description">@localizer.Description</label>
-                <textarea name="@($"Forms[{Model.Index}].Description")" asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <div class="line-edit position-relative">
+                    <label class="line-edit-text-field d-flex row m-0 bg-white position-relative" asp-for="Description">
+                        <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                            <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                <div class="row m-0 ">
+                                    <div class="line-edit-label-text col p-0 py-1">
+                                        <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                            @localizer.Description
+                                        </div>
+                                        <div class="text-body-lg text-neutral-900 row m-0">
+                                            <textarea class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Description" asp-for="Description" name="@($"Forms[{Model.Index}].Description")" style="height:100px"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="active-indicator position-absolute w-100"> </div>
+                    </label>
+                    <span class="line-edit-supportive-text text-label-md text-neutral-900 px-3 m-0 pt-1 d-flex text-byzantine" asp-validation-for="Description">
+                    </span>
+                </div>
             </div>
         </div>
     </div>

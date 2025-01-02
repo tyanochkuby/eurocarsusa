@@ -4,19 +4,52 @@
 @using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.AspNetCore.Components
-@model IEnumerable<CustomOrderViewModel>
+@model OrdersViewModel
 @inject ICustomOrderService formService
 @inject Localizer localizer
 
 <div class="bg-neutral-200 w-100 h-100 py-4">
-    <div class="container p-5 pt-3 bg-white rounded-32 justify-content-center mb-2">
-        <div class="text-display-lg mb-3 text-subhead text-center border-bottom">
-           @localizer.CustomOrder
+    <div class="container p-md-5 pt-md-3 p-3 pt-2 text-center text-md-start bg-white rounded-32 mb-3 justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="text-md-display-lg text-title-lg mb-3 text-subhead text-center border-bottom">
+                @localizer.CustomOrder
+            </div>
+        </div>
+        <div class="text-md-display-sm text-body-md text-subhead">
+            This section is dedicated to your personal requests. If you cannot find your desired car, you can apply your request to the dealer via this section. Provide your personal preferences with the help of these filters. Provide your contact information so we can contact you back.
         </div>
     </div>
 
     <div class="container mt-4 mb-md-2 mb-3 ">
         <div class="row px-md-5 ">
+            <div class="col-auto px-0">
+                <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
+                    <a class="col-auto ps-0 pe-3">
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = "Back",
+                            Color = "primary",
+                            Classes = "",
+                            Attributes = "type=\"button\"",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                            RightIcon = null,
+                            TextColor = ""
+                        })
+                    </a>
+                    <a class="col-auto px-0">
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = "Individual order",
+                            Color = "secondary",
+                            Classes = "",
+                            Attributes = "type=\"button\"",
+                            LeftIcon = null,
+                            RightIcon = null,
+                            TextColor = "text-primary"
+                        })
+                    </a>
+                </div>           
+            </div>
             <div class="col-md col-12 p-md-0 px-3 py-2 rounded-16 bg-white bg-md-transparent">
                 <div class="row m-0 justify-content-end     ">
                     <div class="text-title-lg d-md-none text-neutral-900 mb-2 mb-md-0 px-0">@localizer.TrackOrder</div>
@@ -46,92 +79,295 @@
 
     <div class="container p-3 bg-white rounded-32">
         <div class="">
-            <span class="mb-3 text-headline-sm">@localizer.ClientOrders</span>
-            <div class="bg-secondary rounded-16 row gx-3 gy-3 m-0 p-2 pt-0 pb-3">
-                @foreach (var order in Model)
+            <span class="text-headline-sm ps-1">@localizer.ClientOrders</span>
+            <div class="bg-secondary-200 rounded-16 p-2 py-3 mb-3 mt-2">
+                <div class="text-title-lg text-neutral-900 px-2">Sent</div>
+                @if (Model.Sent.Count() > 0)
+                {   
+                    <div class="mt-2">
+                        <div class="row gx-3 gy-3 mx-0">
+                            @foreach (var order in Model.Sent)
+                            {
+                                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <div class="card box-shadow rounded-16 p-3">
+                                        <div class="">
+                                            <div class="row mx-0">
+                                                <div class="justify-content-between row px-0 mx-0">
+                                                    <div class="col px-0 text-title-md">
+                                                        <div>@order.Id</div>
+                                                    </div>
+                                                    <div class="col-auto px-0">
+                                                        <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id>
+                                                            @await Html.PartialAsync("_IconButton", new { IconName = "Keyboard arrow right", Color = "primary", IconColor = "primary", Attributes = "" })
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr style="border-top: 1px solid #000;" class="mt-0 mb-2">
+
+                                            <div class="row mx-0 fh-regular gap-2 overflow-hidden cardDetails" style="max-height: 500px;">
+                                                <div class="row mx-0 px-0">
+                                                    <div class="col-6 px-0">
+                                                        <div class="d-flex align-items-center justify-content-start">
+                                                            <div class="text-body-lg">@localizer.DateAdded</div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-start">
+                                                            <div class="text-body-md text-neutral-900 w-100">@order.TimeStamp.ToShortDateString()</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6 px-0">
+                                                        <div class="d-flex align-items-center justify-content-end">
+                                                            <div class="text-body-lg">@localizer.Name</div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-end">
+                                                            <div class="text-body-md text-neutral-900 text-end">@order.Name</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mx-0 px-0">
+                                                    <div class="col-6 px-0">
+                                                        <div class="d-flex align-items-center justify-content-start">
+                                                            <div class="text-body-lg">Email</div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-start">
+                                                            <div class="text-body-md text-neutral-900 w-100">@order.Email</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-0">
+                                                        <div class="d-flex align-items-center justify-content-end">
+                                                            <div class="text-body-lg text-end">@localizer.PhoneNumber</div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-end ">
+                                                            <div class="text-body-md text-neutral-900">@(order.PhoneNumber != null ? order.PhoneNumber : "Not provided")</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #000;" class="mt-0 mt-2 mb-1">
+
+                                            <div class="row mx-0">
+                                                <div class="justify-content-between row px-0 mx-0">
+                                                    <div class="col px-0 text-label-lg">
+                                                        <div>@localizer.Status</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 px-0 text-title-md text-primary-900 d-flex justify-content-end">
+                                                <select class="form-control" name="status-@order.Id" onchange="updateStatus('@order.Id', this.value)">
+                                                    @foreach (var status in Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>())
+                                                    {
+                                                        if (status == order.Status)
+                                                        {
+                                                            <option value="@status" selected>@status</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@status">@status</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="bg-secondary-200 rounded-16 p-2 py-3 mb-3">
+                <div class="text-title-lg text-neutral-900 px-2">Opened</div>
+                @if (Model.Opened.Count() > 0)
                 {
-                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                        <div class="card box-shadow rounded-16 p-3">
-                            <div class="">
-                                <div class="row mx-0">
-                                    <div class="justify-content-between row px-0 mx-0">
-                                        <div class="col px-0 text-title-md">
-                                            <div>@order.Id</div>
-                                        </div>
-                                        <div class="col-auto px-0">
-                                            <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id>
-                                                @await Html.PartialAsync("_IconButton", new { IconName = "Keyboard arrow right", Color = "primary", IconColor = "primary", Attributes = "" })
-                                            </a>
+                    <div class="mt-2">
+                        <div class="row gx-3 gy-3 mx-0 mt-2">
+                            @foreach (var order in Model.Opened)
+                            {
+                                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                    <div class="card box-shadow rounded-16 p-3">
+                                        <div class="">
+                                            <div class="row mx-0">
+                                                <div class="justify-content-between row px-0 mx-0">
+                                                    <div class="col px-0 text-title-md">
+                                                        <div>@order.Id</div>
+                                                    </div>
+                                                    <div class="col-auto px-0">
+                                                        <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id>
+                                                            @await Html.PartialAsync("_IconButton", new { IconName = "Keyboard arrow right", Color = "primary", IconColor = "primary", Attributes = "" })
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr style="border-top: 1px solid #000;" class="mt-0 mb-2">
+
+                                            <div class="row mx-0 fh-regular gap-2 overflow-hidden cardDetails" style="max-height: 500px;">
+                                                <div class="row mx-0 px-0">
+                                                    <div class="col-6 px-0">
+                                                        <div class="d-flex align-items-center justify-content-start">
+                                                            <div class="text-body-lg">@localizer.DateAdded</div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-start">
+                                                            <div class="text-body-md text-neutral-900 w-100">@order.TimeStamp.ToShortDateString()</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6 px-0">
+                                                        <div class="d-flex align-items-center justify-content-end">
+                                                            <div class="text-body-lg">@localizer.Name</div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-end">
+                                                            <div class="text-body-md text-neutral-900">@order.Name</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mx-0 px-0">
+                                                    <div class="col-6 px-0">
+                                                        <div class="d-flex align-items-center justify-content-start">
+                                                            <div class="text-body-lg">Email</div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-start">
+                                                            <div class="text-body-md text-neutral-900 w-100">@order.Email</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 px-0">
+                                                        <div class="d-flex align-items-center justify-content-end">
+                                                            <div class="text-body-lg text-end">@localizer.PhoneNumber</div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-end ">
+                                                            <div class="text-body-md text-neutral-900">@(order.PhoneNumber != null ? order.PhoneNumber : "Not provided")</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr style="border-top: 1px solid #000;" class="mt-0 mt-2 mb-1">
+
+                                            <div class="row mx-0">
+                                                <div class="justify-content-between row px-0 mx-0">
+                                                    <div class="col px-0 text-label-lg">
+                                                        <div>@localizer.Status</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 px-0 text-title-md text-primary-900 d-flex justify-content-end">
+                                                <select class="form-control" name="status-@order.Id" onchange="updateStatus('@order.Id', this.value)">
+                                                    @foreach (var status in Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>())
+                                                    {
+                                                        if (status == order.Status)
+                                                        {
+                                                            <option value="@status" selected>@status</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@status">@status</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <hr style="border-top: 1px solid #000;" class="mt-0 mb-2">
-
-                                <div class="row mx-0 fh-regular gap-2 overflow-hidden cardDetails" style="max-height: 500px;">
-                                    <div class="row mx-0 px-0">
-                                        <div class="col-6 px-0">
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="text-body-lg">@localizer.DateAdded</div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="bg-secondary-200 rounded-16 p-2 py-3">
+                <div class="text-title-lg text-neutral-900 px-2">Closed</div>
+                
+                @if (Model.Closed.Count() > 0)
+                {
+                    <div class="mt-2">
+                        <div class="row gx-3 gy-3 mx-0 mt-2">
+                        @foreach (var order in Model.Closed)
+                        {
+                            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                                <div class="card box-shadow rounded-16 p-3">
+                                    <div class="">
+                                        <div class="row mx-0">
+                                            <div class="justify-content-between row px-0 mx-0">
+                                                <div class="col px-0 text-title-md">
+                                                    <div>@order.Id</div>
+                                                </div>
+                                                <div class="col-auto px-0">
+                                                    <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id>
+                                                        @await Html.PartialAsync("_IconButton", new { IconName = "Keyboard arrow right", Color = "primary", IconColor = "primary", Attributes = "" })
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="text-body-md text-neutral-900 w-100">@order.TimeStapm.ToShortDateString()</div>
+                                        </div>
+                                        <hr style="border-top: 1px solid #000;" class="mt-0 mb-2">
+
+                                        <div class="row mx-0 fh-regular gap-2 overflow-hidden cardDetails" style="max-height: 500px;">
+                                            <div class="row mx-0 px-0">
+                                                <div class="col-6 px-0">
+                                                    <div class="d-flex align-items-center justify-content-start">
+                                                        <div class="text-body-lg">@localizer.DateAdded</div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-start">
+                                                        <div class="text-body-md text-neutral-900 w-100">@order.TimeStamp.ToShortDateString()</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-6 px-0">
+                                                    <div class="d-flex align-items-center justify-content-end">
+                                                        <div class="text-body-lg">@localizer.Name</div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end">
+                                                        <div class="text-body-md text-neutral-900">@order.Name</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mx-0 px-0">
+                                                <div class="col-6 px-0">
+                                                    <div class="d-flex align-items-center justify-content-start">
+                                                        <div class="text-body-lg">Email</div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-start">
+                                                        <div class="text-body-md text-neutral-900 w-100">@order.Email</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 px-0">
+                                                    <div class="d-flex align-items-center justify-content-end">
+                                                        <div class="text-body-lg text-end">@localizer.PhoneNumber</div>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-end ">
+                                                        <div class="text-body-md text-neutral-900">@(order.PhoneNumber != null ? order.PhoneNumber : "Not provided")</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-6 px-0">
-                                            <div class="d-flex align-items-center justify-content-end">
-                                                <div class="text-body-lg">@localizer.Name</div>
+                                        <hr style="border-top: 1px solid #000;" class="mt-0 mt-2 mb-1">
+
+                                        <div class="row mx-0">
+                                            <div class="justify-content-between row px-0 mx-0">
+                                                <div class="col px-0 text-label-lg">
+                                                    <div>@localizer.Status</div>
+                                                </div>
                                             </div>
-                                            <div class="d-flex align-items-center justify-content-end">
-                                                <div class="text-body-md text-neutral-900">@order.Name</div>
-                                            </div>
+                                        </div>
+                                        <div class="col-12 px-0 text-title-md text-primary-900 d-flex justify-content-end">
+                                            <select class="form-control" name="status-@order.Id" onchange="updateStatus('@order.Id', this.value)">
+                                                @foreach (var status in Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>())
+                                                {
+                                                    if (status == order.Status)
+                                                    {
+                                                        <option value="@status" selected>@status</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@status">@status</option>
+                                                    }
+                                                }
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="row mx-0 px-0">
-                                        <div class="col-6 px-0">
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="text-body-lg">Email</div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-start">
-                                                <div class="text-body-md text-neutral-900 w-100">@order.Email</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 px-0">
-                                            <div class="d-flex align-items-center justify-content-end">
-                                                <div class="text-body-lg text-end">@localizer.PhoneNumber</div>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-end ">
-                                                <div class="text-body-md text-neutral-900">@(order.PhoneNumber != null ? order.PhoneNumber : localizer.NotProvided)</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <hr style="border-top: 1px solid #000;" class="mt-0 mt-2 mb-1">
-
-                                <div class="row mx-0">
-                                    <div class="justify-content-between row px-0 mx-0">
-                                        <div class="col px-0 text-label-lg">
-                                            <div>@localizer.Status</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 px-0 text-title-md text-primary-900 d-flex justify-content-end">
-                                    <select class="form-control" name="status-@order.Id" onchange="updateStatus('@order.Id', this.value)">
-                                        @foreach (var status in Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>())
-                                        {
-                                            if (status == order.Status)
-                                            {
-                                                <option value="@status" selected>@localizer.ToLocalizedString(status)</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@status">@localizer.ToLocalizedString(status)</option>
-                                            }
-                                        }
-                                    </select>
                                 </div>
                             </div>
+                        }
                         </div>
                     </div>
                 }
