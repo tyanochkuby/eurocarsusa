@@ -1,17 +1,97 @@
 ﻿@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
 @model RegisterViewModel
-<form asp-action="Register" method="post">
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
+
+<div class="container d-flex justify-content-center">
+    <div style="width: 540px;" class="border border-1 border-primaryqw rounded-3 p-5 pt-4 mt-5">
+        <div class="d-flex align-items-end justify-content-center mb-3">
+            <img src="~/icons/logo2.svg" style="width: 240px; height: 100px" alt="EuroCarsUSA" class="col-auto" />
+        </div>
+        <form asp-action="Login" method="post">
+            <div class="bg-secondary-500 border border-primary p-3 rounded-16 mb-2">
+                <div class="form-group mb-3">
+                    <div class="line-edit position-relative">
+                        <label class="line-edit-text-field d-flex row m-0 bg-white position-relative rounded-3 rounded-bottom-0" asp-for="Email">
+                            <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                    <div class="row m-0 ">
+                                        <div class="line-edit-label-text col p-0 py-1">
+                                            <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                Email *
+                                            </div>
+                                            <div class="text-body-lg text-neutral-900 row m-0">
+                                                <input class="p-0 text-neutral-900 line-edit-input" placeholder="Email" type="password" asp-for="Email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="active-indicator position-absolute w-100"> </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="line-edit position-relative">
+                        <label class="line-edit-text-field d-flex row m-0 bg-white position-relative rounded-3 rounded-bottom-0" asp-for="Password">
+                            <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                    <div class="row m-0 ">
+                                        <div class="line-edit-label-text col p-0 py-1">
+                                            <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                Password *
+                                            </div>
+                                            <div class="text-body-lg text-neutral-900 row m-0">
+                                                <input class="p-0 text-neutral-900 line-edit-input" placeholder="Password" type="password" asp-for="Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="active-indicator position-absolute w-100"> </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="line-edit position-relative">
+                        <label class="line-edit-text-field d-flex row m-0 bg-white position-relative rounded-3 rounded-bottom-0" asp-for="ConfirmPassword">
+                            <div class="line-edit-state-layer row m-0 py-1 px-0 d-flex ps-3 pe-3">
+                                <div class="line-edit-content col p-0 d-block w-100 align-content-center">
+                                    <div class="row m-0 ">
+                                        <div class="line-edit-label-text col p-0 py-1">
+                                            <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
+                                                Confirm Password*
+                                            </div>
+                                            <div class="text-body-lg text-neutral-900 row m-0">
+                                                <input class="p-0 text-neutral-900 line-edit-input" placeholder="Password" asp-for="ConfirmPassword">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="active-indicator position-absolute w-100"> </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="justify-content-center d-flex">
+                <a href="#" class="">
+                    @await Html.PartialAsync("_Button", new _Button
+                    {
+                        Text = "Register",
+                        Color = "primary",
+                        Classes = "",
+                        Attributes = "type=\"submit\"",
+                        LeftIcon = null,
+                        RightIcon = null,
+                        TextColor = ""
+                    })
+                </a>
+            </div>
+
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" type="password" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+</div>

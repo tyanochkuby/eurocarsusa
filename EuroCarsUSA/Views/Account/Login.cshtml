@@ -17,7 +17,7 @@
                                     <div class="row m-0 ">
                                         <div class="line-edit-label-text col p-0 py-1">
                                             <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
-                                                Email
+                                                Email *
                                             </div>
                                             <div class="text-body-lg text-neutral-900 row m-0">
                                                 <input class="p-0 text-neutral-900 line-edit-input" placeholder="Email" asp-for="Email">
@@ -39,7 +39,7 @@
                                     <div class="row m-0 ">
                                         <div class="line-edit-label-text col p-0 py-1">
                                             <div class="line-edit-overline-text text-label-md text-neutral-900 row m-0">
-                                                Password
+                                                Password *
                                             </div>
                                             <div class="text-body-lg text-neutral-900 row m-0">
                                                 <input class="p-0 text-neutral-900 line-edit-input" placeholder="Password" asp-for="Password">
@@ -61,7 +61,7 @@
             </div>
 
             <div class="justify-content-center d-flex">
-                <a href="tel:+48534422089" class="">
+                <a href="#" class="">
                     @await Html.PartialAsync("_Button", new _Button
                     {
                         Text = "Login",
@@ -70,7 +70,7 @@
                         Attributes = "type=\"submit\"",
                         LeftIcon = null,
                         RightIcon = null,
-                        TextColor = ""
+                        TextColor = "",
                     })
             </a>
             </div>

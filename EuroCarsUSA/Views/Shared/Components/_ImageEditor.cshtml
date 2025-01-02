@@ -144,8 +144,8 @@
                     var newCol = document.createElement('div');
                     newCol.className = 'col-auto position-relative';
                     newCol.innerHTML = `
-                        <img src="${newImageUrl}" alt="Image" class="img-thumbnail" style="width: 144px; height: 108px;" +
-                            '<a href="#" class="position-absolute end-0 me-2 mt-1">
+                                <img src="${newImageUrl}" alt="Image" class="img-thumbnail" style="width: 144px; height: 108px;" />` +
+                            `<a href="#" class="position-absolute end-0 me-2 mt-1">
                                 <button type="button" onclick="removeImage(this)" class="icon-btn-custom p-0">
                                     <div class="rounded-pill ripple-effect-primary overflow-hidden bg-secondary">
                                         <div class="p-2 bg-secondary">
@@ -165,8 +165,8 @@
                                     </div>
                                 </button>
 
-                                    </a>'/>
-                    `;
+                            </a>`
+                            ;
                     galleryRow.appendChild(newCol);
                 } else {
                     alert('Image upload failed');

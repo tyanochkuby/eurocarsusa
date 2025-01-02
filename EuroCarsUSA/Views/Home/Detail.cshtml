@@ -66,8 +66,8 @@
 
         <div class="col-md-7 col-lg-8 px-3">
             @*path*@
-            <div class="ms-xl-0 ms-2 mb-3 d-flex">
-                <a asp-controller="Home" asp-action="BackToCatalogWithFilters">
+            <div class="ms-xl-0 ms-2 d-flex align-items-center">
+                <a href="javascript:history.back()">
                     @await Html.PartialAsync("_Button", new _Button
                     {
                         Text = localizer.Back,
@@ -79,31 +79,32 @@
                         TextColor = ""
                     })
                 </a>
-
-                <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make">
-                    @await Html.PartialAsync("_Button", new _Button
-                    {
-                        Text = $"{@Model.Car.Make}",
-                        Color = "primary",
-                        Classes = "me-2",
-                        Attributes = "type=\"button\"",
-                        LeftIcon = null,
-                        RightIcon = null,
-                        TextColor = ""
-                    })
-                </a>
-                <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model">
-                    @await Html.PartialAsync("_Button", new _Button
-                    {
-                        Text = $"{@Model.Car.Model}",
-                        Color = "primary",
-                        Classes = "me-2",
-                        Attributes = "type=\"button\"",
-                        LeftIcon = null,
-                        RightIcon = null,
-                        TextColor = ""
-                    })
-                </a>
+                <div class="d-flex overflow-auto py-2">
+                    <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make">
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = $"{@Model.Car.Make}",
+                            Color = "secondary",
+                            Classes = "me-2",
+                            Attributes = "type=\"button\"",
+                            LeftIcon = null,
+                            RightIcon = null,
+                            TextColor = ""
+                        })
+                    </a>
+                    <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model">
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = $"{@Model.Car.Model}",
+                       Color = "secondary",
+                            Classes = "me-2",
+                            Attributes = "type=\"button\"",
+                            LeftIcon = null,
+                            RightIcon = null,
+                            TextColor = ""
+                        })
+                    </a>
+                </div>
             </div>
 
             @*Images*@
@@ -152,8 +153,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             @*Price*@
             <div class="d-md-none px-2">
@@ -269,11 +268,11 @@
             @*Recomendations*@
             <div class="col p-0">
                 <hr style="border-top: 1px solid #000;"> @*divider*@
-                <div class="row mx-0 mb-3 d-flex align-items-stretch">
+                <div class="row mx-0 mb-2 d-flex align-items-stretch">
                     <div class="col px-0 text-headline-sm">@localizer.ShowMore</div>
                 </div>
 
-                <div class="row gx-2 flex-nowrap overflow-auto">
+                <div class="row gx-2 flex-nowrap overflow-auto p-2" style="margin-left: -8px; margin-right: -8px;">
                     @foreach (CarCardViewModel car in Model.RecomendedCar)
                     {
                         car.Classes = "col-6 col-lg-4 col-xl-3";
@@ -286,7 +285,7 @@
 
 
         <div class="col-md-5 col-lg-4 px-3">
-            <div class="d-none d-md-block sticky-top">
+            <div class="d-none d-md-block sticky-top pt-5">
                     <div class="border px-3 py-3">
                         <div class="pb-2">
                             <div class="fh-header-bold">@(Model.Car.Make + " " + Model.Car.Model)</div>
@@ -385,6 +384,8 @@
 
 
 @section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe/dist/photoswipe.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 
@@ -487,34 +488,27 @@
             const nextButton = document.getElementById('nextImageButton');
             const thumbnailGallery = document.getElementById('thumbnailGallery');
 
-            // Функция для обновления выбранного изображения
             function updateImage(index) {
                 currentIndex = index;
                 const newImage = images[currentIndex];
                 mainImage.src = newImage;
                 mainImageLink.href = newImage;
 
-                // Обновляем обводку миниатюр
                 updateSelectedThumbnail();
             }
 
-            // Функция для обновления обводки миниатюр
             function updateSelectedThumbnail() {
-                // Убираем класс 'selected' у всех миниатюр
                 const thumbnails = document.querySelectorAll('.thumbnail-link');
                 thumbnails.forEach(thumb => thumb.classList.remove('selected'));
 
-                // Добавляем класс 'selected' только к текущей миниатюре
                 const selectedThumbnail = document.querySelector(`.thumbnail-link[data-index="${currentIndex}"]`);
                 if (selectedThumbnail) {
                     selectedThumbnail.classList.add('selected');
-                    // Прокручиваем миниатюру в видимую область, но не прокручиваем страницу
                     selectedThumbnail.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                 }
             }
 
 
-            // Навигация по изображениям
             prevButton.addEventListener('click', () => {
                 const newIndex = (currentIndex - 1 + images.length) % images.length;
                 updateImage(newIndex);
@@ -525,43 +519,52 @@
                 updateImage(newIndex);
             });
 
-            // Инициализация при загрузке страницы
+            thumbnailGallery.addEventListener('click', (e) => {
+                const target = e.target.closest('.thumbnail-link');
+                if (target) {
+                    e.preventDefault();
+                    const newIndex = parseInt(target.getAttribute('data-index'), 10);
+                    updateImage(newIndex);
+                }
+            });
+
             updateImage(currentIndex);
         });
     </script>
 
 
     <script type="module">
+        import PhotoSwipe from 'https://unpkg.com/photoswipe/dist/photoswipe.esm.js';
         import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js';
 
-        const mainImageLightbox = new PhotoSwipeLightbox({
-            gallery: '.selected-image',
-            children: 'a',
-            pswpModule: () => import('https://unpkg.com/photoswipe/dist/photoswipe.esm.js'),
-        });
-        mainImageLightbox.init();
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = @Html.Raw(Json.Serialize(Model.Car.Images));
+            const mainImage = document.getElementById('mainImage');
+            const mainImageLink = document.getElementById('mainImageLink');
 
-        const thumbnails = document.querySelectorAll('.thumbnail-link');
-        const mainImage = document.getElementById('mainImage');
-        const mainImageLink = document.getElementById('mainImageLink');
+            const galleryItems = images.map(image => ({
+                src: image,
+                w: 1200,
+                h: 900
+            }));
 
-        thumbnails.forEach((thumb) => {
-            thumb.addEventListener('click', (e) => {
+            const pswpOptions = {
+                dataSource: galleryItems,
+                initialSlide: 0,
+            };
+
+            mainImageLink.addEventListener('click', (e) => {
                 e.preventDefault();
 
-                thumbnails.forEach((t) => t.classList.remove('selected'));
+                const currentIndex = images.indexOf(mainImage.src);
+                pswpOptions.initialSlide = currentIndex;
 
-                thumb.classList.add('selected');
-
-                const newSrc = thumb.href;
-                mainImage.src = newSrc;
-                mainImageLink.href = newSrc;
-
-                mainImageLink.setAttribute('data-pswp-width', 1200); // Пример значений
-                mainImageLink.setAttribute('data-pswp-height', 900);
+                const pswp = new PhotoSwipe(pswpOptions);
+                pswp.init();
             });
         });
     </script>
+
 
 
 }

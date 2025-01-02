@@ -11,7 +11,7 @@
 
     <div class="row mx-0 mb-2 px-3 d-flex align-items-stretch justify-content-end">
         <div class="col px-0">
-            <a asp-controller="Home" asp-action="BackToCatalogWithFilters">
+            <a href="javascript:history.back()">
                 @await Html.PartialAsync("_Button", new _Button
                 {
                     Text = localizer.Back,
@@ -20,12 +20,35 @@
                     Attributes = "",
                     LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
                     RightIcon = null,
-                    TextColor = ""
+                    TextColor = "",
+                    Type = "button",
                 })
             </a>
         </div>
         <div class="col px-0 flex-grow-1 justify-content-end d-flex align-content-center align-items-center ">
-            <div class="position-absolute">
+            <div class="d-none d-sm-flex">
+                @await Html.PartialAsync("_Button", new _Button
+               {
+                   Text = localizer.Add,
+                   Color = "secondary",
+                   Classes = "me-3",
+                   Attributes = "type=\"button\" onclick=\"addNewRow()\"",
+                   LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Add"), Color = "primary" }),
+                   RightIcon = null,
+                   TextColor = "",
+               })
+                @await Html.PartialAsync("_Button", new _Button
+                {
+                    Text = localizer.Save,
+                    Color = "primary",
+                    Classes = "",
+                    Attributes = "type=\"submit\"",
+                    LeftIcon = null,
+                    RightIcon = null,
+                    TextColor = ""
+                })
+            </div>
+            <div class="d-sm-none position-absolute">
                 <div class="">
                     <a class="icon-button" onclick="toggleCataogEditionButtonsPopup()">
                         @await Html.PartialAsync("_IconButton", new { IconName = "More horiz", Color = "secondary", IconColor = "primary", Attributes = "type=\"button\"" })
