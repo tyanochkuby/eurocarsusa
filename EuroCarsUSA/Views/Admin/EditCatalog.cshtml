@@ -71,7 +71,6 @@
 @section Scripts {
     <script>
         function toggleCataogEditionButtonsPopup() {
-            console.log("aala");
             const popup = document.getElementById('popup-buttons');
             if (popup.classList.contains("d-none")) {
                 popup.classList.remove("d-none");
@@ -99,8 +98,7 @@
         }
         function addNewRow() {
             var tableBody = document.getElementById('catalog');
-            var index = tableBody.children.length / 2;
-            console.log(index);
+            var index = tableBody.children.length;
             $.ajax({
                 url: '/Admin/GetNewCatalogRow',
                 data: { index: index },
