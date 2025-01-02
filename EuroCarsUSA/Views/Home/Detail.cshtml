@@ -66,7 +66,7 @@
 
         <div class="col-md-7 col-lg-8 px-3">
             @*path*@
-            <div class="ms-xl-0 ms-2 mb-3 d-flex">
+            <div class="ms-xl-0 ms-2 d-flex align-items-center">
                 <a href="javascript:history.back()">
                     @await Html.PartialAsync("_Button", new _Button
                     {
@@ -79,12 +79,12 @@
                         TextColor = ""
                     })
                 </a>
-                <div class="d-flex overflow-auto">
+                <div class="d-flex overflow-auto py-2">
                     <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make">
                         @await Html.PartialAsync("_Button", new _Button
                         {
                             Text = $"{@Model.Car.Make}",
-                            Color = "primary",
+                            Color = "secondary",
                             Classes = "me-2",
                             Attributes = "type=\"button\"",
                             LeftIcon = null,
@@ -96,7 +96,7 @@
                         @await Html.PartialAsync("_Button", new _Button
                         {
                             Text = $"{@Model.Car.Model}",
-                            Color = "primary",
+                       Color = "secondary",
                             Classes = "me-2",
                             Attributes = "type=\"button\"",
                             LeftIcon = null,
@@ -153,8 +153,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             @*Price*@
             <div class="d-md-none px-2">
@@ -287,7 +285,7 @@
 
 
         <div class="col-md-5 col-lg-4 px-3">
-            <div class="d-none d-md-block sticky-top">
+            <div class="d-none d-md-block sticky-top pt-5">
                     <div class="border px-3 py-3">
                         <div class="pb-2">
                             <div class="fh-header-bold">@(Model.Car.Make + " " + Model.Car.Model)</div>
