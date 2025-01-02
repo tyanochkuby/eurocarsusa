@@ -4,6 +4,6 @@
     {
         Electric = 0,
         Benzine = 1,
-        Disel = 2
+        Diesel = 2
     }
 }

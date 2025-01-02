@@ -11,9 +11,6 @@
     var i = Model.Item2 ;
     var uniqueId = $"car-{i}";
     var car = Model.Item1;
-    car.Model = "";
-    car.ImagesJson = "[]";
-    car.VIN = "";
 }
 
 <div class="col-12" id="car-row-@uniqueId">
@@ -117,7 +114,7 @@
                 <label for="@($"[{i}].EngineVolume")">@localizer.EngineVolume</label>
                 @await Html.PartialAsync("_EditableField", new EditableField
                 {
-                    Value = car.EngineVolume,
+                    Value = car.EngineVolume == null ? "" : car.EngineVolume,
                     Name = $"[{i}].EngineVolume"
                 })
             </div>
