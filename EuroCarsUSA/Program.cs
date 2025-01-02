@@ -16,7 +16,6 @@ using EuroCarsUSA.Resources;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSingleton<IValidationAttributeAdapterProvider, AtLeastOnePropertyValidationAttributeAdapterProvider>();
@@ -36,7 +35,7 @@ builder.Services.AddScoped<Localizer>();
 // Adding session services
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
 });
 
@@ -53,7 +52,7 @@ builder.Services.Configure<string>(
 );
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(connectionString, options => options.CommandTimeout(90));
+    options.UseSqlServer(connectionString, options => options.UseCompatibilityLevel(120));
 });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -92,7 +91,7 @@ app.UseStaticFiles();
 var supportedCultures = new[] { new CultureInfo("pl-PL"), new CultureInfo("en") };
 var requestLocalizationOptions = new RequestLocalizationOptions
 {
-    DefaultRequestCulture = new RequestCulture("pl-PL"), 
+    DefaultRequestCulture = new RequestCulture("pl-PL"),
     SupportedCultures = supportedCultures,
     SupportedUICultures = supportedCultures,
     RequestCultureProviders = new IRequestCultureProvider[]
@@ -107,7 +106,6 @@ app.UseRequestLocalization(requestLocalizationOptions);
 app.UseRouting();
 
 app.UseAuthorization();
-app.MapBlazorHub();
 
 app.UseSession(); // Use session middleware
 

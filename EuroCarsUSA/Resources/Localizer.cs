@@ -11,6 +11,7 @@ namespace EuroCarsUSA.Resources
         {
             _localizer = localizer;
         }
+        public string GetValue(string key) => _localizer[key];
         public string ToLocalizedString(Enum enumValue) => _localizer[$"{enumValue.GetType().Name}_{enumValue}"];
 
 

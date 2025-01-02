@@ -1,0 +1,12 @@
+﻿@using EuroCarsUSA.Resources
+@using EuroCarsUSA.Views.Shared.Components
+
+@inject Localizer localizer
+@model IEnumDropdown
+
+<select class="form-control @Model.CssClass" name="@Model.Name" style="height: 46px; @Model.Style">
+    @foreach (var option in Enum.GetValues(Model.Value.GetType()))
+    {
+        <option value="@option">@localizer.GetValue($"{option.GetType().Name}_{option}")</option>
+    }
+</select>

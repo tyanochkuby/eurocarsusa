@@ -23,9 +23,9 @@ namespace EuroCarsUSA.Services
         }
         public async Task DeleteRange(IEnumerable<Guid> carIds)
         {
-            if(carIds.Count() == 0) return;
+            if (carIds.Count() == 0) return;
 
-            if(!await _carRepository.DeleteRange(carIds))
+            if (!await _carRepository.DeleteRange(carIds))
             {
                 throw new Exception("Failed to delete cars");
             }
