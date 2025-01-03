@@ -893,8 +893,9 @@
                 $('#filtersForm input[type="checkbox"]').prop('checked', false);
                 $('#filtersForm input[type="hidden"]').val('');
                 $('#filtersForm span').filter(function () {
-                    return !$(this).closest('#filterButtons').length;
-                }).text('Any');
+                    return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
+                }).text('@Translator["Choose"]');
+
 
             });
 
