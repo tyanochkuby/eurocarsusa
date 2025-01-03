@@ -49,7 +49,7 @@
                                    TextColor = "text-primary"
                             })
                         </a>
-                        <a asp-controller="CustomOrder" asp-action="Index" asp-route-id=@Model.Id class ="col-auto px-0">
+                        <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@Model.Id class ="col-auto px-0">
                             @await Html.PartialAsync("_Button", new _Button
                                {
                                    Text = $"{@Model.Id}",
