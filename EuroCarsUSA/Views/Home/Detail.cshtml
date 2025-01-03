@@ -162,7 +162,7 @@
                         <div class="col-auto ps-0 pe-2">@Model.Car.Year</div>
                         <div class="col-auto ps-0 pe-2">@($"{Model.Car.Mileage} km")</div>
                         <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
-                        <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? ((CarFuelType)Model.Car.FuelType).ToLocalizedString(Translator) : "")</div>
+                        <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? localizer.ToLocalizedString(Model.Car.FuelType) : "")</div>
                     </div>
                 </div>
 
@@ -193,7 +193,7 @@
                         <div class="col-md-6">
                             <div class="row my-md-0 my-1">
                                 <div class="col-6 text-subhead">@localizer.Make</div>
-                                <div class="col-6">@Model.Car.Make</div>
+                                <div class="col-6">@localizer.ToLocalizedString(Model.Car.Make)</div>
                             </div>
                         </div>
                     </div>
@@ -218,7 +218,7 @@
                         <div class="col-md-6">
                             <div class="row my-md-0 my-1">
                                 <div class="col-6 text-subhead">@localizer.Color</div>
-                                <div class="col-6">@Model.Car.Color</div>
+                                <div class="col-6">@localizer.ToLocalizedString(Model.Car.Color)</div>
                             </div>
                         </div>
 
@@ -234,14 +234,14 @@
                         <div class="col-md-6">
                             <div class="row my-md-0 my-1">
                                 <div class="col-6 text-subhead">@localizer.CarType</div>
-                                <div class="col-6">@Model.Car.Type</div>
+                                <div class="col-6">@localizer.ToLocalizedString(Model.Car.Type)</div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="row my-md-0 my-1">
                                 <div class="col-6 text-subhead">@localizer.FuelType</div>
-                                <div class="col-6">@Model.Car.FuelType</div>
+                                <div class="col-6">@localizer.ToLocalizedString(Model.Car.FuelType)</div>
                             </div>
                         </div>
                     </div>
@@ -250,7 +250,7 @@
                         <div class="col-md-6">
                             <div class="row my-md-0 my-1">
                                 <div class="col-6 text-subhead">@localizer.Transmission</div>
-                                <div class="col-6">@Model.Car.Transmission</div>
+                                <div class="col-6">@localizer.ToLocalizedString(Model.Car.Transmission)</div>
                             </div>
                         </div>
 
@@ -293,7 +293,7 @@
                                 <div class="col-auto ps-0 pe-2">@Model.Car.Year</div>
                                 <div class="col-auto ps-0 pe-2">@($"{Model.Car.Mileage} km")</div>
                                 <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? $"{Model.Car.EngineVolume} cm3" : "")</div>
-                                <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? ((CarFuelType)Model.Car.FuelType).ToLocalizedString(Translator) : "")</div>
+                            <div class="col-auto ps-0 pe-2">@(Model.Car.EngineVolume != null ? localizer.ToLocalizedString(Model.Car.FuelType) : "")</div>
                             </div>
                         </div>
 
@@ -307,7 +307,7 @@
                         <div class="py-3"></div>
 
                         <div class="bg-light align-items-center flex-column d-flex">
-                            <p class="fs-4 fw-light mb-2 mt-2 border-bottom border-primary">@Translator["ContactSeller"]</p>
+                            <p class="fs-4 fw-light mb-2 mt-2 border-bottom border-primary">@localizer.ContactSeller</p>
                             <a href="tel:+48534422089">
                                 @Html.Partial("_Button", new _Button
                                     {

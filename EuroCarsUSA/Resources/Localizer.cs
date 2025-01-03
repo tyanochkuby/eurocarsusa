@@ -123,6 +123,11 @@ namespace EuroCarsUSA.Resources
         public string OrderStatus_Opened => _localizer[nameof(OrderStatus_Opened)];
         public string OrderStatus_Closed => _localizer[nameof(OrderStatus_Closed)];
         public string ContactData => _localizer[nameof(ContactData)];
+        public string Catalog => _localizer[nameof(Catalog)];
+        public string MainPage => _localizer[nameof(MainPage)];
+        public string CatalogEdition => _localizer[nameof(CatalogEdition)];
+        public string Privacy => _localizer[nameof(Privacy)];
+        public string ProvideContactData => _localizer[nameof(ProvideContactData)];
 
     }
 }

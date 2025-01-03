@@ -680,4 +680,19 @@ EuroCarUsa team</value>
   <data name="ContactData" xml:space="preserve">
     <value>Contact data</value>
   </data>
+  <data name="Catalog" xml:space="preserve">
+    <value>Catalog</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Main page</value>
+  </data>
+  <data name="CatalogEdition" xml:space="preserve">
+    <value>Catalog edition</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="ProvideContactData" xml:space="preserve">
+    <value>Provide your contact data</value>
+  </data>
 </root>

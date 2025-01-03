@@ -1,13 +1,14 @@
 ﻿@using EuroCarsUSA.Controllers
 @using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
+@using EuroCarsUSA.Resources
 @using EuroCarsUSA.Views.Home.Components.ViewModels
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.Extensions.Localization
 @using System.Globalization
 
 @inject IStringLocalizer<HomeController> Translator
-
+@inject Localizer localizer
 @model IEnumerable<Car>
 
 @{
@@ -47,7 +48,7 @@
     </div>
     
     <div class="row justify-content-center text-headline-sm text-neutral-900 border-neutral900 border-bottom mx-0">
-        Catalog
+        @localizer.Catalog
     </div>
 
 </div>

@@ -1,5 +1,8 @@
 ﻿@using System.Globalization
+@using EuroCarsUSA.Resources
 @using EuroCarsUSA.Views.Shared.Components
+
+@inject Localizer localizer
 
 <!DOCTYPE html>
 <html lang="en">
@@ -190,7 +193,7 @@
                     {
                         Classes = "",
                         Attributes = $"",
-                        Headline = "Main Page",
+                        Headline = localizer.MainPage,
                         ShowOverline = false,
                         Leading = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Home"), Color = "neutral900" }),
                         Clickable = true,
@@ -201,7 +204,7 @@
                     <a asp-controller="Home" asp-action="Catalog">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
-                            Headline = "Catalog",
+                            Headline = localizer.Catalog,
                             ShowOverline = false,
                             Leading = await Html.PartialAsync("_Icon", new { IconName = Url.Content("View carousel"), Color = "neutral900" }),
                         })
@@ -212,7 +215,7 @@
                     <a asp-controller="Admin" asp-action="Orders">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
-                            Headline = "Individual order",
+                            Headline = localizer.IndividualOrder,
                             ShowOverline = false,
                             Leading = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "neutral900" }),
                         })
@@ -224,7 +227,7 @@
                     <a asp-controller="CustomOrder" asp-action="Index">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
-                            Headline = "Individual order",
+                            Headline = localizer.IndividualOrder,
                             ShowOverline = false,
                             Leading = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "neutral900" }),
                         })
@@ -237,7 +240,7 @@
                         <a asp-controller="Admin" asp-action="EditCatalog">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
-                            Headline = "Catalog edition",
+                            Headline = localizer.CatalogEdition,
                             ShowOverline = false,
                             Leading = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Edit note"), Color = "neutral900" }),
                         })
@@ -247,7 +250,7 @@
                         <a asp-controller="Admin" asp-action="Statistics">
                         @await Html.PartialAsync("_ListItem", new _ListItem
                         {
-                            Headline = "Statistic",
+                            Headline = localizer.Statistics,
                             ShowOverline = false,
                             Leading = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Data thresholding"), Color = "neutral900" }),
                         })
@@ -261,7 +264,7 @@
             @RenderBody()
             <footer class="border-top footer text-muted" style="height: 130px;">
                 <div class="container-xl">
-                    &copy; 2024 - EuroCarsUSA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    &copy; 2024 - EuroCarsUSA - <a asp-area="" asp-controller="Home" asp-action="Privacy">@localizer.Privacy</a>
                 </div>
             </footer>
         </main>
