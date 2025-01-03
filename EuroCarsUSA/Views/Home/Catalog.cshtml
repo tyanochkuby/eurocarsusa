@@ -760,10 +760,9 @@
             var carsDisplayed = 0;
 
             function getCars() {
-                var culture = '@CultureInfo.CurrentUICulture.Name';
                 $.ajax({
                     url: '/Home/GetCars',
-                    data: { carsDisplayed: carsDisplayed, culture: culture },
+                    data: { carsDisplayed: carsDisplayed },
                     type: 'GET',
                     success: function (data) {
                         var html = $(data);

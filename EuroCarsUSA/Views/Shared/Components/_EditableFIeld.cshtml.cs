@@ -2,6 +2,7 @@
 
 public class EditableField
 {
+    public string Id { get; set; }
     public object Value { get; set; }
     public bool IsVisible { get; set; } = true;
     public string Width { get; set; } = "100%";

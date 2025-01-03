@@ -5,6 +5,7 @@ using EuroCarsUSA.Views.Home.Components.ViewModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using System.Data;
 
 namespace EuroCarsUSA.Data.Repositories
 {
@@ -94,29 +95,33 @@ namespace EuroCarsUSA.Data.Repositories
 
         public async Task<int> GetCount(CarFilter? filters)
         {
+            filters ??= new CarFilter(); // Initialize filters if null
+
             var parameters = new List<SqlParameter>
             {
-                new SqlParameter("@Make", filters?.Make != null && filters?.Make.Count > 0 ? string.Join(",", filters.Make.Select(m => (int)m)) : (object)DBNull.Value),
-                new SqlParameter("@Model", filters?.Model ?? (object)DBNull.Value),
-                new SqlParameter("@MinPrice", filters?.MinPrice ?? (object)DBNull.Value),
-                new SqlParameter("@MaxPrice", filters?.MaxPrice ?? (object)DBNull.Value),
-                new SqlParameter("@MinYear", filters?.MinYear ?? (object)DBNull.Value),
-                new SqlParameter("@MaxYear", filters?.MaxYear ?? (object)DBNull.Value),
-                new SqlParameter("@MinEngineVolume", filters?.MinEngineVolume ?? (object)DBNull.Value),
-                new SqlParameter("@MaxEngineVolume", filters?.MaxEngineVolume ?? (object)DBNull.Value),
-                new SqlParameter("@MinMileage", filters?.MinMileage ?? (object)DBNull.Value),
-                new SqlParameter("@MaxMileage", filters?.MaxMileage ?? (object)DBNull.Value),
-                new SqlParameter("@FuelType", filters?.FuelType != null && filters?.FuelType.Count > 0 ? string.Join(",", filters.FuelType.Select(f => (int)f)) : (object)DBNull.Value),
-                new SqlParameter("@CarType", filters?.CarType != null && filters?.CarType.Count > 0 ? string.Join(",", filters.CarType.Select(t => (int)t)) : (object)DBNull.Value),
-                new SqlParameter("@Transmission", filters?.Transmission != null && filters?.Transmission.Count > 0 ? string.Join(",", filters.Transmission.Select(t => (int)t)) : (object)DBNull.Value),
-                new SqlParameter("@Color", filters?.Color != null && filters?.Color.Count > 0 ? string.Join(",", filters.Color.Select(c => (int)c)) : (object)DBNull.Value),
-                new SqlParameter("@DateFrom", filters?.DateFrom ?? (object)DBNull.Value),
-                new SqlParameter("@DateTo", filters?.DateTo ?? (object)DBNull.Value),
-                new SqlParameter("@Status", filters?.Status ?? (object)DBNull.Value)
+                new SqlParameter("@Make", filters.Make != null && filters.Make.Count > 0 ? string.Join(",", filters.Make.Select(m => (int)m)) : (object)DBNull.Value),
+                new SqlParameter("@Model", !string.IsNullOrEmpty(filters.Model) ? filters.Model : (object)DBNull.Value),
+                new SqlParameter("@MinPrice", filters.MinPrice.HasValue ? filters.MinPrice.Value : (object)DBNull.Value),
+                new SqlParameter("@MaxPrice", filters.MaxPrice.HasValue ? filters.MaxPrice.Value : (object)DBNull.Value),
+                new SqlParameter("@MinYear", filters.MinYear.HasValue ? filters.MinYear.Value : (object)DBNull.Value),
+                new SqlParameter("@MaxYear", filters.MaxYear.HasValue ? filters.MaxYear.Value : (object)DBNull.Value),
+                new SqlParameter("@MinEngineVolume", filters.MinEngineVolume.HasValue ? filters.MinEngineVolume.Value : (object)DBNull.Value),
+                new SqlParameter("@MaxEngineVolume", filters.MaxEngineVolume.HasValue ? filters.MaxEngineVolume.Value : (object)DBNull.Value),
+                new SqlParameter("@MinMileage", filters.MinMileage.HasValue ? filters.MinMileage.Value : (object)DBNull.Value),
+                new SqlParameter("@MaxMileage", filters.MaxMileage.HasValue ? filters.MaxMileage.Value : (object)DBNull.Value),
+                new SqlParameter("@FuelType", filters.FuelType != null && filters.FuelType.Count > 0 ? string.Join(",", filters.FuelType.Select(f => (int)f)) : (object)DBNull.Value),
+                new SqlParameter("@CarType", filters.CarType != null && filters.CarType.Count > 0 ? string.Join(",", filters.CarType.Select(t => (int)t)) : (object)DBNull.Value),
+                new SqlParameter("@Transmission", filters.Transmission != null && filters.Transmission.Count > 0 ? string.Join(",", filters.Transmission.Select(t => (int)t)) : (object)DBNull.Value),
+                new SqlParameter("@Color", filters.Color != null && filters.Color.Count > 0 ? string.Join(",", filters.Color.Select(c => (int)c)) : (object)DBNull.Value),
+                new SqlParameter("@DateFrom", filters.DateFrom.HasValue ? filters.DateFrom.Value : (object)DBNull.Value),
+                new SqlParameter("@DateTo", filters.DateTo.HasValue ? filters.DateTo.Value : (object)DBNull.Value),
+                new SqlParameter("@Status", filters.Status.HasValue ? filters.Status.Value : (object)DBNull.Value),
+                new SqlParameter("@Count", SqlDbType.Int) { Direction = ParameterDirection.Output }
             };
 
-            var count = await _context.Database.ExecuteSqlRawAsync("EXEC GetFilteredCarsCount @Make, @Model, @MinPrice, @MaxPrice, @MinYear, @MaxYear, @MinEngineVolume, @MaxEngineVolume, @MinMileage, @MaxMileage, @FuelType, @CarType, @Transmission, @Color, @DateFrom, @DateTo, @Status", parameters.ToArray());
-            return count;
+            await _context.Database.ExecuteSqlRawAsync("EXEC GetFilteredCarsCount @Make, @Model, @MinPrice, @MaxPrice, @MinYear, @MaxYear, @MinEngineVolume, @MaxEngineVolume, @MinMileage, @MaxMileage, @FuelType, @CarType, @Transmission, @Color, @DateFrom, @DateTo, @Status, @Count OUTPUT", parameters.ToArray());
+
+            return (int)parameters.Last().Value;
         }
 
 

@@ -52,33 +52,31 @@ namespace EuroCarsUSA.Controllers
             }
         }
 
-        public async Task<IActionResult> Order(Guid id)
+        public async Task<IActionResult> Order(string id)
         {
-            CustomOrderViewModel viewModel = await _customOrderService.GetById(id);
-
-            return View(viewModel);
-        }
-
-
-        public IActionResult Track()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> TrackOrder(string orderId)
-        {
-            if (Guid.TryParse(orderId, out Guid id))
+            if (Guid.TryParse(id, out Guid guidId))
             {
-                var formViewModel = await _customOrderService.GetById(id);
+                var formViewModel = await _customOrderService.GetById(guidId);
                 if (formViewModel != null)
                 {
-                    return View("Track", formViewModel);
+                    return View(formViewModel);
                 }
             }
 
             ModelState.AddModelError(string.Empty, "Order not found.");
-            return View("Track");
+            return View("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TrackOrder(string orderId, string recaptchaResponse)
+        {
+            if (!await IsReCaptchaValid(recaptchaResponse))
+            {
+                return Json(new { success = false, message = "Invalid reCAPTCHA. Please try again." });
+            }
+            
+            return Json(new { success = true, redirectUrl = Url.Action("Order", new { id = orderId }) });
+                
         }
 
         public IActionResult Thanks(Guid id)
