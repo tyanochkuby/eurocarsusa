@@ -679,4 +679,19 @@
   <data name="ContactData" xml:space="preserve">
     <value>Dane kontaktowe</value>
   </data>
+  <data name="Catalog" xml:space="preserve">
+    <value>Katalog</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Strona główna</value>
+  </data>
+  <data name="CatalogEdition" xml:space="preserve">
+    <value>Edycja katalogu</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Polityka prywatności</value>
+  </data>
+  <data name="ProvideContactData" xml:space="preserve">
+    <value>Wpisz dane kontaktowe</value>
+  </data>
 </root>

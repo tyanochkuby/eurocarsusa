@@ -53,7 +53,7 @@
                     @foreach (var car in Model)
                     {
                         <tr>
-                            <td>@car.Make.ToString()</td>
+                            <td>@localizer.ToLocalizedString(car.Make)</td>
                             <td>@car.Model</td>
                             <td>@car.Year</td>
                             <td>@car.Likes</td>
