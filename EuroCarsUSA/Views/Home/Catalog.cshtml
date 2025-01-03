@@ -5,6 +5,8 @@
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.Extensions.Localization
 @using System.Globalization
+@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Models
 
 @inject IStringLocalizer<HomeController> Translator
 
@@ -713,7 +715,59 @@
     
 
     <div class="album p-0 col-md-6 col-lg-7 col-xl-8 col-xxl-9 col-12">
-        <div id="carsListing" class="p-3 rounded-16 bg-neutral-100 container mx-md-0">
+        <div class="ms-xl-0 ms-2 align-items-center d-none d-md-flex">
+            <a href="javascript:history.back()">
+                @await Html.PartialAsync("_Button", new _Button
+               {
+                   Text = "Back",
+                   Color = "primary",
+                   Classes = "me-2",
+                   Attributes = "",
+                   LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                   RightIcon = null,
+                   TextColor = ""
+               })
+            </a>
+            <div class="d-flex overflow-auto py-2">
+                <a asp-controller="Home" asp-action="Catalog">
+                    @await Html.PartialAsync("_Button", new _Button
+                   {
+                       Text = $"Catalog",
+                       Color = "secondary",
+                       Classes = "me-2",
+                       Attributes = "type=\"button\"",
+                       LeftIcon = null,
+                       RightIcon = null,
+                       TextColor = ""
+                   })
+                </a>
+            </div>
+        </div>
+        @if (ViewBag.CardsWDrodzeModel.Count > 0)
+        {
+            <div class="container mx-md-0 p-0">
+                <div class="col-12 px-0 mb-3">
+                    <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">Samochody w drodze</div>
+                    <div class="row bg-neutral-200 p-3 rounded-16 mx-0">
+                        <div class="col px-0">
+                            <div class="row p-0 px-2 mx-0 text-title-lg d-md-flex d-md-none text-neutral-900">Samochody w drodze</div>
+                            <div class="row px-0 gx-3 py-2 flex-nowrap overflow-auto">
+                                @foreach (CarCardViewModel car in ViewBag.CardsWDrodzeModel)
+                                {
+                                    car.Classes = "col-8 col-sm-5 col-md-7 col-lg-5 col-xl-3";
+                                    car.IsFullSize = false;
+                                    @await Html.PartialAsync("_CarCard", car)
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">Catalog</div>
+        }
+        
+        <div id="carsListing" class="p-3 rounded-16 bg-neutral-200 container mx-md-0">
             @*All cars go here*@
         </div>
 
