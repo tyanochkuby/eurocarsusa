@@ -143,6 +143,10 @@ img.rounded-xxl {
     border-radius: 16px !important;
 }
 
+.rounded-8 {
+    border-radius: 8px !important;
+}
+
 .rounded-top-0 {
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;

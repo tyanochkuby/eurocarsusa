@@ -6,7 +6,12 @@
 @model IEnumerable<CatalogEditionViewModel>
 @inject Localizer localizer
 
-<form method="post" asp-action="SaveCatalogChanges" class="container bg-neutral-200 py-5">
+<div class="row justify-content-center text-headline-sm text-neutral-900 border-neutral900 border-bottom m-3 pt-3 d-flex d-md-none">
+    Catalog Edition
+</div>
+
+<form method="post" asp-action="SaveCatalogChanges" class="container bg-neutral-200 py-5 pt-3 pt-md-5 rounded-16">
+
     <input type="hidden" id="deletedCarsIds" name="deletedCarsIds" value="" />
 
     <div class="row mx-0 mb-2 px-3 d-flex align-items-stretch justify-content-end">
@@ -81,7 +86,7 @@
     </div>
 
     <div class="bg-secondary p-3 p-3 rounded-16">
-        <div id="catalog" class="row gy-2">
+        <div id="catalog" class="row gy-3 ">
             @for (int i = 0; i < Model.Count(); i++)
             {
                 var car = Model.ElementAt(i);

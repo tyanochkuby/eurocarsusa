@@ -18,12 +18,19 @@
         "Guid" => "text",
         _ => "text"
     };
-    <input id="@Model.Id"
-           value="@Model.Value?.ToString()"
-           class="@Model.CssClass"
-           style="@($"width:{Model.Width}; height: 46px; {Model.Style}")"
-           name="@Model.Name"
-           type="@inputType" />
+    <div class="@Model.CssClass">
+        @await Html.PartialAsync("_LineEdit", new _LineEdit
+        {
+            Attributes = $"value=\"{@Model.Value?.ToString()}\" name=\"{@Model.Name}\" type=\"{@inputType}\" id=\"{@Model.Id}\"",
+            Placeholder = Model.Placeholder,
+            ShowOverline = true,
+            ShowOverlineInside = true,
+            Overline = Model.Overline,
+            ShowAdditional = false,
+            Additional = "zł",
+            ShowSupportive = false,
+        })
+    </div>
 }
 else
 {

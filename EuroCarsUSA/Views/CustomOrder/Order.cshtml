@@ -39,7 +39,7 @@
                                    TextColor = "text-primary"
                             })
                         </a>
-                        <a asp-controller="CustomOrder" asp-action="Index" asp-route-id=@Model.Id class ="col-auto px-0">
+                        <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@Model.Id class ="col-auto px-0">
                             @await Html.PartialAsync("_Button", new _Button
                                {
                                    Text = $"{@Model.Id}",
@@ -271,7 +271,11 @@
         <div class="p-3 bg-secondary-200 rounded-16">
             <div class="row m-0">
                 <div class="col-12 col-md-4 p-md-0 p-2 px-0 me-md-3 bg-secondary-200 mb-2 mb-md-0">
-                    @await Html.PartialAsync("_EditableField", new EditableField())
+                    @await Html.PartialAsync("_EditableField", new EditableField
+                    {
+                        Overline = localizer.TrackYourOrder,
+                        Placeholder = "Type here youe track number"
+                    })
                 </div>
                 <div class="col-12 col-md-auto d-flex flex-column justify-content-end px-0">
                     <a class="submit">

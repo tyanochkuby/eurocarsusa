@@ -15,10 +15,30 @@
 </div>
 
 <div id="communication-mobile-popUP" class="col-12 d-md-none justify-content-center align-items-center d-none" style="position: fixed; top: 0; left: 0; z-index: 10000; background: rgba(0, 0, 0, 0.5); width: 100%; height: 100%;">
-    <div class="col-8 bg-light align-items-center flex-column d-flex br-2 px-2">
-        <p class="fs-4 fw-light mb-0 mt-3 border-bottom border-primary">@localizer.ContactSeller</p>
-        <a href="tel:+48534422089" class="btn fh-button-text btn-secondary rounded-pill px-4 py-2 my-2 d-inline-flex align-items-center">
-            <img class="carIcon" src="~/icons/phone.svg" /> <span class="ms-1">+48 534 422 089</span>
+    <div class="col-11 col-sm-8 bg-light align-items-center flex-column d-flex br-3 p-3">
+        <div class="w-100 d-flex justify-content-center position-relative">
+            <p class="mb-0 mt-3 border-bottom border-primary text-title-lg text-neutral-900">@localizer.ContactSeller</p>
+            <a href="#" class="position-absolute end-0">
+                @Html.Partial("_IconButton", new
+                    {
+                        IconName = "Clear",
+                        Color = "primary",
+                        IconColor = "primary",
+                        Attributes = $"type=\"button\" onclick=\"closePopup()\""
+                    })
+            </a>
+        </div>
+        <a href="tel:+48534422089" class="my-2">
+            @Html.Partial("_Button", new _Button
+           {
+               Text = "+4853422089",
+               Color = "primary",
+               Classes = "",
+               Attributes = "",
+               LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
+               RightIcon = (object)null,
+               TextColor = "",
+           })
         </a>
 
         <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageFormPopUp" class="w-100">
@@ -42,20 +62,18 @@
             </div>
 
             <div class="align-items-center flex-column d-flex pb-3">
-                <button type="submit" class="btn btn-primary rounded-pill py-2 px-4">
-                    <svg class="carIcon me-1" width="96" height="96" viewBox="0 0 96 96" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_292_959)">
-                            <path d="M80 16H16C11.6 16 8.04 19.6 8.04 24L8 72C8 76.4 11.6 80 16 80H80C84.4 80 88 76.4 88 72V24C88 19.6 84.4 16 80 16ZM80 32L48 52L16 32V24L48 44L80 24V32Z" fill="#ffffff" />
-                        </g>
-                        <defs>
-                            <clipPath id="clip0_292_959">
-                                <rect width="96" height="96" fill="white" />
-                            </clipPath>
-                        </defs>
-                    </svg>
-
-                    <span>@localizer.SendMessage</span>
-                </button>
+                <a href="tel:+48534422089" class="my-2">
+                    @Html.Partial("_Button", new _Button
+                    {
+                        Text = @localizer.SendMessage,
+                        Color = "primary",
+                        Classes = "",
+                        Attributes = "type=\"submit\"",
+                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mail"), Color = "white" }),
+                        RightIcon = (object)null,
+                        TextColor = "",
+                    })
+                </a>
             </div>
         </form>
     </div>
@@ -80,6 +98,18 @@
                     })
                 </a>
                 <div class="d-flex overflow-auto py-2">
+                    <a asp-controller="Home" asp-action="Catalog">
+                        @await Html.PartialAsync("_Button", new _Button
+                        {
+                            Text = $"{localizer.Catalog}",
+                            Color = "secondary",
+                            Classes = "me-2",
+                            Attributes = "type=\"button\"",
+                            LeftIcon = null,
+                            RightIcon = null,
+                            TextColor = ""
+                        })
+                    </a>
                     <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make">
                         @await Html.PartialAsync("_Button", new _Button
                         {
@@ -362,19 +392,41 @@
                 </div>
             
             
-
-            <div class="row fixed-bottom d-md-none w-100">
-                <div class="col-6 px-0">
-                    <div class="align-items-center h-100">
-                        <a href="tel:+48534422089" class="btn btn-secondary w-100 h-100 py-3"><i class="fas fa-phone fa-rotate-90 px-1"></i>@localizer.Call </a>
+            
+            <div class="fixed-bottom d-md-none">
+                <div class="row gx-2 bg-white border border-bottom-0 p-2 border-primary rounded-16 rounded-bottom-0">
+                    <div class="col-6">
+                        <a href="tel:+48534422089" class="">
+                            @await Html.PartialAsync("_Button", new _Button
+                       {
+                           Text = localizer.Call,
+                           Color = "secondary",
+                           Classes = "w-100",
+                           Attributes = "",
+                           LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Phone"), Color = "primary" }),
+                           RightIcon = null,
+                           TextColor = "text-primary"
+                       })
+                        </a>
                     </div>
-                </div>
-                <div id="to_rename_parent" class="col-6 px-0">
-                    <div class="align-items-center h-100">
-                        <button id="showPopupButton" type="to_rename" class="btn btn-secondary w-100 h-100"><i class="fas fa-envelope px-1"></i>  @localizer.SendMessage </button>
+                    <div class="col-6 ">
+                        <a id="showPopupButton" class="col-6">
+                            @await Html.PartialAsync("_Button", new _Button
+                       {
+                           Text = localizer.SendMessage,
+                           Color = "primary",
+                           Classes = "w-100",
+                           Attributes = $"type=\"submit\"",
+                           LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Mail"), Color = "white" }),
+                           RightIcon = null,
+                           TextColor = ""
+                       })
+                        </a>
+
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
