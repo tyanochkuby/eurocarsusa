@@ -1,6 +1,6 @@
 
 /****** Object:  StoredProcedure [dbo].[GetFilteredCarsCount]    Script Date: 1/3/2025 10:55:51 PM ******/
-DROP PROCEDURE [dbo].[GetFilteredCarsCount]
+DROP PROCEDURE GetFilteredCarsCount
 GO
 
 /****** Object:  StoredProcedure [dbo].[GetFilteredCarsCount]    Script Date: 1/3/2025 10:55:51 PM ******/
@@ -11,7 +11,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE PROCEDURE [dbo].[GetFilteredCarsCount]
+CREATE PROCEDURE GetFilteredCarsCount
     @Make NVARCHAR(MAX) = NULL,
     @Model NVARCHAR(MAX) = NULL,
     @MinPrice INT = NULL,
