@@ -160,10 +160,23 @@
                 })
             </div>
 
-
-            <div class="py-2 ps-3 pe-4 forEditMode d-block" style="height:56px" >
-                <button type="button" class="btn btn-danger" onclick="deleteCar('@car.Id', '@uniqueId')">@localizer.Delete</button>
+            <div class="py-2 ps-3 pe-4 justify-content-end d-flex">
+                <a class="">
+                    @Html.Partial("_Button", new _Button
+                    {
+                        Text = @localizer.Delete,
+                        Color = "primary",
+                        Classes = "forEditMode bg-danger",
+                        Attributes = $"type=\"button\"  onclick=\"deleteCar('{@car.Id}', '{@uniqueId}')\"",
+                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Delete"), Color = "white" }),
+                        RightIcon = (object)null,
+                        TextColor = "",
+                    })
+                </a>
             </div>
+
+
+            
         </div>
     </div>
 </div>

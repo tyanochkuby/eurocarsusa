@@ -11,7 +11,18 @@
 }
 
 <div>
-    <button type="button" class="btn btn-primary" onclick="showModal('@uniqueId')">@localizer.EditImages</button>
+    <a class="">
+        @Html.Partial("_Button", new _Button
+        {
+            Text = @localizer.EditImages,
+            Color = "primary",
+            Classes = "",
+            Attributes = $"type=\"button\"  onclick=\"showModal('{@uniqueId}')\"",
+            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
+            RightIcon = (object)null,
+            TextColor = "",
+        })
+    </a>
 
     <div id="imageEditorModal-@uniqueId" class="modal" tabindex="-1" style="display:none;">
         <div class="modal-dialog">
