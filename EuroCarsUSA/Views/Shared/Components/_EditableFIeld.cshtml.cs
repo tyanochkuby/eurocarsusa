@@ -8,5 +8,7 @@ public class EditableField
     public Enum SelectedValue { get; set; }
     public string CssClass { get; set; } = "";
     public string Style { get; set; } = "";
+
+    public string Overline { get; set; } = "Overline";
     public string Name { get; set; }
 }

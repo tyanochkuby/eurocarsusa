@@ -4,16 +4,88 @@
 @inject Localizer localizer
 @model IEnumDropdown
 
-<select class="form-control @Model.CssClass" name="@Model.Name" style="height: 46px; @Model.Style">
-    @foreach (var option in Enum.GetValues(Model.Value.GetType()))
-    {
-        if(option.ToString() == Model.Value.ToString())
-        {
-            <option selected value="@option">@localizer.GetValue($"{option.GetType().Name}_{option}")</option>
+<div class="p-2 bg-secondary-200 rounded-8 border border-primary overflow-visible">
+    <div class="dropdown">
+        @{
+            string optionName = "some placeholder";
+            foreach (var option in Enum.GetValues(Model.Value.GetType()))
+            {
+                if (option.ToString() == Model.Value.ToString())
+                {
+                    optionName = @localizer.GetValue($"{option.GetType().Name}_{option}");
+                }
+            }
         }
-        else
+        @Html.Partial("_ExpandButton", new _ExpandButton
         {
-            <option value="@option">@localizer.GetValue($"{option.GetType().Name}_{option}")</option>
+            Classes = "",
+            Attributes = $"type=\"button\" id=\"dropdownOptionButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" name=\"{@Model.Name}\"",
+            Placeholder = optionName,
+            ShowOverline = true,
+            ShowOverlineInside = true,
+            HasOutsidOverlineSizeEffect = true,
+            Overline = Model.Overline,
+            ShowAdditionalBackground = true
+        })
+        <ul class="dropdown-menu w-100 overflow-auto" name="@Model.Name" aria-labelledby="dropdownOptionButton" style="max-height: 240px;">
+            @foreach (var option in Enum.GetValues(Model.Value.GetType()))
+            {
+                <li>
+                    @Html.Partial("_ListItem", new _ListItem
+                    {
+                        Classes = "dropdown-item p-0",
+                        Headline = localizer.GetValue($"{option.GetType().Name}_{option}"),
+                        Attributes = $"data-value='{option}'",
+                        ShowDivider = true,
+                        Clickable = true,
+                    })
+                </li>
+            }
+        </ul>
+    </div>
+    <select hidden id="editCatalogOptionSelect" name="@Model.Name">
+        @foreach (var option in Enum.GetValues(Model.Value.GetType()))
+        {
+            if (option.ToString() == Model.Value.ToString())
+            {
+                <option value="@option" selected>
+                    @localizer.GetValue($"{option.GetType().Name}_{option}")
+                </option>
+            }
+            else
+            {
+                <option value="@option">
+                    @localizer.GetValue($"{option.GetType().Name}_{option}")
+                </option>
+            }
         }
-    }
-</select>
+    </select>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownItems = document.querySelectorAll('.dropdown-menu[name="@Model.Name"] .dropdown-item'); 
+        const hiddenSelect = document.querySelector('#editCatalogOptionSelect[name="@Model.Name"]');
+        const expandButton = document.querySelector('#dropdownOptionButton[name="@Model.Name"]');
+        const expandButtonText = expandButton.querySelector(".expand-button-input");
+
+        dropdownItems.forEach(item => {
+            item.addEventListener("click", function () {
+                const selectedValue = this.getAttribute("data-value");
+
+                hiddenSelect.value = selectedValue;
+
+                if (expandButtonText) {
+                    expandButtonText.textContent = this.textContent.trim();
+                }
+
+                const expandButton = document.getElementById("dropdownOptionButton");
+                const dropdown = bootstrap.Dropdown.getInstance(expandButton);
+                dropdown.hide();
+            });
+        });
+    });
+
+</script>

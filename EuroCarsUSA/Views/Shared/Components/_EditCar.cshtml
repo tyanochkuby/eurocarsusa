@@ -15,36 +15,38 @@
 
 <div class="col-12" id="car-row-@uniqueId">
     <div class="" id="car-row-@uniqueId">
-        <div class="row pt-1 pb-2 m-0 bg-white" 
-             onmouseover="showBorder('@uniqueId')"
-             onmouseout="hideBorder('@uniqueId')">
+        <div class="row py-2 m-0 bg-white" onmouseover="showBorder('@uniqueId')" onmouseout="hideBorder('@uniqueId')">
             <div class="col">
-                <div class="row h-100">
+                <div class="row h-100 align-items-center gx-3">
                     @await Html.PartialAsync("_EditableField", new EditableField {
                             Value = car.Id,
                             Name = $"[{i}].Id",
                             IsVisible = false
                             })
-
+                    
                     <div class="col">
-                        <div class="h-100">
-                            <label for="@($"[{i}].Make")">@localizer.Make</label>
-                            @await Html.PartialAsync("_EnumDropdown", new EnumDropdown<CarMake> {
-                                Value = car.Make,
-                                Name = $"[{i}].Make"
-                            })
-                        </div>                       
-                    </div>
-                    <div class="col">
-                        <div class="h-100 align-content-center">
-                            <label for="@($"[{i}].Model")">@localizer.Model</label>
-                            @await Html.PartialAsync("_EditableField", new EditableField {
-                                Value = car.Model,
-                                Name = $"[{i}].Model"
-                            })
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-2 mb-md-0">
+                                <div class="h-100">
+                                    @await Html.PartialAsync("_EnumDropdown", new EnumDropdown<CarMake> {
+                                        Value = car.Make,
+                                        Name = $"[{i}].Make",
+                                        Overline = @localizer.Make,
+                                    })
+                                </div>                       
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="h-100 align-content-center">
+                                    @await Html.PartialAsync("_EditableField", new EditableField {
+                                        Value = car.Model,
+                                        Name = $"[{i}].Model",
+                                        Overline = @localizer.Model,
+                                    })
+                                </div>
+                            </div>
                         </div>
                     </div>
-               
+
                     <div class="col-auto p-0 center-items" style="height:48px; width:48px" onclick="toggleVisibility('@uniqueId')">
                         <div class="col" id="icon-@uniqueId">
                             @Html.Partial("_IconButton", new { IconName = "Keyboard arrow down", Color = "primary", IconColor = "primary", Attributes = "type=\"button\"" })
@@ -52,27 +54,28 @@
 				    </div>
 				</div>
             </div>
+        </div>
     </div>
     <div class="border-bottom border-3 border-primary" id="border-@uniqueId" style="opacity: 0; transition: opacity 0.3s;"></div>
 
 
-    <div class="edit-car-details bg-white overflow-hide overflow-scroll" id="popup-@uniqueId" style="max-height:0px; height:320px;">
+    <div class="edit-car-details bg-white overflow-hide overflow-auto" id="popup-@uniqueId" style="max-height:0px; height:320px;">
         <div class="py-2">
             <div class="py-2 ps-3 pe-4">
-                <label for="@($"[{i}].Color")">@localizer.Color</label>
                 @await Html.PartialAsync("_EnumDropdown", new EnumDropdown<CarColor>
                 {
                     Value = car.Color,
-                    Name = $"[{i}].Color"
+                    Name = $"[{i}].Color",
+                    Overline = @localizer.Color,
                 })
             </div>
 
             <div class="py-2 ps-3 pe-4">
-                <label for="@($"[{i}].Price")">@localizer.Price</label>
                 @await Html.PartialAsync("_EditableField", new EditableField
                {
                    Value = car.Price,
-                   Name = $"[{i}].Price"
+                   Name = $"[{i}].Price",
+                   Overline = @localizer.Price,
                })
             </div>
 
@@ -82,49 +85,49 @@
             </div>
 
             <div class="py-2 ps-3 pe-4">
-                <label for="@($"[{i}].Year")">@localizer.Year</label>
                 @await Html.PartialAsync("_EditableField", new EditableField
                {
                    Value = car.Year,
-                   Name = $"[{i}].Year"
+                   Name = $"[{i}].Year",
+                   Overline = @localizer.Year,
                })
             
             </div>
 
             <div class="py-2 ps-3 pe-4" >
-                <label for="@($"[{i}].Mileage")">@localizer.Mileage</label>
                 @await Html.PartialAsync("_EditableField", new EditableField {
 	                Value = car.Mileage,
-	                Name = $"[{i}].Mileage"
+	                Name = $"[{i}].Mileage",
+                    Overline = @localizer.Mileage,
                 })
             
             </div>
 
             <div class="py-2 ps-3 pe-4" >
-                <label for="@($"[{i}].Type")">@localizer.Type</label>
                 @await Html.PartialAsync("_EnumDropdown", new EnumDropdown<CarType>
                 {
                     Value = car.Type,
-                    Name = $"[{i}].Type"
+                    Name = $"[{i}].Type",
+                    Overline = @localizer.Type,
                 })
             
             </div>
         
             <div class="py-2 ps-3 pe-4" >
-                <label for="@($"[{i}].EngineVolume")">@localizer.EngineVolume</label>
                 @await Html.PartialAsync("_EditableField", new EditableField
                 {
                     Value = car.EngineVolume == null ? "" : car.EngineVolume,
-                    Name = $"[{i}].EngineVolume"
+                    Name = $"[{i}].EngineVolume",
+                    Overline = @localizer.EngineVolume,
                 })
             </div>
 
             <div class="py-2 ps-3 pe-4" >
-                <label for="@($"[{i}].Transmission")">@localizer.Transmission</label>
                 @await Html.PartialAsync("_EnumDropdown", new EnumDropdown<CarTransmission>
                 {
                     Value = car.Transmission,
-                    Name = $"[{i}].Transmission"
+                    Name = $"[{i}].Transmission",
+                    Overline = @localizer.Transmission,
                 })
             
             </div>
@@ -132,28 +135,28 @@
             <!-- Drive type??? -->
 
             <div class="py-2 ps-3 pe-4" >
-                <label for="@($"[{i}].FuelType")">@localizer.FuelType</label>
                 @await Html.PartialAsync("_EnumDropdown", new EnumDropdown<CarFuelType>
                {
                    Value = car.FuelType,
-                   Name = $"[{i}].FuelType"
+                   Name = $"[{i}].FuelType",
+                   Overline = @localizer.FuelType,
                })
             </div>
 
             <div class="py-2 ps-3 pe-4" >
-                <label for="@($"[{i}].VIN")">VIN</label>
                 @await Html.PartialAsync("_EditableField", new EditableField {
 	                Value = car.VIN,
-	                Name = $"[{i}].VIN"
+	                Name = $"[{i}].VIN",
+                    Overline = "VIN"
                 })
             </div>
 
             <div class="py-2 ps-3 pe-4">
-                <label for="@($"[{i}].Status")">@localizer.Status</label>
                 @await Html.PartialAsync("_EnumDropdown", new EnumDropdown<CarStatus>
                 {
                     Value = car.Status,
-                    Name = $"[{i}].Status"
+                    Name = $"[{i}].Status",
+                    Overline = @localizer.Status,
                 })
             </div>
 
