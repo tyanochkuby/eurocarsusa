@@ -82,6 +82,11 @@ namespace EuroCarsUSA.Controllers
 
             ViewBag.AvailableFilters = _availableFilters;
 
+            var carsWDrodze = await _carRepository.GetAll(CarStatus.Shipping);
+            List<CarCardViewModel> cardsWDrodzeModel = carsWDrodze.Select(c => CarCardViewModel.FromCar(c)).ToList();
+
+            ViewBag.CardsWDrodzeModel = cardsWDrodzeModel;
+
             return View();
         }
 
