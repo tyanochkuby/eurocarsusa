@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="text-md-display-sm text-body-md text-subhead">
-            This section is dedicated to your personal requests. If you cannot find your desired car, you can apply your request to the dealer via this section. Provide your personal preferences with the help of these filters. Provide your contact information so we can contact you back.
+            @localizer.CustomOrderText
         </div>
     </div>
 
@@ -27,7 +27,7 @@
                     <a href="javascript:history.back()" class="col-auto ps-0 pe-3">
                         @await Html.PartialAsync("_Button", new _Button
                         {
-                            Text = "Back",
+                            Text = localizer.Back,
                             Color = "primary",
                             Classes = "",
                             Attributes = "type=\"button\"",
@@ -39,7 +39,7 @@
                     <a asp-controller="Admin" asp-action="Orders"  class="col-auto px-0">
                         @await Html.PartialAsync("_Button", new _Button
                         {
-                            Text = "Individual order",
+                            Text = localizer.IndividualOrder,
                             Color = "secondary",
                             Classes = "",
                             Attributes = "type=\"button\"",
@@ -81,7 +81,7 @@
         <div class="">
             <span class="text-headline-sm ps-1">@localizer.ClientOrders</span>
             <div class="bg-secondary-200 rounded-16 p-2 py-3 mb-3 mt-2">
-                <div class="text-title-lg text-neutral-900 px-2">Sent</div>
+                <div class="text-title-lg text-neutral-900 px-2">@localizer.OrderStatus_Sent</div>
                 @if (Model.Sent.Count() > 0)
                 {   
                     <div class="mt-2">
@@ -97,7 +97,7 @@
                                                         <div>@order.Id</div>
                                                     </div>
                                                     <div class="col-auto px-0">
-                                                        <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id>
+                                                        <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id.ToString()>
                                                             @await Html.PartialAsync("_IconButton", new { IconName = "Keyboard arrow right", Color = "primary", IconColor = "primary", Attributes = "" })
                                                         </a>
                                                     </div>
@@ -178,7 +178,7 @@
                 }
             </div>
             <div class="bg-secondary-200 rounded-16 p-2 py-3 mb-3">
-                <div class="text-title-lg text-neutral-900 px-2">Opened</div>
+                <div class="text-title-lg text-neutral-900 px-2">@localizer.OrderStatus_Opened</div>
                 @if (Model.Opened.Count() > 0)
                 {
                     <div class="mt-2">
@@ -194,7 +194,7 @@
                                                         <div>@order.Id</div>
                                                     </div>
                                                     <div class="col-auto px-0">
-                                                        <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id>
+                                                        <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id.ToString()>
                                                             @await Html.PartialAsync("_IconButton", new { IconName = "Keyboard arrow right", Color = "primary", IconColor = "primary", Attributes = "" })
                                                         </a>
                                                     </div>
@@ -275,7 +275,7 @@
                 }
             </div>
             <div class="bg-secondary-200 rounded-16 p-2 py-3">
-                <div class="text-title-lg text-neutral-900 px-2">Closed</div>
+                <div class="text-title-lg text-neutral-900 px-2">@localizer.OrderStatus_Closed</div>
                 
                 @if (Model.Closed.Count() > 0)
                 {
@@ -292,7 +292,7 @@
                                                     <div>@order.Id</div>
                                                 </div>
                                                 <div class="col-auto px-0">
-                                                    <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id>
+                                                    <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@order.Id.ToString()>
                                                         @await Html.PartialAsync("_IconButton", new { IconName = "Keyboard arrow right", Color = "primary", IconColor = "primary", Attributes = "" })
                                                     </a>
                                                 </div>

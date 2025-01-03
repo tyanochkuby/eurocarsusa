@@ -18,7 +18,8 @@
         "Guid" => "text",
         _ => "text"
     };
-    <input value="@Model.Value?.ToString()"
+    <input id="@Model.Id"
+           value="@Model.Value?.ToString()"
            class="@Model.CssClass"
            style="@($"width:{Model.Width}; height: 46px; {Model.Style}")"
            name="@Model.Name"

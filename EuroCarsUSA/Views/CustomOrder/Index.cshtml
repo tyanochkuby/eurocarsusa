@@ -60,23 +60,26 @@
             <div class="col-md col-12 p-3 bg-secondary-200 rounded-16">
                 <div class="row m-0">
                     <div class="col-12 col-md-4 p-md-0 p-2 px-0 me-md-3 bg-secondary-200 mb-2 mb-md-0">
+                        <input type="hidden" name="recaptchaResponse" id="recaptchaResponseTrack" />
                         @await Html.PartialAsync("_EditableField", new EditableField
-                       {
-                           CssClass="h-100"
-                       })
+                        {
+                            Id = "orderIdInput",
+                            Name="orderId",
+                            CssClass="h-100"
+                        })
                     </div>
                     <div class="col-12 col-md-auto d-flex flex-column justify-content-end px-0">
                         <a class="submit">
                             @await Html.PartialAsync("_Button", new _Button
-                       {
-                           Text = localizer.Find,
-                           Color = "primary",
-                           Classes = "col-12",
-                           Attributes = "type=\"button\"",
-                           LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-                           RightIcon = null,
-                           TextColor = ""
-                       })
+                        {
+                            Text = localizer.Find,
+                            Color = "primary",
+                            Classes = "col-12",
+                            Attributes = "type=\"button\" onclick=\"submitTrackOrderForm(event)\"",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                            RightIcon = null,
+                            TextColor = ""
+                        })
                         </a>
                     </div>
                 </div>
@@ -113,11 +116,8 @@
                 {
                     Text = localizer.AddForm,
                     Color = "primary",
-                    Classes = "",
                     Attributes = "type=\"button\" onclick=\"addForm()\"",
-                    LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Add"), Color = "white" }),
-                    RightIcon = null,
-                    TextColor = ""
+                    LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Add"), Color = "white" })
                 })
             </div>
 
@@ -340,6 +340,30 @@
                 grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
                     document.getElementById('recaptchaResponse').value = token;
                     document.getElementById('customOrderForm').submit();
+                });
+            });
+        }
+
+        function submitTrackOrderForm() {
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
+                    document.getElementById('recaptchaResponseTrack').value = token;
+                    $.ajax({
+                        url: '@Url.Action("TrackOrder", "CustomOrder")',
+                        type: 'POST',
+                        data: {
+                            orderId: document.getElementById('orderIdInput').value,
+                            recaptchaResponse: token
+                        },
+                        success: function(response) {
+                            // Redirect to the response URL
+                            window.location.href = response.redirectUrl;
+                        },
+                        error: function() {
+                            // Handle error response
+                            console.error('Failed to track order.');
+                        }
+                    });
                 });
             });
         }
