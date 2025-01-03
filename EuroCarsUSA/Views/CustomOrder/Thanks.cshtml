@@ -1,4 +1,8 @@
-﻿@using EuroCarsUSA.Views.Shared.Components
+﻿@using EuroCarsUSA.Data.Enums
+@using EuroCarsUSA.Resources
+@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
+@using Microsoft.AspNetCore.Components
 
 <div class="container d-flex justify-content-center">
     <div class="mt-5">
@@ -9,22 +13,35 @@
                 <img src="~/icons/logo2.svg" style="width: 240px; height: 100px" alt="EuroCarsUSA" class="col-auto" />
             </div>
 
-            <div class="position-relative">
-                <p class="text-body-lg">Your track number is :<br/> 
+            <p class="text-body-lg">
+                Your track number is :<br/>
                 <span class="text-primary text-title-sm" id="trackNumber">@ViewBag.FormId</span>
-                </p>
-            
-                <a class="position-absolute end-0 top-0">
+            </p>
+
+            <div class="d-flex justify-content-end">
+                <a class="me-2">
                 @await Html.PartialAsync("_Button", new _Button
-                {
-                    Text = "Copy",
-                    Color = "primary",
-                    Classes = "",
-                    Attributes = $"onclick=\"copyText()\"",
-                    RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Note stack add"), Color = "white" }),
-                    Type = "button",
-                })
+                    {
+                        Text = "Copy",
+                        Color = "secondary",
+                        Classes = "",
+                        Attributes = $"onclick=\"copyText()\"",
+                        RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Note stack add"), Color = "primary" }),
+                        Type = "button",
+                    })
                 </a>
+                <a class="me-2" href=@Html.Raw("../Order/" + @ViewBag.FormId.ToString())>
+                @await Html.PartialAsync("_Button", new _Button
+                    {
+                        Text = "Go to order's track",
+                        Color = "primary",
+                        Classes = "",
+                        Attributes = "",
+                        RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow Forward"), Color = "white" }),
+                        Type = "button",
+                    })
+                </a>
+                
             </div>
         </div>
     </div>
