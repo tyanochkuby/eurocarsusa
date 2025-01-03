@@ -6,6 +6,7 @@ public interface IEnumDropdown
     string Style { get; set; }
     string Name { get; set; }
     string CssClass { get; set; }
+    string Overline { get; set; }
 }
 
 public class EnumDropdown<TEnum> : IEnumDropdown where TEnum : Enum
@@ -14,6 +15,8 @@ public class EnumDropdown<TEnum> : IEnumDropdown where TEnum : Enum
     public string Style { get; set; } = "";
     public string Name { get; set; } = "";
     public string CssClass { get; set; } = "";
+
+    public string Overline { get; set; } = "Overline";
     Enum IEnumDropdown.Value
     {
         get => Value;

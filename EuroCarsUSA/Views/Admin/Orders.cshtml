@@ -22,7 +22,7 @@
 
     <div class="container mt-4 mb-md-2 mb-3 ">
         <div class="row px-md-5 ">
-            <div class="col-auto px-0">
+            <div class="col-auto px-0 align-content-end">
                 <div class="row mx-0 mb-2 mb-md-0 px-3 px-md-0">
                     <a href="javascript:history.back()" class="col-auto ps-0 pe-3">
                         @await Html.PartialAsync("_Button", new _Button
@@ -55,7 +55,9 @@
                     <div class="text-title-lg d-md-none text-neutral-900 mb-2 mb-md-0 px-0">@localizer.TrackOrder</div>
                     <div class="col-12 col-md-auto p-md-0 p-2 me-md-3 bg-secondary-200 mb-2 mb-md-0">
                         @await Html.PartialAsync("_EditableField", new EditableField {
-	                        CssClass="h-100"
+	                        CssClass="h-100",
+                            Overline = "Order Finder",
+                            Placeholder = "Type here track number"
                         })
                     </div>
                     <div class="col-12 col-md-auto d-flex flex-column justify-content-end px-0">
