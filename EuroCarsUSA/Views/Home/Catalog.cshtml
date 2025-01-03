@@ -240,28 +240,28 @@
             <div class="container px-0">
                 <div class="row gx-3 mx-0 row-mobile-filter justify-content-between bg-white rounded-16 rounded-bottom-0 topbar align-content-center border border-1 border-bottom-0 border-primary">
                     <a id="" class="col-6 filter-mobile-close-button">
-                        @await Html.PartialAsync("_Button", new _Button
-                   {
-                       Text = Translator["Close"],
-                       Color = "secondary",
-                       Classes = "w-100",
-                       Attributes = "",
-                       LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
-                       RightIcon = null,
-                       TextColor = "text-primary"
-                   })
+                       @await Html.PartialAsync("_Button", new _Button
+                       {
+                           Text = Translator["Close"],
+                           Color = "secondary",
+                           Classes = "w-100",
+                           Attributes = "",
+                           LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
+                           RightIcon = null,
+                           TextColor = "text-primary"
+                       })
                     </a>
                     <a id="mobileFilterSubmitButton" class="col-6">
                         @await Html.PartialAsync("_Button", new _Button
-                   {
-                       Text = Translator["Find"],
-                       Color = "primary",
-                       Classes = "w-100",
-                       Attributes = $"type=\"submit\"",
-                       LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-                       RightIcon = null,
-                       TextColor = ""
-                   })
+                        {
+                            Text = Translator["Find"],
+                            Color = "primary",
+                            Classes = "w-100",
+                            Attributes = $"type=\"submit\"",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                            RightIcon = null,
+                            TextColor = ""
+                        })
                     </a>
                 </div>
             </div>
@@ -682,31 +682,31 @@
 
                 </div>
             </div>
-            <div class="border mt-2 border-secondary-500 p-3 bg-secondary-200 rounded-pill">
+            <div class="border mt-2 border-secondary-500 p-3 bg-secondary-200 rounded-pill" id="filterButtons">
                 <div class="row row-mobile-filter gx-3 justify-content-between border-light">
                     <a id="filter-clear-button" class="col-6">
                         @await Html.PartialAsync("_Button", new _Button
-                   {
-                       Text = Translator["Clear"],
-                       Color = "secondary",
-                       Classes = "w-100 bg-white ",
-                       Attributes = "",
-                       LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
-                       RightIcon = null,
-                       TextColor = "text-primary"
-                   })
+                        {
+                            Text = Translator["Clear"],
+                            Color = "secondary",
+                            Classes = "w-100 bg-white ",
+                            Attributes = "",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
+                            RightIcon = null,
+                            TextColor = "text-primary"
+                        })
                     </a>
                     <a id="filter-submit-button" class="col-6">
                         @await Html.PartialAsync("_Button", new _Button
-                   {
-                       Text = Translator["Find"],
-                       Color = "primary",
-                       Classes = "w-100",
-                       Attributes = "",
-                       LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-                       RightIcon = null,
-                       TextColor = ""
-                   })
+                        {
+                            Text = Translator["Find"],
+                            Color = "primary",
+                            Classes = "w-100",
+                            Attributes = "",
+                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                            RightIcon = null,
+                            TextColor = ""
+                        })
                     </a>
                 </div>
             </div>
@@ -892,7 +892,10 @@
                 $('#filtersForm select').prop('selectedIndex', 0);
                 $('#filtersForm input[type="checkbox"]').prop('checked', false);
                 $('#filtersForm input[type="hidden"]').val('');
-                $('#filtersForm span').text('Any');
+                $('#filtersForm span').filter(function () {
+                    return !$(this).closest('#filterButtons').length;
+                }).text('Any');
+
             });
 
             $('.mobile-sort-option').click(function () {
