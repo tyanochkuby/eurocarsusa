@@ -128,6 +128,6 @@ namespace EuroCarsUSA.Resources
         public string CatalogEdition => _localizer[nameof(CatalogEdition)];
         public string Privacy => _localizer[nameof(Privacy)];
         public string ProvideContactData => _localizer[nameof(ProvideContactData)];
-
+        public string ShippingCars => _localizer[nameof(ShippingCars)];
     }
 }

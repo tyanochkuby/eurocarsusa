@@ -695,4 +695,7 @@ EuroCarUsa team</value>
   <data name="ProvideContactData" xml:space="preserve">
     <value>Provide your contact data</value>
   </data>
+  <data name="ShippingCars" xml:space="preserve">
+    <value>Shipping cars</value>
+  </data>
 </root>

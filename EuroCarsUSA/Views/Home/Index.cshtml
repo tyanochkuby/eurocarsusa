@@ -131,10 +131,10 @@ else
                                         @localizer.PhoneContactText
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <a href="tel:+4853442208" class="my-2">
+                                            <a href="tel:+48785095868" class="my-2">
                                             @await Html.PartialAsync("_Button", new _Button
                                             {
-                                                Text = "+48 53-44-22-089",
+                                           Text = "+48 785 095 868",
                                                 Color = "primary",
                                                 LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Phone"), Color = "white" }),
                                                 RightIcon = null,
@@ -172,7 +172,7 @@ else
                 <div class="col-12 px-0">
                     <div class="row bg-white p-3 rounded-16 mx-0">
                         <div class="col px-0">
-                            <div class="row p-0 mx-0 text-headline-sm mb-2">Samochody w drodze</div>
+                            <div class="row p-0 mx-0 text-headline-sm mb-2">@localizer.ShippingCars</div>
                             <div class="row px-0 gx-3 main-wdrodze">
                                 @foreach (CarCardViewModel car in Model.CarWDrodze)
                                 {

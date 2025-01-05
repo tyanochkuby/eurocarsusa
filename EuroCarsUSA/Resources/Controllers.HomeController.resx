@@ -118,583 +118,579 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CarType" xml:space="preserve">
-    <value>Typ auta</value>
+    <value />
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Zamknij</value>
+    <value />
   </data>
   <data name="Color" xml:space="preserve">
-    <value>Kolor</value>
+    <value />
   </data>
   <data name="EngineVolume" xml:space="preserve">
-    <value>Objętość silnika</value>
+    <value />
   </data>
   <data name="Filters" xml:space="preserve">
-    <value>Filtry</value>
+    <value />
   </data>
   <data name="Find" xml:space="preserve">
-    <value>Szukaj</value>
+    <value />
   </data>
   <data name="FuelType" xml:space="preserve">
-    <value>Typ paliwa</value>
+    <value />
   </data>
   <data name="Make" xml:space="preserve">
-    <value>Marka</value>
+    <value />
   </data>
   <data name="Mileage" xml:space="preserve">
-    <value>Przebieg</value>
+    <value />
   </data>
   <data name="Model" xml:space="preserve">
-    <value>Model</value>
+    <value />
   </data>
   <data name="Price" xml:space="preserve">
-    <value>Cena</value>
+    <value />
   </data>
   <data name="SortBy" xml:space="preserve">
-    <value>Sortuj według</value>
+    <value />
   </data>
   <data name="Transmission" xml:space="preserve">
-    <value>Transmisja</value>
+    <value />
   </data>
   <data name="Year" xml:space="preserve">
-    <value>Rok</value>
+    <value />
   </data>
   <data name="SortOrderType_NewFirst" xml:space="preserve">
-    <value>Świeżo dodane</value>
+    <value />
   </data>
   <data name="SortOrderType_ByYear" xml:space="preserve">
-    <value>Najstarsze najpierw</value>
+    <value />
   </data>
   <data name="SortOrderType_ByYearDesc" xml:space="preserve">
-    <value>Najnowsze najpierw</value>
+    <value />
   </data>
   <data name="SortOrderType_ByMileage" xml:space="preserve">
-    <value>Najniższy przebieg</value>
+    <value />
   </data>
   <data name="SortOrderType_ByPrice" xml:space="preserve">
-    <value>Najniższa cena</value>
+    <value />
   </data>
   <data name="SortOrderType_ByPriceDesc" xml:space="preserve">
-    <value>Najwyższa cena</value>
+    <value />
   </data>
   <data name="Electric" xml:space="preserve">
-    <value>Elektryczny</value>
+    <value />
   </data>
   <data name="ShowMore" xml:space="preserve">
-    <value>Pokaż więcej</value>
+    <value />
   </data>
   <data name="ContactSeller" xml:space="preserve">
-    <value>Kontant ze sprzedawcą</value>
+    <value />
   </data>
   <data name="MessageSent" xml:space="preserve">
-    <value>Wiadomość została wysłana!</value>
+    <value />
   </data>
   <data name="PhoneNumber" xml:space="preserve">
-    <value>Numer telefonu</value>
+    <value />
   </data>
   <data name="SendMessage" xml:space="preserve">
-    <value>Wyślij wiadomość</value>
+    <value />
   </data>
   <data name="CarColor_Beige" xml:space="preserve">
-    <value>Beżowy</value>
+    <value />
   </data>
   <data name="CarColor_Black" xml:space="preserve">
-    <value>Czarny</value>
+    <value />
   </data>
   <data name="CarColor_Blue" xml:space="preserve">
-    <value>Niebieski</value>
+    <value />
   </data>
   <data name="CarColor_Brown" xml:space="preserve">
-    <value>Brązowy</value>
+    <value />
   </data>
   <data name="CarColor_Gray" xml:space="preserve">
-    <value>Szary</value>
+    <value />
   </data>
   <data name="CarColor_Green" xml:space="preserve">
-    <value>Zielony</value>
+    <value />
   </data>
   <data name="CarColor_Orange" xml:space="preserve">
-    <value>Pomarańczowy</value>
+    <value />
   </data>
   <data name="CarColor_Pink" xml:space="preserve">
-    <value>Różowy</value>
+    <value />
   </data>
   <data name="CarColor_Purple" xml:space="preserve">
-    <value>Fioletowy</value>
+    <value />
   </data>
   <data name="CarColor_Red" xml:space="preserve">
-    <value>Czerwony</value>
+    <value />
   </data>
   <data name="CarColor_Silver" xml:space="preserve">
-    <value>Srebrny</value>
+    <value />
   </data>
   <data name="CarColor_White" xml:space="preserve">
-    <value>Biały</value>
+    <value />
   </data>
   <data name="CarColor_Yellow" xml:space="preserve">
-    <value>Żółty</value>
+    <value />
   </data>
   <data name="CarFuelType_Benzine" xml:space="preserve">
-    <value>Benzyna</value>
+    <value />
   </data>
   <data name="CarFuelType_Diesel" xml:space="preserve">
-    <value>Diesel</value>
+    <value />
   </data>
   <data name="CarFuelType_Electric" xml:space="preserve">
-    <value>Elektryczne</value>
+    <value />
   </data>
   <data name="CarTransmission_Automatic" xml:space="preserve">
-    <value>Automatyczna</value>
+    <value />
   </data>
   <data name="CarTransmission_Manual" xml:space="preserve">
-    <value>Manualna</value>
+    <value />
   </data>
   <data name="CarTransmission_Robot" xml:space="preserve">
-    <value>Robot</value>
+    <value />
   </data>
   <data name="LikesHeader" xml:space="preserve">
-    <value>Twoje ulubione auta</value>
+    <value />
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Wróć</value>
+    <value />
   </data>
   <data name="Choose" xml:space="preserve">
-    <value>Wybierz</value>
+    <value />
   </data>
   <data name="Clear" xml:space="preserve">
-    <value>Wyczyść</value>
+    <value />
   </data>
   <data name="Diesel" xml:space="preserve">
-    <value>Diesel</value>
+    <value />
   </data>
   <data name="From" xml:space="preserve">
-    <value>Od</value>
+    <value />
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Wiadomość</value>
+    <value />
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Imię</value>
+    <value />
   </data>
   <data name="To" xml:space="preserve">
-    <value>Do</value>
+    <value />
   </data>
   <data name="Type" xml:space="preserve">
-    <value>Wpisz</value>
+    <value />
   </data>
   <data name="Call" xml:space="preserve">
-    <value>Zadzwoń</value>
+    <value />
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Zapisz</value>
+    <value />
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Szczegóły</value>
+    <value />
   </data>
   <data name="Empty" xml:space="preserve">
-    <value>Puste</value>
+    <value />
   </data>
   <data name="CustomOrderEmailSubject" xml:space="preserve">
-    <value>EuroCarUsa - Przyjeliśmy Twoje zamówienie</value>
+    <value />
   </data>
   <data name="CustomOrderEmailBody" xml:space="preserve">
-    <value>Dzień dobry!
-    Cieszymy się, że wybrałeś nas! Z przyjemnością powiadomiamy, że dostaliśmy Twoje zamówienie. Niedługo nasi specjaliści do Ciebie oddzwonią lub odpiszą.
-    
-    Z poważaniem,
-    Zespół EuroCarUsa</value>
+    <value />
   </data>
   <data name="AdminCustomOrderEmailSubject" xml:space="preserve">
-    <value>EuroCarUsa - Новый заказ</value>
+    <value />
   </data>
   <data name="AdminCustomOrderEmailBody" xml:space="preserve">
-    <value>Получен новый заказ. Номер и емейл клиента - {0} , {1}. Подробности на сайте.</value>
+    <value />
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Usuń</value>
+    <value />
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value />
   </data>
   <data name="CarStatus_Available" xml:space="preserve">
-    <value>Dostępny</value>
+    <value />
   </data>
   <data name="CarStatus_Shipping" xml:space="preserve">
-    <value>W drodze</value>
+    <value />
   </data>
   <data name="CarStatus_Recommended" xml:space="preserve">
-    <value>Rekomendowane</value>
+    <value />
   </data>
   <data name="CarMake_Ford" xml:space="preserve">
-    <value>Ford</value>
+    <value />
   </data>
   <data name="CarMake_Chevrolet" xml:space="preserve">
-    <value>Chevrolet</value>
+    <value />
   </data>
   <data name="CarMake_Tesla" xml:space="preserve">
-    <value>Tesla</value>
+    <value />
   </data>
   <data name="CarMake_Jeep" xml:space="preserve">
-    <value>Jeep</value>
+    <value />
   </data>
   <data name="CarMake_Dodge" xml:space="preserve">
-    <value>Dodge</value>
+    <value />
   </data>
   <data name="CarMake_Chrysler" xml:space="preserve">
-    <value>Chrysler</value>
+    <value />
   </data>
   <data name="CarMake_Lincoln" xml:space="preserve">
-    <value>Lincoln</value>
+    <value />
   </data>
   <data name="CarMake_Cadillac" xml:space="preserve">
-    <value>Cadillac</value>
+    <value />
   </data>
   <data name="CarMake_Buick" xml:space="preserve">
-    <value>Buick</value>
+    <value />
   </data>
   <data name="CarMake_GMC" xml:space="preserve">
-    <value>GMC</value>
+    <value />
   </data>
   <data name="CarMake_Hummer" xml:space="preserve">
-    <value>Hummer</value>
+    <value />
   </data>
   <data name="CarMake_Pontiac" xml:space="preserve">
-    <value>Pontiac</value>
+    <value />
   </data>
   <data name="CarMake_LandRover" xml:space="preserve">
-    <value>Land Rover</value>
+    <value />
   </data>
   <data name="CarMake_Jaguar" xml:space="preserve">
-    <value>Jaguar</value>
+    <value />
   </data>
   <data name="CarMake_MINI" xml:space="preserve">
-    <value>MINI</value>
+    <value />
   </data>
   <data name="CarMake_MG" xml:space="preserve">
-    <value>MG</value>
+    <value />
   </data>
   <data name="CarMake_Rover" xml:space="preserve">
-    <value>Rover</value>
+    <value />
   </data>
   <data name="CarMake_Bentley" xml:space="preserve">
-    <value>Bentley</value>
+    <value />
   </data>
   <data name="CarMake_RollsRoyce" xml:space="preserve">
-    <value>Rolls-Royce</value>
+    <value />
   </data>
   <data name="CarMake_AstonMartin" xml:space="preserve">
-    <value>Aston Martin</value>
+    <value />
   </data>
   <data name="CarMake_Fiat" xml:space="preserve">
-    <value>Fiat</value>
+    <value />
   </data>
   <data name="CarMake_AlfaRomeo" xml:space="preserve">
-    <value>Alfa Romeo</value>
+    <value />
   </data>
   <data name="CarMake_Maserati" xml:space="preserve">
-    <value>Maserati</value>
+    <value />
   </data>
   <data name="CarMake_Lancia" xml:space="preserve">
-    <value>Lancia</value>
+    <value />
   </data>
   <data name="CarMake_Iveco" xml:space="preserve">
-    <value>Iveco</value>
+    <value />
   </data>
   <data name="CarMake_Chery" xml:space="preserve">
-    <value>Chery</value>
+    <value />
   </data>
   <data name="CarMake_Geely" xml:space="preserve">
-    <value>Geely</value>
+    <value />
   </data>
   <data name="CarMake_BYD" xml:space="preserve">
-    <value>BYD</value>
+    <value />
   </data>
   <data name="CarMake_GreatWall" xml:space="preserve">
-    <value>Great Wall</value>
+    <value />
   </data>
   <data name="CarMake_JAC" xml:space="preserve">
-    <value>JAC</value>
+    <value />
   </data>
   <data name="CarMake_Lifan" xml:space="preserve">
-    <value>Lifan</value>
+    <value />
   </data>
   <data name="CarMake_Dongfeng" xml:space="preserve">
-    <value>Dongfeng</value>
+    <value />
   </data>
   <data name="CarMake_Dadi" xml:space="preserve">
-    <value>Dadi</value>
+    <value />
   </data>
   <data name="CarMake_FAW" xml:space="preserve">
-    <value>FAW</value>
+    <value />
   </data>
   <data name="CarMake_Hyundai" xml:space="preserve">
-    <value>Hyundai</value>
+    <value />
   </data>
   <data name="CarMake_Kia" xml:space="preserve">
-    <value>Kia</value>
+    <value />
   </data>
   <data name="CarMake_Daewoo" xml:space="preserve">
-    <value>Daewoo</value>
+    <value />
   </data>
   <data name="CarMake_SsangYong" xml:space="preserve">
-    <value>SsangYong</value>
+    <value />
   </data>
   <data name="CarMake_Volkswagen" xml:space="preserve">
-    <value>Volkswagen</value>
+    <value />
   </data>
   <data name="CarMake_BMW" xml:space="preserve">
-    <value>BMW</value>
+    <value />
   </data>
   <data name="CarMake_Audi" xml:space="preserve">
-    <value>Audi</value>
+    <value />
   </data>
   <data name="CarMake_MercedesBenz" xml:space="preserve">
-    <value>Mercedes-Benz</value>
+    <value />
   </data>
   <data name="CarMake_Opel" xml:space="preserve">
-    <value>Opel</value>
+    <value />
   </data>
   <data name="CarMake_Porsche" xml:space="preserve">
-    <value>Porsche</value>
+    <value />
   </data>
   <data name="CarMake_Smart" xml:space="preserve">
-    <value>Smart</value>
+    <value />
   </data>
   <data name="CarMake_Lada" xml:space="preserve">
-    <value>Lada</value>
+    <value />
   </data>
   <data name="CarMake_GAZ" xml:space="preserve">
-    <value>GAZ</value>
+    <value />
   </data>
   <data name="CarMake_UAZ" xml:space="preserve">
-    <value>UAZ</value>
+    <value />
   </data>
   <data name="CarMake_ZAZ" xml:space="preserve">
-    <value>ZAZ</value>
+    <value />
   </data>
   <data name="CarMake_Bogdan" xml:space="preserve">
-    <value>Bogdan</value>
+    <value />
   </data>
   <data name="CarMake_Renault" xml:space="preserve">
-    <value>Renault</value>
+    <value />
   </data>
   <data name="CarMake_Peugeot" xml:space="preserve">
-    <value>Peugeot</value>
+    <value />
   </data>
   <data name="CarMake_Citroen" xml:space="preserve">
-    <value>Citroën</value>
+    <value />
   </data>
   <data name="CarMake_Nissan" xml:space="preserve">
-    <value>Nissan</value>
+    <value />
   </data>
   <data name="CarMake_Toyota" xml:space="preserve">
-    <value>Toyota</value>
+    <value />
   </data>
   <data name="CarMake_Mazda" xml:space="preserve">
-    <value>Mazda</value>
+    <value />
   </data>
   <data name="CarMake_Mitsubishi" xml:space="preserve">
-    <value>Mitsubishi</value>
+    <value />
   </data>
   <data name="CarMake_Honda" xml:space="preserve">
-    <value>Honda</value>
+    <value />
   </data>
   <data name="CarMake_Lexus" xml:space="preserve">
-    <value>Lexus</value>
+    <value />
   </data>
   <data name="CarMake_Subaru" xml:space="preserve">
-    <value>Subaru</value>
+    <value />
   </data>
   <data name="CarMake_Infiniti" xml:space="preserve">
-    <value>Infiniti</value>
+    <value />
   </data>
   <data name="CarMake_Suzuki" xml:space="preserve">
-    <value>Suzuki</value>
+    <value />
   </data>
   <data name="CarMake_Acura" xml:space="preserve">
-    <value>Acura</value>
+    <value />
   </data>
   <data name="CarMake_Daihatsu" xml:space="preserve">
-    <value>Daihatsu</value>
+    <value />
   </data>
   <data name="CarMake_Isuzu" xml:space="preserve">
-    <value>Isuzu</value>
+    <value />
   </data>
   <data name="CarMake_Lamborghini" xml:space="preserve">
-    <value>Lamborghini</value>
+    <value />
   </data>
   <data name="CarType_Sedan" xml:space="preserve">
-    <value>Sedan</value>
+    <value />
   </data>
   <data name="CarType_Coupe" xml:space="preserve">
-    <value>Coupe</value>
+    <value />
   </data>
   <data name="CarType_Convertible" xml:space="preserve">
-    <value>Kabriolet</value>
+    <value />
   </data>
   <data name="CarType_Hatchback" xml:space="preserve">
-    <value>Hatchback</value>
+    <value />
   </data>
   <data name="CarType_SUV" xml:space="preserve">
-    <value>SUV</value>
+    <value />
   </data>
   <data name="CarType_Crossover" xml:space="preserve">
-    <value>Crossover</value>
+    <value />
   </data>
   <data name="CarType_Minivan" xml:space="preserve">
-    <value>Minivan</value>
+    <value />
   </data>
   <data name="CarType_Pickup" xml:space="preserve">
-    <value>Pickup</value>
+    <value />
   </data>
   <data name="CarType_Van" xml:space="preserve">
-    <value>Van</value>
+    <value />
   </data>
   <data name="CarType_Wagon" xml:space="preserve">
-    <value>Kombi</value>
+    <value />
   </data>
   <data name="CarType_Sports" xml:space="preserve">
-    <value>Sportowy</value>
+    <value />
   </data>
   <data name="YourOrderWasReceived" xml:space="preserve">
-    <value>Twoje zamówienie zostało wysłane</value>
+    <value />
   </data>
   <data name="Gearbox" xml:space="preserve">
-    <value>Skrzynia biegów</value>
+    <value />
   </data>
   <data name="BodyType" xml:space="preserve">
-    <value>Typ nadwozia</value>
+    <value />
   </data>
   <data name="EditImages" xml:space="preserve">
-    <value>Edytuj zdjęcia</value>
+    <value />
   </data>
   <data name="AddImage" xml:space="preserve">
-    <value>Dodaj zdjęcie</value>
+    <value />
   </data>
   <data name="UploadImage" xml:space="preserve">
-    <value>Wrzuć zdjęcie</value>
+    <value />
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Dodaj</value>
+    <value />
   </data>
   <data name="EnterImageURL" xml:space="preserve">
-    <value>Wklej link do zdjęcia</value>
+    <value />
   </data>
   <data name="LastAddedAuto" xml:space="preserve">
-    <value>Ostatnio dodane auto</value>
+    <value />
   </data>
   <data name="WeRecommend" xml:space="preserve">
-    <value>Sugestje</value>
+    <value />
   </data>
   <data name="SeeAll" xml:space="preserve">
-    <value>Zobacz wszystkie</value>
+    <value />
   </data>
   <data name="AboutUs" xml:space="preserve">
-    <value>O nas</value>
+    <value />
   </data>
   <data name="AboutUsText" xml:space="preserve">
-    <value>Jesteśmy białoruską firmą specjalizującą się w sprzedaży samochodów w atrakcyjnych cenach. Nasza oferta obejmuje szeroką gamę pojazdów, które sprowadzamy z USA, co pozwala nam zaoferować wyjątkowo konkurencyjne ceny. </value>
+    <value />
   </data>
   <data name="PhoneContact" xml:space="preserve">
-    <value>Kontakt telefoniczny</value>
+    <value />
   </data>
   <data name="PhoneContactText" xml:space="preserve">
-    <value>Najszybszym sposobem na kontakt z nami jest ten przycisk - wciśnij i zadzwoń</value>
+    <value />
   </data>
   <data name="FormContact" xml:space="preserve">
-    <value>Kontakt poprzez formularz</value>
+    <value />
   </data>
   <data name="FormContactText" xml:space="preserve">
-    <value>Drugi sposób na kontakt z nami to formularz. Kliknij, zostaw swoje spersonalizowane zamówienie, a my odzwonimy.</value>
+    <value />
   </data>
   <data name="IndividualOrder" xml:space="preserve">
-    <value>Zamówienie</value>
+    <value />
   </data>
   <data name="Likes" xml:space="preserve">
-    <value>Upodobania</value>
+    <value />
   </data>
   <data name="Views" xml:space="preserve">
-    <value>Obejrzenia</value>
+    <value />
   </data>
   <data name="Statistics" xml:space="preserve">
-    <value>Statystyki</value>
+    <value />
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Opis</value>
+    <value />
   </data>
   <data name="CustomOrderText" xml:space="preserve">
-    <value>Ta sekcja jest dedykowana Twoim osobistym potrzebom. Jeśli nie możesz znaleźć samochodu, który Ci odpowiada, możesz złożyć swoje zapytanie do dealera za pośrednictwem tej sekcji. Podaj swoje osobiste preferencje za pomocą tych filtrów. Podaj swoje dane kontaktowe, abyśmy mogli się z Tobą skontaktować.</value>
+    <value />
   </data>
   <data name="CustomOrder" xml:space="preserve">
-    <value>Zamówienie indywidualne</value>
+    <value />
   </data>
   <data name="TrackYourOrder" xml:space="preserve">
-    <value>Śledź swoje zamówienie</value>
+    <value />
   </data>
   <data name="CreateYourOrder" xml:space="preserve">
-    <value>Nowe zamówienie</value>
+    <value />
   </data>
   <data name="AddForm" xml:space="preserve">
-    <value>Dodaj opcję</value>
+    <value />
   </data>
   <data name="SubmitForm" xml:space="preserve">
-    <value>Wyślij </value>
+    <value />
   </data>
   <data name="Form" xml:space="preserve">
-    <value>Opcja</value>
+    <value />
   </data>
   <data name="MaxPrice" xml:space="preserve">
-    <value>Cena maksymalna</value>
+    <value />
   </data>
   <data name="MaxMileage" xml:space="preserve">
-    <value>Przebieg maksymalny</value>
+    <value />
   </data>
   <data name="MinYear" xml:space="preserve">
-    <value>Rok minimalny</value>
+    <value />
   </data>
   <data name="MaxYear" xml:space="preserve">
-    <value>Rok maksymalny</value>
+    <value />
   </data>
   <data name="TrackOrder" xml:space="preserve">
-    <value>Śledź zamówienie</value>
+    <value />
   </data>
   <data name="ClientOrders" xml:space="preserve">
-    <value>Zamówienia klientów</value>
+    <value />
   </data>
   <data name="NotProvided" xml:space="preserve">
-    <value>Nie podano</value>
+    <value />
   </data>
   <data name="DateAdded" xml:space="preserve">
-    <value>Data dodania</value>
+    <value />
   </data>
   <data name="OrderStatus_Sent" xml:space="preserve">
-    <value>Przyjęte</value>
+    <value />
   </data>
   <data name="OrderStatus_Opened" xml:space="preserve">
-    <value>Otwarte</value>
+    <value />
   </data>
   <data name="OrderStatus_Closed" xml:space="preserve">
-    <value>Zamknięte</value>
+    <value />
   </data>
   <data name="ContactData" xml:space="preserve">
-    <value>Dane kontaktowe</value>
+    <value />
   </data>
   <data name="Catalog" xml:space="preserve">
-    <value>Katalog</value>
+    <value />
   </data>
   <data name="MainPage" xml:space="preserve">
-    <value>Strona główna</value>
+    <value />
   </data>
   <data name="CatalogEdition" xml:space="preserve">
-    <value>Edycja katalogu</value>
+    <value />
   </data>
   <data name="Privacy" xml:space="preserve">
-    <value>Polityka prywatności</value>
+    <value />
   </data>
   <data name="ProvideContactData" xml:space="preserve">
-    <value>Wpisz dane kontaktowe</value>
+    <value />
   </data>
   <data name="ShippingCars" xml:space="preserve">
-    <value>Samochody w drodze</value>
+    <value />
   </data>
 </root>
