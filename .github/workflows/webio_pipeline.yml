@@ -9,6 +9,9 @@ jobs:
   build-and-deploy:
     runs-on: windows-latest
 
+    env:
+      CONNECTION_STRING: ${{ secrets.CONNECTION_STRING_WEBIO }}
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -45,4 +48,4 @@ jobs:
           -verb:sync `
           -source:contentPath='./publish' `
           -dest:contentPath='eurocarusa.eu',computerName='https://ssl3.webio.pl:8172/msdeploy.axd?site=eurocarusa.eu',userName='eurocarusa.eu_naszhu',password='${{ secrets.DEPLOY_PASSWORD }}',authType='Basic' `
-          -allowUntrusted
+          -verbose

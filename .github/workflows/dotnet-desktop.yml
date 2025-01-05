@@ -12,6 +12,7 @@ jobs:
     env:
       IIS_SHARE: 'iis-2019.wmi.amu.edu.pl/s473603/public_iis'
       OFFLINE_FILE: 'app_offline.htm'
+      CONNECTION_STRING: ${{ secrets.CONNECTION_STRING_WMI }}
 
     steps:
       - name: Checkout Repository

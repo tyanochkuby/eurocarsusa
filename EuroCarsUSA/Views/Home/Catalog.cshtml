@@ -62,7 +62,7 @@
     <form method="get" id="mobileFiltersForm" class="h-100">
         <div class="px-4 position-sticky top-0 border-bottom border-primary bg-white" style="z-index: 1501;">
             <div class="topbar position-relative align-content-center">
-                <div class="text-headline-sm d-flex justify-content-center ">Filters</div>
+                <div class="text-headline-sm d-flex justify-content-center ">@localizer.Filters</div>
                 <a class="filter-mobile-close-button position-absolute end-0 top-0 h-100 align-content-center">
                     @await Html.PartialAsync("_IconButton", new { IconName = "Clear", Color = "primary", IconColor = "black", Attributes = "" })
                 </a>
@@ -720,7 +720,7 @@
             <a href="javascript:history.back()">
                 @await Html.PartialAsync("_Button", new _Button
                {
-                   Text = "Back",
+                   Text = localizer.Back,
                    Color = "primary",
                    Classes = "me-2",
                    Attributes = "",
@@ -733,7 +733,7 @@
                 <a asp-controller="Home" asp-action="Catalog">
                     @await Html.PartialAsync("_Button", new _Button
                    {
-                       Text = $"Catalog",
+                       Text = localizer.Catalog,
                        Color = "secondary",
                        Classes = "me-2",
                        Attributes = "type=\"button\"",
@@ -748,10 +748,10 @@
         {
             <div class="container mx-md-0 p-0">
                 <div class="col-12 px-0 mb-3">
-                    <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">Samochody w drodze</div>
+                    <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">@localizer.ShippingCars</div>
                     <div class="row bg-neutral-200 p-3 rounded-16 mx-0">
                         <div class="col px-0">
-                            <div class="row p-0 px-2 mx-0 text-title-lg d-md-flex d-md-none text-neutral-900">Samochody w drodze</div>
+                            <div class="row p-0 px-2 mx-0 text-title-lg d-md-flex d-md-none text-neutral-900">@localizer.ShippingCars</div>
                             <div class="row px-0 gx-3 py-2 flex-nowrap overflow-auto">
                                 @foreach (CarCardViewModel car in ViewBag.CardsWDrodzeModel)
                                 {

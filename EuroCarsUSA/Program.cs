@@ -40,7 +40,8 @@ builder.Services.AddSession(options =>
 });
 
 // Configure services
-var connectionString = builder.Configuration.GetConnectionString("WebioProd");
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
+                       ?? throw new InvalidOperationException("Connection string not found.");
 builder.Services.Configure<CookieNames>(
             builder.Configuration.GetSection("CookieNames")
         );

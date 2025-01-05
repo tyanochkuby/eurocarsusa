@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EuroCarsUSA</title>
+    <title>EuroCarsUSA</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -30,10 +30,10 @@
                         <img src="~/icons/logo2.svg" style="width: 160; height: 40" alt="EuroCarsUSA" />
                     </a>
 
-                    <a href="tel:+48534422089" class="d-none d-md-block">
+                    <a href="tel:+48785095868" class="d-none d-md-block">
                         @await Html.PartialAsync("_Button", new _Button
                         {
-                            Text = "+48 53 00-00-000",
+                       Text = "+48 785 095 868",
                             Color = "primary",
                             Classes = "",
                             Attributes = "asp-controller=\"Home\" asp-action=\"Likes\"",
@@ -47,11 +47,6 @@
                 <a class="d-flex d-md-none me-2 me-md-0" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
                     @await Html.PartialAsync("_IconButton", new { IconName = "Menu", Color = "secondary", IconColor = "primary", Attributes = "" })
                 </a>
-                    
-                @if (User.IsInRole("Admin"))
-                {
-                    @await Html.PartialAsync("_Switch", new { Text = "lalal", Classes = "me-md-3 d-none d-md-flex", Attributes = "class=\"dsa\" id=\"dasdsaasdasd\"", IsActive = false })
-                }
 
                 <div class="me-3 d-none d-md-flex">
                     <a asp-controller="Home"
@@ -65,7 +60,7 @@
                     <a href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="d-none d-md-flex">
                         @await Html.PartialAsync("_IconButton", new { IconName = "Language chinese dayi", Color = "secondary", IconColor = "primary", Attributes = "" })
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
                         <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en">English</a></li>
                         <li><a class="dropdown-item" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="pl-PL">Polski</a></li>
                     </ul>
