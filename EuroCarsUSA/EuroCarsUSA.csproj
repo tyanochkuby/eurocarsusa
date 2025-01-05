@@ -30,4 +30,13 @@
 		<Folder Include="Migrations\Procedures\" />
 	</ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\uploads\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="appsettings.json" />
+  </ItemGroup>
+
+
 </Project>
