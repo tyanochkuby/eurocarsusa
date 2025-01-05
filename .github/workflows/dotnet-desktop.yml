@@ -65,6 +65,20 @@ jobs:
       - name: Deploy to Network Share
         run: |
           sudo cp -r ./publish/* /mnt/share/
+
+      - name: Set Environment Variable on IIS (PowerShell)
+        run: |
+          pwsh -Command "
+          $username = '${{ secrets.IIS_USER }}'
+          $password = '${{ secrets.IIS_PASSWORD }}'
+          $server = 'iis-2019.wmi.amu.edu.pl'
+          $connectionString = '${{ secrets.CONNECTION_STRING_WMI }}'
+          
+          # PowerShell command to set environment variable
+          Invoke-Command -ComputerName $server -Credential (New-Object System.Management.Automation.PSCredential($username, (ConvertTo-SecureString $password -AsPlainText -Force))) -ScriptBlock {
+              [System.Environment]::SetEnvironmentVariable('CONNECTION_STRING', $using:connectionString, [System.EnvironmentVariableTarget]::Machine)
+          }
+          "
         
       - name: Cleanup
         run: |
