@@ -40,8 +40,7 @@ builder.Services.AddSession(options =>
 });
 
 // Configure services
-var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
-                       ?? throw new InvalidOperationException("Connection string not found.");
+var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
 builder.Services.Configure<CookieNames>(
             builder.Configuration.GetSection("CookieNames")
         );
