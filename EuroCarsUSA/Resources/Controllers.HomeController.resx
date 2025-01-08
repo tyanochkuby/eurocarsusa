@@ -714,4 +714,7 @@
   <data name="SoldCars" xml:space="preserve">
     <value />
   </data>
+  <data name="CarStatus_Sold" xml:space="preserve">
+    <value />
+  </data>
 </root>

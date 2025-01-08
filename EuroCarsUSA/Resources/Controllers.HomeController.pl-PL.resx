@@ -722,4 +722,7 @@ Zespół EuroCarUsa</value>
   <data name="SoldCars" xml:space="preserve">
     <value>Samochody sprzedane</value>
   </data>
+  <data name="CarStatus_Sold" xml:space="preserve">
+    <value>Sprzedane</value>
+  </data>
 </root>
