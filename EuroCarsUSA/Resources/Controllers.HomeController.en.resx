@@ -300,9 +300,12 @@
   <data name="CustomOrderEmailBody" xml:space="preserve">
     <value>Hello!
     
-    We're glad you chose us! We just got your custom order and our specialists will contact you soon
-    
-    Best regards,
+We're glad you chose us! We just got your custom order and our specialists will contact you soon.
+
+Below you will find a link to track you order:
+{0}    
+
+Best regards,
 EuroCarUsa team</value>
   </data>
   <data name="AdminCustomOrderEmailSubject" xml:space="preserve">
@@ -697,5 +700,26 @@ EuroCarUsa team</value>
   </data>
   <data name="ShippingCars" xml:space="preserve">
     <value>Shipping cars</value>
+  </data>
+  <data name="ThanksText" xml:space="preserve">
+    <value>Thanks for sending the form!</value>
+  </data>
+  <data name="YourTrackNumberIs" xml:space="preserve">
+    <value>Your track number is :</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="GoTrackOrder" xml:space="preserve">
+    <value>Go to order tracking</value>
+  </data>
+  <data name="NoOrderWithSuchId" xml:space="preserve">
+    <value>There's no order with such id</value>
+  </data>
+  <data name="IdIsNotValid" xml:space="preserve">
+    <value>Id is not valid GUID</value>
+  </data>
+  <data name="SoldCars" xml:space="preserve">
+    <value>Sold cars</value>
   </data>
 </root>

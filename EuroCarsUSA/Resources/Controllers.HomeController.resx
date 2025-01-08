@@ -693,4 +693,25 @@
   <data name="ShippingCars" xml:space="preserve">
     <value />
   </data>
+  <data name="ThanksText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YourTrackNumberIs" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GoTrackOrder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoOrderWithSuchId" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IdIsNotValid" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SoldCars" xml:space="preserve">
+    <value />
+  </data>
 </root>
