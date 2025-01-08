@@ -134,5 +134,6 @@ namespace EuroCarsUSA.Resources
         public string AdminDetailPageEmailSubject => _localizer[nameof(AdminDetailPageEmailSubject)];
         public string AdminDetailPageEmailBody => _localizer[nameof(AdminDetailPageEmailBody)];
         public string EmptyEmailField => _localizer[nameof(EmptyEmailField)];
+        public string SoldCars => _localizer[nameof(SoldCars)];
     }
 }

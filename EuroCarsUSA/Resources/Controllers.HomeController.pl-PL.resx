@@ -761,4 +761,7 @@ Email: {4}
   <data name="EmptyEmailField" xml:space="preserve">
     <value>Отсутствует</value>
   </data>
+  <data name="CarStatus_Sold" xml:space="preserve">
+    <value>Sprzedane</value>
+  </data>
 </root>

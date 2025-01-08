@@ -271,7 +271,7 @@
     <value>From</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Messag</value>
+    <value>Message</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -760,5 +760,8 @@ Email: {4}
   </data>
   <data name="EmptyEmailField" xml:space="preserve">
     <value>Отсутствует</value>
+  </data>
+  <data name="CarStatus_Sold" xml:space="preserve">
+    <value>Sold</value>
   </data>
 </root>

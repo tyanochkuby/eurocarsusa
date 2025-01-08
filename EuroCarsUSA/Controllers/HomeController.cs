@@ -76,6 +76,7 @@ namespace EuroCarsUSA.Controllers
                 Color = EnumHelper.GetEnumListFromString<CarColor>(color),
                 Make = EnumHelper.GetEnumListFromString<CarMake>(make),
                 Model = model,
+                Status = new List<CarStatus> { CarStatus.Available, CarStatus.Recommended }
             };
             SortOrderType sortOrderEnum;
             if (Enum.TryParse(sortOrder, true, out sortOrderEnum))
@@ -89,12 +90,15 @@ namespace EuroCarsUSA.Controllers
 
             ViewBag.AvailableFilters = _availableFilters;
 
-            var carsWDrodze = await _carRepository.GetAll(CarStatus.Shipping);
-            List<CarCardViewModel> cardsWDrodzeModel = carsWDrodze.Select(c => CarCardViewModel.FromCar(c)).ToList();
+            var shippingCars = await _carRepository.GetAll(CarStatus.Shipping);
+            var soldCars = await _carRepository.GetAll(CarStatus.Sold);
+            var viewModel = new CatalogViewModel
+            {
+                ShippingCars = shippingCars.Select(c => CarCardViewModel.FromCar(c)).ToList(),
+                SoldCars = soldCars.Select(c => CarCardViewModel.FromCar(c)).ToList()
+            };
 
-            ViewBag.CardsWDrodzeModel = cardsWDrodzeModel;
-
-            return View();
+            return View(viewModel);
         }
 
 
@@ -178,7 +182,9 @@ namespace EuroCarsUSA.Controllers
             {
                 filters = JsonConvert.DeserializeObject<CarFilter>(sessionData);
             }
-             
+
+            filters.Status = new List<CarStatus> { CarStatus.Available, CarStatus.Recommended };
+
             var nextCars = await _carRepository.GetRange(carsDisplayed, carsPerLoad, filters, filters.SortOrder);
             var carsCount = await _carRepository.GetCount(filters);
             var showMoreButton = carsCount > carsDisplayed + carsPerLoad;
@@ -214,18 +220,21 @@ namespace EuroCarsUSA.Controllers
             var likes = _cookieService.GetUserLikedCars();
             CarCardViewModel.likedCars = likes;
 
-            var carsWDrodze = await _carRepository.GetRange(0, 4, new() { Status = CarStatus.Shipping }, null);
+            var carsWDrodze = await _carRepository.GetRange(0, 4, new() { Status = [CarStatus.Shipping] }, null);
             var recomendedCars = await _recommendationService.GetFirstNCars(6);
-            
+            var soldCars = await _carRepository.GetRange(0, 4, new() { Status = [CarStatus.Sold] }, null);
+
             var cardsWDrodzeViewModel = carsWDrodze.Select(c => CarCardViewModel.FromCar(c)).ToList();
             var recomendedCadrsViewModel = recomendedCars.Select(c => CarCardViewModel.FromCar(c)).ToList();
             var lastAddedCar = await _recommendationService.GetLastAddedCar();
+            var soldCarsViewModel = soldCars.Select(c => CarCardViewModel.FromCar(c)).ToList();
 
             MainlViewModel viewModel = new()
             {
-                CarWDrodze = cardsWDrodzeViewModel,
-                RecomendedCar = recomendedCadrsViewModel,
-                LastAddedCar = lastAddedCar == null ? null : CarCardViewModel.FromCar(lastAddedCar)
+                ShippingCars = cardsWDrodzeViewModel,
+                RecomendedCars = recomendedCadrsViewModel,
+                LastAddedCar = lastAddedCar == null ? null : CarCardViewModel.FromCar(lastAddedCar),
+                SoldCars = soldCarsViewModel
             };
 
             return View(viewModel);
