@@ -129,5 +129,11 @@ namespace EuroCarsUSA.Resources
         public string Privacy => _localizer[nameof(Privacy)];
         public string ProvideContactData => _localizer[nameof(ProvideContactData)];
         public string ShippingCars => _localizer[nameof(ShippingCars)];
+        public string ThanksText => _localizer[nameof(ThanksText)];
+        public string YourTrackNumberIs => _localizer[nameof(YourTrackNumberIs)];
+        public string Copy => _localizer[nameof(Copy)];
+        public string GoTrackOrder => _localizer[nameof(GoTrackOrder)];
+        public string NoOrderWithSuchId => _localizer[nameof(NoOrderWithSuchId)];
+        public string IdIsNotValid => _localizer[nameof(IdIsNotValid)];
     }
 }

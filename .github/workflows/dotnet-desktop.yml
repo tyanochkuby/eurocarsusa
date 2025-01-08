@@ -54,13 +54,13 @@ jobs:
         run: dotnet restore
 
       - name: Build Application
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Debug
 
       - name: Publish Application
         run: pwd &&
              mkdir publish &&
              sudo chmod -R 777 ./publish &&
-             dotnet publish --configuration Release --output ./publish
+             dotnet publish --configuration Debug --output ./publish
 
       - name: Deploy to Network Share
         run: |

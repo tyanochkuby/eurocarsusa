@@ -299,10 +299,14 @@
   </data>
   <data name="CustomOrderEmailBody" xml:space="preserve">
     <value>Dzień dobry!
-    Cieszymy się, że wybrałeś nas! Z przyjemnością powiadomiamy, że dostaliśmy Twoje zamówienie. Niedługo nasi specjaliści do Ciebie oddzwonią lub odpiszą.
+
+Cieszymy się, że wybrałeś nas! Z przyjemnością powiadomiamy, że dostaliśmy Twoje zamówienie. Niedługo nasi specjaliści do Ciebie oddzwonią lub odpiszą.
+
+Poniżej znajdziesz link do śledzenia Twojego zamówienia:
+{0}
     
-    Z poważaniem,
-    Zespół EuroCarUsa</value>
+Z poważaniem,
+Zespół EuroCarUsa</value>
   </data>
   <data name="AdminCustomOrderEmailSubject" xml:space="preserve">
     <value>EuroCarUsa - Новый заказ</value>
@@ -696,5 +700,23 @@
   </data>
   <data name="ShippingCars" xml:space="preserve">
     <value>Samochody w drodze</value>
+  </data>
+  <data name="ThanksText" xml:space="preserve">
+    <value>Dziękujemy za wysłasnie formularza!</value>
+  </data>
+  <data name="YourTrackNumberIs" xml:space="preserve">
+    <value>Numer Twojego zamówienia :</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Skopiuj</value>
+  </data>
+  <data name="GoTrackOrder" xml:space="preserve">
+    <value>Do śledzenia</value>
+  </data>
+  <data name="NoOrderWithSuchId" xml:space="preserve">
+    <value>Nie istnieje zamówienia z podanym ID</value>
+  </data>
+  <data name="IdIsNotValid" xml:space="preserve">
+    <value>Nie mogliśmy zwalidować podany ID.</value>
   </data>
 </root>

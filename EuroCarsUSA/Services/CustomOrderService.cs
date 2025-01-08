@@ -12,7 +12,11 @@ namespace EuroCarsUSA.Services
         private readonly ICustomOrderRepository _customOrderRepository;
         private readonly IEmailService _emailService;
         private readonly Localizer _localizer;
-
+        #if DEBUG
+        private const string domen = "s473603.projektstudencki.pl";
+        #else
+        private const string domen = "eurocarusa.eu";
+        #endif
         public CustomOrderService(ICustomOrderRepository customorderRepository, IEmailService emailService, Localizer localizer)
         {
             _customOrderRepository = customorderRepository;
@@ -79,8 +83,8 @@ namespace EuroCarsUSA.Services
             {
                 if (!string.IsNullOrEmpty(customOrderViewModel.Email))
                 {
-                    _emailService.SendEmail(customOrderViewModel.Email, _localizer.CustomOrderEmailSubject, _localizer.CustomOrderEmailBody);
-                    _emailService.SendEmail(_emailService.AdminEmail, _localizer.AdminCustomOrderEmailSubject, string.Format(_localizer.AdminCustomOrderEmailBody, customOrderViewModel.PhoneNumber, customOrderViewModel.Email));
+                    await _emailService.SendEmail(customOrderViewModel.Email, _localizer.CustomOrderEmailSubject, string.Format(_localizer.CustomOrderEmailBody, $"{domen}/CustomOrder/Order/{orderId}"));
+                    await _emailService.SendEmail(_emailService.AdminEmail, _localizer.AdminCustomOrderEmailSubject, string.Format(_localizer.AdminCustomOrderEmailBody, customOrderViewModel.PhoneNumber, customOrderViewModel.Email));
                 }
                 return customOrder.Id;
             }
