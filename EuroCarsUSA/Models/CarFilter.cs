@@ -22,7 +22,7 @@ namespace EuroCarsUSA.Models
         public SortOrderType SortOrder { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
-        public CarStatus? Status { get; set; }
+        public List<CarStatus> Status { get; set; }
 
         public CarFilter() { }
     }

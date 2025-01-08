@@ -62,13 +62,13 @@ else
                                     <div class="overflow-visible rounded-3">
                                         <div class="row g-3 py-2 pt-0 main-recommend">
                                     
-                                            @for (int i = 0; i < (float)(Model.RecomendedCar.Count()/2); i += 1)
+                                            @for (int i = 0; i < (float)(Model.RecomendedCars.Count()/2); i += 1)
                                             {
-                                                CarCardViewModel car1 = Model.RecomendedCar[i * 2];
+                                                CarCardViewModel car1 = Model.RecomendedCars[i * 2];
                                                 car1.Classes = "col-6 col-md-12";
                                                 car1.IsFullSize = false;
 
-                                                CarCardViewModel car2 = Model.RecomendedCar[i * 2 + 1];
+                                                CarCardViewModel car2 = Model.RecomendedCars[i * 2 + 1];
                                                 car2.Classes = "col-6 col-md-12";
                                                 car2.IsFullSize = false;
 
@@ -79,9 +79,9 @@ else
                                                     </div>
                                                 </div>
                                             }
-                                            @if ((float)(Model.RecomendedCar.Count()%2) != 0) 
+                                            @if ((float)(Model.RecomendedCars.Count()%2) != 0) 
                                             {
-                                                CarCardViewModel car1 = Model.RecomendedCar[Model.RecomendedCar.Count()-1];
+                                                CarCardViewModel car1 = Model.RecomendedCars[Model.RecomendedCars.Count()-1];
                                                 car1.Classes = "col-12";
                                                 car1.IsFullSize = false;
 
@@ -167,14 +167,32 @@ else
                     </div>
                 </div>
             </div>
-            @if (Model.CarWDrodze.Count() > 0)
+            @if (Model.ShippingCars.Count() > 0)
             {
                 <div class="col-12 px-0">
                     <div class="row bg-white p-3 rounded-16 mx-0">
                         <div class="col px-0">
                             <div class="row p-0 mx-0 text-headline-sm mb-2">@localizer.ShippingCars</div>
                             <div class="row px-0 gx-3 main-wdrodze">
-                                @foreach (CarCardViewModel car in Model.CarWDrodze)
+                                @foreach (CarCardViewModel car in Model.ShippingCars)
+                                {
+                                    car.Classes = "col-9 col-sm-5 col-lg-3";
+                                    car.IsFullSize = false;
+                                    @await Html.PartialAsync("_CarCard", car)
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.SoldCars.Count() > 0)
+            {
+                <div class="col-12 px-0">
+                    <div class="row bg-white p-3 rounded-16 mx-0">
+                        <div class="col px-0">
+                            <div class="row p-0 mx-0 text-headline-sm mb-2">@localizer.SoldCars</div>
+                            <div class="row px-0 gx-3 main-wdrodze">
+                                @foreach (CarCardViewModel car in Model.SoldCars)
                                 {
                                     car.Classes = "col-9 col-sm-5 col-lg-3";
                                     car.IsFullSize = false;

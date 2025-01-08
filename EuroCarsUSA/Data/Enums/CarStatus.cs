@@ -4,5 +4,6 @@ public enum CarStatus
 {
     Available,
     Shipping,
-    Recommended
+    Recommended,
+    Sold
 }

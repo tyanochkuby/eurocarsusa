@@ -84,7 +84,7 @@ namespace EuroCarsUSA.Data.Repositories
                 new SqlParameter("@Color", filters?.Color != null && filters?.Color.Count > 0 ? string.Join(",", filters.Color.Select(c => (int)c)) : (object)DBNull.Value),
                 new SqlParameter("@DateFrom", filters?.DateFrom ?? (object)DBNull.Value),
                 new SqlParameter("@DateTo", filters?.DateTo ?? (object)DBNull.Value),
-                new SqlParameter("@Status", filters?.Status ?? (object)DBNull.Value),
+                new SqlParameter("@Status", filters?.Status != null && filters?.Status.Count > 0 ? string.Join(",", filters.Status.Select(m => (int)m)) : (object)DBNull.Value),
                 new SqlParameter("@SortOrder", sortOrder ?? SortOrderType.NewFirst)
             };
 
@@ -115,7 +115,7 @@ namespace EuroCarsUSA.Data.Repositories
                 new SqlParameter("@Color", filters.Color != null && filters.Color.Count > 0 ? string.Join(",", filters.Color.Select(c => (int)c)) : (object)DBNull.Value),
                 new SqlParameter("@DateFrom", filters.DateFrom.HasValue ? filters.DateFrom.Value : (object)DBNull.Value),
                 new SqlParameter("@DateTo", filters.DateTo.HasValue ? filters.DateTo.Value : (object)DBNull.Value),
-                new SqlParameter("@Status", filters.Status.HasValue ? filters.Status.Value : (object)DBNull.Value),
+                new SqlParameter("@Status", filters?.Status != null && filters?.Status.Count > 0 ? string.Join(",", filters.Status.Select(m => (int)m)) : (object)DBNull.Value),
                 new SqlParameter("@Count", SqlDbType.Int) { Direction = ParameterDirection.Output }
             };
 
