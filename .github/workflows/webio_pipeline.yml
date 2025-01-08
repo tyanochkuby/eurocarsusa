@@ -48,5 +48,6 @@ jobs:
         & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
           -verb:sync `
           -source:contentPath="D:\a\eurocarsusa\eurocarsusa\publish\" `
+          -enableRule:DoNotDeleteRule
           -dest:contentPath='eurocarusa.eu',computerName='https://ssl3.webio.pl:8172/msdeploy.axd?site=eurocarusa.eu',userName='eurocarusa.eu_naszhu',password='${{ secrets.DEPLOY_PASSWORD }}',authType='Basic' `
           -verbose
