@@ -1,5 +1,6 @@
 ﻿using EuroCarsUSA.Data.Enums;
 using EuroCarsUSA.Models;
+using EuroCarsUSA.Resources;
 using EuroCarsUSA.Services;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
@@ -13,11 +14,13 @@ namespace EuroCarsUSA.Controllers
     {
         private readonly ICustomOrderService _customOrderService;
         private readonly string _recaptchaSecret;
+        private readonly Localizer _localizer;
 
-        public CustomOrderController(ICustomOrderService customOrderService, IConfiguration configuration)
+        public CustomOrderController(ICustomOrderService customOrderService, IConfiguration configuration, Localizer localizer)
         {
             _customOrderService = customOrderService;
             _recaptchaSecret = configuration["CaptchaSecretKey"];
+            _localizer = localizer;
         }
         [HttpPost]
         public async Task<IActionResult> SubmitForm(CustomOrderViewModel customOrderViewModel, string recaptchaResponse)
@@ -61,16 +64,30 @@ namespace EuroCarsUSA.Controllers
                 {
                     return View(formViewModel);
                 }
+                else
+                {
+                    var errorModel = new OrderNotFoundViewModel
+                    {
+                        Id = id,
+                        Message = _localizer.NoOrderWithSuchId
+                    };
+                    return View("OrderNotFound", errorModel);
+                }
             }
 
-            ModelState.AddModelError(string.Empty, "Order not found.");
-            return View("Index");
+            var model = new OrderNotFoundViewModel
+            {
+                Id = id,
+                Message = _localizer.IdIsNotValid
+            };
+            return View("OrderNotFound", model);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> TrackOrder(string orderId, string recaptchaResponse)
+        public async Task<IActionResult> TrackOrder(string orderId, string recaptchaResponseTrack)
         {
-            if (!await IsReCaptchaValid(recaptchaResponse))
+            if (!await IsReCaptchaValid(recaptchaResponseTrack))
             {
                 return Json(new { success = false, message = "Invalid reCAPTCHA. Please try again." });
             }
