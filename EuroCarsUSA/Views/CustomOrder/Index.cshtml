@@ -113,7 +113,7 @@
                 }
             </div>
 
-            <div class="d-flex justify-content-center my-3">
+            <div class="d-flex justify-content-center my-3" id="addFormButton">
                 @await Html.PartialAsync("_Button", new _Button
                 {
                     Text = localizer.AddForm,
@@ -206,14 +206,14 @@
             <div class="row mx-0 mt-3">
                 <div class="d-flex justify-content-end">
                     @await Html.PartialAsync("_Button", new _Button
-               {
-                   Text = localizer.SubmitForm,
-                   Color = "primary",
-                   Classes = "",
-                   Attributes = "type=\"button\" onclick=\"onClick(event)\"",
-                   RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
-                   TextColor = ""
-               })
+                    {
+                        Text = localizer.SubmitForm,
+                        Color = "primary",
+                        Classes = "",
+                        Attributes = "type=\"button\" onclick=\"onClick(event)\"",
+                        RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
+                        TextColor = ""
+                    })
                 </div>
             </div>
         </div>
@@ -259,23 +259,48 @@
         function addForm() {
             var formsContainer = document.getElementById('forms-container');
             var formIndex = formsContainer.children.length;
-            $.ajax({
-                url: '@Url.Action("GetFormComponent", "CustomOrder")',
-                data: { index: formIndex },
-                type: 'GET',
-                success: function (data) {
-                    formsContainer.insertAdjacentHTML('beforeend', data);
-                    setupDropdownEventHandlers(formIndex);
-                },
-                error: function () {
-                    console.error('Failed to load form component.');
+
+            if (formIndex < 5) {
+                $.ajax({
+                    url: '@Url.Action("GetFormComponent", "CustomOrder")',
+                    data: { index: formIndex },
+                    type: 'GET',
+                    success: function (data) {
+                        formsContainer.insertAdjacentHTML('beforeend', data);
+                        setupDropdownEventHandlers(formIndex);
+                    },
+                    error: function () {
+                        console.error('Failed to load form component.');
+                    }
+                });
+                if (formIndex === 4){
+                    var button = document.querySelector('#addFormButton');
+                    if (button) {
+                        button.classList.add("d-none");
+                    };
                 }
-            });
+            }
+            else {
+                var button = document.querySelector('#addFormButton');
+                if (button) {
+                    button.classList.add("d-none");
+                };
+            }
         }
 
         function removeForm(button) {
-            var formContainer = button.closest('.form-viewmodel-container');
-            formContainer.remove();
+            var formsContainer = document.getElementById('forms-container');
+            var formsNumber = formsContainer.children.length;
+            var formViewModelContainer = button.closest('.form-viewmodel-container');
+
+            formViewModelContainer.remove();
+            if (formsNumber === 5) {
+                var button = document.querySelector('#addFormButton');
+                if (button) {
+                    button.classList.remove("d-none");
+                };
+            }
+            
         }
 
         function setupDropdownEventHandlers(index) {
