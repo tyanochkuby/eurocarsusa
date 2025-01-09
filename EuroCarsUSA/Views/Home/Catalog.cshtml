@@ -744,6 +744,17 @@
                 </a>
             </div>
         </div>
+
+        <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">@localizer.Catalog</div>
+        
+        <div id="carsListing" class="p-3 rounded-16 bg-neutral-200 container mx-md-0">
+            @*All cars go here*@
+        </div>
+
+        <div class="w-100 text-center mt-3">
+            <button class="btn btn-primary rounded-pill" id="showMoreButton">@Translator["ShowMore"]</button>
+        </div>
+
         @if (Model.ShippingCars.Count > 0)
         {
             <div class="container mx-md-0 p-0">
@@ -764,17 +775,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">@localizer.Catalog</div>
         }
-        
-        <div id="carsListing" class="p-3 rounded-16 bg-neutral-200 container mx-md-0">
-            @*All cars go here*@
-        </div>
-
-        <div class="w-100 text-center mt-3">
-            <button class="btn btn-primary rounded-pill" id="showMoreButton">@Translator["ShowMore"]</button>
-        </div>
 
         @if (Model.SoldCars.Count > 0)
         {

@@ -90,8 +90,8 @@ namespace EuroCarsUSA.Controllers
 
             ViewBag.AvailableFilters = _availableFilters;
 
-            var shippingCars = await _carRepository.GetAll(CarStatus.Shipping);
-            var soldCars = await _carRepository.GetAll(CarStatus.Sold);
+            var shippingCars = await _carRepository.GetAll([CarStatus.Shipping]);
+            var soldCars = await _carRepository.GetAll([CarStatus.Sold]);
             var viewModel = new CatalogViewModel
             {
                 ShippingCars = shippingCars.Select(c => CarCardViewModel.FromCar(c)).ToList(),

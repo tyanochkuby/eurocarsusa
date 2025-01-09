@@ -1,4 +1,5 @@
-﻿using EuroCarsUSA.Data.Interfaces;
+﻿using EuroCarsUSA.Data.Enums;
+using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using EuroCarsUSA.Services.Interfaces;
 
@@ -33,7 +34,7 @@ namespace EuroCarsUSA.Services
 
         public async Task<IEnumerable<Car>> GetAll()
         {
-            return await _carRepository.GetAll(null);
+            return await _carRepository.GetAll(new());
         }
 
         public Task<IEnumerable<Car>> GetRange()

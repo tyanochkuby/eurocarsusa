@@ -1,4 +1,5 @@
-﻿using EuroCarsUSA.Data.Interfaces;
+﻿using EuroCarsUSA.Data.Enums;
+using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Models;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
@@ -22,6 +23,7 @@ public class RecommendationService : IRecommendationService
     private const int LIKE_MAKE_MATCH_SCORE = 10;
     private const int LIKE_TYPE_MATCH_SCORE = 15;
     private const int LIKE_PRICE_MATCH_SCORE = 12;
+    private const int RECOMMENDATION_SCORE = 100;
 
 
     public RecommendationService(ICarRepository carRepository, ICookieService cookieService)
@@ -32,7 +34,7 @@ public class RecommendationService : IRecommendationService
 
     public async Task<List<Car>> GetFirstNCars(int count)
     {
-        var cars = (await _carRepository.GetAll(null)).ToList();
+        var cars = (await _carRepository.GetAll([CarStatus.Available, CarStatus.Shipping, CarStatus.Recommended])).ToList();
         var viewedIds = _cookieService.GetUserViewedCars();
         var likedIds = _cookieService.GetUserLikedCars();
 
@@ -70,6 +72,11 @@ public class RecommendationService : IRecommendationService
             if (Math.Abs(car.Price - likedCar.Price) < PRICE_THRESHOLD) score += LIKE_PRICE_MATCH_SCORE;
         }
 
+        if(car.Status == CarStatus.Recommended)
+        {
+            score += RECOMMENDATION_SCORE;
+        }
+
         // Recency boost
         if (DateTime.UtcNow.Subtract(car.TimeStamp).TotalDays < RECENT_DAYS)
         {
@@ -80,8 +87,8 @@ public class RecommendationService : IRecommendationService
         return score;
     }
 
-    public async Task<Car> GetLastAddedCar()
+    public async Task<Car?> GetLastAddedCar()
     {
-        return (await _carRepository.GetAll(null)).OrderByDescending(c => c.TimeStamp).FirstOrDefault();
+        return (await _carRepository.GetAll(new())).OrderByDescending(c => c.TimeStamp).FirstOrDefault();
     }
 }

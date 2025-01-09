@@ -699,7 +699,7 @@ EuroCarUsa team</value>
     <value>Provide your contact data</value>
   </data>
   <data name="ShippingCars" xml:space="preserve">
-    <value>Shipping cars</value>
+    <value>Cars in transit</value>
   </data>
   <data name="ThanksText" xml:space="preserve">
     <value>Thanks for sending the form!</value>
