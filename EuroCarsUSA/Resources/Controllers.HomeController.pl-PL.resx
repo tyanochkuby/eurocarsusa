@@ -722,6 +722,45 @@ Zespół EuroCarUsa</value>
   <data name="SoldCars" xml:space="preserve">
     <value>Samochody sprzedane</value>
   </data>
+  <data name="DetailPageEmailSubject" xml:space="preserve">
+    <value>Otrzymaliśmy twój formularz!</value>
+  </data>
+  <data name="DetailPageEmailBody" xml:space="preserve">
+    <value>Cześć,
+
+Dziękujemy za kontakt z nami poprzez formularz kontaktowy. Prosimy o chwilę cierpliwości, ponieważ przeglądamy Twoje zapytanie. Możesz być pewien, że wkrótce się z Tobą skontaktujemy.
+
+Dziękujemy za zainteresowanie {0} {1}.
+
+Z poważaniem,
+Zespół EuroCarUSA</value>
+  </data>
+  <data name="AdminDetailPageEmailBody" xml:space="preserve">
+    <value>Здравствуйте,
+
+На сайте получена новая заявка на {0} {1} {2} с контактной формы. Пожалуйста, ознакомьтесь с деталями и примите соответствующие меры.
+
+Имя: {3}
+Email: {4}
+Номер телефона: {5}
+Сообщение: {6}
+
+
+Спасибо.
+
+С уважением,
+Система EuroCarUSA</value>
+  </data>
+  <data name="AdminDetailPageEmailSubject" xml:space="preserve">
+    <value>Новая заявка с контактной формы</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NoPhoneNumber" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="EmptyEmailField" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
   <data name="CarStatus_Sold" xml:space="preserve">
     <value>Sprzedane</value>
   </data>

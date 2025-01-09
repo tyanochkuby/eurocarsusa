@@ -26,7 +26,5 @@ namespace EuroCarsUSA.Models
 
         [MaxLength(200)]
         public string? Message { get; set; }
-
-        public DetailPageForm() { }
     }
 }

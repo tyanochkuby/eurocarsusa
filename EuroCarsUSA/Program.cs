@@ -30,6 +30,7 @@ builder.Services.AddScoped<ICookieService, CookieService>();
 builder.Services.AddScoped<ICatalogEditingService, CatalogEditingService>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddScoped<IRecaptchaService, RecaptchaService>();
 builder.Services.AddScoped<Localizer>();
 
 // Adding session services
