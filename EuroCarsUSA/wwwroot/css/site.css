@@ -1042,6 +1042,9 @@ button#mobile-filter-select-save-button .carIcon {
 
 
 
+.border-primary500 {
+    border-color: var(--bs-primary) !important
+}
 .border-neutral600 {
     border-color: rgba(216, 217, 226, 1) !important
 }
@@ -1317,6 +1320,28 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
 }
 
 .line-edit:focus-within .line-edit-trailing-element .icon-container {
+    color: var(--bs-primary);
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
+.line-edit.active .line-edit-state-layer {
+    background-color: transparent;
+}
+
+.line-edit.active .line-edit-input {
+    caret-color: var(--bs-primary);
+}
+
+.line-edit.active .line-edit-overline-text {
+    color: var(--bs-primary);
+}
+
+.line-edit.active .active-indicator {
+    border-color: var(--bs-primary) !important;
+    border-width: 3px !important;
+}
+
+.line-edit.active .line-edit-trailing-element .icon-container {
     color: var(--bs-primary);
     transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
 }

@@ -398,7 +398,10 @@
                                 ShowOverline = true,
                                 ShowOverlineInside = false, 
                                 HasOutsidOverlineSizeEffect = true,
-                                Overline = Translator["Make"]
+                                Overline = Translator["Make"],
+                                ShowAdditionalBackground = true,
+                                ShowAdditional = (selectedMakes.Any() ? true : false),
+                                Additional = (selectedMakes.Count().ToString()),
                             })
                             <ul class="dropdown-menu w-100 my-shadow-1" name="make" aria-labelledby="dropdownMenuButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel makeOption in ViewBag.AvailableFilters["make"])
@@ -446,7 +449,10 @@
                                    ShowOverline = true,
                                    ShowOverlineInside = false, 
                                    HasOutsidOverlineSizeEffect = true,
-                                   Overline = Translator["CarType"]
+                                   Overline = Translator["CarType"],
+                                   ShowAdditionalBackground = true,
+                                   ShowAdditional = (selectedCarTypes.Any() ? true : false),
+                                   Additional = (selectedCarTypes.Count().ToString())
                                })
                             <ul class="dropdown-menu w-100 my-shadow-1" name="carType" aria-labelledby="dropdownCarTypeButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["carType"])
@@ -479,7 +485,10 @@
                                        ShowOverline = true,
                                        ShowOverlineInside = false, 
                                        HasOutsidOverlineSizeEffect = true,
-                                       Overline = Translator["FuelType"]
+                                       Overline = Translator["FuelType"],
+                                       ShowAdditionalBackground = true,
+                                       ShowAdditional = (selectedFuelTypes.Any() ? true : false),
+                                       Additional = (selectedFuelTypes.Count().ToString()),
                                    })
                             <ul class="dropdown-menu w-100 my-shadow-1" name="fuelType" aria-labelledby="dropdownFuelTypeButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["fuelType"])
@@ -512,7 +521,10 @@
                                    ShowOverline = true,
                                    ShowOverlineInside = false, 
                                    HasOutsidOverlineSizeEffect = true,
-                                   Overline = Translator["Transmission"]
+                                   Overline = Translator["Transmission"],
+                                   ShowAdditionalBackground = true,
+                                   ShowAdditional = (selectedTransmissions.Any() ? true : false),
+                                   Additional = (selectedTransmissions.Count().ToString()),
                                })
                             <ul class="dropdown-menu w-100 my-shadow-1" name="transmission" aria-labelledby="dropdownTransmissionButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["transmission"])
@@ -545,7 +557,10 @@
                                     ShowOverline = true,
                                     ShowOverlineInside = false, 
                                     HasOutsidOverlineSizeEffect = true,
-                                    Overline = Translator["Color"]
+                                    Overline = Translator["Color"],
+                                    ShowAdditionalBackground = true,
+                                    ShowAdditional = (selectedColors.Any() ? true : false),
+                                    Additional = (selectedColors.Count().ToString())
                                 })
                             <ul class="dropdown-menu w-100 my-shadow-1" name="color" aria-labelledby="dropdownColorButton" style="max-height: 320px; overflow-y:auto">
                                 @foreach (FilterOptionViewModel option in ViewBag.AvailableFilters["color"])
@@ -768,7 +783,7 @@
             <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">@localizer.Catalog</div>
         }
         
-        <div id="carsListing" class="p-3 rounded-16 bg-neutral-200 container mx-md-0">
+        <div id="carsListing" class="p-3 rounded-32 bg-neutral-200 container mx-md-0">
             @*All cars go here*@
         </div>
 
@@ -807,7 +822,7 @@
 
 
 @section Scripts {
-    <script>
+       <script>
         document.addEventListener("DOMContentLoaded", function () {
             const dropdownItems = document.querySelectorAll('.dropdown-menu[name="dropdownSortby"] .dropdown-item');
             const hiddenSelect = document.getElementById("sortOrderSelect");
@@ -887,6 +902,33 @@
 
     <script>
         $(document).ready(function () {
+
+
+            function initializeLineEdit() {
+                $('.line-edit-input').each(function () {
+                    updateLineEditState(this);
+                });
+            }
+            function initializeDropdowns() {
+                $('.dropdown-menu').each(function () {
+                    const dropdownOptions = $(this);
+                    const selectedOptions = updateDropdownSelection(dropdownOptions);
+
+                    updateDropdownInput(dropdownOptions, selectedOptions);
+
+                    const dropdown = dropdownOptions.closest('.dropdown')[0];
+                    const expandButton = dropdown.querySelector('.expand-button');
+
+                    if (expandButton) {
+                        updateExpandButton(expandButton, selectedOptions);
+                    }
+                });
+            }
+
+            initializeDropdowns();
+            initializeLineEdit();
+
+
             $('#filter-submit-button').click(function () {
                 $(this).blur();
             });
@@ -919,6 +961,33 @@
                     return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
                 }).text('@Translator["Choose"]');
 
+                $('#filtersForm .expand-button-trailng-supportive-text').filter(function () {
+                    return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
+                }).removeClass('d-block').addClass('d-none');
+
+                $('#filtersForm .expand-button-input').filter(function () {
+                    return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
+                }).removeClass('text-primary').addClass('text-neutral-900');
+
+                $('#filtersForm .expand-button-overline-text').filter(function () {
+                    return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
+                }).removeClass('text-primary').addClass('text-neutral-900');
+
+                $('#filtersForm .active-indicator').filter(function () {
+                    return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
+                }).removeClass('border-primary500').addClass('border-neutral900');
+
+                $('#filtersForm .active-indicator').filter(function () {
+                    return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
+                }).css('border-width', '1px');
+
+                $('#filtersForm .line-edit-input').filter(function () {
+                    return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
+                }).removeClass('text-primary').addClass('text-neutral-900');
+
+                $('#filtersForm .line-edit').filter(function () {
+                    return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
+                }).removeClass('active')
 
             });
 
@@ -933,10 +1002,27 @@
                 dropdownOptions.style.display = dropdownOptions.style.display === "block" ? "none" : "block";
             });
 
-            $('.dropdown-item').change(function () {
-                var dropdownOptions = $(this).closest('.dropdown-menu');
-                var checkboxes = dropdownOptions.find("input[type='checkbox']");
-                var selectedOptions = [];
+            function updateLineEditState(inputElement) {
+                var lineEdit = inputElement.closest('.line-edit');
+                if ($(inputElement).val()) {
+                    lineEdit.classList.add("active");
+                    inputElement.classList.add("text-primary");
+                    inputElement.classList.remove("text-neutral-900");
+                } else {
+                    lineEdit.classList.remove("active");
+                    inputElement.classList.remove("text-primary");
+                    inputElement.classList.add("text-neutral-900");
+                }
+            }
+
+            $('.line-edit-input').change(function () {
+                updateLineEditState(this);
+            });
+
+
+            function updateDropdownSelection(dropdownOptions) {
+                const checkboxes = dropdownOptions.find("input[type='checkbox']");
+                const selectedOptions = [];
 
                 checkboxes.each(function () {
                     if ($(this).is(':checked')) {
@@ -944,12 +1030,70 @@
                     }
                 });
 
-                var dropdownName = dropdownOptions.attr('name');
+                return selectedOptions;
+            }
+
+            function updateDropdownInput(dropdownOptions, selectedOptions) {
+                const dropdownName = dropdownOptions.attr('name');
                 $("#" + dropdownName + "Input").val(selectedOptions.join(','));
 
-                var span = dropdownOptions.prev().find('span');
+                const span = dropdownOptions.prev().find('span');
                 span.text(selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Any');
+            }
+
+            function updateExpandButton(expandButton, selectedOptions) {
+                const headline = selectedOptions.length > 0 ? selectedOptions.join(', ') : "Choose";
+                const additional = selectedOptions.length.toString();
+
+                const headlineElement = expandButton.querySelector('.expand-button-input');
+                if (headlineElement) {
+                    headlineElement.textContent = headline;
+                }
+
+                const activeIndicator = expandButton.querySelector('.active-indicator');
+                const overlineText = expandButton.querySelector('.expand-button-overline-text');
+                const additionalElement = expandButton.querySelector('.expand-button-trailng-supportive-text');
+
+                if (selectedOptions.length > 0) {
+                    additionalElement.classList.remove("d-none");
+                    additionalElement.classList.add("d-block");
+                    headlineElement.classList.remove("text-neutral-900");
+                    headlineElement.classList.add("text-primary");
+                    overlineText.classList.add("text-primary");
+                    overlineText.classList.remove("text-neutral-900");
+                    activeIndicator.style.borderWidth = "3px";
+                    activeIndicator.classList.remove("border-neutral900");
+                    activeIndicator.classList.add("border-primary500");
+                } else {
+                    additionalElement.classList.remove("d-block");
+                    additionalElement.classList.add("d-none");
+                    headlineElement.classList.remove("text-primary");
+                    headlineElement.classList.add("text-neutral-900");
+                    overlineText.classList.remove("text-primary");
+                    overlineText.classList.add("text-neutral-900");
+                    activeIndicator.style.borderWidth = "1px";
+                    activeIndicator.classList.add("border-neutral900");
+                    activeIndicator.classList.remove("border-primary500");
+                }
+
+                const additionalElementDiv = expandButton.querySelector('.expand-button-trailng-supportive-text > div');
+                additionalElementDiv.textContent = additional;
+            }
+
+            $('.dropdown-item').change(function () {
+                const dropdownOptions = $(this).closest('.dropdown-menu');
+                const selectedOptions = updateDropdownSelection(dropdownOptions);
+
+                updateDropdownInput(dropdownOptions, selectedOptions);
+
+                const dropdown = $(this).closest('.dropdown')[0];
+                const expandButton = dropdown.querySelector('.expand-button');
+
+                if (expandButton) {
+                    updateExpandButton(expandButton, selectedOptions);
+                }
             });
+
 
             $('.dropdown-item').click(function (e) {
                 e.stopPropagation();
