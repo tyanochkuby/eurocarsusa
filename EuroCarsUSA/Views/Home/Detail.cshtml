@@ -10,7 +10,7 @@
 @inject IStringLocalizer<HomeController> Translator
 @inject Localizer localizer
 
-<div id="successMessage" class="alert alert-secondary text-primary border-primary rounded-xxl py-2 px-3 start-50 translate-middle fs-4" style="display: none; position: fixed; top: 0; text-align: center; z-index: 10000; margin-top: 5%">
+<div id="successMessage" class="alert bg-secondary-100 text-primary border-primary rounded-pill py-2 px-3 start-50 translate-middle text-headline-sm position-fixed top-0 text-center d-none" style="z-index: 10000; margin-top: 5%">
     @localizer.MessageSent
 </div>
 
