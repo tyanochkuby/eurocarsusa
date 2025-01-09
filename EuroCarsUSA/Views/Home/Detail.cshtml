@@ -123,44 +123,59 @@
                             TextColor = ""
                         })
                     </a>
-                    <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model">
-                        @await Html.PartialAsync("_Button", new _Button
-                        {
-                            Text = $"{@Model.Car.Model}",
-                       Color = "secondary",
-                            Classes = "me-2",
-                            Attributes = "type=\"button\"",
-                            LeftIcon = null,
-                            RightIcon = null,
-                            TextColor = ""
-                        })
-                    </a>
+                    @if(!string.IsNullOrEmpty(Model.Car.Model))
+                    {
+                        <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model">
+                            @await Html.PartialAsync("_Button", new _Button
+                            {
+                                Text = $"{@Model.Car.Model}",
+                                Color = "secondary",
+                                Classes = "me-2",
+                                Attributes = "type=\"button\"",
+                                LeftIcon = null,
+                                RightIcon = null,
+                                TextColor = ""
+                            })
+                        </a>
+                    }
                 </div>
             </div>
 
             @*Images*@
-            <div class="selected-image position-relative">
-                <button class="arrow-button left-arrow" id="prevImageButton" aria-label="Previous Image">&lt;</button>
 
-                <a href="@Model.Car.Images[0]" data-pswp-width="1200" data-pswp-height="900" id="mainImageLink" class="gallery-link">
+            @if (Model.Car.Images?.Count > 0)
+            {
+                <div class="selected-image position-relative">
+                    <button class="arrow-button left-arrow" id="prevImageButton" aria-label="Previous Image">&lt;</button>
+
+                    <a href="@Model.Car.Images[0]" data-pswp-width="1200" data-pswp-height="900" id="mainImageLink" class="gallery-link">
+                        <div class="image-wrapper">
+                            <img src="@Model.Car.Images[0]" alt="Selected Image" id="mainImage" />
+                        </div>
+                    </a>
+
+                    <button class="arrow-button right-arrow" id="nextImageButton" aria-label="Next Image">&gt;</button>
+                </div>
+
+                <div class="thumbnail-gallery mt-2" id="thumbnailGallery">
+                    @for (int i = 0; i < Model.Car.Images.Count; i++)
+                    {
+                        <a href="@Model.Car.Images[i]"
+                        class="thumbnail-link @((i == 0) ? "selected" : "")"
+                        data-index="@i">
+                            <img src="@Model.Car.Images[i]" alt="Thumbnail @i" class="thumbnail-image" />
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <a data-pswp-width="1200" data-pswp-height="900">
                     <div class="image-wrapper">
-                        <img src="@Model.Car.Images[0]" alt="Selected Image" id="mainImage" />
+                        <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Selected Image" id="mainImage" />
                     </div>
                 </a>
-
-                <button class="arrow-button right-arrow" id="nextImageButton" aria-label="Next Image">&gt;</button>
-            </div>
-
-            <div class="thumbnail-gallery mt-2" id="thumbnailGallery">
-                @for (int i = 0; i < Model.Car.Images.Count; i++)
-                {
-                    <a href="@Model.Car.Images[i]"
-                       class="thumbnail-link @((i == 0) ? "selected" : "")"
-                       data-index="@i">
-                        <img src="@Model.Car.Images[i]" alt="Thumbnail @i" class="thumbnail-image" />
-                    </a>
-                }
-            </div>
+            }
 
             <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="pswp__bg"></div>
