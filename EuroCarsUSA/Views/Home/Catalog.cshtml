@@ -11,7 +11,7 @@
 
 @inject IStringLocalizer<HomeController> Translator
 @inject Localizer localizer
-@model IEnumerable<Car>
+@model CatalogViewModel
 
 @{
     ViewData["Title"] = "EuroCarsUSA";
@@ -744,7 +744,7 @@
                 </a>
             </div>
         </div>
-        @if (ViewBag.CardsWDrodzeModel.Count > 0)
+        @if (Model.ShippingCars.Count > 0)
         {
             <div class="container mx-md-0 p-0">
                 <div class="col-12 px-0 mb-3">
@@ -753,7 +753,7 @@
                         <div class="col px-0">
                             <div class="row p-0 px-2 mx-0 text-title-lg d-md-flex d-md-none text-neutral-900">@localizer.ShippingCars</div>
                             <div class="row px-0 gx-3 py-2 flex-nowrap overflow-auto">
-                                @foreach (CarCardViewModel car in ViewBag.CardsWDrodzeModel)
+                                @foreach (CarCardViewModel car in Model.ShippingCars)
                                 {
                                     car.Classes = "col-8 col-sm-5 col-md-7 col-lg-5 col-xl-3";
                                     car.IsFullSize = false;
@@ -765,7 +765,7 @@
                 </div>
             </div>
 
-            <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">Catalog</div>
+            <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">@localizer.Catalog</div>
         }
         
         <div id="carsListing" class="p-3 rounded-16 bg-neutral-200 container mx-md-0">
@@ -775,6 +775,29 @@
         <div class="w-100 text-center mt-3">
             <button class="btn btn-primary rounded-pill" id="showMoreButton">@Translator["ShowMore"]</button>
         </div>
+
+        @if (Model.SoldCars.Count > 0)
+        {
+            <div class="container mx-md-0 p-0">
+                <div class="col-12 px-0 mb-3">
+                    <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">@localizer.SoldCars</div>
+                    <div class="row bg-neutral-200 p-3 rounded-16 mx-0">
+                        <div class="col px-0">
+                            <div class="row p-0 px-2 mx-0 text-title-lg d-md-flex d-md-none text-neutral-900">@localizer.SoldCars</div>
+                            <div class="row px-0 gx-3 py-2 flex-nowrap overflow-auto">
+                                @foreach (CarCardViewModel car in Model.SoldCars)
+                                {
+                                    car.Classes = "col-8 col-sm-5 col-md-7 col-lg-5 col-xl-3";
+                                    car.IsFullSize = false;
+                                    @await Html.PartialAsync("_CarCard", car)
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
     </div>
 </div>
 

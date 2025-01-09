@@ -299,10 +299,14 @@
   </data>
   <data name="CustomOrderEmailBody" xml:space="preserve">
     <value>Dzień dobry!
-    Cieszymy się, że wybrałeś nas! Z przyjemnością powiadomiamy, że dostaliśmy Twoje zamówienie. Niedługo nasi specjaliści do Ciebie oddzwonią lub odpiszą.
+
+Cieszymy się, że wybrałeś nas! Z przyjemnością powiadomiamy, że dostaliśmy Twoje zamówienie. Niedługo nasi specjaliści do Ciebie oddzwonią lub odpiszą.
+
+Poniżej znajdziesz link do śledzenia Twojego zamówienia:
+{0}
     
-    Z poważaniem,
-    Zespół EuroCarUsa</value>
+Z poważaniem,
+Zespół EuroCarUsa</value>
   </data>
   <data name="AdminCustomOrderEmailSubject" xml:space="preserve">
     <value>EuroCarUsa - Новый заказ</value>
@@ -696,5 +700,68 @@
   </data>
   <data name="ShippingCars" xml:space="preserve">
     <value>Samochody w drodze</value>
+  </data>
+  <data name="ThanksText" xml:space="preserve">
+    <value>Dziękujemy za wysłasnie formularza!</value>
+  </data>
+  <data name="YourTrackNumberIs" xml:space="preserve">
+    <value>Numer Twojego zamówienia :</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Skopiuj</value>
+  </data>
+  <data name="GoTrackOrder" xml:space="preserve">
+    <value>Do śledzenia</value>
+  </data>
+  <data name="NoOrderWithSuchId" xml:space="preserve">
+    <value>Nie istnieje zamówienia z podanym ID</value>
+  </data>
+  <data name="IdIsNotValid" xml:space="preserve">
+    <value>Nie mogliśmy zwalidować podany ID.</value>
+  </data>
+  <data name="SoldCars" xml:space="preserve">
+    <value>Samochody sprzedane</value>
+  </data>
+  <data name="DetailPageEmailSubject" xml:space="preserve">
+    <value>Otrzymaliśmy twój formularz!</value>
+  </data>
+  <data name="DetailPageEmailBody" xml:space="preserve">
+    <value>Cześć,
+
+Dziękujemy za kontakt z nami poprzez formularz kontaktowy. Prosimy o chwilę cierpliwości, ponieważ przeglądamy Twoje zapytanie. Możesz być pewien, że wkrótce się z Tobą skontaktujemy.
+
+Dziękujemy za zainteresowanie {0} {1}.
+
+Z poważaniem,
+Zespół EuroCarUSA</value>
+  </data>
+  <data name="AdminDetailPageEmailBody" xml:space="preserve">
+    <value>Здравствуйте,
+
+На сайте получена новая заявка на {0} {1} {2} с контактной формы. Пожалуйста, ознакомьтесь с деталями и примите соответствующие меры.
+
+Имя: {3}
+Email: {4}
+Номер телефона: {5}
+Сообщение: {6}
+
+
+Спасибо.
+
+С уважением,
+Система EuroCarUSA</value>
+  </data>
+  <data name="AdminDetailPageEmailSubject" xml:space="preserve">
+    <value>Новая заявка с контактной формы</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NoPhoneNumber" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="EmptyEmailField" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="CarStatus_Sold" xml:space="preserve">
+    <value>Sprzedane</value>
   </data>
 </root>

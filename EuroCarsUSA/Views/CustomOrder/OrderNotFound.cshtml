@@ -1,0 +1,63 @@
+﻿@using EuroCarsUSA.Data.Enums
+@using EuroCarsUSA.Services.Interfaces
+@using EuroCarsUSA.ViewModels
+@using EuroCarsUSA.Views.Shared.Components
+@using Microsoft.AspNetCore.Components
+@using EuroCarsUSA.Resources
+@model OrderNotFoundViewModel
+@inject Localizer localizer
+
+<div class="bg-neutral-200 w-100 h-100 py-4">
+
+    <div class="container mt-3 mb-md-0 mb-2 px-3">
+        <div class="row px-md-5 ">
+            <div class="col-auto px-0">
+                <div class="row mx-0 mb-0 mb-md-0 px-3 px-md-0 align-items-center">
+                    <a href="javascript:history.back()" class="col-auto ps-0 pe-3">
+                        @await Html.PartialAsync("_Button", new _Button
+                   {
+                       Text = localizer.Back,
+                       Color = "primary",
+                       Classes = "",
+                       Attributes = "type=\"button\"",
+                       LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Arrow back"), Color = "white" }),
+                       RightIcon = null,
+                       TextColor = ""
+                   })
+                    </a>
+                    <div class="col px-0 d-flex overflow-auto rounded-16 modal-dialog-scrollable py-2">
+                        <a asp-controller="CustomOrder" asp-action="Index" class="col-auto px-0 pe-3">
+                            @await Html.PartialAsync("_Button", new _Button
+                       {
+                           Text = localizer.CustomOrder,
+                           Color = "secondary",
+                           Classes = "",
+                           Attributes = "type=\"button\"",
+                           LeftIcon = null,
+                           RightIcon = null,
+                           TextColor = "text-primary"
+                       })
+                        </a>
+                        <a asp-controller="CustomOrder" asp-action="Order" asp-route-id=@Model.Id class="col-auto px-0">
+                            @await Html.PartialAsync("_Button", new _Button
+                       {
+                           Text = Model.Id,
+                           Color = "secondary",
+                           Classes = "",
+                           Attributes = "type=\"button\"",
+                           LeftIcon = null,
+                           RightIcon = null,
+                           TextColor = "text-primary"
+                       })
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container p-4 bg-white rounded-32">
+        <h3>@Model.Message</h3>
+    </div>
+
+</div>

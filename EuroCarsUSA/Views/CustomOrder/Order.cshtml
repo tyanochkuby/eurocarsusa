@@ -266,34 +266,6 @@
         }
     </div>
 
-    <div class="container mt-3 p-4 pt-3 rounded-32 bg-white">
-        <div class="text-headline-sm px-2 mb-2">@localizer.TrackYourOrder</div>
-        <div class="p-3 bg-secondary-200 rounded-16">
-            <div class="row m-0">
-                <div class="col-12 col-md-4 p-md-0 p-2 px-0 me-md-3 bg-secondary-200 mb-2 mb-md-0">
-                    @await Html.PartialAsync("_EditableField", new EditableField
-                    {
-                        Overline = localizer.TrackYourOrder,
-                        Placeholder = "Type here youe track number"
-                    })
-                </div>
-                <div class="col-12 col-md-auto d-flex flex-column justify-content-end px-0">
-                    <a class="submit">
-                        @await Html.PartialAsync("_Button", new _Button
-                   {
-                       Text = localizer.Find,
-                       Color = "primary",
-                       Classes = "col-12",
-                       Attributes = "",
-                       LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-                       RightIcon = null,
-                       TextColor = ""
-                   })
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 @section Scripts {

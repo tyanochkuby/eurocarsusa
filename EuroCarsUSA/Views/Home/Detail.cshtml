@@ -42,40 +42,41 @@
         </a>
 
         <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageFormPopUp" class="w-100">
-            <input type="hidden" asp-for="DetailPageForm.CarId" value="@Model.Car.Id" />
+            <input type="hidden" name="CarId" value="@Model.Car.Id" />
             <div class="form-group px-2 py-1">
-                <input class="form-control border-bottom-only text-primary w-100" asp-for="DetailPageForm.Name" placeholder="@localizer.Name" />
+                <input class="form-control border-bottom-only text-primary w-100" name="Name" placeholder="@localizer.Name" />
             </div>
 
             <div class="form-group px-2 py-1">
-                <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Email" placeholder="Email" />
+                <input class="form-control border-bottom-only text-primary" name="Email" placeholder="Email" />
                 <span asp-validation-for="DetailPageForm.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group px-2 py-1">
-                <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.PhoneNumber" placeholder="@localizer.PhoneNumber" />
+                <input class="form-control border-bottom-only text-primary" name="PhoneNumber" placeholder="@localizer.PhoneNumber" />
                 <span asp-validation-for="DetailPageForm.PhoneNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group px-2 pt-1 pb-3">
-                <textarea class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Message" placeholder="@localizer.Message" rows="5"></textarea>
+                <textarea class="form-control border-bottom-only text-primary" name="Message" placeholder="@localizer.Message" rows="5"></textarea>
             </div>
 
+            <input hidden id="mobile-recaptcha" name="RecaptchaToken" />
+
             <div class="align-items-center flex-column d-flex pb-3">
-                <a href="tel:+48534422089" class="my-2">
                     @Html.Partial("_Button", new _Button
-                    {
-                        Text = @localizer.SendMessage,
-                        Color = "primary",
-                        Classes = "",
-                        Attributes = "type=\"submit\"",
-                        LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mail"), Color = "white" }),
-                        RightIcon = (object)null,
-                        TextColor = "",
-                    })
-                </a>
+               {
+                   Text = @localizer.SendMessage,
+                   Color = "primary",
+                    Classes = "",
+                    Attributes = "type=\"submit\"",
+                   LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mail"), Color = "white" }),
+                   RightIcon = (object)null,
+                   TextColor = "",
+               })
             </div>
         </form>
+
     </div>
 </div>
 
@@ -122,44 +123,59 @@
                             TextColor = ""
                         })
                     </a>
-                    <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model">
-                        @await Html.PartialAsync("_Button", new _Button
-                        {
-                            Text = $"{@Model.Car.Model}",
-                       Color = "secondary",
-                            Classes = "me-2",
-                            Attributes = "type=\"button\"",
-                            LeftIcon = null,
-                            RightIcon = null,
-                            TextColor = ""
-                        })
-                    </a>
+                    @if(!string.IsNullOrEmpty(Model.Car.Model))
+                    {
+                        <a asp-controller="Home" asp-action="Catalog" asp-route-make="@Model.Car.Make" asp-route-model="@Model.Car.Model">
+                            @await Html.PartialAsync("_Button", new _Button
+                            {
+                                Text = $"{@Model.Car.Model}",
+                                Color = "secondary",
+                                Classes = "me-2",
+                                Attributes = "type=\"button\"",
+                                LeftIcon = null,
+                                RightIcon = null,
+                                TextColor = ""
+                            })
+                        </a>
+                    }
                 </div>
             </div>
 
             @*Images*@
-            <div class="selected-image position-relative">
-                <button class="arrow-button left-arrow" id="prevImageButton" aria-label="Previous Image">&lt;</button>
 
-                <a href="@Model.Car.Images[0]" data-pswp-width="1200" data-pswp-height="900" id="mainImageLink" class="gallery-link">
+            @if (Model.Car.Images?.Count > 0)
+            {
+                <div class="selected-image position-relative">
+                    <button class="arrow-button left-arrow" id="prevImageButton" aria-label="Previous Image">&lt;</button>
+
+                    <a href="@Model.Car.Images[0]" data-pswp-width="1200" data-pswp-height="900" id="mainImageLink" class="gallery-link">
+                        <div class="image-wrapper">
+                            <img src="@Model.Car.Images[0]" alt="Selected Image" id="mainImage" />
+                        </div>
+                    </a>
+
+                    <button class="arrow-button right-arrow" id="nextImageButton" aria-label="Next Image">&gt;</button>
+                </div>
+
+                <div class="thumbnail-gallery mt-2" id="thumbnailGallery">
+                    @for (int i = 0; i < Model.Car.Images.Count; i++)
+                    {
+                        <a href="@Model.Car.Images[i]"
+                        class="thumbnail-link @((i == 0) ? "selected" : "")"
+                        data-index="@i">
+                            <img src="@Model.Car.Images[i]" alt="Thumbnail @i" class="thumbnail-image" />
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <a data-pswp-width="1200" data-pswp-height="900">
                     <div class="image-wrapper">
-                        <img src="@Model.Car.Images[0]" alt="Selected Image" id="mainImage" />
+                        <img src="https://www.freeiconspng.com/uploads/no-image-icon-6.png" alt="Selected Image" id="mainImage" />
                     </div>
                 </a>
-
-                <button class="arrow-button right-arrow" id="nextImageButton" aria-label="Next Image">&gt;</button>
-            </div>
-
-            <div class="thumbnail-gallery mt-2" id="thumbnailGallery">
-                @for (int i = 0; i < Model.Car.Images.Count; i++)
-                {
-                    <a href="@Model.Car.Images[i]"
-                       class="thumbnail-link @((i == 0) ? "selected" : "")"
-                       data-index="@i">
-                        <img src="@Model.Car.Images[i]" alt="Thumbnail @i" class="thumbnail-image" />
-                    </a>
-                }
-            </div>
+            }
 
             <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="pswp__bg"></div>
@@ -353,24 +369,26 @@
 
 
                             <form asp-controller="Home" asp-action="SendDetailPageForm" method="post" id="detailPageForm" class="w-100">
-                                <input type="hidden" asp-for="DetailPageForm.CarId" value="@Model.Car.Id" />
+                                <input type="hidden" name="CarId" value="@Model.Car.Id" />
                                 <div class="form-group px-2 py-2">
-                                    <input class="form-control border-bottom-only text-primary w-100" asp-for="DetailPageForm.Name" placeholder="@Translator["Name"]" />
+                                    <input class="form-control border-bottom-only text-primary w-100" name="Name" placeholder="@Translator["Name"]" />
                                 </div>
 
                                 <div class="form-group px-2 pb-2">
-                                    <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Email" placeholder="@Translator["Email"]" />
+                                    <input class="form-control border-bottom-only text-primary" name="Email" placeholder="@Translator["Email"]" />
                                     <span asp-validation-for="DetailPageForm.Email" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group px-2 pb-2">
-                                    <input class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
+                                    <input class="form-control border-bottom-only text-primary" name="PhoneNumber" placeholder="@Translator["PhoneNumber"]" />
                                     <span asp-validation-for="DetailPageForm.PhoneNumber" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group px-2 pb-2">
-                                    <textarea class="form-control border-bottom-only text-primary" asp-for="DetailPageForm.Message" placeholder="@Translator["Message"]" rows="5"></textarea>
+                                    <textarea class="form-control border-bottom-only text-primary" name="Message" placeholder="@Translator["Message"]" rows="5"></textarea>
                                 </div>
+
+                                <input hidden id="desktop-recaptcha" name="RecaptchaToken" />
 
                                 <div class="align-items-center flex-column d-flex pb-3">
                                     @Html.Partial("_Button", new _Button
@@ -457,54 +475,56 @@
             $("#detailPageForm").on("submit", function (event) {
                 event.preventDefault();
 
-                var form = this;
-
-                $.ajax({
-                    url: $(this).attr("action"),
-                    type: $(this).attr("method"),
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        if (response.success) {
-                            $("#successMessage").slideDown().delay(3000).slideUp(); // Show the success message for 3 seconds
-                            form.reset(); // Reset the form
-                        } else {
-                            alert(response.errors);
-                            // Display validation errors
-                            console.log(response.errors);
-                        }
-                    }
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
+                        document.getElementById('desktop-recaptcha').value = token;
+                        var form = document.getElementById('detailPageForm');
+                        $.ajax({
+                            url: $(form).attr("action"),
+                            type: $(form).attr("method"),
+                            data: $(form).serialize(),
+                            success: function (response) {
+                                if (response.success) {
+                                    $("#successMessage").slideDown().delay(3000).slideUp(); // Show the success message for 3 seconds
+                                    form.reset(); // Reset the form
+                                } else {
+                                    alert(response.errors);
+                                    // Display validation errors
+                                    console.log(response.errors);
+                                }
+                            }
+                        });
+                    });
                 });
-
             });
         });
     </script>
     <script>
-        $(document).ready(function () {
-            $("#detailPageFormPopUp").on("submit", function (event) {
-                event.preventDefault();
+        $("#detailPageFormPopUp").on("submit", function (event) {
+            event.preventDefault();
 
-                var form = this;
-
-                $.ajax({
-                    url: $(this).attr("action"),
-                    type: $(this).attr("method"),
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        if (response.success) {
-                            closePopup();
-                            $("#successMessage").slideDown().delay(3000).slideUp(); // Show the success message for 3 seconds
-                            form.reset(); // Reset the form
-                        } else {
-                            alert(response.errors);
-                            // Display validation errors
-                            console.log(response.errors);
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
+                    document.getElementById('mobile-recaptcha').value = token;
+                    var form = document.getElementById('detailPageFormPopUp');
+                    $.ajax({
+                        url: $(form).attr("action"),
+                        type: $(form).attr("method"),
+                        data: $(form).serialize(),
+                        success: function (response) {
+                            if (response.success) {
+                                closePopup();
+                                $("#successMessage").slideDown().delay(3000).slideUp(); // Show the success message for 3 seconds
+                                form.reset(); // Reset the form
+                            } else {
+                                alert(response.errors);
+                                // Display validation errors
+                                console.log(response.errors);
+                            }
                         }
-                    }
+                    });
                 });
-
             });
-
-
         });
 
         document.getElementById('showPopupButton').addEventListener('click', function () {
