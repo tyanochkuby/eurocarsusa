@@ -271,7 +271,7 @@
     <value>From</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Messag</value>
+    <value>Message</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -718,5 +718,11 @@ EuroCarUsa team</value>
   </data>
   <data name="IdIsNotValid" xml:space="preserve">
     <value>Id is not valid GUID</value>
+  </data>
+  <data name="SoldCars" xml:space="preserve">
+    <value>Sold cars</value>
+  </data>
+  <data name="CarStatus_Sold" xml:space="preserve">
+    <value>Sold</value>
   </data>
 </root>

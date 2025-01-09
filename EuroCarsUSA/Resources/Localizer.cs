@@ -135,5 +135,6 @@ namespace EuroCarsUSA.Resources
         public string GoTrackOrder => _localizer[nameof(GoTrackOrder)];
         public string NoOrderWithSuchId => _localizer[nameof(NoOrderWithSuchId)];
         public string IdIsNotValid => _localizer[nameof(IdIsNotValid)];
+        public string SoldCars => _localizer[nameof(SoldCars)];
     }
 }
