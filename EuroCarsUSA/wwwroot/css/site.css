@@ -1496,5 +1496,11 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     .customOrderForm {
         max-height: none;
     }
+    
+}
+@media (min-width:576px) {
+    .thanks {
+        width: 540px;
+    }
 }
 
