@@ -268,6 +268,10 @@
                     success: function (data) {
                         formsContainer.insertAdjacentHTML('beforeend', data);
                         setupDropdownEventHandlers(formIndex);
+                        updateDropdownHeadline();
+                        $('.dropdown-item').click(function (e) {
+                            e.stopPropagation();
+                        });
                     },
                     error: function () {
                         console.error('Failed to load form component.');
@@ -321,6 +325,48 @@
             });
         }
 
+        const updateDropdownHeadline = () => {
+            var checkboxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                let changeEventCount = checkbox.dataset.changeEventCount ? parseInt(checkbox.dataset.changeEventCount) : 0;
+
+                if (changeEventCount < 1) {
+                    checkbox.addEventListener('change', () => {
+                        const dropdown = checkbox.closest('.dropdown');
+                        const expandButton = dropdown.querySelector('.expand-button');
+
+                        if (expandButton) {
+                            const selectedValues = Array.from(dropdown.querySelectorAll('.dropdown-menu input[type="checkbox"]:checked'))
+                                .map(cb => cb.closest('li').querySelector('.list-item-content').textContent.trim());
+
+                            const headline = selectedValues.length > 0 ? selectedValues.join(', ') : "Choose";
+
+                            const additional = selectedValues.length.toString();
+
+                            const headlineElement = expandButton.querySelector('.expand-button-input');
+                            if (headlineElement) {
+                                headlineElement.textContent = headline;
+                            }
+
+                            const additionalElement = expandButton.querySelector('.expand-button-trailng-supportive-text');
+                            if (selectedValues.length > 0) {
+                                additionalElement.classList.remove("d-none");
+                                additionalElement.classList.add("d-block")
+                            }
+                            else {
+                                additionalElement.classList.remove("d-block");
+                                additionalElement.classList.add("d-none")
+                            }
+
+                            const additionalElementDiv = expandButton.querySelector('.expand-button-trailng-supportive-text > div');
+                            additionalElementDiv.textContent = additional;
+                        }
+                    });
+                    checkbox.dataset.changeEventCount = changeEventCount + 1;
+                }
+            });
+        };
+
         function updateHiddenSelect(index, propertyName, dropdownItem) {
             var dropdownOptions = $(dropdownItem).closest('.dropdown-menu');
             var checkboxes = dropdownOptions.find("input[type='checkbox']");
@@ -342,6 +388,7 @@
         $('.dropdown-item').click(function (e) {
             e.stopPropagation();
         });
+
         $(document).ready(function () {
             for (var i = 0; i < @Model.Forms.Count; i++) {
                 setupDropdownEventHandlers(i);
