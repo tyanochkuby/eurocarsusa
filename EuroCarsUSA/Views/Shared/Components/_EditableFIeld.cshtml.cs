@@ -10,8 +10,8 @@ public class EditableField
     public string CssClass { get; set; } = "";
     public string Style { get; set; } = "";
 
-    public string Overline { get; set; } = "Overline";
+    public string Overline { get; set; } = "";
 
-    public string Placeholder { get; set; } = "Placeholder";
+    public string Placeholder { get; set; } = "";
     public string Name { get; set; }
 }
