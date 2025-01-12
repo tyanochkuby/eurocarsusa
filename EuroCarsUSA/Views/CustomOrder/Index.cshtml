@@ -210,7 +210,7 @@
                         Text = localizer.SubmitForm,
                         Color = "primary",
                         Classes = "",
-                        Attributes = "type=\"button\" onclick=\"onClick(event)\"",
+                        Attributes = "type=\"submit\" onclick=\"onClick(event)\"",
                         RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
                         TextColor = ""
                     })
@@ -409,13 +409,13 @@
         });
 
         function onClick(e) {
-            e.preventDefault();
+            ///e.preventDefault();
             grecaptcha.ready(function() {
                 grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
                     document.getElementById('recaptchaResponse').value = token;
 
                     console.log(token);
-                    document.getElementById('customOrderForm').submit();
+                    ///document.getElementById('customOrderForm').submit();
                 });
             });
         }
