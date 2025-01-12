@@ -1042,6 +1042,9 @@ button#mobile-filter-select-save-button .carIcon {
 
 
 
+.border-primary500 {
+    border-color: var(--bs-primary) !important
+}
 .border-neutral600 {
     border-color: rgba(216, 217, 226, 1) !important
 }
@@ -1321,6 +1324,28 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
 }
 
+.line-edit.active .line-edit-state-layer {
+    background-color: transparent;
+}
+
+.line-edit.active .line-edit-input {
+    caret-color: var(--bs-primary);
+}
+
+.line-edit.active .line-edit-overline-text {
+    color: var(--bs-primary);
+}
+
+.line-edit.active .active-indicator {
+    border-color: var(--bs-primary) !important;
+    border-width: 3px !important;
+}
+
+.line-edit.active .line-edit-trailing-element .icon-container {
+    color: var(--bs-primary);
+    transition: color 0.3s cubic-bezier(0.3, 0, 0, 1);
+}
+
 
 
 
@@ -1496,5 +1521,39 @@ input[type="checkbox"]:checked + .checkbox-wrapper .checkbox-custom {
     .customOrderForm {
         max-height: none;
     }
+    
+}
+@media (min-width:576px) {
+    .thanks {
+        width: 540px;
+    }
 }
 
+#successMessage {
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--bs-light);
+    color: var(--bs-primary);
+    padding: 1rem 2rem;
+    margin-top: 0;
+    transition: top 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    top: -100px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+    #successMessage.show {
+        top: 10%;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #successMessage.hide {
+        top: -100px;
+        opacity: 0;
+        visibility: hidden;
+    }

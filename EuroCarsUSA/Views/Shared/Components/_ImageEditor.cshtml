@@ -12,15 +12,12 @@
 
 <div>
     <a class="">
-        @Html.Partial("_Button", new _Button
+        @await Html.PartialAsync("_Button", new _Button
         {
             Text = @localizer.EditImages,
             Color = "primary",
-            Classes = "",
             Attributes = $"type=\"button\"  onclick=\"showModal('{@uniqueId}')\"",
-            LeftIcon = @Html.Partial("_Icon", new { IconName = Url.Content("Mode"), Color = "white" }),
-            RightIcon = (object)null,
-            TextColor = "",
+            LeftIcon = await @Html.PartialAsync("_Icon", new { IconName = Url.Content("Mode"), Color = "white" })
         })
     </a>
 
@@ -30,7 +27,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title text-headline-sm">@localizer.EditImages</h5>
                     <a href="#">
-                        @Html.Partial("_IconButton", new
+                        @await Html.PartialAsync("_IconButton", new
                             {
                                 IconName = "Clear",
                                 Color = "primary",
@@ -40,20 +37,12 @@
                     </a>
                 </div>
                 <div class="modal-body">
-                    
-                    @*
-                    <!-- Text input for uploading links -->
-                    <input type="text" id="newImageUrl-@uniqueId" placeholder="@localizer.EnterImageURL" class="form-control mt-2" />
-                    <button type="button" class="btn btn-success mt-2" onclick="addImage('@uniqueId')">@localizer.AddImage</button>
-
-                    *@
                     <!-- File input for uploading images -->
                     <label for="fileInput-@uniqueId" class="bg-secondary-50 text-center rounded-16 w-100 p-0" style="height: 300px" id="droparea-img-upload" ondrop="onDrop(this, event)">
                         <input type="file" id="fileInput-@uniqueId" class="form-control" accept="image/*" onchange="uploadImage(this, '@uniqueId', '@carId')" hidden />
                         <div id="img-drag-drop" class="w-100 h-100 rounded-16 bg-secondary-200 align-content-center">
                             <img src="/icons/dragNdrop.png" class="mt-4">
-                            <p class="text-body-lg">Drag and drop or click here <br>to upload image</p>
-                            <span class="text-neutral-900 text-body-sm">Upload any images from desktop</span>
+                            <p class="text-body-lg">@localizer.ImageEditor1 <br>@localizer.ImageEditor2</p>
                         </div>
                     </label>
                     
@@ -63,7 +52,7 @@
                             <div class="col-auto position-relative">
                                 <img src="@images[i]" alt="Image" class="img-thumbnail" style="width: 144px; height: 108px;" />
                                 <a href="#" class="position-absolute end-0 me-2 mt-1">
-                                    @Html.Partial("_IconButton", new
+                                    @await Html.PartialAsync("_IconButton", new
                                     {
                                         IconName = "Delete",
                                         Color = "secondary",
@@ -73,10 +62,7 @@
                                 </a>
                             </div>
                         }
-                    </div>
-                    @*
-                    <button type="button" class="btn btn-primary mt-2" onclick="uploadImage('@uniqueId', '@carId')">@localizer.UploadImage</button>
-                    *@                
+                    </div>           
                 </div>
                 <div class="modal-footer">
                     <a onclick="hideModal('@uniqueId')">
@@ -84,11 +70,9 @@
                         {
                             Text = @localizer.Close,
                             Color = "secondary",
-                            Classes = "",
                             Attributes = "type=\"button\"",
                             LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Clear"), Color = "primary" }),
                             RightIcon = null,
-                            TextColor = ""
                         })
                     </a>
                     <a onclick="saveChanges('@uniqueId')">
@@ -96,11 +80,9 @@
                         {
                             Text = @localizer.Save,
                             Color = "primary",
-                            Classes = "",
                             Attributes = "type=\"button\" ",
                             LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Done"), Color = "white" }),
                             RightIcon = null,
-                            TextColor = ""
                         })
                     </a>
                 </div>

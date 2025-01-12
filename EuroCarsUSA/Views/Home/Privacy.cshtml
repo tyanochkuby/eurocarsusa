@@ -1,6 +1,101 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@inject EuroCarsUSA.Resources.Localizer L
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    ViewData["Title"] = L.PrivacyPolicy;
+}
+<div class="bg-neutral-500">
+    <div class="container pt-3 pt-md-4 pb-3 text-body-lg text-neutral-900">
+        <h1 class="text-display-sm px-3">@ViewData["Title"]</h1>
+        <div class="border border-primary bg-white rounded-16 p-3">
+
+            <h2 class="text-headline-lg text-primary">1. @L.Introduction</h2>
+            <p>@L.IntroductionText</p>
+
+            <h2 class="text-headline-lg text-primary">2. @L.WhatDataWeCollect</h2>
+            <p>@L.WhatDataWeCollectText</p>
+            <ul>
+                <li>
+                    <strong>@L.WhenUsingForms</strong>
+                    <ul>
+                        <li>@L.Name</li>
+                        <li>@L.EmailAddress</li>
+                        <li>@L.PhoneNumber</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>@L.WhenUsingWebsiteFunctionality</strong>
+                    <ul>
+                        <li>@L.CookiesText</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>@L.AutomaticallyCollectedData</strong>
+                    <ul>
+                        <li>@L.IPAddress</li>
+                        <li>@L.DeviceAndBrowserType</li>
+                        <li>@L.ReCaptchaData</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2 class="text-headline-lg text-primary">3. @L.HowWeUseData</h2>
+            <p>@L.HowWeUseDataText</p>
+            <ul>
+                <li>@L.ProcessingRequests</li>
+                <li>@L.CommunicatingWithUsers</li>
+                <li>@L.EnsuringWebsiteSecurity</li>
+                <li>@L.PersonalizingUserExperience</li>
+            </ul>
+
+            <h2 class="text-headline-lg text-primary">4. @L.Cookies</h2>
+            <p>@L.CookiesUsage</p>
+            <ul>
+                <li>@L.SavingFavoriteVehicles</li>
+                <li>@L.AnalyzingWebsitePerformance</li>
+            </ul>
+            <p>@L.ManageCookies</p>
+
+            <h2 class="text-headline-lg text-primary">5. @L.HowWeProtectData</h2>
+            <p>@L.HowWeProtectDataText</p>
+            <ul>
+                <li>@L.DataEncryption</li>
+                <li>@L.HTTPSProtocol</li>
+                <li>@L.ReCaptchaProtection</li>
+            </ul>
+
+            <h2 class="text-headline-lg text-primary">6. @L.SharingDataWithThirdParties</h2>
+            <p>@L.SharingDataWithThirdPartiesText</p>
+            <ul>
+                <li>@L.WhenRequiredByLaw</li>
+                <li>@L.WhenNecessaryToTransferData</li>
+            </ul>
+
+            <h2 class="text-headline-lg text-primary">7. @L.YourRights</h2>
+            <p>@L.YourRightsText</p>
+            <ul>
+                <li>@L.RequestAccessToData</li>
+                <li>@L.CorrectOrDeleteData</li>
+                <li>@L.RestrictProcessing</li>
+                <li>@L.ObjectToProcessing</li>
+                <li>@L.TransferData</li>
+            </ul>
+            <p>@L.ExerciseRights</p>
+
+            <h2 class="text-headline-lg text-primary">8. @L.DataRetention</h2>
+            <p>@L.DataRetentionText</p>
+
+            <h2 class="text-headline-lg text-primary">9. @L.ContactInformation</h2>
+            <p>@L.ContactInformationText</p>
+            <ul>
+                <li><a href="mailto:office.eurocarusa@gmail.com">office.eurocarusa@gmail.com</a></li>
+                <li><a href="tel:+48785095868">+48 785 095 898</a></li>
+            </ul>
+
+            <h2 class="text-headline-lg text-primary">10. @L.ChangesToPrivacyPolicy</h2>
+            <p>@L.ChangesToPrivacyPolicyText</p>
+
+            <p><strong>@L.LastUpdated</strong> 02.01.2024</p>
+
+        </div>
+    </div>
+</div>

@@ -141,5 +141,72 @@ namespace EuroCarsUSA.Resources
         public string AdminDetailPageEmailBody => _localizer[nameof(AdminDetailPageEmailBody)];
         public string EmptyEmailField => _localizer[nameof(EmptyEmailField)];
         public string SoldCars => _localizer[nameof(SoldCars)];
+        public string NoCarsFound => _localizer[nameof(NoCarsFound)];
+        public string FieldCanNotBeEmpty => _localizer[nameof(FieldCanNotBeEmpty)];
+        public string TypeTrackNumber => _localizer[nameof(TypeTrackNumber)];
+        public string EmptyLikesText => _localizer[nameof(EmptyLikesText)];
+
+        /// <summary>
+        /// Drag and drop or click here
+        /// </summary>
+        public string ImageEditor1 => _localizer[nameof(ImageEditor1)];
+
+        /// <summary>
+        /// to upload image
+        /// </summary>
+        public string ImageEditor2 => _localizer[nameof(ImageEditor2)];
+
+        /// <summary>
+        /// Upload any images from desktop
+        /// </summary>
+        public string ImageEditor3 => _localizer[nameof(ImageEditor3)];
+        public string PrivacyPolicy => _localizer[nameof(PrivacyPolicy)];
+        public string Introduction => _localizer[nameof(Introduction)];
+        public string IntroductionText => _localizer[nameof(IntroductionText)];
+        public string WhatDataWeCollect => _localizer[nameof(WhatDataWeCollect)];
+        public string WhatDataWeCollectText => _localizer[nameof(WhatDataWeCollectText)];
+        public string WhenUsingForms => _localizer[nameof(WhenUsingForms)];
+        public string EmailAddress => _localizer[nameof(EmailAddress)];
+        public string WhenUsingWebsiteFunctionality => _localizer[nameof(WhenUsingWebsiteFunctionality)];
+        public string CookiesText => _localizer[nameof(CookiesText)];
+        public string AutomaticallyCollectedData => _localizer[nameof(AutomaticallyCollectedData)];
+        public string IPAddress => _localizer[nameof(IPAddress)];
+        public string DeviceAndBrowserType => _localizer[nameof(DeviceAndBrowserType)];
+        public string ReCaptchaData => _localizer[nameof(ReCaptchaData)];
+        public string HowWeUseData => _localizer[nameof(HowWeUseData)];
+        public string HowWeUseDataText => _localizer[nameof(HowWeUseDataText)];
+        public string ProcessingRequests => _localizer[nameof(ProcessingRequests)];
+        public string CommunicatingWithUsers => _localizer[nameof(CommunicatingWithUsers)];
+        public string EnsuringWebsiteSecurity => _localizer[nameof(EnsuringWebsiteSecurity)];
+        public string PersonalizingUserExperience => _localizer[nameof(PersonalizingUserExperience)];
+        public string Cookies => _localizer[nameof(Cookies)];
+        public string CookiesUsage => _localizer[nameof(CookiesUsage)];
+        public string SavingFavoriteVehicles => _localizer[nameof(SavingFavoriteVehicles)];
+        public string AnalyzingWebsitePerformance => _localizer[nameof(AnalyzingWebsitePerformance)];
+        public string ManageCookies => _localizer[nameof(ManageCookies)];
+        public string HowWeProtectData => _localizer[nameof(HowWeProtectData)];
+        public string HowWeProtectDataText => _localizer[nameof(HowWeProtectDataText)];
+        public string DataEncryption => _localizer[nameof(DataEncryption)];
+        public string HTTPSProtocol => _localizer[nameof(HTTPSProtocol)];
+        public string ReCaptchaProtection => _localizer[nameof(ReCaptchaProtection)];
+        public string SharingDataWithThirdParties => _localizer[nameof(SharingDataWithThirdParties)];
+        public string SharingDataWithThirdPartiesText => _localizer[nameof(SharingDataWithThirdPartiesText)];
+        public string WhenRequiredByLaw => _localizer[nameof(WhenRequiredByLaw)];
+        public string WhenNecessaryToTransferData => _localizer[nameof(WhenNecessaryToTransferData)];
+        public string YourRights => _localizer[nameof(YourRights)];
+        public string YourRightsText => _localizer[nameof(YourRightsText)];
+        public string RequestAccessToData => _localizer[nameof(RequestAccessToData)];
+        public string CorrectOrDeleteData => _localizer[nameof(CorrectOrDeleteData)];
+        public string RestrictProcessing => _localizer[nameof(RestrictProcessing)];
+        public string ObjectToProcessing => _localizer[nameof(ObjectToProcessing)];
+        public string TransferData => _localizer[nameof(TransferData)];
+        public string ExerciseRights => _localizer[nameof(ExerciseRights)];
+        public string DataRetention => _localizer[nameof(DataRetention)];
+        public string DataRetentionText => _localizer[nameof(DataRetentionText)];
+        public string ContactInformation => _localizer[nameof(ContactInformation)];
+        public string ContactInformationText => _localizer[nameof(ContactInformationText)];
+        public string ChangesToPrivacyPolicy => _localizer[nameof(ChangesToPrivacyPolicy)];
+        public string ChangesToPrivacyPolicyText => _localizer[nameof(ChangesToPrivacyPolicyText)];
+        public string LastUpdated => _localizer[nameof(LastUpdated)];
     }
 }

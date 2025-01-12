@@ -35,7 +35,7 @@
             <a class="">
                 @await Html.PartialAsync("_IconButton", new
                     {
-                        IconName = "Keyboard arrow down",
+                        IconName = "Keyboard arrow up",
                         Color = "primary",
                         IconColor = "primary",
                         Attributes = $"type=\"button\" id=\"icon-{(Model.Index + 1)}\" onclick=\"toggleOrderVisibility('{(Model.Index + 1)}')\""
@@ -43,7 +43,7 @@
             </a>
         </div>     
     </div>
-    <div id="expanded-@(Model.Index + 1)" class="order-details px-2 customOrderForm">
+    <div id="expanded-@(Model.Index + 1)" class="order-details px-2 customOrderForm" style="max-height:360px;">
         <h5 class="mb-3"></h5>
         <div class="row g-3 mb-3">
             <div class="form-group col-md-4 col-12">
@@ -124,7 +124,7 @@
                                             @localizer.Model
                                         </div>
                                         <div class="text-body-lg text-neutral-900 row m-0">
-                                            <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Model" asp-for="Model" name="@($"Forms[{Model.Index}].Model")">
+                                            <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Type" asp-for="Model" name="@($"Forms[{Model.Index}].Model")">
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                                                     @localizer.MaxPrice
                                                 </div>
                                                 <div class="text-body-lg text-neutral-900 row m-0">
-                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.MaxPrice" asp-for="MaxPrice" name="@($"Forms[{Model.Index}].MaxPrice")">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Type" asp-for="MaxPrice" name="@($"Forms[{Model.Index}].MaxPrice")">
                                                 </div>
                                             </div>
                                         </div>
@@ -176,7 +176,7 @@
                                                     @localizer.MaxMileage
                                                 </div>
                                                 <div class="text-body-lg text-neutral-900 row m-0">
-                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.MaxMileage" asp-for="MaxMileage" name="@($"Forms[{Model.Index}].MaxMileage")">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Type" asp-for="MaxMileage" name="@($"Forms[{Model.Index}].MaxMileage")">
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +202,7 @@
                                                     @localizer.MinYear
                                                 </div>
                                                 <div class="text-body-lg text-neutral-900 row m-0">
-                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.MinYear" asp-for="MinYear" name="@($"Forms[{Model.Index}].MinYear")">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Type" asp-for="MinYear" name="@($"Forms[{Model.Index}].MinYear")">
                                                 </div>
                                             </div>
                                         </div>
@@ -226,7 +226,7 @@
                                                     @localizer.MaxYear
                                                 </div>
                                                 <div class="text-body-lg text-neutral-900 row m-0">
-                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.MaxYear" asp-for="MaxYear" name="@($"Forms[{Model.Index}].MaxYear")">
+                                                    <input class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Type" asp-for="MaxYear" name="@($"Forms[{Model.Index}].MaxYear")">
                                                 </div>
                                             </div>
                                         </div>
@@ -252,7 +252,7 @@
                                             @localizer.Description
                                         </div>
                                         <div class="text-body-lg text-neutral-900 row m-0">
-                                            <textarea class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Description" asp-for="Description" name="@($"Forms[{Model.Index}].Description")" style="height:100px"></textarea>
+                                            <textarea class="p-0 text-neutral-900 line-edit-input" placeholder="@localizer.Type" asp-for="Description" name="@($"Forms[{Model.Index}].Description")" style="height:100px"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -267,4 +267,12 @@
             </div>
         </div>
     </div>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            updateDropdownHeadline();
+        });
+    </script>
 </div>

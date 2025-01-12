@@ -47,12 +47,12 @@ namespace EuroCarsUSA.Data.Repositories
             return await Save();
         }
 
-        async Task<IEnumerable<Car>> ICarRepository.GetAll(CarStatus? status)
+        async Task<IEnumerable<Car>> ICarRepository.GetAll(List<CarStatus> statuses)
         {
             var repository = _context.Cars.AsQueryable();
-            if (status.HasValue)
+            if (statuses.Count > 0)
             {
-                repository = repository.Where(c => c.Status == status.Value);
+                repository = repository.Where(c => statuses.Contains(c.Status));
             }
             return await repository.ToListAsync();
         }
@@ -127,13 +127,25 @@ namespace EuroCarsUSA.Data.Repositories
 
         public async Task<Dictionary<string, List<FilterOptionViewModel>>> GetAvailableFilters(IStringLocalizer localizer)
         {
-            var makes = await _context.Cars
+            var cars = await _context.Cars
+                .Where(c => c.Status == CarStatus.Available || c.Status == CarStatus.Recommended)
+                .Select(c => new
+                {
+                    c.Make,
+                    c.Color,
+                    c.Type,
+                    c.FuelType,
+                    c.Transmission
+                })
+                .ToListAsync();
+
+            var makes = cars
                 .Select(c => c.Make.ToString())
                 .Distinct()
                 .Select(make => new FilterOptionViewModel { OriginalValue = make, TranslatedValue = make })
-                .ToListAsync();
+                .ToList();
 
-            var colors = await _context.Cars
+            var colors = cars
                 .Select(c => c.Color)
                 .Distinct()
                 .Select(color => new FilterOptionViewModel
@@ -141,19 +153,19 @@ namespace EuroCarsUSA.Data.Repositories
                     OriginalValue = color.ToString(),
                     TranslatedValue = localizer[$"{typeof(CarColor).Name}_{color}"]
                 })
-                .ToListAsync();
+                .ToList();
 
-            var carTypes = await _context.Cars
+            var carTypes = cars
                 .Select(c => c.Type.ToString())
                 .Distinct()
                 .Select(carType => new FilterOptionViewModel
                 {
                     OriginalValue = carType,
-                    TranslatedValue = carType
+                    TranslatedValue = localizer[$"{typeof(CarType).Name}_{carType}"]
                 })
-                .ToListAsync();
+                .ToList();
 
-            var fuelTypes = await _context.Cars
+            var fuelTypes = cars
                 .Select(c => c.FuelType)
                 .Distinct()
                 .Select(fuelType => new FilterOptionViewModel
@@ -161,9 +173,9 @@ namespace EuroCarsUSA.Data.Repositories
                     OriginalValue = fuelType.ToString(),
                     TranslatedValue = localizer[$"{typeof(CarFuelType).Name}_{fuelType}"]
                 })
-                .ToListAsync();
+                .ToList();
 
-            var transmissions = await _context.Cars
+            var transmissions = cars
                 .Select(c => c.Transmission)
                 .Distinct()
                 .Select(transmission => new FilterOptionViewModel
@@ -171,7 +183,8 @@ namespace EuroCarsUSA.Data.Repositories
                     OriginalValue = transmission.ToString(),
                     TranslatedValue = localizer[$"{typeof(CarTransmission).Name}_{transmission}"]
                 })
-                .ToListAsync();
+                .ToList();
+
 
             return new Dictionary<string, List<FilterOptionViewModel>>
             {

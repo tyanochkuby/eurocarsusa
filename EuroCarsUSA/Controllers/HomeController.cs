@@ -12,15 +12,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
-using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.Net.WebSockets;
-using System.Runtime.ConstrainedExecution;
-using static NuGet.Packaging.PackagingConstants;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EuroCarsUSA.Controllers
 {
@@ -90,8 +84,8 @@ namespace EuroCarsUSA.Controllers
 
             ViewBag.AvailableFilters = _availableFilters;
 
-            var shippingCars = await _carRepository.GetAll(CarStatus.Shipping);
-            var soldCars = await _carRepository.GetAll(CarStatus.Sold);
+            var shippingCars = await _carRepository.GetAll([CarStatus.Shipping]);
+            var soldCars = await _carRepository.GetAll([CarStatus.Sold]);
             var viewModel = new CatalogViewModel
             {
                 ShippingCars = shippingCars.Select(c => CarCardViewModel.FromCar(c)).ToList(),
@@ -279,13 +273,15 @@ namespace EuroCarsUSA.Controllers
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
-            var returnUrl = Request.Headers["Referer"].ToString();
-            if (!Url.IsLocalUrl(returnUrl))
+            var referer = Request.Headers["Referer"].ToString();
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
+
+            if (string.IsNullOrEmpty(referer) || !referer.StartsWith(baseUrl))
             {
-                returnUrl = Url.Action("Index", "Home");
+                referer = Url.Action("Index", "Home");
             }
 
-            return LocalRedirect(returnUrl);
+            return Redirect(referer);
         }
 
 

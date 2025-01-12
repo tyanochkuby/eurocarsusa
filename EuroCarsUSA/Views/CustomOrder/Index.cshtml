@@ -4,11 +4,24 @@
 @using EuroCarsUSA.Data.Enums
 @using Microsoft.Extensions.Localization
 @using EuroCarsUSA.Views.Shared.Components
-@inject IStringLocalizer<CustomOrderController> Translator
 @inject Localizer localizer
 
 @model CustomOrderViewModel
 
+@{
+    var translations = new Dictionary<string, string>();
+
+    foreach (var filter in ViewBag.AvailableFilters)
+    {
+        foreach (var option in filter.Value)
+        {
+            translations[option.OriginalValue] = option.TranslatedValue;
+        }
+    }
+    translations["choose"] = localizer.Choose;
+    translations["FieldCanNotBeEmpty"] = localizer.FieldCanNotBeEmpty;
+
+}
 <div class="bg-neutral-200 w-100 h-100 py-4">
     <form id="customOrderForm" asp-action="SubmitForm" method="post">
         <div class="container p-md-5 pt-md-3 p-3 pt-2 text-center text-md-start bg-white rounded-32 mb-3 justify-content-center">
@@ -61,27 +74,30 @@
                 <div class="row m-0 align-items-center ">
                     <div class="col-12 col-md-4 p-md-0 p-2 px-0 me-md-3 bg-secondary-200 mb-2 mb-md-0">
                         <input type="hidden" name="recaptchaResponseTrack" id="recaptchaResponseTrack" />
-                        @await Html.PartialAsync("_EditableField", new EditableField
+                        @await Html.PartialAsync("_LineEdit", new _LineEdit
                         {
-                            Id = "orderIdInput",
-                            Name="orderId",
-                            CssClass="h-100",
+                            Attributes = $"value=\"\" name=\"orderId\" id=\"orderIdInput\" title=\"The field must not be empty!\"",
+                            Placeholder = localizer.Type,
+                            ShowOverline = true,
+                            ShowOverlineInside = true,
                             Overline = localizer.TrackYourOrder,
-                            Placeholder = "Type here youe track number"
+                            ShowAdditional = false,
+                            ShowSupportive = false,
+                            HasOutsideSupportiveSizeEffect = true
                         })
                     </div>
                     <div class="col-12 col-md-auto d-flex flex-column justify-content-end px-0">
                         <a class="submit">
                             @await Html.PartialAsync("_Button", new _Button
-                        {
-                            Text = localizer.Find,
-                            Color = "primary",
-                            Classes = "col-12",
-                            Attributes = "type=\"button\" onclick=\"submitTrackOrderForm(event)\"",
-                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-                            RightIcon = null,
-                            TextColor = ""
-                        })
+                            {
+                                Text = localizer.Find,
+                                Color = "primary",
+                                Classes = "col-12",
+                                Attributes = "type=\"button\" onclick=\"submitTrackOrderForm(event)\"",
+                                LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                                RightIcon = null,
+                                TextColor = ""
+                            })
                         </a>
                     </div>
                 </div>
@@ -113,7 +129,7 @@
                 }
             </div>
 
-            <div class="d-flex justify-content-center my-3">
+            <div class="d-flex justify-content-center my-3" id="addFormButton">
                 @await Html.PartialAsync("_Button", new _Button
                 {
                     Text = localizer.AddForm,
@@ -206,14 +222,14 @@
             <div class="row mx-0 mt-3">
                 <div class="d-flex justify-content-end">
                     @await Html.PartialAsync("_Button", new _Button
-               {
-                   Text = localizer.SubmitForm,
-                   Color = "primary",
-                   Classes = "",
-                   Attributes = "type=\"button\" onclick=\"onClick(event)\"",
-                   RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
-                   TextColor = ""
-               })
+                    {
+                        Text = localizer.SubmitForm,
+                        Color = "primary",
+                        Classes = "",
+                        Attributes = "type=\"button\" onclick=\"onClick(event)\"",
+                        RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
+                        TextColor = ""
+                    })
                 </div>
             </div>
         </div>
@@ -256,26 +272,57 @@
 
     </script>
     <script>
+        var translations = @Html.Raw(Json.Serialize(translations));
+
         function addForm() {
             var formsContainer = document.getElementById('forms-container');
             var formIndex = formsContainer.children.length;
-            $.ajax({
-                url: '@Url.Action("GetFormComponent", "CustomOrder")',
-                data: { index: formIndex },
-                type: 'GET',
-                success: function (data) {
-                    formsContainer.insertAdjacentHTML('beforeend', data);
-                    setupDropdownEventHandlers(formIndex);
-                },
-                error: function () {
-                    console.error('Failed to load form component.');
+
+            if (formIndex < 5) {
+                $.ajax({
+                    url: '@Url.Action("GetFormComponent", "CustomOrder")',
+                    data: { index: formIndex },
+                    type: 'GET',
+                    success: function (data) {
+                        formsContainer.insertAdjacentHTML('beforeend', data);
+                        setupDropdownEventHandlers(formIndex);
+                        updateDropdownHeadline();
+                        $('.dropdown-item').click(function (e) {
+                            e.stopPropagation();
+                        });
+                    },
+                    error: function () {
+                        console.error('Failed to load form component.');
+                    }
+                });
+                if (formIndex === 4){
+                    var button = document.querySelector('#addFormButton');
+                    if (button) {
+                        button.classList.add("d-none");
+                    };
                 }
-            });
+            }
+            else {
+                var button = document.querySelector('#addFormButton');
+                if (button) {
+                    button.classList.add("d-none");
+                };
+            }
         }
 
         function removeForm(button) {
-            var formContainer = button.closest('.form-viewmodel-container');
-            formContainer.remove();
+            var formsContainer = document.getElementById('forms-container');
+            var formsNumber = formsContainer.children.length;
+            var formViewModelContainer = button.closest('.form-viewmodel-container');
+
+            formViewModelContainer.remove();
+            if (formsNumber === 5) {
+                var button = document.querySelector('#addFormButton');
+                if (button) {
+                    button.classList.remove("d-none");
+                };
+            }
+            
         }
 
         function setupDropdownEventHandlers(index) {
@@ -295,6 +342,52 @@
                 updateHiddenSelect(index, 'CarTransmissions', this);
             });
         }
+
+        const updateDropdownHeadline = () => {
+            var checkboxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                let changeEventCount = checkbox.dataset.changeEventCount ? parseInt(checkbox.dataset.changeEventCount) : 0;
+
+                if (changeEventCount < 1) {
+                    checkbox.addEventListener('change', () => {
+                        const dropdown = checkbox.closest('.dropdown');
+                        const expandButton = dropdown.querySelector('.expand-button');
+
+                        if (expandButton) {
+                            const selectedValues = Array.from(dropdown.querySelectorAll('.dropdown-menu input[type="checkbox"]:checked'))
+                                .map(cb => cb.closest('li').querySelector('.list-item-content').textContent.trim());
+
+                            var translatedOptions = selectedValues.map(function(option) {
+                                return translations[option] || option;
+                            });
+                            console.log(translatedOptions);
+                            const headline = selectedValues.length > 0 ? translatedOptions.join(', ') : translations['choose'];
+
+                            const additional = selectedValues.length.toString();
+
+                            const headlineElement = expandButton.querySelector('.expand-button-input');
+                            if (headlineElement) {
+                                headlineElement.textContent = headline;
+                            }
+
+                            const additionalElement = expandButton.querySelector('.expand-button-trailng-supportive-text');
+                            if (selectedValues.length > 0) {
+                                additionalElement.classList.remove("d-none");
+                                additionalElement.classList.add("d-block")
+                            }
+                            else {
+                                additionalElement.classList.remove("d-block");
+                                additionalElement.classList.add("d-none")
+                            }
+
+                            const additionalElementDiv = expandButton.querySelector('.expand-button-trailng-supportive-text > div');
+                            additionalElementDiv.textContent = additional;
+                        }
+                    });
+                    checkbox.dataset.changeEventCount = changeEventCount + 1;
+                }
+            });
+        };
 
         function updateHiddenSelect(index, propertyName, dropdownItem) {
             var dropdownOptions = $(dropdownItem).closest('.dropdown-menu');
@@ -317,7 +410,9 @@
         $('.dropdown-item').click(function (e) {
             e.stopPropagation();
         });
+
         $(document).ready(function () {
+            
             for (var i = 0; i < @Model.Forms.Count; i++) {
                 setupDropdownEventHandlers(i);
             }
@@ -337,37 +432,56 @@
         });
 
         function onClick(e) {
-            e.preventDefault();
-            grecaptcha.ready(function() {
-                grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
-                    document.getElementById('recaptchaResponse').value = token;
+           e.preventDefault();
 
-                    console.log(token);
-                    document.getElementById('customOrderForm').submit();
+            var form = document.getElementById('customOrderForm');
+            if ($(form).valid()) {
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
+                        document.getElementById('recaptchaResponse').value = token;
+
+                        console.log(token);
+                        form.submit();
+                    });
                 });
-            });
+            }
+        }
+
+        function checkIsTrackOrderEmpty(){
+            const input = document.getElementById('orderIdInput');
+            if (input.value == '') {
+                input.setCustomValidity(translations['FieldCanNotBeEmpty']);
+                validateInput(document.getElementById('orderIdInput'));
+                input.setCustomValidity('');
+                return false;
+            }
+            else{
+                return true;
+            }
         }
 
         function submitTrackOrderForm() {
             grecaptcha.ready(function() {
                 grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
-                    document.getElementById('recaptchaResponseTrack').value = token;
-                    $.ajax({
-                        url: '@Url.Action("TrackOrder", "CustomOrder")',
-                        type: 'POST',
-                        data: {
-                            orderId: document.getElementById('orderIdInput').value,
-                            recaptchaResponseTrack: token
-                        },
-                        success: function(response) {
-                            // Redirect to the response URL
-                            window.location.href = response.redirectUrl;
-                        },
-                        error: function(response) {
-                            alert(response);
-                            console.error('Failed to track order.');
-                        }
-                    });
+                    if (checkIsTrackOrderEmpty()) {
+                        document.getElementById('recaptchaResponseTrack').value = token;
+                        $.ajax({
+                            url: '@Url.Action("TrackOrder", "CustomOrder")',
+                            type: 'POST',
+                            data: {
+                                orderId: document.getElementById('orderIdInput').value,
+                                recaptchaResponseTrack: token
+                            },
+                            success: function(response) {
+                                // Redirect to the response URL
+                                window.location.href = response.redirectUrl;
+                            },
+                            error: function(response) {
+                                alert(response);
+                                console.error('Failed to track order.');
+                            }
+                        });
+                    }
                 });
             });
         }

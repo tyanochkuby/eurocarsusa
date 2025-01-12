@@ -1,5 +1,6 @@
 using EuroCarsUSA.Data.DTOs;
 using EuroCarsUSA.Data.Interfaces;
+using EuroCarsUSA.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,6 +56,16 @@ namespace EuroCarsUSA.Data.Repositories
             }
 
             return await query.ToListAsync();
+        }
+
+        public async Task<TotalStatsDto> GetTotalStats()
+        {
+            var totalStats = await _context.Set<TotalStatsDto>()
+           .FromSqlRaw("EXEC GetTotalStats")
+           .ToListAsync();
+
+            return totalStats.FirstOrDefault();
+
         }
     }
 }
