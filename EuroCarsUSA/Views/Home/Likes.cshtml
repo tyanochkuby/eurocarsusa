@@ -23,7 +23,7 @@
                 @foreach (CarCardViewModel car in Model)
                 {
                     car.IsFullSize = true;
-                    car.Classes = "col-xl-3 col-lg-4 col-sm-6 col-12 p-2";
+                    car.Classes = "col-xl-4 col-sm-6 col-12 p-2";
                     @await Html.PartialAsync("_CarCard", car)
                 }
             }
