@@ -53,7 +53,7 @@ namespace EuroCarsUSA.Controllers
 
         public async Task<IActionResult> GetNewCatalogRow(int index)
         {
-            var car = new CatalogEditionViewModel();
+            var car = new CatalogEditionViewModel { FuelType = CarFuelType.Benzine };
             return PartialView("~/Views/Shared/Components/_EditCar.cshtml", new Tuple<CatalogEditionViewModel, int>(car, index));
         }
 

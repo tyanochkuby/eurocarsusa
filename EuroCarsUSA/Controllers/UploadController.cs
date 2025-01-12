@@ -37,12 +37,6 @@ public class UploadController : ControllerBase
 
         var fileUrl = $"/uploads/{file.FileName}";
 
-        var result = await _carRepository.AddImage(carId, fileUrl);
-        if (!result)
-        {
-            return StatusCode(500, new { success = false, message = "Failed to add image to car" });
-        }
-
         return Ok(new { success = true, url = fileUrl });
     }
 }
