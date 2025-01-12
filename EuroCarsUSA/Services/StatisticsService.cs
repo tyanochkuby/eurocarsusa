@@ -79,5 +79,20 @@ namespace EuroCarsUSA.Services
             await _statisticsRepository.ExecuteUpdateViewsCount(carId);
             _cookiesService.UpdateUserViewedCars(viewedCars);
         }
+
+        public async Task<TotalStatsViewModel> GetTotalStats()
+        {
+            var totalStats = await _statisticsRepository.GetTotalStats();
+
+            return new TotalStatsViewModel
+            {
+                TotalLikes = totalStats.TotalLikes,
+                TotalViews = totalStats.TotalViews,
+                TotalCustomOrders = totalStats.TotalCustomOrders,
+                TotalDetailPageForms = totalStats.TotalDetailPageForms,
+                LikesLastMonth = totalStats.LikesLastMonth,
+                ViewsLastMonth = totalStats.ViewsLastMonth
+            };
+        }
     }
 }
