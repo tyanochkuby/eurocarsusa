@@ -10,7 +10,7 @@
 @inject IStringLocalizer<HomeController> Translator
 @inject Localizer localizer
 
-<div id="successMessage" class="alert alert-secondary text-primary border-primary rounded-xxl py-2 px-3 start-50 translate-middle fs-4" style="display: none; position: fixed; top: 0; text-align: center; z-index: 10000; margin-top: 5%">
+<div id="successMessage" class="alert alert-secondary text-primary border-primary py-3 px-4 fs-4 shadow-lg">
     @localizer.MessageSent
 </div>
 
@@ -98,7 +98,7 @@
                         TextColor = ""
                     })
                 </a>
-                <div class="d-flex overflow-auto py-2">
+                <div class="d-flex overflow-auto py-2 px-2">
                     <a asp-controller="Home" asp-action="Catalog">
                         @await Html.PartialAsync("_Button", new _Button
                         {
@@ -485,11 +485,16 @@
                             data: $(form).serialize(),
                             success: function (response) {
                                 if (response.success) {
-                                    $("#successMessage").slideDown().delay(3000).slideUp(); // Show the success message for 3 seconds
-                                    form.reset(); // Reset the form
+                                    var successMessage = $("#successMessage");
+                                    successMessage.removeClass("hide").addClass("show");
+
+                                    setTimeout(function() {
+                                        successMessage.removeClass("show").addClass("hide");
+                                    }, 3000);
+
+                                    form.reset();
                                 } else {
                                     alert(response.errors);
-                                    // Display validation errors
                                     console.log(response.errors);
                                 }
                             }
@@ -513,8 +518,12 @@
                         data: $(form).serialize(),
                         success: function (response) {
                             if (response.success) {
-                                closePopup();
-                                $("#successMessage").slideDown().delay(3000).slideUp(); // Show the success message for 3 seconds
+                                var successMessage = $("#successMessage");
+                                successMessage.css("display", "block"); // Ensure it is displayed
+                                successMessage.addClass("show"); // Add the 'show' class to slide down
+                                setTimeout(function() {
+                                    successMessage.removeClass("show").fadeOut(); // Remove the 'show' class and fade out
+                                }, 3000); // Show the success message for 3 seconds
                                 form.reset(); // Reset the form
                             } else {
                                 alert(response.errors);

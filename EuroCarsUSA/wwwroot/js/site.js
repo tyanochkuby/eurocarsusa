@@ -87,11 +87,11 @@ function toggleOrderVisibility(formId) {
     var popupDiv = document.getElementById("expanded-" + formId);
     var iconDiv = document.getElementById("icon-" + formId);
 
-    if (popupDiv.style.maxHeight === "320px") {
+    if (popupDiv.style.maxHeight === "360px") {
         popupDiv.style.maxHeight = "0px";
         iconDiv.style.transform = "scaleY(-1)";
     } else {
-        popupDiv.style.maxHeight = "320px";
+        popupDiv.style.maxHeight = "360px";
         iconDiv.style.transform = "scaleY(1)";
     }
 }

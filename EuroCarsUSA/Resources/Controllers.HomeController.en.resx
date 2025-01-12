@@ -722,6 +722,9 @@ EuroCarUsa team</value>
   <data name="SoldCars" xml:space="preserve">
     <value>Sold cars</value>
   </data>
+  <data name="CarStatus_Sold" xml:space="preserve">
+    <value>Sold</value>
+  </data>
   <data name="DetailPageEmailSubject" xml:space="preserve">
     <value>We received your form!</value>
   </data>
@@ -757,8 +760,8 @@ Email: {4}
   <data name="EmptyEmailField" xml:space="preserve">
     <value>Отсутствует</value>
   </data>
-  <data name="CarStatus_Sold" xml:space="preserve">
-    <value>Sold</value>
+  <data name="NoCarsFound" xml:space="preserve">
+    <value>No cars found for this query. Please try to change the query</value>
   </data>
   <data name="ImageEditor1" xml:space="preserve">
     <value>Drag and drop or click here </value>
@@ -769,4 +772,149 @@ Email: {4}
   <data name="ImageEditor3" xml:space="preserve">
     <value>Upload any images from your device</value>
   </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+  <value>Privacy Policy</value>
+</data>
+<data name="Introduction" xml:space="preserve">
+  <value>Introduction</value>
+</data>
+<data name="IntroductionText" xml:space="preserve">
+  <value>This Privacy Policy outlines the procedures for processing and protecting personal data provided by users on the euroCarUSA. The website allows users to explore the assortment of vehicles available from the dealer and use various services, such as contacting the dealer or placing a custom order.</value>
+</data>
+<data name="WhatDataWeCollect" xml:space="preserve">
+  <value>What data we collect</value>
+</data>
+<data name="WhatDataWeCollectText" xml:space="preserve">
+  <value>We only collect data necessary for providing our services:</value>
+</data>
+<data name="WhenUsingForms" xml:space="preserve">
+  <value>When using forms on the website:</value>
+</data>
+<data name="EmailAddress" xml:space="preserve">
+  <value>Email address</value>
+</data>
+<data name="WhenUsingWebsiteFunctionality" xml:space="preserve">
+  <value>When using the website functionality:</value>
+</data>
+<data name="CookiesText" xml:space="preserve">
+  <value>Cookies necessary for website functionality (e.g., saving favorite vehicles).</value>
+</data>
+<data name="AutomaticallyCollectedData" xml:space="preserve">
+  <value>Automatically collected data:</value>
+</data>
+<data name="IPAddress" xml:space="preserve">
+  <value>IP address</value>
+</data>
+<data name="DeviceAndBrowserType" xml:space="preserve">
+  <value>Device and browser type</value>
+</data>
+<data name="ReCaptchaData" xml:space="preserve">
+  <value>Data collected through reCAPTCHA (Google) to prevent automated requests.</value>
+</data>
+<data name="HowWeUseData" xml:space="preserve">
+  <value>How we use data</value>
+</data>
+<data name="HowWeUseDataText" xml:space="preserve">
+  <value>The collected data is used for the following purposes:</value>
+</data>
+<data name="ProcessingRequests" xml:space="preserve">
+  <value>Processing requests submitted through forms on the website.</value>
+</data>
+<data name="CommunicatingWithUsers" xml:space="preserve">
+  <value>Communicating with users to clarify order details or provide information about vehicles.</value>
+</data>
+<data name="EnsuringWebsiteSecurity" xml:space="preserve">
+  <value>Ensuring website security and preventing automated requests (using reCAPTCHA).</value>
+</data>
+<data name="PersonalizingUserExperience" xml:space="preserve">
+  <value>Personalizing the user experience, including saving favorite vehicles using cookies.</value>
+</data>
+<data name="Cookies" xml:space="preserve">
+  <value>Cookies</value>
+</data>
+<data name="CookiesUsage" xml:space="preserve">
+  <value>The website uses cookies for:</value>
+</data>
+<data name="SavingFavoriteVehicles" xml:space="preserve">
+  <value>Saving the list of favorite vehicles.</value>
+</data>
+<data name="AnalyzingWebsitePerformance" xml:space="preserve">
+  <value>Analyzing website performance to improve user experience.</value>
+</data>
+<data name="ManageCookies" xml:space="preserve">
+  <value>You can configure your browser settings to manage cookies. However, disabling some cookies may affect the website’s functionality.</value>
+</data>
+<data name="HowWeProtectData" xml:space="preserve">
+  <value>How we protect data</value>
+</data>
+<data name="HowWeProtectDataText" xml:space="preserve">
+  <value>We take all necessary technical and organizational measures to protect your data from loss, unauthorized access, modification, or distribution. These measures include:</value>
+</data>
+<data name="DataEncryption" xml:space="preserve">
+  <value>Data encryption.</value>
+</data>
+<data name="HTTPSProtocol" xml:space="preserve">
+  <value>Using the HTTPS protocol.</value>
+</data>
+<data name="ReCaptchaProtection" xml:space="preserve">
+  <value>Protecting against spam bots using reCAPTCHA (Google).</value>
+</data>
+<data name="SharingDataWithThirdParties" xml:space="preserve">
+  <value>Sharing data with third parties</value>
+</data>
+<data name="SharingDataWithThirdPartiesText" xml:space="preserve">
+  <value>We do not share your personal data with third parties, except in the following cases:</value>
+</data>
+<data name="WhenRequiredByLaw" xml:space="preserve">
+  <value>When required by law (e.g., complying with EU regulations).</value>
+</data>
+<data name="WhenNecessaryToTransferData" xml:space="preserve">
+  <value>When necessary to transfer data to services ensuring website functionality (e.g., Google reCAPTCHA).</value>
+</data>
+<data name="YourRights" xml:space="preserve">
+  <value>Your rights</value>
+</data>
+<data name="YourRightsText" xml:space="preserve">
+  <value>Under EU law, you have the right to:</value>
+</data>
+<data name="RequestAccessToData" xml:space="preserve">
+  <value>Request access to your data.</value>
+</data>
+<data name="CorrectOrDeleteData" xml:space="preserve">
+  <value>Correct or delete your data.</value>
+</data>
+<data name="RestrictProcessing" xml:space="preserve">
+  <value>Restrict the processing of your data.</value>
+</data>
+<data name="ObjectToProcessing" xml:space="preserve">
+  <value>Object to the processing of your data.</value>
+</data>
+<data name="TransferData" xml:space="preserve">
+  <value>Transfer your data.</value>
+</data>
+<data name="ExerciseRights" xml:space="preserve">
+  <value>To exercise these rights, please contact us using the contact information provided on the website.</value>
+</data>
+<data name="DataRetention" xml:space="preserve">
+  <value>Data retention</value>
+</data>
+<data name="DataRetentionText" xml:space="preserve">
+  <value>We retain personal data only for the period necessary to fulfill the purposes outlined in this Privacy Policy or for the period required by law.</value>
+</data>
+<data name="ContactInformation" xml:space="preserve">
+  <value>Contact information</value>
+</data>
+<data name="ContactInformationText" xml:space="preserve">
+  <value>If you have questions about this Privacy Policy or wish to exercise your rights, please contact us:</value>
+</data>
+<data name="ChangesToPrivacyPolicy" xml:space="preserve">
+  <value>Changes to the Privacy Policy</value>
+</data>
+<data name="ChangesToPrivacyPolicyText" xml:space="preserve">
+  <value>We reserve the right to update this Privacy Policy. All changes will be posted on this page. We recommend periodically checking this page to stay informed about the latest version.</value>
+</data>
+<data name="LastUpdated" xml:space="preserve">
+  <value>Last updated</value>
+</data>
+
 </root>

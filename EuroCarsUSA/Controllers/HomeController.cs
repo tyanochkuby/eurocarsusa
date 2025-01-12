@@ -12,15 +12,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
-using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.Net.WebSockets;
-using System.Runtime.ConstrainedExecution;
-using static NuGet.Packaging.PackagingConstants;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EuroCarsUSA.Controllers
 {

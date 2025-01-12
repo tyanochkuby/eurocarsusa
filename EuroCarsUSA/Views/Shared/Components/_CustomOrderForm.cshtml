@@ -35,7 +35,7 @@
             <a class="">
                 @await Html.PartialAsync("_IconButton", new
                     {
-                        IconName = "Keyboard arrow down",
+                        IconName = "Keyboard arrow up",
                         Color = "primary",
                         IconColor = "primary",
                         Attributes = $"type=\"button\" id=\"icon-{(Model.Index + 1)}\" onclick=\"toggleOrderVisibility('{(Model.Index + 1)}')\""
@@ -43,7 +43,7 @@
             </a>
         </div>     
     </div>
-    <div id="expanded-@(Model.Index + 1)" class="order-details px-2 customOrderForm">
+    <div id="expanded-@(Model.Index + 1)" class="order-details px-2 customOrderForm" style="max-height:360px;">
         <h5 class="mb-3"></h5>
         <div class="row g-3 mb-3">
             <div class="form-group col-md-4 col-12">
@@ -267,4 +267,12 @@
             </div>
         </div>
     </div>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            updateDropdownHeadline();
+        });
+    </script>
 </div>
