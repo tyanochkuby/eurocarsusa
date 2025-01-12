@@ -67,21 +67,21 @@
                             Name="orderId",
                             CssClass="h-100",
                             Overline = localizer.TrackYourOrder,
-                            Placeholder = "Type here youe track number"
+                            Placeholder = "Type here your track number",
                         })
                     </div>
                     <div class="col-12 col-md-auto d-flex flex-column justify-content-end px-0">
                         <a class="submit">
                             @await Html.PartialAsync("_Button", new _Button
-                        {
-                            Text = localizer.Find,
-                            Color = "primary",
-                            Classes = "col-12",
-                            Attributes = "type=\"button\" onclick=\"submitTrackOrderForm(event)\"",
-                            LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
-                            RightIcon = null,
-                            TextColor = ""
-                        })
+                            {
+                                Text = localizer.Find,
+                                Color = "primary",
+                                Classes = "col-12",
+                                Attributes = "type=\"button\" onclick=\"submitTrackOrderForm(event)\"",
+                                LeftIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Search"), Color = "white" }),
+                                RightIcon = null,
+                                TextColor = ""
+                            })
                         </a>
                     </div>
                 </div>
