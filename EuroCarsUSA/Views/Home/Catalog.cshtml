@@ -21,6 +21,15 @@
     var selectedTransmissions = Context.Request.Query["transmission"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
     var selectedColors = Context.Request.Query["color"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
     var anyFilterSet = selectedMakes.Any() || selectedCarTypes.Any() || selectedFuelTypes.Any() || selectedTransmissions.Any() || selectedColors.Any() || Context.Request.Query["minPrice"].ToString() != String.Empty || Context.Request.Query["maxPrice"].ToString() != String.Empty || Context.Request.Query["minYear"].ToString() != String.Empty || Context.Request.Query["maxYear"].ToString() != String.Empty || Context.Request.Query["minMileage"].ToString() != String.Empty || Context.Request.Query["maxMileage"].ToString() != String.Empty || Context.Request.Query["minEngineVolume"].ToString() != String.Empty || Context.Request.Query["maxEngineVolume"].ToString() != String.Empty;
+    var translations = new Dictionary<string, string>();
+    foreach (var filter in ViewBag.AvailableFilters)
+    {
+        foreach (var option in filter.Value)
+        {
+            translations[option.OriginalValue] = option.TranslatedValue;
+        }
+    }
+    translations["choose"] = localizer.Choose;
 }
 <div class="container p-3 d-md-none d-block">
     <div class="row g-3 mb-2">
@@ -395,7 +404,7 @@
                             @await Html.PartialAsync("_ExpandButton", new _ExpandButton
                             {
                                 Attributes = $"type=\"button\" id=\"dropdownMenuButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-                                Placeholder = (selectedMakes.Any() ? string.Join(", ", selectedMakes) : Translator["Choose"]),
+                           Placeholder = (selectedMakes.Any() ? string.Join(", ", selectedMakes.Select(s => localizer.GetValue($"{typeof(CarMake).Name}_{s}"))) : Translator["Choose"]),
                                 ShowOverline = true,
                                 ShowOverlineInside = false, 
                                 HasOutsidOverlineSizeEffect = true,
@@ -443,7 +452,7 @@
                             @await Html.PartialAsync("_ExpandButton", new _ExpandButton
                                {
                                    Attributes = $"type=\"button\" id=\"dropdownCarTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-                                   Placeholder = (selectedCarTypes.Any() ? string.Join(", ", selectedCarTypes) : Translator["Choose"]),
+                           Placeholder = (selectedCarTypes.Any() ? string.Join(", ", selectedCarTypes.Select(s => localizer.GetValue($"{typeof(CarType).Name}_{s}"))) : Translator["Choose"]),
                                    ShowOverline = true,
                                    ShowOverlineInside = false, 
                                    HasOutsidOverlineSizeEffect = true,
@@ -476,7 +485,7 @@
                             @await Html.PartialAsync("_ExpandButton", new _ExpandButton
                                    {
                                        Attributes = $"type=\"button\" id=\"dropdownFuelTypeButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-                                       Placeholder = (selectedFuelTypes.Any() ? string.Join(", ", selectedFuelTypes) : Translator["Choose"]),
+                           Placeholder = (selectedFuelTypes.Any() ? string.Join(", ", selectedFuelTypes.Select(s => localizer.GetValue($"{typeof(CarFuelType).Name}_{s}"))) : Translator["Choose"]),
                                        ShowOverline = true,
                                        ShowOverlineInside = false, 
                                        HasOutsidOverlineSizeEffect = true,
@@ -509,7 +518,7 @@
                             @await Html.PartialAsync("_ExpandButton", new _ExpandButton
                                {
                                    Attributes = $"type=\"button\" id=\"dropdownTransmissionButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-                                   Placeholder = (selectedTransmissions.Any() ? string.Join(", ", selectedTransmissions) : Translator["Choose"]),
+                           Placeholder = (selectedTransmissions.Any() ? string.Join(", ", selectedTransmissions.Select(s => localizer.GetValue($"{typeof(CarTransmission).Name}_{s}"))) : Translator["Choose"]),
                                    ShowOverline = true,
                                    ShowOverlineInside = false, 
                                    HasOutsidOverlineSizeEffect = true,
@@ -542,7 +551,7 @@
                             @await Html.PartialAsync("_ExpandButton", new _ExpandButton
                                 {
                                     Attributes = $"type=\"button\" id=\"dropdownColorButton\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\"",
-                                    Placeholder = (selectedColors.Any() ? string.Join(", ", selectedColors) : Translator["Choose"]),
+                           Placeholder = (selectedColors.Any() ? string.Join(", ", selectedColors.Select(s => localizer.GetValue($"{typeof(CarColor).Name}_{s}"))) : Translator["Choose"]),
                                     ShowOverline = true,
                                     ShowOverlineInside = false, 
                                     HasOutsidOverlineSizeEffect = true,
@@ -843,6 +852,8 @@
 
                     hiddenSelect.value = selectedValue;
 
+                    console.log(this);
+
                     if (expandButtonText) {
                         expandButtonText.textContent = this.textContent.trim();
                     }
@@ -911,6 +922,8 @@
 
     <script>
         $(document).ready(function () {
+            var translations = @Html.Raw(Json.Serialize(translations));
+
             $('#filter-submit-button').click(function () {
                 $(this).blur();
             });
@@ -968,11 +981,17 @@
                     }
                 });
 
+                console.log(selectedOptions);
                 var dropdownName = dropdownOptions.attr('name');
                 $("#" + dropdownName + "Input").val(selectedOptions.join(','));
 
                 var span = dropdownOptions.prev().find('span');
-                span.text(selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Any');
+                var translatedOptions = selectedOptions.map(function(option) {
+                    return translations[option] || option;
+                });
+                
+                span.text(selectedOptions.length > 0 ? translatedOptions.join(', ') : translations['choose']);
+
             });
 
             $('.dropdown-item').click(function (e) {

@@ -89,7 +89,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-var supportedCultures = new[] { new CultureInfo("pl-PL"), new CultureInfo("en") };
+var supportedCultures = new[] { new CultureInfo("pl-PL"), new CultureInfo("en"), new CultureInfo("ru") };
 var requestLocalizationOptions = new RequestLocalizationOptions
 {
     DefaultRequestCulture = new RequestCulture("pl-PL"),
