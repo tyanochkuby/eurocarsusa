@@ -9,5 +9,6 @@ namespace EuroCarsUSA.Services.Interfaces
         public Task ViewCar(Guid carId);
         public Task LikeCar(Guid carId);
         public Task UnlikeCar(Guid carId);
+        public Task<TotalStatsViewModel> GetTotalStats();
     }
 }
