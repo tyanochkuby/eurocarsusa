@@ -1,98 +1,100 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@inject EuroCarsUSA.Resources.Localizer L
+
+@{
+    ViewData["Title"] = L.PrivacyPolicy;
 }
 <div class="bg-neutral-500">
     <div class="container pt-3 pt-md-4 pb-3 text-body-lg text-neutral-900">
         <h1 class="text-display-sm px-3">@ViewData["Title"]</h1>
         <div class="border border-primary bg-white rounded-16 p-3">
 
-            <h2 class="text-headline-lg text-primary">1. Introduction</h2>
-            <p>This Privacy Policy outlines the procedures for processing and protecting personal data provided by users on the <a href="/..">euroCarUSA</a>. The website allows users to explore the assortment of vehicles available from the dealer and use various services, such as contacting the dealer or placing a custom order.</p>
+            <h2 class="text-headline-lg text-primary">1. @L.Introduction</h2>
+            <p>@L.IntroductionText</p>
 
-            <h2 class="text-headline-lg text-primary">2. What data we collect</h2>
-            <p>We only collect data necessary for providing our services:</p>
+            <h2 class="text-headline-lg text-primary">2. @L.WhatDataWeCollect</h2>
+            <p>@L.WhatDataWeCollectText</p>
             <ul>
                 <li>
-                    <strong>When using forms on the website:</strong>
+                    <strong>@L.WhenUsingForms</strong>
                     <ul>
-                        <li>Name</li>
-                        <li>Email address</li>
-                        <li>Phone number</li>
+                        <li>@L.Name</li>
+                        <li>@L.EmailAddress</li>
+                        <li>@L.PhoneNumber</li>
                     </ul>
                 </li>
                 <li>
-                    <strong>When using the website functionality:</strong>
+                    <strong>@L.WhenUsingWebsiteFunctionality</strong>
                     <ul>
-                        <li>Cookies necessary for website functionality (e.g., saving favorite vehicles).</li>
+                        <li>@L.CookiesText</li>
                     </ul>
                 </li>
                 <li>
-                    <strong>Automatically collected data:</strong>
+                    <strong>@L.AutomaticallyCollectedData</strong>
                     <ul>
-                        <li>IP address</li>
-                        <li>Device and browser type</li>
-                        <li>Data collected through reCAPTCHA (Google) to prevent automated requests.</li>
+                        <li>@L.IPAddress</li>
+                        <li>@L.DeviceAndBrowserType</li>
+                        <li>@L.ReCaptchaData</li>
                     </ul>
                 </li>
             </ul>
 
-            <h2 class="text-headline-lg text-primary">3. How we use data</h2>
-            <p>The collected data is used for the following purposes:</p>
+            <h2 class="text-headline-lg text-primary">3. @L.HowWeUseData</h2>
+            <p>@L.HowWeUseDataText</p>
             <ul>
-                <li>Processing requests submitted through forms on the website.</li>
-                <li>Communicating with users to clarify order details or provide information about vehicles.</li>
-                <li>Ensuring website security and preventing automated requests (using reCAPTCHA).</li>
-                <li>Personalizing the user experience, including saving favorite vehicles using cookies.</li>
+                <li>@L.ProcessingRequests</li>
+                <li>@L.CommunicatingWithUsers</li>
+                <li>@L.EnsuringWebsiteSecurity</li>
+                <li>@L.PersonalizingUserExperience</li>
             </ul>
 
-            <h2 class="text-headline-lg text-primary">4. Cookies</h2>
-            <p>The website uses cookies for:</p>
+            <h2 class="text-headline-lg text-primary">4. @L.Cookies</h2>
+            <p>@L.CookiesUsage</p>
             <ul>
-                <li>Saving the list of favorite vehicles.</li>
-                <li>Analyzing website performance to improve user experience.</li>
+                <li>@L.SavingFavoriteVehicles</li>
+                <li>@L.AnalyzingWebsitePerformance</li>
             </ul>
-            <p>You can configure your browser settings to manage cookies. However, disabling some cookies may affect the website’s functionality.</p>
+            <p>@L.ManageCookies</p>
 
-            <h2 class="text-headline-lg text-primary">5. How we protect data</h2>
-            <p>We take all necessary technical and organizational measures to protect your data from loss, unauthorized access, modification, or distribution. These measures include:</p>
+            <h2 class="text-headline-lg text-primary">5. @L.HowWeProtectData</h2>
+            <p>@L.HowWeProtectDataText</p>
             <ul>
-                <li>Data encryption.</li>
-                <li>Using the HTTPS protocol.</li>
-                <li>Protecting against spam bots using reCAPTCHA (Google).</li>
-            </ul>
-
-            <h2 class="text-headline-lg text-primary">6. Sharing data with third parties</h2>
-            <p>We do not share your personal data with third parties, except in the following cases:</p>
-            <ul>
-                <li>When required by law (e.g., complying with EU regulations).</li>
-                <li>When necessary to transfer data to services ensuring website functionality (e.g., Google reCAPTCHA).</li>
+                <li>@L.DataEncryption</li>
+                <li>@L.HTTPSProtocol</li>
+                <li>@L.ReCaptchaProtection</li>
             </ul>
 
-            <h2 class="text-headline-lg text-primary">7. Your rights</h2>
-            <p>Under EU law, you have the right to:</p>
+            <h2 class="text-headline-lg text-primary">6. @L.SharingDataWithThirdParties</h2>
+            <p>@L.SharingDataWithThirdPartiesText</p>
             <ul>
-                <li>Request access to your data.</li>
-                <li>Correct or delete your data.</li>
-                <li>Restrict the processing of your data.</li>
-                <li>Object to the processing of your data.</li>
-                <li>Transfer your data.</li>
+                <li>@L.WhenRequiredByLaw</li>
+                <li>@L.WhenNecessaryToTransferData</li>
             </ul>
-            <p>To exercise these rights, please contact us using the contact information provided on the website.</p>
 
-            <h2 class="text-headline-lg text-primary">8. Data retention</h2>
-            <p>We retain personal data only for the period necessary to fulfill the purposes outlined in this Privacy Policy or for the period required by law.</p>
-
-            <h2 class="text-headline-lg text-primary">9. Contact information</h2>
-            <p>If you have questions about this Privacy Policy or wish to exercise your rights, please contact us:</p>
+            <h2 class="text-headline-lg text-primary">7. @L.YourRights</h2>
+            <p>@L.YourRightsText</p>
             <ul>
-                <li><a href="mailto:admin@eurocarusa.eu">admin@eurocarusa.eu</a></li>
+                <li>@L.RequestAccessToData</li>
+                <li>@L.CorrectOrDeleteData</li>
+                <li>@L.RestrictProcessing</li>
+                <li>@L.ObjectToProcessing</li>
+                <li>@L.TransferData</li>
+            </ul>
+            <p>@L.ExerciseRights</p>
+
+            <h2 class="text-headline-lg text-primary">8. @L.DataRetention</h2>
+            <p>@L.DataRetentionText</p>
+
+            <h2 class="text-headline-lg text-primary">9. @L.ContactInformation</h2>
+            <p>@L.ContactInformationText</p>
+            <ul>
+                <li><a href="mailto:office.eurocarusa@gmail.com">office.eurocarusa@gmail.com</a></li>
                 <li><a href="tel:+48785095868">+48 785 095 898</a></li>
             </ul>
 
-            <h2 class="text-headline-lg text-primary">10. Changes to the Privacy Policy</h2>
-            <p>We reserve the right to update this Privacy Policy. All changes will be posted on this page. We recommend periodically checking this page to stay informed about the latest version.</p>
+            <h2 class="text-headline-lg text-primary">10. @L.ChangesToPrivacyPolicy</h2>
+            <p>@L.ChangesToPrivacyPolicyText</p>
 
-            <p><strong>Last updated:</strong> 02.01.2024</p>
+            <p><strong>@L.LastUpdated</strong> 02.01.2024</p>
 
         </div>
     </div>

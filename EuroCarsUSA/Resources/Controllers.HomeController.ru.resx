@@ -775,4 +775,151 @@ Email: {4}
   <data name="ImageEditor3" xml:space="preserve">
     <value>Пожалуйста пришлите фотографии с вашего устройства</value>
   </data>
+  <data name="IntroductionText" xml:space="preserve">
+  <value>Эта Политика конфиденциальности описывает процедуры обработки и защиты персональных данных, предоставленных пользователями на сайте euroCarUSA. Сайт позволяет пользователям изучать ассортимент автомобилей, доступных у дилера, и использовать различные услуги, такие как контакт с дилером или размещение индивидуального заказа.</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+  <value>Политика конфиденциальности</value>
+  </data>
+  <data name="Introduction" xml:space="preserve">
+    <value>Введение</value>
+  </data>
+  <data name="WhatDataWeCollect" xml:space="preserve">
+    <value>Какие данные мы собираем</value>
+  </data>
+  <data name="WhenUsingForms" xml:space="preserve">
+    <value>При использовании форм на сайте:</value>
+  </data>
+  <data name="WhenUsingWebsiteFunctionality" xml:space="preserve">
+    <value>При использовании функционала сайта:</value>
+  </data>
+  <data name="AutomaticallyCollectedData" xml:space="preserve">
+    <value>Автоматически собираемые данные:</value>
+  </data>
+  <data name="HowWeUseData" xml:space="preserve">
+    <value>Как мы используем данные</value>
+  </data>
+  <data name="Cookies" xml:space="preserve">
+    <value>Файлы cookie</value>
+  </data>
+  <data name="HowWeProtectData" xml:space="preserve">
+    <value>Как мы защищаем данные</value>
+  </data>
+  <data name="SharingDataWithThirdParties" xml:space="preserve">
+    <value>Передача данных третьим лицам</value>
+  </data>
+  <data name="YourRights" xml:space="preserve">
+    <value>Ваши права</value>
+  </data>
+  <data name="DataRetention" xml:space="preserve">
+    <value>Хранение данных</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Контактная информация</value>
+  </data>
+  <data name="ChangesToPrivacyPolicy" xml:space="preserve">
+    <value>Изменения в Политике конфиденциальности</value>
+  </data>
+  <data name="LastUpdated" xml:space="preserve">
+    <value>Последнее обновление</value>
+  </data>
+
+  
+  <data name="WhatDataWeCollectText" xml:space="preserve">
+    <value>Мы собираем только данные, необходимые для предоставления наших услуг:</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Адрес электронной почты</value>
+  </data>
+  <data name="CookiesText" xml:space="preserve">
+    <value>Файлы cookie, необходимые для работы сайта (например, сохранение избранных автомобилей).</value>
+  </data>
+  <data name="IPAddress" xml:space="preserve">
+    <value>IP-адрес</value>
+  </data>
+  <data name="DeviceAndBrowserType" xml:space="preserve">
+    <value>Тип устройства и браузера</value>
+  </data>
+  <data name="ReCaptchaData" xml:space="preserve">
+    <value>Данные, собранные с помощью reCAPTCHA (Google) для предотвращения автоматических запросов.</value>
+  </data>
+  <data name="HowWeUseDataText" xml:space="preserve">
+    <value>Собранные данные используются для следующих целей:</value>
+  </data>
+  <data name="ProcessingRequests" xml:space="preserve">
+    <value>Обработка запросов, отправленных через формы на сайте.</value>
+  </data>
+  <data name="CommunicatingWithUsers" xml:space="preserve">
+    <value>Связь с пользователями для уточнения деталей заказа или предоставления информации об автомобилях.</value>
+  </data>
+  <data name="EnsuringWebsiteSecurity" xml:space="preserve">
+    <value>Обеспечение безопасности сайта и предотвращение автоматических запросов (с использованием reCAPTCHA).</value>
+  </data>
+  <data name="PersonalizingUserExperience" xml:space="preserve">
+    <value>Персонализация пользовательского опыта, включая сохранение избранных автомобилей с помощью файлов cookie.</value>
+  </data>
+  <data name="CookiesUsage" xml:space="preserve">
+    <value>Сайт использует файлы cookie для:</value>
+  </data>
+  <data name="SavingFavoriteVehicles" xml:space="preserve">
+    <value>Сохранение списка избранных автомобилей.</value>
+  </data>
+  <data name="AnalyzingWebsitePerformance" xml:space="preserve">
+    <value>Анализ производительности сайта для улучшения пользовательского опыта.</value>
+  </data>
+  <data name="ManageCookies" xml:space="preserve">
+    <value>Вы можете настроить параметры браузера для управления файлами cookie. Однако отключение некоторых файлов cookie может повлиять на функциональность сайта.</value>
+  </data>
+  <data name="HowWeProtectDataText" xml:space="preserve">
+    <value>Мы принимаем все необходимые технические и организационные меры для защиты ваших данных от потери, несанкционированного доступа, изменения или распространения. Эти меры включают:</value>
+  </data>
+  <data name="DataEncryption" xml:space="preserve">
+    <value>Шифрование данных.</value>
+  </data>
+  <data name="HTTPSProtocol" xml:space="preserve">
+    <value>Использование протокола HTTPS.</value>
+  </data>
+  <data name="ReCaptchaProtection" xml:space="preserve">
+    <value>Защита от спам-ботов с помощью reCAPTCHA (Google).</value>
+  </data>
+  <data name="SharingDataWithThirdPartiesText" xml:space="preserve">
+    <value>Мы не передаем ваши персональные данные третьим лицам, за исключением следующих случаев:</value>
+  </data>
+  <data name="WhenRequiredByLaw" xml:space="preserve">
+    <value>Когда это требуется по закону (например, для соблюдения нормативных актов ЕС).</value>
+  </data>
+  <data name="WhenNecessaryToTransferData" xml:space="preserve">
+    <value>Когда необходимо передать данные службам, обеспечивающим функциональность сайта (например, Google reCAPTCHA).</value>
+  </data>
+  <data name="YourRightsText" xml:space="preserve">
+    <value>В соответствии с законодательством ЕС вы имеете право:</value>
+  </data>
+  <data name="RequestAccessToData" xml:space="preserve">
+    <value>Запрашивать доступ к своим данным.</value>
+  </data>
+  <data name="CorrectOrDeleteData" xml:space="preserve">
+    <value>Исправлять или удалять свои данные.</value>
+  </data>
+  <data name="RestrictProcessing" xml:space="preserve">
+    <value>Ограничивать обработку своих данных.</value>
+  </data>
+  <data name="ObjectToProcessing" xml:space="preserve">
+    <value>Возражать против обработки своих данных.</value>
+  </data>
+  <data name="TransferData" xml:space="preserve">
+    <value>Передавать свои данные.</value>
+  </data>
+  <data name="ExerciseRights" xml:space="preserve">
+    <value>Для реализации этих прав свяжитесь с нами, используя контактную информацию, указанную на сайте.</value>
+  </data>
+  <data name="DataRetentionText" xml:space="preserve">
+    <value>Мы храним персональные данные только в течение периода, необходимого для выполнения целей, изложенных в этой Политике конфиденциальности, или в течение периода, требуемого законом.</value>
+  </data>
+  <data name="ContactInformationText" xml:space="preserve">
+    <value>Если у вас есть вопросы по поводу этой Политики конфиденциальности или вы хотите воспользоваться своими правами, свяжитесь с нами:</value>
+  </data>
+  <data name="ChangesToPrivacyPolicyText" xml:space="preserve">
+    <value>Мы оставляем за собой право обновлять эту Политику конфиденциальности. Все изменения будут опубликованы на этой странице. Мы рекомендуем периодически проверять эту страницу, чтобы быть в курсе последней версии.</value>
+  </data>
+
 </root>
