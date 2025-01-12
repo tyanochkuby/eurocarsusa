@@ -722,6 +722,9 @@ EuroCarUsa team</value>
   <data name="SoldCars" xml:space="preserve">
     <value>Sold cars</value>
   </data>
+  <data name="CarStatus_Sold" xml:space="preserve">
+    <value>Sold</value>
+  </data>
   <data name="DetailPageEmailSubject" xml:space="preserve">
     <value>We received your form!</value>
   </data>
@@ -754,14 +757,10 @@ Email: {4}
   <data name="AdminDetailPageEmailSubject" xml:space="preserve">
     <value>Новая заявка с контактной формы</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NoPhoneNumber" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="EmptyEmailField" xml:space="preserve">
     <value>Отсутствует</value>
   </data>
-  <data name="CarStatus_Sold" xml:space="preserve">
-    <value>Sold</value>
+  <data name="NoCarsFound" xml:space="preserve">
+    <value>No cars found for this query. Please try to change the query</value>
   </data>
 </root>

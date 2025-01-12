@@ -870,11 +870,15 @@
                     type: 'GET',
                     success: function (data) {
                         var html = $(data);
-
+                        if(carsDisplayed == 0 && html.data('cars-in-view') == 0)
+                        {
+                            $('#carsListing').html('<div class="text-center">@Translator["NoCarsFound"]</div>');
+                            $('#showMoreButton').hide();
+                            return;
+                        }
                         $('#carsListing').append(html);
                         carsDisplayed += html.data('cars-in-view');
                         if (html.data('show-more-button') == "False") {
-                            console.log('hiding');
                             $('#showMoreButton').hide();
                         }
                     },
@@ -913,6 +917,11 @@
 
     <script>
         $(document).ready(function () {
+            
+            var translations = @Html.Raw(Json.Serialize(translations));
+            initializeDropdowns();
+            initializeLineEdit();
+
             function initializeLineEdit() {
                 $('.line-edit-input').each(function () {
                     updateLineEditState(this);
@@ -933,11 +942,6 @@
                     }
                 });
             }
-
-            initializeDropdowns();
-            initializeLineEdit();
-
-            var translations = @Html.Raw(Json.Serialize(translations));
 
             $('#filter-submit-button').click(function () {
                 $(this).blur();
@@ -969,7 +973,7 @@
                 $('#filtersForm input[type="hidden"]').val('');
                 $('#filtersForm span').filter(function () {
                     return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
-                }).text('@Translator["Choose"]');
+                }).text(translations['choose']);
 
                 $('#filtersForm .expand-button-trailng-supportive-text').filter(function () {
                     return !$(this).closest('#filterButtons').length && !$(this).hasClass('checkbox-custom');
@@ -1052,7 +1056,15 @@
             }
 
             function updateExpandButton(expandButton, selectedOptions) {
-                const headline = selectedOptions.length > 0 ? selectedOptions.join(', ') : '@localizer.Choose';
+                console.log(selectedOptions.length);
+                console.log(selectedOptions);
+
+                var translatedOptions = selectedOptions.map(function(option) {
+                    return translations[option] || option;
+                });
+
+                const headline = selectedOptions.length > 0 ? translatedOptions.join(', ') : translations['choose'];
+                console.log(headline);
                 const additional = selectedOptions.length.toString();
 
                 const headlineElement = expandButton.querySelector('.expand-button-input');
@@ -1102,17 +1114,6 @@
                 if (expandButton) {
                     updateExpandButton(expandButton, selectedOptions);
                 }
-                
-                var dropdownName = dropdownOptions.attr('name');
-                $("#" + dropdownName + "Input").val(selectedOptions.join(','));
-
-                var span = dropdownOptions.prev().find('span');
-                var translatedOptions = selectedOptions.map(function(option) {
-                    return translations[option] || option;
-                });
-                
-                span.text(selectedOptions.length > 0 ? translatedOptions.join(', ') : translations['choose']);
-
             });
 
 
