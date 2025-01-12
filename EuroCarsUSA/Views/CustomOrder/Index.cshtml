@@ -432,16 +432,16 @@
         });
 
         function onClick(e) {
-           e.preventDefault(); // Prevent the default form submission
+           e.preventDefault();
 
             var form = document.getElementById('customOrderForm');
-            if ($(form).valid()) { // Trigger ASP.NET Core unobtrusive validation
+            if ($(form).valid()) {
                 grecaptcha.ready(function() {
                     grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
                         document.getElementById('recaptchaResponse').value = token;
 
                         console.log(token);
-                        form.submit(); // Submit the form if valid
+                        form.submit();
                     });
                 });
             }
