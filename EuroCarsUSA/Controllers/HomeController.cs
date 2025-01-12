@@ -279,13 +279,15 @@ namespace EuroCarsUSA.Controllers
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
-            var returnUrl = Request.Headers["Referer"].ToString();
-            if (!Url.IsLocalUrl(returnUrl))
+            var referer = Request.Headers["Referer"].ToString();
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
+
+            if (string.IsNullOrEmpty(referer) || !referer.StartsWith(baseUrl))
             {
-                returnUrl = Url.Action("Index", "Home");
+                referer = Url.Action("Index", "Home");
             }
 
-            return LocalRedirect(returnUrl);
+            return Redirect(referer);
         }
 
 
