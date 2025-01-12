@@ -772,6 +772,12 @@ Email: {4}
   <data name="ImageEditor3" xml:space="preserve">
     <value>Upload any images from your device</value>
   </data>
+  <data name="FieldCanNotBeEmpty" xml:space="preserve">
+    <value>The field can not be empty</value>
+  </data>
+  <data name="TypeTrackNumber" xml:space="preserve">
+    <value>Type here your track number</value>
+  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
   <value>Privacy Policy</value>
 </data>
@@ -916,5 +922,7 @@ Email: {4}
 <data name="LastUpdated" xml:space="preserve">
   <value>Last updated</value>
 </data>
-
+<data name="EmptyLikesText" xml:space="preserve">
+  <value>The liked cars will be displayed here! Look for the car of your dreams on <a href="./">EuroCarUSA</a> !</value>
+</data>
 </root>

@@ -4,11 +4,24 @@
 @using EuroCarsUSA.Data.Enums
 @using Microsoft.Extensions.Localization
 @using EuroCarsUSA.Views.Shared.Components
-@inject IStringLocalizer<CustomOrderController> Translator
 @inject Localizer localizer
 
 @model CustomOrderViewModel
 
+@{
+    var translations = new Dictionary<string, string>();
+
+    foreach (var filter in ViewBag.AvailableFilters)
+    {
+        foreach (var option in filter.Value)
+        {
+            translations[option.OriginalValue] = option.TranslatedValue;
+        }
+    }
+    translations["choose"] = localizer.Choose;
+    translations["FieldCanNotBeEmpty"] = localizer.FieldCanNotBeEmpty;
+
+}
 <div class="bg-neutral-200 w-100 h-100 py-4">
     <form id="customOrderForm" asp-action="SubmitForm" method="post">
         <div class="container p-md-5 pt-md-3 p-3 pt-2 text-center text-md-start bg-white rounded-32 mb-3 justify-content-center">
@@ -64,7 +77,7 @@
                         @await Html.PartialAsync("_LineEdit", new _LineEdit
                         {
                             Attributes = $"value=\"\" name=\"orderId\" id=\"orderIdInput\" title=\"The field must not be empty!\"",
-                            Placeholder = "Type here your track number",
+                            Placeholder = localizer.Type,
                             ShowOverline = true,
                             ShowOverlineInside = true,
                             Overline = localizer.TrackYourOrder,
@@ -213,7 +226,7 @@
                         Text = localizer.SubmitForm,
                         Color = "primary",
                         Classes = "",
-                        Attributes = "type=\"submit\" onclick=\"onClick(event)\"",
+                        Attributes = "type=\"button\" onclick=\"onClick(event)\"",
                         RightIcon = await Html.PartialAsync("_Icon", new { IconName = Url.Content("Export notes"), Color = "white" }),
                         TextColor = ""
                     })
@@ -259,6 +272,8 @@
 
     </script>
     <script>
+        var translations = @Html.Raw(Json.Serialize(translations));
+
         function addForm() {
             var formsContainer = document.getElementById('forms-container');
             var formIndex = formsContainer.children.length;
@@ -342,7 +357,11 @@
                             const selectedValues = Array.from(dropdown.querySelectorAll('.dropdown-menu input[type="checkbox"]:checked'))
                                 .map(cb => cb.closest('li').querySelector('.list-item-content').textContent.trim());
 
-                            const headline = selectedValues.length > 0 ? selectedValues.join(', ') : "Choose";
+                            var translatedOptions = selectedValues.map(function(option) {
+                                return translations[option] || option;
+                            });
+                            console.log(translatedOptions);
+                            const headline = selectedValues.length > 0 ? translatedOptions.join(', ') : translations['choose'];
 
                             const additional = selectedValues.length.toString();
 
@@ -393,6 +412,7 @@
         });
 
         $(document).ready(function () {
+            
             for (var i = 0; i < @Model.Forms.Count; i++) {
                 setupDropdownEventHandlers(i);
             }
@@ -412,21 +432,25 @@
         });
 
         function onClick(e) {
-            ///e.preventDefault();
-            grecaptcha.ready(function() {
-                grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
-                    document.getElementById('recaptchaResponse').value = token;
+           e.preventDefault();
 
-                    console.log(token);
-                    ///document.getElementById('customOrderForm').submit();
+            var form = document.getElementById('customOrderForm');
+            if ($(form).valid()) {
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6LeBlJ8qAAAAALREG8fJGHrBQphVcbpSByDPZZ25', {action: 'submit'}).then(function(token) {
+                        document.getElementById('recaptchaResponse').value = token;
+
+                        console.log(token);
+                        form.submit();
+                    });
                 });
-            });
+            }
         }
 
         function checkIsTrackOrderEmpty(){
             const input = document.getElementById('orderIdInput');
             if (input.value == '') {
-                input.setCustomValidity("The field must not be empty!");
+                input.setCustomValidity(translations['FieldCanNotBeEmpty']);
                 validateInput(document.getElementById('orderIdInput'));
                 input.setCustomValidity('');
                 return false;

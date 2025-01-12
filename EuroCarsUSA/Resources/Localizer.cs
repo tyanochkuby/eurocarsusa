@@ -142,6 +142,9 @@ namespace EuroCarsUSA.Resources
         public string EmptyEmailField => _localizer[nameof(EmptyEmailField)];
         public string SoldCars => _localizer[nameof(SoldCars)];
         public string NoCarsFound => _localizer[nameof(NoCarsFound)];
+        public string FieldCanNotBeEmpty => _localizer[nameof(FieldCanNotBeEmpty)];
+        public string TypeTrackNumber => _localizer[nameof(TypeTrackNumber)];
+        public string EmptyLikesText => _localizer[nameof(EmptyLikesText)];
 
         /// <summary>
         /// Drag and drop or click here

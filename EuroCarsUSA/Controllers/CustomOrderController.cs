@@ -25,12 +25,12 @@ namespace EuroCarsUSA.Controllers
             if (!await _recaptchaService.IsReCaptchaValid(recaptchaResponse))
             {
                 ModelState.AddModelError(string.Empty, "Invalid reCAPTCHA. Please try again.");
-                return View("Index", customOrderViewModel);
+                return RedirectToAction("Index");
             }
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
-                return View("Index", customOrderViewModel);
+                return RedirectToAction("Index");
             }
 
             var formId = await _customOrderService.SubmitOrderAsync(customOrderViewModel);
@@ -93,11 +93,11 @@ namespace EuroCarsUSA.Controllers
             var model = new CustomOrderViewModel();
             ViewBag.AvailableFilters = new Dictionary<string, IEnumerable<FilterOptionViewModel>>
             {
-                { "make", Enum.GetValues(typeof(CarMake)).Cast<CarMake>().Select(m => new FilterOptionViewModel { OriginalValue = m.ToString(), TranslatedValue = m.ToString() }) },
-                { "color", Enum.GetValues(typeof(CarColor)).Cast<CarColor>().Select(c => new FilterOptionViewModel { OriginalValue = c.ToString(), TranslatedValue = c.ToString() }) },
-                { "carType", Enum.GetValues(typeof(CarType)).Cast<CarType>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = t.ToString() }) },
-                { "fuelType", Enum.GetValues(typeof(CarFuelType)).Cast<CarFuelType>().Select(f => new FilterOptionViewModel { OriginalValue = f.ToString(), TranslatedValue = f.ToString() }) },
-                { "transmission", Enum.GetValues(typeof(CarTransmission)).Cast<CarTransmission>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = t.ToString() }) }
+                { "make", Enum.GetValues(typeof(CarMake)).Cast<CarMake>().Select(m => new FilterOptionViewModel { OriginalValue = m.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarMake)}_{m.ToString()}") }) },
+                { "color", Enum.GetValues(typeof(CarColor)).Cast<CarColor>().Select(c => new FilterOptionViewModel { OriginalValue = c.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarColor)}_{c.ToString()}") }) },
+                { "carType", Enum.GetValues(typeof(CarType)).Cast<CarType>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarType)}_{t.ToString()}") }) },
+                { "fuelType", Enum.GetValues(typeof(CarFuelType)).Cast<CarFuelType>().Select(f => new FilterOptionViewModel { OriginalValue = f.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarFuelType)}_{f.ToString()}") }) },
+                { "transmission", Enum.GetValues(typeof(CarTransmission)).Cast<CarTransmission>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarTransmission)}_{t.ToString()}") }) }
             };
             return View(model);
         }
@@ -108,11 +108,11 @@ namespace EuroCarsUSA.Controllers
             var formViewModel = new FormViewModel { Index = index };
             ViewBag.AvailableFilters = new Dictionary<string, IEnumerable<FilterOptionViewModel>>
             {
-                { "make", Enum.GetValues(typeof(CarMake)).Cast<CarMake>().Select(m => new FilterOptionViewModel { OriginalValue = m.ToString(), TranslatedValue = m.ToString() }) },
-                { "color", Enum.GetValues(typeof(CarColor)).Cast<CarColor>().Select(c => new FilterOptionViewModel { OriginalValue = c.ToString(), TranslatedValue = c.ToString() }) },
-                { "carType", Enum.GetValues(typeof(CarType)).Cast<CarType>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = t.ToString() }) },
-                { "fuelType", Enum.GetValues(typeof(CarFuelType)).Cast<CarFuelType>().Select(f => new FilterOptionViewModel { OriginalValue = f.ToString(), TranslatedValue = f.ToString() }) },
-                { "transmission", Enum.GetValues(typeof(CarTransmission)).Cast<CarTransmission>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = t.ToString() }) }
+                { "make", Enum.GetValues(typeof(CarMake)).Cast<CarMake>().Select(m => new FilterOptionViewModel { OriginalValue = m.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarMake)}_{m.ToString()}") }) },
+                { "color", Enum.GetValues(typeof(CarColor)).Cast<CarColor>().Select(c => new FilterOptionViewModel { OriginalValue = c.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarColor)}_{c.ToString()}") }) },
+                { "carType", Enum.GetValues(typeof(CarType)).Cast<CarType>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarType)}_{t.ToString()}") }) },
+                { "fuelType", Enum.GetValues(typeof(CarFuelType)).Cast<CarFuelType>().Select(f => new FilterOptionViewModel { OriginalValue = f.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarFuelType)}_{f.ToString()}") }) },
+                { "transmission", Enum.GetValues(typeof(CarTransmission)).Cast<CarTransmission>().Select(t => new FilterOptionViewModel { OriginalValue = t.ToString(), TranslatedValue = _localizer.GetValue($"{nameof(CarTransmission)}_{t.ToString()}") }) }
             };
             return PartialView("_CustomOrderForm", formViewModel);
         }

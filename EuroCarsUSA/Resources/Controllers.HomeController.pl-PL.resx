@@ -919,5 +919,13 @@ Email: {4}
   <data name="ChangesToPrivacyPolicyText" xml:space="preserve">
     <value>Zastrzegamy sobie prawo do aktualizacji tej Polityki Prywatności. Wszystkie zmiany będą publikowane na tej stronie. Zalecamy regularne sprawdzanie tej strony, aby być na bieżąco z najnowszą wersją.</value>
   </data>
-
+  <data name="FieldCanNotBeEmpty" xml:space="preserve">
+    <value>Pole nie może być puste</value>
+  </data>
+  <data name="TypeTrackNumber" xml:space="preserve">
+    <value>Wpisz numer zamówienia</value>
+  </data>
+  <data name="EmptyLikesText" xml:space="preserve">
+  <value>Upodobane samochone będą wyświetlone tutaj! Znajdź samochód marzeń na <a href="./">EuroCarUSA</a> !</value>
+</data>
 </root>

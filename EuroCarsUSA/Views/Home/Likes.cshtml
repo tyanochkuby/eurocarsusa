@@ -1,4 +1,5 @@
-﻿@using EuroCarsUSA.ViewModels
+﻿@using EuroCarsUSA.Resources
+@using EuroCarsUSA.ViewModels
 @using EuroCarsUSA.Controllers
 @using EuroCarsUSA.Data.Enums
 @using EuroCarsUSA.Extensions
@@ -6,7 +7,7 @@
 @using Microsoft.Extensions.Localization
 @model List<CarCardViewModel>
 
-@inject IStringLocalizer<HomeController> Translator
+@inject Localizer localizer
 
 <h1 class="fh-header text-center mb-3"></h1>
 <div class="container pt-3 pt-md-4">
@@ -15,7 +16,7 @@
             
             <div class="px-3 pb-2">
                 <div class="row justify-content-center justify-content-md-start text-headline-sm text-neutral-900 border-neutral900 border-bottom mx-0 ">
-                    @Translator["LikesHeader"]
+                    @localizer.LikesHeader
                 </div>
             </div>
             @if (Model.Count() > 0)
@@ -30,7 +31,7 @@
             else
             {
                 <div class="row text-body-lg text-neutral-900 mx-0 px-3 mt-1">
-                    <span class="px-0">The liked cars will be displayed here! Look for the car of your dreams on <a href="./">EuroCarUSA</a> !</span>
+                    <span class="px-0">@localizer.EmptyLikesText</span>
                 </div>
             }
         </div>
