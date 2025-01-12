@@ -766,4 +766,13 @@ Email: {4}
   <data name="NoCarsFound" xml:space="preserve">
     <value>Не найдено машин по такому запросу. Пожалуйста, попробуйте изменить запрос.</value>
   </data>
+  <data name="ImageEditor1" xml:space="preserve">
+    <value>Перетяните сюда картинку или нажмите </value>
+  </data>
+  <data name="ImageEditor2" xml:space="preserve">
+    <value>чтобы загрузить</value>
+  </data>
+  <data name="ImageEditor3" xml:space="preserve">
+    <value>Пожалуйста пришлите фотографии с вашего устройства</value>
+  </data>
 </root>

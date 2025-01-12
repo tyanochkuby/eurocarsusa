@@ -41,7 +41,7 @@ builder.Services.AddSession(options =>
 });
 
 // Configure services
-var connectionString = builder.Configuration.GetConnectionString("EuroCarsUSA");
+var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
 builder.Services.Configure<CookieNames>(
             builder.Configuration.GetSection("CookieNames")
         );

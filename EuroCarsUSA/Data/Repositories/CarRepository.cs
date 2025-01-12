@@ -47,12 +47,12 @@ namespace EuroCarsUSA.Data.Repositories
             return await Save();
         }
 
-        async Task<IEnumerable<Car>> ICarRepository.GetAll(CarStatus? status)
+        async Task<IEnumerable<Car>> ICarRepository.GetAll(List<CarStatus> statuses)
         {
             var repository = _context.Cars.AsQueryable();
-            if (status.HasValue)
+            if (statuses.Count > 0)
             {
-                repository = repository.Where(c => c.Status == status.Value);
+                repository = repository.Where(c => statuses.Contains(c.Status));
             }
             return await repository.ToListAsync();
         }

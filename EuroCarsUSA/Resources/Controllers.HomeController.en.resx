@@ -699,7 +699,7 @@ EuroCarUsa team</value>
     <value>Provide your contact data</value>
   </data>
   <data name="ShippingCars" xml:space="preserve">
-    <value>Shipping cars</value>
+    <value>Cars in transit</value>
   </data>
   <data name="ThanksText" xml:space="preserve">
     <value>Thanks for sending the form!</value>
@@ -762,5 +762,14 @@ Email: {4}
   </data>
   <data name="NoCarsFound" xml:space="preserve">
     <value>No cars found for this query. Please try to change the query</value>
+  </data>
+  <data name="ImageEditor1" xml:space="preserve">
+    <value>Drag and drop or click here </value>
+  </data>
+  <data name="ImageEditor2" xml:space="preserve">
+    <value>to upload image</value>
+  </data>
+  <data name="ImageEditor3" xml:space="preserve">
+    <value>Upload any images from your device</value>
   </data>
 </root>

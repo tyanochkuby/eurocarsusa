@@ -763,4 +763,16 @@ Email: {4}
   <data name="NoCarsFound" xml:space="preserve">
     <value>Nie zlaleziono samochodów dla takiego zapytania. Spróbuj zmienić zapytanie.</value>
   </data>
+  <data name="NoCarsFound" xml:space="preserve">
+    <value>Nie zlaleziono samochodów dla takiego zapytania. Spróbuj zmienić zapytanie.</value>
+  </data>
+  <data name="ImageEditor1" xml:space="preserve">
+    <value>Przeciągnij tu obraz albo kliknij </value>
+  </data>
+  <data name="ImageEditor2" xml:space="preserve">
+    <value>żeby załadować</value>
+  </data>
+  <data name="ImageEditor3" xml:space="preserve">
+    <value>Proszę przesłać zdjęcia z urządzenia</value>
+  </data>
 </root>
