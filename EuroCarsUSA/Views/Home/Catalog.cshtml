@@ -20,6 +20,7 @@
     var selectedFuelTypes = Context.Request.Query["fuelType"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
     var selectedTransmissions = Context.Request.Query["transmission"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
     var selectedColors = Context.Request.Query["color"].ToString().Split(',', StringSplitOptions.RemoveEmptyEntries);
+    var anyFilterSet = selectedMakes.Any() || selectedCarTypes.Any() || selectedFuelTypes.Any() || selectedTransmissions.Any() || selectedColors.Any() || Context.Request.Query["minPrice"].ToString() != String.Empty || Context.Request.Query["maxPrice"].ToString() != String.Empty || Context.Request.Query["minYear"].ToString() != String.Empty || Context.Request.Query["maxYear"].ToString() != String.Empty || Context.Request.Query["minMileage"].ToString() != String.Empty || Context.Request.Query["maxMileage"].ToString() != String.Empty || Context.Request.Query["minEngineVolume"].ToString() != String.Empty || Context.Request.Query["maxEngineVolume"].ToString() != String.Empty;
     var translations = new Dictionary<string, string>();
     foreach (var filter in ViewBag.AvailableFilters)
     {
@@ -753,7 +754,8 @@
                 </a>
             </div>
         </div>
-        @if (Model.ShippingCars.Count > 0)
+
+        @if (Model.ShippingCars.Count > 0 && !anyFilterSet)
         {
             <div class="container mx-md-0 p-0">
                 <div class="col-12 px-0 mb-3">
@@ -773,9 +775,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">@localizer.Catalog</div>
         }
+
+        <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">@localizer.Catalog</div>
         
         <div id="carsListing" class="p-3 rounded-16 bg-neutral-200 container mx-md-0">
             @*All cars go here*@
@@ -784,6 +786,28 @@
         <div class="w-100 text-center mt-3">
             <button class="btn btn-primary rounded-pill" id="showMoreButton">@Translator["ShowMore"]</button>
         </div>
+
+        @if (Model.ShippingCars.Count > 0 && anyFilterSet)
+        {
+            <div class="container mx-md-0 p-0">
+                <div class="col-12 px-0 mb-3">
+                    <div class="row p-0 px-2 mx-0 text-headline-sm mb-2 d-md-flex d-none text-neutral-900">@localizer.ShippingCars</div>
+                    <div class="row bg-neutral-200 p-3 rounded-16 mx-0">
+                        <div class="col px-0">
+                            <div class="row p-0 px-2 mx-0 text-title-lg d-md-flex d-md-none text-neutral-900">@localizer.ShippingCars</div>
+                            <div class="row px-0 gx-3 py-2 flex-nowrap overflow-auto">
+                                @foreach (CarCardViewModel car in Model.ShippingCars)
+                                {
+                                    car.Classes = "col-8 col-sm-5 col-md-7 col-lg-5 col-xl-3";
+                                    car.IsFullSize = false;
+                                    @await Html.PartialAsync("_CarCard", car)
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
 
         @if (Model.SoldCars.Count > 0)
         {
