@@ -921,5 +921,13 @@ Email: {4}
   <data name="ChangesToPrivacyPolicyText" xml:space="preserve">
     <value>Мы оставляем за собой право обновлять эту Политику конфиденциальности. Все изменения будут опубликованы на этой странице. Мы рекомендуем периодически проверять эту страницу, чтобы быть в курсе последней версии.</value>
   </data>
-
+  <data name="FieldCanNotBeEmpty" xml:space="preserve">
+    <value>Поле не может быть пустое</value>
+  </data>
+  <data name="TypeTrackNumber" xml:space="preserve">
+    <value>Впишите номер заказа</value>
+  </data>
+  <data name="EmptyLikesText" xml:space="preserve">
+  <value>Понравившиеся авто будут тут. А пока найти машину мечты на <a href="./">EuroCarUSA</a> !</value>
+</data>
 </root>
