@@ -2,6 +2,7 @@ using EuroCarsUSA.Data.Enums;
 using EuroCarsUSA.Data.Interfaces;
 using EuroCarsUSA.Extensions;
 using EuroCarsUSA.Models;
+using EuroCarsUSA.Resources;
 using EuroCarsUSA.Services.Interfaces;
 using EuroCarsUSA.ViewModels;
 using EuroCarsUSA.Views.Home.Components.ViewModels;
@@ -11,14 +12,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
-using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.Net.WebSockets;
-using System.Runtime.ConstrainedExecution;
-using static NuGet.Packaging.PackagingConstants;
 
 namespace EuroCarsUSA.Controllers
 {
@@ -28,31 +24,36 @@ namespace EuroCarsUSA.Controllers
         private readonly IDetailPageFormRepository _detailPageFormRepository;
         private readonly ILogger<HomeController> _logger;
         private readonly IEmailService _emailService;
-        private readonly IStringLocalizer<HomeController> _localizer;
+        private readonly IStringLocalizer<HomeController> _translator;
+        private readonly Localizer _localizer;
         private readonly ICookieService _cookieService;
         private readonly IStatisticsService _statisticsService;
         private readonly ICompositeViewEngine _viewEngine;
         private readonly IRecommendationService _recommendationService;
+        private readonly IRecaptchaService _recaptchaService;
 
         private const int carsPerLoad = 6;
+
         private Dictionary<string, List<FilterOptionViewModel>> _availableFilters; 
         
-        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService, IStringLocalizer<HomeController> localizer, ICookieService cookieService, IStatisticsService statisticsService, ICompositeViewEngine viewEngine, IRecommendationService recommendationService)
+        public HomeController(ILogger<HomeController> logger, ICarRepository carRepository, IDetailPageFormRepository detailPageFormRepository, IEmailService emailService, IStringLocalizer<HomeController> translator, ICookieService cookieService, IStatisticsService statisticsService, ICompositeViewEngine viewEngine, IRecommendationService recommendationService, Localizer localizer, IRecaptchaService recaptchaService)
         {
             _carRepository = carRepository;
             _detailPageFormRepository = detailPageFormRepository;
             _logger = logger;
             _emailService = emailService;
-            _localizer = localizer;
+            _translator = translator;
             _cookieService = cookieService;
             _statisticsService = statisticsService;
             _viewEngine = viewEngine;
             _recommendationService = recommendationService;
+            _localizer = localizer;
+            _recaptchaService = recaptchaService;
         }
 
         public async Task<IActionResult> Catalog(string sortOrder, int? minPrice, int? maxPrice, int? minMileage, int? maxMileage, int? minYear, int? maxYear, int? minEngineVolume, int? maxEngineVolume, string fuelType, string carType, string transmission, string color, string make, string model)
         {
-            ViewData["SortBy"] = _localizer["SortBy"];
+            ViewData["SortBy"] = _translator["SortBy"];
             var filters = new CarFilter()
             {
                 MinPrice = minPrice,
@@ -79,7 +80,7 @@ namespace EuroCarsUSA.Controllers
 
             HttpContext.Session.SetString("CurrentFilters", JsonConvert.SerializeObject(filters));
 
-            _availableFilters = await _carRepository.GetAvailableFilters(_localizer);
+            _availableFilters = await _carRepository.GetAvailableFilters(_translator);
 
             ViewBag.AvailableFilters = _availableFilters;
 
@@ -115,31 +116,44 @@ namespace EuroCarsUSA.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendDetailPageForm(DetailPageForm form)
+        public async Task<IActionResult> SendDetailPageForm(DetailPageFormViewModel form)
         {
+            if (!await _recaptchaService.IsReCaptchaValid(form.RecaptchaToken))
+            {
+                return Json(new { success = false, errors = new List<string>() { "Invalid reCAPTCHA. Please try again." } });
+            }
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
                 return Json(new { success = false, errors = errors });
             }
 
-            bool result = await _detailPageFormRepository.Add(form);
+            var formDTO = new DetailPageForm
+            {
+                CarId = form.CarId,
+                Name = form.Name,
+                Email = form.Email,
+                PhoneNumber = form.PhoneNumber,
+                Message = form.Message,
+            };
+            bool result = await _detailPageFormRepository.Add(formDTO);
 
             if (result)
             {
                 var car = await _carRepository.GetById(form.CarId);
 
-                string phoneNumberMessage = string.IsNullOrEmpty(form.PhoneNumber) ? "No phone number provided" : $"Phone: {form.PhoneNumber}";
-                string emailMessage = string.IsNullOrEmpty(form.Email) ? "No email provided" : $"Email: {form.Email}";
-                string message = string.IsNullOrEmpty(form.Message) ? "No message provided" : $"Message: {form.Message}";
-                string emailBody = $"Name: {form.Name}\n{emailMessage}\n{phoneNumberMessage}\n{message}\n\nCar: {car.Make.ToString()} {car.Model} {car.Year}";
+                string phoneNumber = string.IsNullOrEmpty(form.PhoneNumber) ? _localizer.EmptyEmailField : form.PhoneNumber;
+                string email = string.IsNullOrEmpty(form.Email) ? _localizer.EmptyEmailField : form.Email;
+                string message = string.IsNullOrEmpty(form.Message) ? _localizer.EmptyEmailField : form.Message;
                 try
                 {
                     //email to client
                     if (!string.IsNullOrEmpty(form.Email))
-                        _emailService.SendEmail(form.Email, "EuroCarsUSA - Form received", $"Hello!\n\nWe just received you form and we're now asking you for a little bit of patience. We will contact you shortly.\n\nAnd thank you for your interest in our car - {car.Make} {car.Model}.\n\nBest regards\nEuroCarsUSA team");
+                        await _emailService.SendEmail(form.Email, _localizer.DetailPageEmailSubject, 
+                            string.Format(_localizer.DetailPageEmailBody, car.Make.ToString(), car.Model));
                     //email to admin
-                    _emailService.SendEmail("romyud1994@gmail.com", "New form submitted", emailBody);
+                    await _emailService.SendEmail(_emailService.AdminEmail, _localizer.AdminDetailPageEmailSubject, 
+                        string.Format(_localizer.AdminDetailPageEmailBody, car.Make.ToString(), car.Model, car.Year.ToString(), form.Name, email, phoneNumber, message));
                 }
                 catch (Exception e)
                 {
@@ -230,7 +244,7 @@ namespace EuroCarsUSA.Controllers
             
             if (_availableFilters == null)
             {
-                _availableFilters = await _carRepository.GetAvailableFilters(_localizer);
+                _availableFilters = await _carRepository.GetAvailableFilters(_translator);
             }
 
             if (!_availableFilters.ContainsKey(filterType))

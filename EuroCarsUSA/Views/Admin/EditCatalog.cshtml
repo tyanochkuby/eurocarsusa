@@ -133,6 +133,7 @@
                 type: 'GET',
                 success: function (html) {
                     tableBody.insertAdjacentHTML('beforeend', html);
+                    initializeDropdown();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.error('Error details:', textStatus, errorThrown);
@@ -183,6 +184,50 @@
                 borderDiv.style.opacity = 0;
             }
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            initializeDropdown();
+        });
+
+        function initializeDropdown() {
+            const catalog = document.querySelector('#catalog');
+
+            catalog.addEventListener('click', function (event) {
+                console.log("click");
+
+                let dropdownItem = event.target;
+
+                // Traverse up the DOM tree to find the closest parent with the class 'dropdown-item'
+                while (dropdownItem && !dropdownItem.classList.contains('dropdown-item')) {
+                    dropdownItem = dropdownItem.parentElement;
+                }
+
+                if (dropdownItem) {
+                    console.log("contains");
+                    const selectedValue = dropdownItem.getAttribute("data-value");
+
+                    // Adjusting the scope to find the hidden select outside the .dropdown
+                    const hiddenSelect = dropdownItem.closest('.dropdown').nextElementSibling;
+
+                    if (hiddenSelect && hiddenSelect.tagName === 'SELECT') {
+                        console.log(selectedValue);
+                        hiddenSelect.value = selectedValue;
+
+                        const expandButtonText = dropdownItem.closest('.dropdown').querySelector('.expand-button-input');
+                        if (expandButtonText) {
+                            expandButtonText.textContent = dropdownItem.textContent.trim();
+                        }
+
+                        const expandButton = dropdownItem.closest('.dropdown').querySelector('#dropdownOptionButton');
+                        const dropdown = bootstrap.Dropdown.getInstance(expandButton);
+                        dropdown.hide();
+                    } else {
+                        console.error('Hidden select element not found');
+                    }
+                }
+            });
+        }
+
 
     </script>
 }

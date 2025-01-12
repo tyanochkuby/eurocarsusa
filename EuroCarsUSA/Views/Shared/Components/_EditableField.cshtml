@@ -1,4 +1,5 @@
 ﻿@using System.Net.Http
+@using EuroCarsUSA.Resources
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
@@ -7,6 +8,7 @@
 @using Microsoft.AspNetCore.Components.Web
 @using Microsoft.JSInterop
 
+@inject Localizer localizer
 @model EditableField
 
 @if (Model.IsVisible)
@@ -22,7 +24,7 @@
         @await Html.PartialAsync("_LineEdit", new _LineEdit
         {
             Attributes = $"value=\"{@Model.Value?.ToString()}\" name=\"{@Model.Name}\" type=\"{@inputType}\" id=\"{@Model.Id}\"",
-            Placeholder = Model.Placeholder,
+            Placeholder = string.IsNullOrEmpty(Model.Placeholder) ? localizer.Type : Model.Placeholder,
             ShowOverline = true,
             ShowOverlineInside = true,
             Overline = Model.Overline,

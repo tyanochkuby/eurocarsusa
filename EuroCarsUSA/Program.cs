@@ -30,6 +30,7 @@ builder.Services.AddScoped<ICookieService, CookieService>();
 builder.Services.AddScoped<ICatalogEditingService, CatalogEditingService>();
 builder.Services.AddScoped<IRecommendationService, RecommendationService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddScoped<IRecaptchaService, RecaptchaService>();
 builder.Services.AddScoped<Localizer>();
 
 // Adding session services
@@ -88,7 +89,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-var supportedCultures = new[] { new CultureInfo("pl-PL"), new CultureInfo("en") };
+var supportedCultures = new[] { new CultureInfo("pl-PL"), new CultureInfo("en"), new CultureInfo("ru") };
 var requestLocalizationOptions = new RequestLocalizationOptions
 {
     DefaultRequestCulture = new RequestCulture("pl-PL"),

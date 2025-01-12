@@ -714,6 +714,24 @@
   <data name="SoldCars" xml:space="preserve">
     <value />
   </data>
+  <data name="DetailPageEmailSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DetailPageEmailBody" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdminDetailPageEmailBody" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AdminDetailPageEmailSubject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoPhoneNumber" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmptyEmailField" xml:space="preserve">
+    <value />
+  </data>
   <data name="CarStatus_Sold" xml:space="preserve">
     <value />
   </data>
