@@ -5,6 +5,7 @@
 @using EuroCarsUSA.Models
 @using EuroCarsUSA.Views.Shared.Components
 @using Microsoft.Extensions.Localization
+@using System.Globalization
 @model MainlViewModel
 @inject Localizer localizer
 
@@ -17,8 +18,18 @@
 else
 {
 <div>
+        @{
+            var currentCulture = CultureInfo.CurrentCulture.Name;
+            var imageUrl = currentCulture switch
+            {
+                "pl-PL" => Url.Content("~/Header_pl-PL.jpg"),
+                "en" => Url.Content("~/Header_en.jpg"),
+                "ru" => Url.Content("~/Header_ru.jpg"),
+                _ => Url.Content("~/Header_pl-PL.jpg")
+            };
+        }
         <a asp-action="Catalog">
-            <img class="w-100 d-none d-lg-block" src="~/Header_pl-PL.jpg" />
+            <img class="w-100 d-none d-lg-block" src="@imageUrl" />
         </a>
 
         <div class="container">

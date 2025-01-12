@@ -141,5 +141,21 @@ namespace EuroCarsUSA.Resources
         public string AdminDetailPageEmailBody => _localizer[nameof(AdminDetailPageEmailBody)];
         public string EmptyEmailField => _localizer[nameof(EmptyEmailField)];
         public string SoldCars => _localizer[nameof(SoldCars)];
+
+        /// <summary>
+        /// Drag and drop or click here
+        /// </summary>
+        public string ImageEditor1 => _localizer[nameof(ImageEditor1)];
+
+        /// <summary>
+        /// to upload image
+        /// </summary>
+        public string ImageEditor2 => _localizer[nameof(ImageEditor2)];
+
+        /// <summary>
+        /// Upload any images from desktop
+        /// </summary>
+        public string ImageEditor3 => _localizer[nameof(ImageEditor3)];
+
     }
 }
