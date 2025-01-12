@@ -714,6 +714,9 @@
   <data name="SoldCars" xml:space="preserve">
     <value />
   </data>
+  <data name="CarStatus_Sold" xml:space="preserve">
+    <value />
+  </data>
   <data name="DetailPageEmailSubject" xml:space="preserve">
     <value />
   </data>
@@ -732,7 +735,16 @@
   <data name="EmptyEmailField" xml:space="preserve">
     <value />
   </data>
-  <data name="CarStatus_Sold" xml:space="preserve">
+  <data name="NoCarsFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageEditor1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageEditor2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageEditor3" xml:space="preserve">
     <value />
   </data>
 </root>

@@ -754,14 +754,22 @@ Email: {4}
   <data name="AdminDetailPageEmailSubject" xml:space="preserve">
     <value>Новая заявка с контактной формы</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NoPhoneNumber" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="EmptyEmailField" xml:space="preserve">
     <value>Отсутствует</value>
   </data>
   <data name="CarStatus_Sold" xml:space="preserve">
     <value>Sprzedane</value>
+  </data>
+  <data name="NoCarsFound" xml:space="preserve">
+    <value>Nie zlaleziono samochodów dla takiego zapytania. Spróbuj zmienić zapytanie.</value>
+  </data>
+  <data name="ImageEditor1" xml:space="preserve">
+    <value>Przeciągnij tu obraz albo kliknij </value>
+  </data>
+  <data name="ImageEditor2" xml:space="preserve">
+    <value>żeby załadować</value>
+  </data>
+  <data name="ImageEditor3" xml:space="preserve">
+    <value>Proszę przesłać zdjęcia z urządzenia</value>
   </data>
 </root>

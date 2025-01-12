@@ -754,14 +754,19 @@ Email: {4}
   <data name="AdminDetailPageEmailSubject" xml:space="preserve">
     <value>Новая заявка с контактной формы</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NoPhoneNumber" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="EmptyEmailField" xml:space="preserve">
     <value>Отсутствует</value>
   </data>
   <data name="CarStatus_Sold" xml:space="preserve">
     <value>Sold</value>
+  </data>
+  <data name="ImageEditor1" xml:space="preserve">
+    <value>Drag and drop or click here </value>
+  </data>
+  <data name="ImageEditor2" xml:space="preserve">
+    <value>to upload image</value>
+  </data>
+  <data name="ImageEditor3" xml:space="preserve">
+    <value>Upload any images from your device</value>
   </data>
 </root>
